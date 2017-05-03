@@ -36,6 +36,8 @@ DISPLAY_THREE	=	"[\033[92mOK\033[0m]  $<"
 
 # Name of the projet
 NAME			=	indie
+# OS Used
+OS_detected		=	$(shell uname -s)
 # Compiler
 CXX				=	g++
 # Compiler flags
@@ -55,14 +57,21 @@ CXXFLAGS		+=	$(INCDIRS)
 # Libraries
 LDFLAGS			=	-lpthread
 
-# if the compiler is clang++, add the flag -Weverything
+# Add the library according to the OS
+ifeq ($(OS_detected), Linux)
+	LDFLAGS		+=	-L./lib/Linux -lIrrlicht
+else ifeq ($(OS_detected), Windows_NT)
+	LDFLAGS		+=	-L./lib/Win64-visualStudio
+endif
+
+# If the compiler is clang++, add the flag -Weverything
 ifeq ($(CXX), clang++)
 	CXXFLAGS	+= -Weverything
 	# Superfluous warnings
 	CXXFLAGS	+= -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-documentation -Wno-extra-semi -Wno-weak-vtables -Qunused-arguments
 endif
 
-# if debug is set to yes, add -g3 flag
+# If debug is set to yes, add -g3 flag
 ifeq ($(DEBUG),yes)
 	CXXFLAGS += -g3
 else
