@@ -92,7 +92,7 @@ OBJECTS			:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 ##
 #
 
-.PHONY: 	clean fclean re install compilation_test
+.PHONY: 	clean fclean re install compilation_tests
 
 $(BINDIR)/$(NAME):	$(OBJECTS)
 					@mkdir -p $(BINDIR)
@@ -108,11 +108,11 @@ $(OBJECTS):	$(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 
 # Install dependencies
 install:
-					./install/./install.sh
+					@cd install && ./install.sh && cd ../
 
 # Try the compilation with g++ and clang++ in order to detect warnings
-compilation_test:
-					./__tests__/__compilation__/compilation.sh
+compilation_tests:
+					@cd ./__tests__/__compilation__/ && ./compilation.sh && cd ../../
 
 clean:
 					@$(RM) $(OBJDIR)
