@@ -26,7 +26,7 @@ NBSOURCES 		= 	$(shell find src/*.cpp | wc -l)
 PERCENT			= 	0
 DISPLAY_ONE     = 	"[\033[95m$(PERCENT)%\033[0m][\033[92m$<\033[0m]"
 DISPLAY_TWO     = 	"[\033[95m$(COUNT)\033[0m/\033[93m$(NBSOURCES)\033[0m][\033[92m$<\033[0m]"
-COMPILATION_MSG = 	$(DISPLAY_TWO)
+DISPLAY_THREE	=	"[\033[92mOK\033[0m]  $<"
 
 #
 ##
@@ -35,7 +35,7 @@ COMPILATION_MSG = 	$(DISPLAY_TWO)
 #
 
 # Name of the projet
-NAME			=	indie_studio
+NAME			=	indie
 # Compiler
 CXX				=	g++
 # Compiler flags
@@ -69,11 +69,13 @@ else
 	CXXFLAGS += -s
 endif
 
-
-
 # Set the compilation message
 ifeq ($(DISPLAY_OPT), percentage)
         COMPILATION_MSG=$(DISPLAY_ONE)
+else ifeq ($(DISPLAY_OPT), count)
+		COMPILATION_MSG=$(DISPLAY_TWO)
+else
+		COMPILATION_MSG=$(DISPLAY_THREE)
 endif
 
 # Resource folder (root), object folder, and directory where the binary will be created.
