@@ -112,7 +112,7 @@ install:
 
 # Try the compilation with g++ and clang++ in order to detect warnings
 compilation_test:
-					./__tests__/compilation/compilation.sh
+					./__tests__/__compilation__/compilation.sh
 
 clean:
 					@$(RM) $(OBJDIR)
