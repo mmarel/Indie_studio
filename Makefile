@@ -15,18 +15,18 @@
 #
 
 # Shorcut Rules
-RM 	= 		rm -rf
+RM 				=	rm -rf
 # Run this project with debug flags ? (yes / no)
-DEBUG 		=	no
+DEBUG 			=	no
 # If display_opt is set to "percentage", shows the progress of the compilation in percentage, else use the index.
-DISPLAY_OPT	= percentage
+DISPLAY_OPT		=	percentage
 # Utils for the compilation's progress
-COUNT 			= 1
-NBSOURCES 		= $(shell find src/*.cpp | wc -l)
-PERCENT			= 0
-DISPLAY_ONE     = "[\033[95m$(PERCENT)%\033[0m][\033[92m$<\033[0m]"
-DISPLAY_TWO     = "[\033[95m$(COUNT)\033[0m/\033[93m$(NBSOURCES)\033[0m][\033[92m$<\033[0m]"
-COMPILATION_MSG = $(DISPLAY_TWO)
+COUNT 			= 	1
+NBSOURCES 		= 	$(shell find src/*.cpp | wc -l)
+PERCENT			= 	0
+DISPLAY_ONE     = 	"[\033[95m$(PERCENT)%\033[0m][\033[92m$<\033[0m]"
+DISPLAY_TWO     = 	"[\033[95m$(COUNT)\033[0m/\033[93m$(NBSOURCES)\033[0m][\033[92m$<\033[0m]"
+COMPILATION_MSG = 	$(DISPLAY_TWO)
 
 #
 ##
@@ -35,23 +35,41 @@ COMPILATION_MSG = $(DISPLAY_TWO)
 #
 
 # Name of the projet
-NAME		=	project
+NAME			=	indie_studio
 # Compiler
-CXX			=	g++
+CXX				=	g++
 # Compiler flags
-CXXFLAGS	=	-std=c++14
-CXXFLAGS	+=	-pedantic -O2
-CXXFLAGS	+=	-W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor -Wunreachable-code -Wundef
+CXXFLAGS		=	-std=c++14
+# Performance
+CXXFLAGS		+=	-O2
+# Warnings
+CXXFLAGS		+=	-pedantic -W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor -Wunreachable-code		\
+					-Wundef	-Wold-style-cast -Woverloaded-virtual -Wfloat-equal 							\
+					-Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion 					\
+					-Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default 						\
+					-Wswitch-enum -Winline																	\
+
 # Include folders
-INCDIRS		:=	$(addprefix -I,$(shell find includes/ -type d -print))
-CXXFLAGS	+=	$(INCDIRS)
+INCDIRS			:=	$(addprefix -I,$(shell find includes/ -type d -print))
+CXXFLAGS		+=	$(INCDIRS)
 # Libraries
-LDFLAGS		=	-lpthread
+LDFLAGS			=	-lpthread
+
+# if the compiler is clang++, add the flag -Weverything
+ifeq ($(CXX), clang++)
+	CXXFLAGS	+= -Weverything
+	# Superfluous warnings
+	CXXFLAGS	+= -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-documentation -Wno-extra-semi -Wno-weak-vtables -Qunused-arguments
+endif
 
 # if debug is set to yes, add -g3 flag
 ifeq ($(DEBUG),yes)
 	CXXFLAGS += -g3
+else
+	CXXFLAGS += -s
 endif
+
+
 
 # Set the compilation message
 ifeq ($(DISPLAY_OPT), percentage)
@@ -59,14 +77,14 @@ ifeq ($(DISPLAY_OPT), percentage)
 endif
 
 # Resource folder (root), object folder, and directory where the binary will be created.
-SRCDIR   = src
-OBJDIR   = obj
-BINDIR   = .
+SRCDIR   		= src
+OBJDIR   		= obj
+BINDIR   		= ./bin
 
 # SOURCES
-SOURCES	:= 	$(wildcard $(SRCDIR)/*.cpp)
+SOURCES			:= 	$(wildcard $(SRCDIR)/*.cpp)
 # OBJECTS
-OBJECTS	:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+OBJECTS			:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 #
 ##
@@ -74,26 +92,34 @@ OBJECTS	:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 ##
 #
 
-.PHONY: 	clean fclean re
+.PHONY: 	clean fclean re install compilation_test
 
 $(BINDIR)/$(NAME):	$(OBJECTS)
-			@$(CXX) -o $@ $(OBJECTS) $(LDFLAGS)
-			@echo "Project $(NAME) build successfully!"
+					@mkdir -p $(BINDIR)
+					@$(CXX) -o $@ $(OBJECTS) $(LDFLAGS)
+					@echo "[\033[94mProject $(NAME) build successfully!\033[0m]"
 
 $(OBJECTS):	$(OBJDIR)/%.o : $(SRCDIR)/%.cpp
-			@mkdir -p $(dir $@)
-			@$(CXX) $(CXXFLAGS) -c $< -o $@
-			@$(eval PERCENT=$(shell echo $$((($(COUNT)*100/$(NBSOURCES))))))
-			@echo $(COMPILATION_MSG)
-			@$(eval COUNT=$(shell echo $$((($(COUNT)+1)))))
+					@mkdir -p $(dir $@)
+					@$(CXX) $(CXXFLAGS) -c $< -o $@
+					@$(eval PERCENT=$(shell echo $$((($(COUNT)*100/$(NBSOURCES))))))
+					@echo $(COMPILATION_MSG)
+					@$(eval COUNT=$(shell echo $$((($(COUNT)+1)))))
 
+# Install dependencies
+install:
+					./install/./install.sh
+
+# Try the compilation with g++ and clang++ in order to detect warnings
+compilation_test:
+					./__tests__/compilation/compilation.sh
 
 clean:
-			@$(RM) $(OBJDIR)
-			@echo "Cleanup complete!"
+					@$(RM) $(OBJDIR)
+					@echo "[\033[97mCleanup complete!\033[0m]"
 
-fclean: 	clean
-			@$(RM) $(BINDIR)/$(NAME)
-			@echo "Executable removed!"
+fclean: 			clean
+					@$(RM) $(BINDIR)/$(NAME)
+					@echo "[\033[97mExecutable removed!\033[0m]"
 
-re:			fclean $(BINDIR)/$(NAME)
+re:					fclean $(BINDIR)/$(NAME)

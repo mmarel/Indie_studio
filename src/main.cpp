@@ -6,6 +6,8 @@
 // Last Modified time: 2017-05-03 01:50:31
 //
 
+#include <iostream>
+
 #include "Exception/exception.hpp"
 
 ///
@@ -15,4 +17,7 @@
 ///\param No.
 ///\return An integer corresponding to the output of the program.
 ///
-int main() { return 0; }
+int main() {
+    std::cout << "Hello World ! ... lol, now code this fucking project." << std::endl;
+    return 0;
+}

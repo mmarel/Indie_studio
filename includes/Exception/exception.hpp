@@ -6,8 +6,8 @@
 // Last Modified time: 2017-05-03 00:59:29
 //
 
-#ifndef ___EXCEPTION_HPP___
-# define ___EXCEPTION_HPP___
+#ifndef EXCEPTION_HPP
+# define EXCEPTION_HPP
 
 #include <string>
 #include <exception>
@@ -34,4 +34,4 @@ namespace project
     };
 }
 
-# endif // ___EXCEPTION_HPP___
+# endif // EXCEPTION_HPP
