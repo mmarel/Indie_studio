@@ -68,7 +68,7 @@ endif
 ifeq ($(CXX), clang++)
 	CXXFLAGS	+= -Weverything
 	# Superfluous warnings
-	CXXFLAGS	+= -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-documentation -Wno-extra-semi -Wno-weak-vtables -Qunused-arguments
+	CXXFLAGS	+= -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-documentation -Wno-extra-semi -Wno-weak-vtables -Qunused-arguments -Wno-reserved-id-macro
 endif
 
 # If debug is set to yes, add -g3 flag
