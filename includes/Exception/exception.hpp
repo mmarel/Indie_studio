@@ -13,25 +13,28 @@
 #include <exception>
 
 
-namespace project
+namespace indie
 {
-
-    ///\class Error
-    ///\brief Class inheriting from std exception.
-    ///
-    class Error : public std::exception {
+    namespace exception
+    {
         
-        protected:
-            std::string _message;   ///< Brief Contains the error message
-        
-        public:
-            Error(const std::string &message) noexcept : _message(message) {};
-            Error() noexcept;
-            virtual ~Error() noexcept {};
+        ///\class Error
+        ///\brief Class inheriting from std exception.
+        ///
+        class Error : public std::exception {
+            
+            protected:
+                std::string _message;   ///< Brief Contains the error message
+            
+            public:
+                Error(const std::string &message) noexcept : _message(message) {};
+                Error() noexcept;
+                virtual ~Error() noexcept {};
 
-            virtual const char *what() const noexcept { return this->_message.c_str(); };
+                virtual const char *what() const noexcept { return this->_message.c_str(); };
 
-    };
+        };
+    }
 }
 
 # endif // EXCEPTION_HPP

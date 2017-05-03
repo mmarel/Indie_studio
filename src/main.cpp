@@ -9,15 +9,14 @@
 #include <iostream>
 
 #include "Exception/exception.hpp"
+#include "Common/common.hpp"
 
-///
-///\fn int  main()
-///\brief First function of the program, here just for the example..
-///
-///\param No.
-///\return An integer corresponding to the output of the program.
-///
 int main() {
-    std::cout << "Hello World ! ... lol, now code this fucking project." << std::endl;
-    return 0;
+
+    #if defined __linux__
+        if (helper::Helper::Get().getEnvVariable("DISPLAY") != ":0")
+            std::cerr << "The DISPLAY environment variable is not set correctly." << std::endl;
+    #endif
+
+    return EXIT_SUCCESS;
 }

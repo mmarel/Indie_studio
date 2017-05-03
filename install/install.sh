@@ -31,6 +31,7 @@ while true; do
         rm -rf irrlicht-1.8.4.zip irrlicht-1.8.4 &&
 
         echo "Install Complete"
+	break;;
 
     esac
 done

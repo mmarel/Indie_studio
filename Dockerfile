@@ -12,11 +12,11 @@ MAINTAINER Rida Baba <rida.baba@epitech.eu>
 # Install Depedencies
 RUN apt-get update
 RUN apt-get install -y build-essential apt-utils
-RUN apt-get install -y  wget \
-                        git \
-                        gcc \
-                        clang \
-                        g++ \
+RUN apt-get install -y  wget    \
+                        git     \
+                        gcc     \
+                        clang   \
+                        g++     \
                         doxygen
 
 # Create the project's folder in the container
