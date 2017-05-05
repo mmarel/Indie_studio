@@ -14,7 +14,7 @@
 int main() {
 
     #if defined __linux__
-        if (helper::Helper::Get().getEnvVariable("DISPLAY") != ":0")
+        if (helper::Helper::get().getEnvVariable("DISPLAY") != ":0")
             std::cerr << "The DISPLAY environment variable is not set correctly." << std::endl;
     #endif
 

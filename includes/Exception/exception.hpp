@@ -17,7 +17,6 @@ namespace indie
 {
     namespace exception
     {
-        
         ///\class Error
         ///\brief Class inheriting from std exception.
         ///
@@ -27,10 +26,25 @@ namespace indie
                 std::string _message;   ///< Brief Contains the error message
             
             public:
-                Error(const std::string &message) noexcept : _message(message) {};
-                Error() noexcept;
-                virtual ~Error() noexcept {};
-
+                ///
+                /// \fn Error(const std::string &message) noexcept
+                /// \brief Constructor to create Error instance from message.
+                ///
+                Error(const std::string &message) noexcept : _message(message) {};     
+                ///
+                /// \fn Error() noexcept
+                /// \brief Constructor to create Error instance with empty message.
+                ///
+                Error() noexcept : _message("") {};
+                ///
+                /// \fn virtual ~Error() noexcept
+                /// \brief Virtual destructor of the class.
+                ///
+                virtual ~Error() noexcept {};     
+                ///
+                /// \fn virtual const char *what() const noexcept
+                /// \brief  Return the value of the error message.
+                ///
                 virtual const char *what() const noexcept { return this->_message.c_str(); };
 
         };

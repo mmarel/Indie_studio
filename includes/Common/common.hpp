@@ -11,6 +11,7 @@
 
 #include "helper.hpp"
 
+// Presence that the element is intentionally not used.
 #define _UNUSED __attribute__((unused))
 
 # endif // COMMON_HPP
