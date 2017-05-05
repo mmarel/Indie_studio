@@ -8,9 +8,12 @@
 
 #include <iostream>
 
+#include <chrono>
+#include <thread>
+
 #include "Exception/exception.hpp"
 #include "Common/common.hpp"
-#include "irr/irrlicht.h"
+#include "Graphical/Gfx.hpp"
 
 int main() {
 
@@ -19,5 +22,14 @@ int main() {
             std::cerr << "The DISPLAY environment variable is not set correctly." << std::endl;
     #endif
 
+
+    // Testing Gfx
+    indie::Gfx  gfx;
+
+    for (std::size_t i = 0; i < 2; ++i) {
+        gfx.display();
+        gfx.clear();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
     return EXIT_SUCCESS;
 }

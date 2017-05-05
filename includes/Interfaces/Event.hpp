@@ -6,8 +6,8 @@
 // Last Modified time: 2017-05-05 05:14:34
 //
 
-#ifndef EVENT_HPP_
-#define EVENT_HPP_
+#ifndef EVENT_HPP
+#define EVENT_HPP
 
 namespace indie
 {
@@ -226,4 +226,4 @@ enum KeyboardKey
   };
 }
 
-#endif // !EVENT_HPP_
+#endif // !EVENT_HPP

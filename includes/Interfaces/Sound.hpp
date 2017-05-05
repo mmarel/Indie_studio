@@ -81,4 +81,4 @@ namespace indie
 
 }
 
-#endif // !SOUND_HPP_
+#endif // !SOUND_HPP

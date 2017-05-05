@@ -22,7 +22,7 @@ DEBUG 			=	no
 DISPLAY_OPT		=	percentage
 # Utils for the compilation's progress
 COUNT 			= 	1
-NBSOURCES 		= 	$(shell find src/*.cpp | wc -l)
+NBSOURCES 		= 	$(shell find src/ -type f -name '*.cpp' | wc -l)
 PERCENT			= 	0
 DISPLAY_ONE     = 	"[\033[95m$(PERCENT)%\033[0m][\033[92m$<\033[0m]"
 DISPLAY_TWO     = 	"[\033[95m$(COUNT)\033[0m/\033[93m$(NBSOURCES)\033[0m][\033[92m$<\033[0m]"
@@ -57,7 +57,8 @@ CXXFLAGS		+=	$(INCDIRS)
 # Ignore Irrlicht warnings
 CXXFLAGS		+=	-isystem includes/Extern/
 # Libraries
-LDFLAGS			=	-lpthread
+LDFLAGS			=	-lpthread -lGL -lGLU
+LDFLAGS			+=	-lXrandr -lXi -lXrender -ldrm -lXdamage -lXxf86vm -lXext -lX11
 
 # Add the library according to the OS
 ifeq ($(OS_detected), Linux)
@@ -96,7 +97,8 @@ OBJDIR   		= obj
 BINDIR   		= ./bin
 
 # SOURCES
-SOURCES			:= 	$(wildcard $(SRCDIR)/*.cpp)
+SOURCES			= 	$(wildcard $(SRCDIR)/*.cpp)
+SOURCES			+=	$(wildcard $(SRCDIR)/Graphical/*.cpp)
 # OBJECTS
 OBJECTS			:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
