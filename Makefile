@@ -52,8 +52,10 @@ CXXFLAGS		+=	-pedantic -W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor -Wu
 					-Wswitch-enum -Winline																	\
 
 # Include folders
-INCDIRS			:=	$(addprefix -I,$(shell find includes/ -type d -print))
+INCDIRS			:=	$(addprefix -I,$(shell find includes -type d -print))
 CXXFLAGS		+=	$(INCDIRS)
+# Ignore Irrlicht warnings
+CXXFLAGS		+=	-isystem includes/Extern/
 # Libraries
 LDFLAGS			=	-lpthread
 
@@ -99,7 +101,7 @@ OBJECTS			:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 #
 ##
-### -[RULES]-
+##	-[RULES]-
 ##
 #
 

@@ -13,12 +13,12 @@
 #include <string>
 #include <memory>
 
-#include "GameState.h"
+#include "GameState.hpp"
 #include "Event.hpp"
 #include "NetworkPacket.hpp"
-#include "IStat.h"
-#include "IMap.h"
-#include "IGUI.h"
+#include "IStat.hpp"
+#include "IMap.hpp"
+#include "IGUI.hpp"
 #include "ISprite.hpp"
 #include "Sound.hpp"
 

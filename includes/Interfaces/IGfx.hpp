@@ -6,9 +6,9 @@
 #include <memory>
 
 #include "Event.hpp"
-#include "IMap.h"
-#include "IGUI.h"
-#include "ISprite.h"
+#include "IMap.hpp"
+#include "IGUI.hpp"
+#include "ISprite.hpp"
 #include "Sound.hpp"
 
 namespace indie

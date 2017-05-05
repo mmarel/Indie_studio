@@ -10,6 +10,7 @@
 
 #include "Exception/exception.hpp"
 #include "Common/common.hpp"
+#include "irr/irrlicht.h"
 
 int main() {
 
