@@ -9,16 +9,27 @@
 cmake_minimum_required( VERSION 3.0 )
 project( indie_studio )
 
+SET(ROOT_DIR ..)
+
+INCLUDE_DIRECTORIES( ${ROOT_DIR}/includes )
+INCLUDE_DIRECTORIES( SYSTEM ${ROOT_DIR}/includes/Extern )
+
+FILE(
+      GLOB_RECURSE
+
+      source_files
+
+      ./${ROOT_DIR}/src/*
+
+      ./${ROOT_DIR}/includes/*
+)
+
 # If we are on Linux
 if(UNIX AND NOT APPLE)
 
       ###############################################################################
       ## Project Config  ############################################################
       ###############################################################################
-      SET(ROOT_DIR ..)
-
-      INCLUDE_DIRECTORIES( ${ROOT_DIR}/includes )
-      INCLUDE_DIRECTORIES( SYSTEM ${ROOT_DIR}/includes/Extern )
 
       ### Compilation flags and links
       SET(GCC_COVERAGE_COMPILE_FLAGS      "-std=c++11 -O2 -pedantic -W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor     \
@@ -32,17 +43,6 @@ if(UNIX AND NOT APPLE)
 
       ### Folder where the binary will be generated
       SET( EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE} )
-
-      file(
-            GLOB_RECURSE
-
-            source_files
-
-            ./${ROOT_DIR}/src/*
-
-            ./${ROOT_DIR}/includes/*
-      )
-
 
       ###############################################################################
       ##  Exec  #####################################################################
@@ -76,21 +76,22 @@ if(UNIX AND NOT APPLE)
                   -lGLU
       )
 
-      ###############################################################################
-      ##   END    ###################################################################
-      ###############################################################################
-
-      # now comes everything we need, to create a package
-      # there are a lot more variables you can set, and some
-      # you need to set for some package types, but we want to
-      # be minimal here
-      SET( CPACK_PACKAGE_NAME "IndieStudio" )
-      SET( CPACK_PACKAGE_VERSION "0.0.1")
-
-      # we don't want to split our program up into several things
-      SET( CPACK_MONOLITHIC_INSTALL 1 )
-
-      # This must be last
-      INCLUDE( CPack )
 
 endif()
+
+###############################################################################
+##   END    ###################################################################
+###############################################################################
+
+# now comes everything we need, to create a package
+# there are a lot more variables you can set, and some
+# you need to set for some package types, but we want to
+# be minimal here
+SET( CPACK_PACKAGE_NAME "IndieStudio" )
+SET( CPACK_PACKAGE_VERSION "0.0.1")
+
+# we don't want to split our program up into several things
+SET( CPACK_MONOLITHIC_INSTALL 1 )
+
+# This must be last
+INCLUDE( CPack )
