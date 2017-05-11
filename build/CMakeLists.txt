@@ -21,11 +21,11 @@ if(UNIX AND NOT APPLE)
       INCLUDE_DIRECTORIES( SYSTEM ${ROOT_DIR}/includes/Extern )
 
       ### Compilation flags and links
-      SET(GCC_COVERAGE_COMPILE_FLAGS  "-std=c++11 -O2 -pedantic -W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor     \
-                                    -Wunreachable-code -Wundef -Wold-style-cast -Woverloaded-virtual -Wfloat-equal      \
-                                    -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion               \
-                                    -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default                   \
-                                    -Wswitch-enum -Winline" )
+      SET(GCC_COVERAGE_COMPILE_FLAGS      "-std=c++11 -O2 -pedantic -W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor     \
+                                          -Wunreachable-code -Wundef -Wold-style-cast -Woverloaded-virtual -Wfloat-equal      \
+                                          -Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion               \
+                                          -Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default                   \
+                                          -Wswitch-enum -Winline" )
       SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}" )
       SET( GCC_COVERAGE_LINK_FLAGS  "-lpthread -L./../lib/Linux -lIrrlicht -lXrandr -lXi -lXrender -ldrm -lXdamage -lXxf86vm -lXext -lX11 -lpthread -lGL -lGLU" )
       SET( CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}" )
