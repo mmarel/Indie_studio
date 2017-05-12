@@ -26,7 +26,6 @@ int main() {
             std::cerr << "The DISPLAY environment variable is not set correctly." << std::endl;
     #endif
 
-
     // Testing Gfx
     indie::Gfx  gfx;
 
