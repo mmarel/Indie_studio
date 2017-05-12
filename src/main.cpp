@@ -6,6 +6,10 @@
 // Last Modified time: 2017-05-03 01:50:31
 //
 
+#ifdef _MSC_VER
+    #pragma comment(lib, "Irrlicht.lib")
+#endif
+
 #include <iostream>
 
 #include <chrono>

@@ -24,6 +24,25 @@ FILE(
       ./${ROOT_DIR}/includes/*
 )
 
+if(WIN32)
+
+      ADD_EXECUTABLE(
+                  indie_studio
+
+                  ${source_files}
+      )
+
+      # link libraries with the project
+      TARGET_LINK_LIBRARIES(
+
+                  indie_studio
+                  
+                  ${PROJECT_SOURCE_DIR}/${ROOT_DIR}/lib/Win64-visualStudio/Irrlicht.lib
+
+      )
+
+endif()
+
 # If we are on Linux
 if(UNIX AND NOT APPLE)
 
