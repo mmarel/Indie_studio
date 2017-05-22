@@ -7,6 +7,9 @@
 
 #include "Event.hpp"
 #include "Sound.hpp"
+#include "ISprite.hpp"
+#include "IMap.hpp"
+#include "IGUI.hpp"
 
 namespace indie
 {
@@ -32,30 +35,30 @@ namespace indie
 
         // Events
         ///
-        /// \fn virtual bool pollEvent(Event &e) = 0
+        /// \fn virtual bool pollEvents(Event &e) = 0
         /// \brief Function to poll events from the graphic lib
         ///
         /// If there is an event to poll, it is filled and true is returned.
         /// If not, false is returned.
         ///
-        /*        virtual bool pollEvent(Event &e) = 0;*/
+        virtual bool pollEvents(Event &e) = 0;
 
         // Sound
         ///
         /// \fn virtual bool doesSupportSound() const = 0
         /// \brief Ask if the library support sound
         ///
-        /*        virtual bool doesSupportSound() const = 0;*/
+        virtual bool doesSupportSound() const = 0;
         ///
         /// \fn virtual void loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds) = 0
         /// \brief Ask the lib to remove and load new sounds
         ///
-        /*        virtual void loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds) = 0;*/
+        virtual void loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds) = 0;
         ///
         /// \fn virtual void soundControl(const Sound &sound) = 0
         /// \brief Ask the lib to play a sound
         ///
-        /*        virtual void soundControl(const Sound &sound) = 0;*/
+        virtual void soundControl(const Sound &sound) = 0;
 
         // Sprites
         ///
@@ -63,21 +66,21 @@ namespace indie
         /// \brief Load sprites in the lib from the paths given by the game
         /// \param sprites to pass the path of the sprites to give the lib
         ///        the way to search the assets
-        /*        virtual void loadSprites(std::vector<std::unique_ptr<ISprite>> &&sprites) = 0;*/
+        virtual void loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprites) = 0;
 
         // Map
         ///
         /// \fn virtual void updateMap(IMap const &map) = 0
         /// \brief Updates the map (no direct display changes are made here)
         ///
-        /*        virtual void updateMap(IMap const &map) = 0;*/
+        virtual void updateMap(IMap const &map) = 0;
 
         // GUI
         ///
         /// \fn virtual void updateGUI(IGUI &gui) = 0
         /// \brief Updates the GUI (no direct display changes are made here)
         ///
-        /*        virtual void updateGUI(IGUI &gui) = 0;*/
+        virtual void updateGUI(IGUI &gui) = 0;
 
         // Display
         ///

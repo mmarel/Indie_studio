@@ -99,6 +99,7 @@ BINDIR   		= ./bin
 # SOURCES
 SOURCES			= 	$(wildcard $(SRCDIR)/*.cpp)
 SOURCES			+=	$(wildcard $(SRCDIR)/Graphical/*.cpp)
+SOURCES			+=	$(wildcard $(SRCDIR)/Graphical/Gfx/*.cpp)
 # OBJECTS
 OBJECTS			:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
