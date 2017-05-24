@@ -69,8 +69,9 @@ namespace indie
 
 		uint32_t full; /// 4 bytes integer value of the color
 		uint8_t  rgba[4]; /// array of the 4 color component
+
 #if IS_LITTLE_ENDIAN
-		struct color
+		struct
 		{
 			uint8_t r;
 			uint8_t g;
@@ -78,7 +79,7 @@ namespace indie
 			uint8_t a;
 		};
 #else
-		struct color
+		struct
 		{
 			uint8_t a;
 			uint8_t b;

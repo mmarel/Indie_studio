@@ -6,18 +6,16 @@
 // Last Modified time: 2017-05-03 01:50:31
 //
 
+#include <iostream>
+#include <chrono>
+#include <thread>
+
+#include "Graphical/Gfx.hpp"
+
 #ifdef _MSC_VER
     #pragma comment(lib, "Irrlicht.lib")
 #endif
 
-#include <iostream>
-
-#include <chrono>
-#include <thread>
-
-#include "Exception/exception.hpp"
-#include "Common/common.hpp"
-#include "Graphical/Gfx.hpp"
 
 int main() {
 

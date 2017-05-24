@@ -45,7 +45,7 @@ CXXFLAGS		=	-std=c++14
 # Performance
 CXXFLAGS		+=	-O2
 # Warnings
-CXXFLAGS		+=	-pedantic -W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor -Wunreachable-code		\
+CXXFLAGS		+=	-W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor -Wunreachable-code		\
 					-Wundef	-Wold-style-cast -Woverloaded-virtual -Wfloat-equal 							\
 					-Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion 					\
 					-Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default 						\
@@ -109,7 +109,7 @@ OBJECTS			:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 ##
 #
 
-.PHONY: 	clean fclean re install compilation_tests
+.PHONY: 	clean fclean re install compilation_tests build
 
 $(BINDIR)/$(NAME):	$(OBJECTS)
 					@mkdir -p $(BINDIR)
@@ -122,6 +122,10 @@ $(OBJECTS):	$(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 					@$(eval PERCENT=$(shell echo $$((($(COUNT)*100/$(NBSOURCES))))))
 					@echo $(COMPILATION_MSG)
 					@$(eval COUNT=$(shell echo $$((($(COUNT)+1)))))
+
+# Build From CMAKE
+build:
+					cd build && ./Linux_build.sh && cd ../
 
 # Install dependencies
 install:
@@ -136,7 +140,7 @@ clean:
 					@echo "[\033[97mCleanup complete!\033[0m]"
 
 fclean: 			clean
-					@$(RM) $(BINDIR)/$(NAME)
+					@$(RM) $(BINDIR)
 					@echo "[\033[97mExecutable removed!\033[0m]"
 
 re:					fclean $(BINDIR)/$(NAME)

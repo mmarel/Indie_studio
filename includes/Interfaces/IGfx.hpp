@@ -1,5 +1,13 @@
+//
+// Author: Marwane Khsime 
+// Date: 2017-05-24 03:51:40 
+//
+// Last Modified by:   Marwane Khsime 
+// Last Modified time: 2017-05-24 03:51:40
+//
+
 #ifndef IGFX_H
-#define IGFX_H
+# define IGFX_H
 
 #include <vector>
 #include <string>

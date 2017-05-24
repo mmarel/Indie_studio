@@ -25,11 +25,11 @@ namespace indie
 		full(c)
 	{}
 
-	Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) :
+	Color::Color(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a) :
 	#if IS_LITTLE_ENDIAN
-		r(r), g(g), b(b), a(a)
+		r(_r), g(_g), b(_b), a(_a)
 	#else
-		a(a), b(b), g(g), r(r)
+		a(_a), b(_b), g(_g), r(_r)
 	#endif
 	{}
 
