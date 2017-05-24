@@ -13,3 +13,6 @@ build/CPackSourceConfig.cmake
 build/CMakeCache.txt
 build/Makefile
 bin
+cmake-build-debug
+CMakeLists.txt
+.idea
