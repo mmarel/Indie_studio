@@ -48,7 +48,7 @@ namespace indie
             Gfx(const Gfx &gfx) = delete;
 
         private:
-            irr::IrrlichtDevice *_device;
+            std::unique_ptr<irr::IrrlichtDevice>    _device;
 
     };
 

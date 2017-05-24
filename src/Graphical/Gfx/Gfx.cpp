@@ -30,7 +30,6 @@ indie::Gfx::Gfx()
 }
 
 indie::Gfx::~Gfx() {
-
 }
 
 void    indie::Gfx::display() {
