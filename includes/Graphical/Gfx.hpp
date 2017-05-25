@@ -28,6 +28,9 @@ namespace indie
             //  Constructor / Destructor
             Gfx();
             virtual ~Gfx();
+
+            // Interfaces
+
             //  Main
             virtual void    display();
             virtual void    clear();
@@ -38,7 +41,7 @@ namespace indie
             virtual void    loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds);
             virtual void    soundControl(const Sound &sound);
             // Sprites
-            virtual void    loadSprites(_UNUSED std::vector<std::unique_ptr<ISprite> > &&sprites);
+            virtual void    loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprites);
             //  Map
             virtual void    updateMap(IMap const &map);
             // IGUI
@@ -47,8 +50,12 @@ namespace indie
             void            operator=(const Gfx& gfx) = delete;
             Gfx(const Gfx &gfx) = delete;
 
+            std::unique_ptr<irr::IrrlichtDevice>        _device;
+            irr::video::IVideoDriver                    *_driver;
+            irr::scene::ISceneManager                   *_smgr;
+            irr::gui::IGUIEnvironment                   *_guienv;
+
         private:
-            std::unique_ptr<irr::IrrlichtDevice>    _device;
 
     };
 
