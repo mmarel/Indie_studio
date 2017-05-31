@@ -11,38 +11,42 @@
 
 #include <string>
 #include <exception>
+#include <iostream>
+
+#include "errors_messages.hpp"
 
 namespace indie
 {
-    namespace exception
-    {
-        ///\class Error
+        ///\class IndieError
         ///\brief Class inheriting from std exception.
         ///
-        class Error : public std::exception {
+        class IndieError : public std::exception {
             
             protected:
-                std::string _message;   ///< Brief Contains the error message
+                std::string _message;   ///< Brief Contains the IndieError message
             
             public:
                 ///
-                /// \fn Error(const std::string &message) noexcept
-                /// \brief Constructor to create Error instance from message.
+                /// \fn IndieError(const std::string &message) noexcept
+                /// \brief Constructor to create IndieError instance from message.
                 ///
-                Error(const std::string &message) noexcept : _message(message) {};     
+                explicit IndieError(const std::string &message) noexcept : _message(message) {};
                 ///
-                /// \fn Error() noexcept
-                /// \brief Constructor to create Error instance with empty message.
+                /// \fn IndieError() noexcept
+                /// \brief Constructor to create IndieError instance with empty message.
                 ///
-                Error() noexcept : _message("") {};
+                explicit IndieError() noexcept : _message("") {};
+                ///
+                /// \fn ~IndieError() noexcept
+                /// \brief Destructor.
+                ///
+                virtual ~IndieError() noexcept {};
                 ///
                 /// \fn virtual const char *what() const noexcept
-                /// \brief  Return the value of the error message.
+                /// \brief  Return the value of the IndieError message.
                 ///
-                virtual const char *what() const noexcept { return this->_message.c_str(); };
-
+                virtual const char *what() const throw() { return this->_message.c_str(); };
         };
-    }
 }
 
 # endif // EXCEPTION_HPP

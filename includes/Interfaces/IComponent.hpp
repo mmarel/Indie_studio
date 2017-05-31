@@ -49,14 +49,19 @@ namespace indie
       virtual double getHeight() const = 0;
       ///
       /// \fn virtual bool hasSprite() const = 0
-      /// \brief Return true if the component has a sprite
+      /// \brief Return true if the component has a Sprite
       ///
       virtual bool hasSprite() const = 0;
       ///
       /// \fn virtual size_t getBackgroundId() const = 0
-      /// \brief Get the id of the background sprite
+      /// \brief Get the id of the background Sprite
       ///
       virtual size_t getBackgroundId() const = 0;
+      ///
+      /// \fn virtual size_t getBackgroundPos() const = 0
+      /// \brief Get the pos of the background Sprite
+      ///
+      virtual size_t getBackgroundPos() const = 0;
       ///
       /// \fn virtual Color getBackgroundColor() const = 0
       /// \brief Get the color of the background

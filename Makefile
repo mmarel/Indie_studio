@@ -5,7 +5,7 @@
 ## Login   <marwane.khsime@epitech.eu>
 ## 
 ## Started on  Wed May  3 00:22:29 2017 marwane
-## Last update Wed May  3 00:24:51 2017 marwane
+## Last update Mon May 29 18:48:53 2017 marwane
 ##
 
 #
@@ -49,7 +49,7 @@ CXXFLAGS		+=	-W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor -Wunreachable
 					-Wundef	-Wold-style-cast -Woverloaded-virtual -Wfloat-equal 							\
 					-Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion 					\
 					-Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default 						\
-					-Wswitch-enum -Winline																	\
+					-Wswitch-enum -Winline -Wno-narrowing										\
 
 # Include folders
 INCDIRS			:=	$(addprefix -I,$(shell find includes -type d -print))
@@ -100,6 +100,8 @@ BINDIR   		= ./bin
 SOURCES			= 	$(wildcard $(SRCDIR)/*.cpp)
 SOURCES			+=	$(wildcard $(SRCDIR)/Graphical/*.cpp)
 SOURCES			+=	$(wildcard $(SRCDIR)/Graphical/Gfx/*.cpp)
+SOURCES			+=	$(wildcard $(SRCDIR)/Graphical/Model/*.cpp)
+SOURCES			+=	$(wildcard $(SRCDIR)/Common/*.cpp)
 # OBJECTS
 OBJECTS			:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 

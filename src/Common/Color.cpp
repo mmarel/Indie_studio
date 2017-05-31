@@ -6,7 +6,7 @@
 // Last Modified time: 2017-05-22 17:49:24
 //
 
-#include "Color.hpp"
+#include "Interfaces/Color.hpp"
 
 namespace indie
 {
