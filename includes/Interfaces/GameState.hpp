@@ -14,19 +14,6 @@
 
 namespace indie
 {
-    ///
-    /// \enum GameState
-    /// \brief Describe current game state
-    ///
-    enum GameState
-    {
-        NONE = -1, /// Unknown game state
-    	LOADING, /// The game was just loaded (need to load sounds and sprites)
-        INGAME, /// In game
-        MENU, /// In menu
-        QUIT, /// Quitting
-        NB_GAME_STATE /// Number of game states
-    };
 
     ///
     /// \enum TileTypeEvolution
@@ -34,27 +21,75 @@ namespace indie
     ///
     enum TileTypeEvolution
     {
-        EMPTY = 0, /// Empty tile
-        BLOCK, /// Block tile
-        OBSTACLE, /// Obstacle tile
-        ENEMY, /// Enemy tile
-        SHOT_ENEMY, /// Enemy shot tile
-        SHOT_PLAYER, /// Player shot tile
-        POWERUP, /// Powerup tile
-        PLAYER, /// Player tile
-        FOOD, /// Food tile
+        //! Empty tile
+        EMPTY = 0,
+        
+        //! Block tile
+        BLOCK,
+        
+        //! Obstacle tile
+        OBSTACLE,
+        
+        //! Enemy tile
+        ENEMY,
+        
+        //! Enemy shot tile
+        SHOT_ENEMY,
+        
+        //! Player shot tile
+        SHOT_PLAYER,
+        
+        //! Powerup tile
+        POWERUP,
+        
+        //! Player tile
+        PLAYER,
+        
+        //! Food tile
+        FOOD,
+    };
+
+
+    ///
+    /// \enum GameState
+    /// \brief Describes current game state
+    ///
+    enum GameState
+    {
+        //! Unknown game state
+        NONE = -1,
+
+        //! Loading (need to load sounds / sprites)
+	    LOADING,
+
+        //! Splash screen
+        SPLASH_SCREEN,
+
+        //! In game
+        INGAME,
+
+        //! In menu
+        MENU,
+
+        //! Quitting
+        QUIT,
+
+        //! Number of game states
+        NB_GAME_STATE
     };
 
     class EventKey : public irr::IEventReceiver
     {
-    public:
-        EventKey();
-        virtual bool  OnEvent(const irr::SEvent& event);
-        bool IsKeyDown(irr::EKEY_CODE keyCode) const;
-        int getKeyPressed() const;
+        public:
+            EventKey();
+            virtual ~EventKey() {};
 
-    private:
-        bool    KeyIsDown[irr::KEY_KEY_CODES_COUNT];
+            virtual bool    OnEvent(const irr::SEvent& event);
+            int             getKeyPressed() const;
+            bool            IsKeyDown(irr::EKEY_CODE keyCode) const;
+
+        private:
+            bool            keyMap[irr::KEY_KEY_CODES_COUNT];
     };
 }
 #endif // !GAMESTATE_HPP_
