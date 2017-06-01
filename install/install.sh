@@ -13,7 +13,6 @@ while true; do
         [Yy]* )
 
         # Clean
-        echo "hey"
         rm -rf irrlicht*
         # Download Irrlicht
         wget http://downloads.sourceforge.net/irrlicht/irrlicht-1.8.4.zip -q --show-progress &&
