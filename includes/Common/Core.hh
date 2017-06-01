@@ -13,6 +13,8 @@
 
 #include "Interfaces/GameState.hpp"
 #include "Graphical/Gfx.hpp"
+#include "Interfaces/IGame.hpp"
+#include "Interfaces/Sound.hpp"
 
 namespace indie
 {
@@ -21,6 +23,8 @@ namespace indie
   private:
     indie::GameState    _gameState;
     //indie::Gfx          _gfx;
+    indie::IGame       *_gameLoad;
+    std::vector<indie::Sound> _sounds;
 
   public:
     Core();
@@ -35,6 +39,7 @@ namespace indie
     void              display_game(indie::Gfx &);
     void              display_menu(indie::Gfx &);
     void              display_loop();
+    void              getEventGame(indie::Gfx &);
     void              display();
   };
 }

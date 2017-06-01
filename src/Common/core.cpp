@@ -9,7 +9,7 @@
 #include <memory>
 #include "Common/Core.hh"
 
-indie::Core::Core() : _gameState(indie::GameState::MENU)
+indie::Core::Core() : _gameState(indie::GameState::MENU), _gameLoad(), _sounds()
 {
 }
 
@@ -17,7 +17,7 @@ indie::Core::~Core()
 {
 }
 
-indie::Core::Core(Core const &copy) : _gameState(copy._gameState)
+indie::Core::Core(Core const &copy) : _gameState(copy._gameState), _gameLoad(copy._gameLoad), _sounds(copy._sounds)
 {
   (void)copy;
 }
@@ -40,18 +40,37 @@ void    indie::Core::setGameState(const indie::GameState state)
 
 void    indie::Core::load_sound_lib()
 {
+    _sounds = _gameLoad->getSoundsToPlay();
+}
+
+void    indie::Core::getEventGame(indie::Gfx &_gfx)
+{
+    Event event;
+    std::vector<Event> _events;
+
+    if (_gfx.pollEvents(event))
+    {
+      _events.push_back(event);
+      _gameLoad->notifyEvent(std::move(_events));
+    }
 }
 
 void    indie::Core::display_game(indie::Gfx &_gfx)
 {
+    getEventGame(_gfx);
+    _gameLoad->process();
+    for (std::vector<indie::Sound>::const_iterator it = _sounds.begin(); it != _sounds.end(); it++)   
+        _gfx.soundControl(*it);       
+    _gfx.loadSprites(_gameLoad->getSpritesToLoad());
+    _gfx.loadModels(_gameLoad->getModelsToLoad());
+    _gfx.updateMap(_gameLoad->getCurrentMap());
+    _gfx.updateGUI(_gameLoad->getGUI());
     _gfx.display();
-    _gfx.clear();
 }
 
 void    indie::Core::display_menu(indie::Gfx &_gfx)
 {
-    _gfx.display();
-    _gfx.clear();
+    std::cout << "DISPLAY MENU" << std::endl;
 }
 
 void    indie::Core::display_loop()
@@ -59,12 +78,14 @@ void    indie::Core::display_loop()
     int state;
     //std::unique_ptr<indie::Gfx> _gfx = std::make_unique<indie::Gfx>();
     indie::Gfx _gfx;
+    //_gameLoad = 
 
     /*
     ** Loop en fonction des GameState
     */
     while ((state = getGameState()) != indie::GameState::QUIT)
     {
+        _gfx.clear();
         switch(state)
         {
             case indie::GameState::LOADING :
