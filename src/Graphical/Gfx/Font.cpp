@@ -23,7 +23,6 @@ void    indie::Gfx::loadFonts(const std::vector<std::string> &fonts_to_load) {
 
     else {
 
-        std::cout << "kyky" << std::endl;
         for ( auto &elem : fonts_to_load ) {
 
             irr::gui::IGUIFont  *fnt;
