@@ -72,11 +72,10 @@ namespace indie
       /// \brief Get the text value
       ///
       virtual std::string const &getText() const = 0;
-      ///
-      /// \fn virtual void setClicked() = 0
-      /// \brief Way of the lib to tell a component it was clicked
-      ///
-      virtual void setClicked() = 0;
+
+        virtual void setPosState(size_t) = 0;
+
+        virtual size_t getPosState() const = 0;
     };
 }
 
