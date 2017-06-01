@@ -48,23 +48,10 @@ namespace indie
     class EventKey : public irr::IEventReceiver
     {
     public:
-        EventKey()
-        {
-            for (int i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
-                KeyIsDown[i] = false;
-        }
-
-        virtual bool  OnEvent(const irr::SEvent& event)
-        {
-            if (event.EventType == irr::EET_KEY_INPUT_EVENT)
-                KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
-            return (false);
-        }
-
-        virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const
-        {
-            return KeyIsDown[keyCode];
-        }
+        EventKey();
+        virtual bool  OnEvent(const irr::SEvent& event);
+        bool IsKeyDown(irr::EKEY_CODE keyCode) const;
+        int getKeyPressed() const;
 
     private:
         bool    KeyIsDown[irr::KEY_KEY_CODES_COUNT];
