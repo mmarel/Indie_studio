@@ -31,7 +31,13 @@ int main() {
     #endif
 
     // Testing Gfx
-    std::unique_ptr<indie::Gfx> gfx = std::make_unique<indie::Gfx>();
+    try {
+        std::unique_ptr<indie::Gfx> gfx = std::make_unique<indie::Gfx>();
+    }
+    catch (const std::exception &err) {
+        std::cerr << _INDIE_LAUNCHING_FAILED << std::endl;
+        return EXIT_FAILURE;
+    }
 
     return EXIT_SUCCESS;
 }
