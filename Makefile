@@ -98,6 +98,7 @@ BINDIR   		= ./bin
 
 # SOURCES
 SOURCES			= 	$(wildcard $(SRCDIR)/*.cpp)
+SOURCES			+=	$(wildcard $(SRCDIR)/Core/*.cpp)
 SOURCES			+=	$(wildcard $(SRCDIR)/Graphical/*.cpp)
 SOURCES			+=	$(wildcard $(SRCDIR)/Graphical/Gfx/*.cpp)
 SOURCES			+=	$(wildcard $(SRCDIR)/Graphical/Model/*.cpp)

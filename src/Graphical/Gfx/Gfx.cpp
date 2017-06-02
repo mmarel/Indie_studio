@@ -86,7 +86,6 @@ indie::Gfx::Gfx()
         this->set_window_settings();
 
         // This loop is just for testing
-        std::size_t i = 0;
         while (this->_device->run())
         {
 

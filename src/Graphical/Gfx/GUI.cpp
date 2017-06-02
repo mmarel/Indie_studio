@@ -8,6 +8,21 @@
 
 #include "Graphical/Gfx.hpp"
 
+// Desable warnings in this file
+#if defined( __clang__ )
+    #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wnarrowing"
+        #pragma clang diagnostic ignored "-Wfloat-conversion"
+        #pragma clang diagnostic ignored "-Wsign-conversion"
+#elif defined( __GNUC__ ) || defined( __GNUG__ )
+    #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wnarrowing"
+        #pragma GCC diagnostic ignored "-Wfloat-conversion"
+#elif defined( _MSC_VER )
+    #pragma warning( push )
+        #pragma warning( disable: 4996 )
+#endif
+
 void    indie::Gfx::draw_text(const std::string &txtAsString,
                               double x, double y,
                               const irr::video::SColor &txtColor,
@@ -78,3 +93,12 @@ void    indie::Gfx::updateGUI(IGUI &gui) {
     }
 
 }
+
+// Disable warning in this file
+#if defined(__clang__)
+    #pragma clang diagnostic pop
+#elif defined(__GNUC__) || defined(__GNUG__)
+    #pragma GCC diagnostic pop
+#elif defined( _MSC_VER )
+    #pragma warning( pop )
+#endif

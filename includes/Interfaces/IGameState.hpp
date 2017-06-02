@@ -12,33 +12,67 @@
 namespace indie
 {
 
-    ///
-    /// \enum GameState
-    /// \brief Describes current game state
-    ///
-    enum GameState
-    {
-        //! Unknown game state
-        NONE = -1,
+    // ///
+    // /// \enum TileTypeEvolution
+    // /// \brief Type of map tile
+    // ///
+    // enum TileTypeEvolution
+    // {
+    //     //! Empty tile
+    //     EMPTY = 0,
+        
+    //     //! Block tile
+    //     BLOCK,
+        
+    //     //! Obstacle tile
+    //     OBSTACLE,
+        
+    //     //! Enemy tile
+    //     ENEMY,
+        
+    //     //! Enemy shot tile
+    //     SHOT_ENEMY,
+        
+    //     //! Player shot tile
+    //     SHOT_PLAYER,
+        
+    //     //! Powerup tile
+    //     POWERUP,
+        
+    //     //! Player tile
+    //     PLAYER,
+        
+    //     //! Food tile
+    //     FOOD,
+    // };
 
-        //! Loading (need to load sounds / sprites)
-	    LOADING,
+    // ///
+    // /// \enum GameState
+    // /// \brief Describes current game state
+    // ///
+    // enum GameState
+    // {
+    //     //! Unknown game state
+    //     NONE = -1,
 
-        //! Splash screen
-        SPLASH_SCREEN,
+    //     //! Loading (need to load sounds / sprites)
+	//     LOADING,
 
-        //! In game
-        INGAME,
+    //     //! Splash screen
+    //     SPLASH_SCREEN,
 
-        //! In menu
-        MENU,
+    //     //! In game
+    //     INGAME,
 
-        //! Quitting
-        QUIT,
+    //     //! In menu
+    //     MENU,
 
-        //! Number of game states
-        NB_GAME_STATE
-    };
+    //     //! Quitting
+    //     QUIT,
+
+    //     //! Number of game states
+    //     NB_GAME_STATE
+    // };
 
 }
 

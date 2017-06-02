@@ -10,7 +10,7 @@
 #include <chrono>
 #include <thread>
 
-#include "Common/Core.hh"
+#include "Common/Core.hpp"
 
 #ifdef _MSC_VER
 
@@ -36,6 +36,7 @@ int main() {
       core->display_loop();
     }
     catch (const std::exception &err) {
+        std::cerr << err.what() << std::endl;
         std::cerr << _INDIE_LAUNCHING_FAILED << std::endl;
         return EXIT_FAILURE;
     }

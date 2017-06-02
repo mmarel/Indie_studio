@@ -7,7 +7,7 @@
 #include <chrono>
 #include <thread>
 #include <memory>
-#include "Common/Core.hh"
+#include "Common/Core.hpp"
 
 indie::Core::Core() : _gameState(indie::GameState::MENU), _gameLoad(), _sounds()
 {
@@ -24,7 +24,8 @@ indie::Core::Core(Core const &copy) : _gameState(copy._gameState), _gameLoad(cop
 
 indie::Core &indie::Core::operator=(Core const &copy)
 {
-  (void)copy;
+    if (&copy == this) return *this;
+    (void)copy;
     return (*this);
 }
 
@@ -71,6 +72,7 @@ void    indie::Core::display_game(indie::Gfx &_gfx)
 void    indie::Core::display_menu(indie::Gfx &_gfx)
 {
     std::cout << "DISPLAY MENU" << std::endl;
+    (void)_gfx;
 }
 
 void    indie::Core::display_loop()
@@ -91,16 +93,19 @@ void    indie::Core::display_loop()
             {
                 std::cout << "LOADING" << std::endl;
                 load_sound_lib();
+                break;
             }
             case indie::GameState::INGAME :
             {
                 std::cout << "INGAME" << std::endl;
                 display_game(_gfx);
+                break;
             }
             case indie::GameState::MENU :
             {
                 std::cout << "MENU" << std::endl;
                 display_menu(_gfx);
+                break;
             }
             default:
                 break;

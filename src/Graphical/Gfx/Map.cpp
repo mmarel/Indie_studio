@@ -23,17 +23,19 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t y) 
         irr::scene::IAnimatedMeshSceneNode  *node = this->_nodesLoaded[tile.getModelId()].node;
 
         if (tile.doesAnimationChanged())
-            node->setFrameLoop(tile.getModelFrameLoop().first,
-                               tile.getModelFrameLoop().second);
+            node->setFrameLoop(static_cast< irr::s32 >(tile.getModelFrameLoop().first),
+                               static_cast< irr::s32 >(tile.getModelFrameLoop().second));
         
-        node->setPosition(irr::core::vector3df(static_cast<float>(x),
-                          static_cast<float>(y),
-                          10.0f));
+        node->setPosition(irr::core::vector3df(static_cast< float >(x),
+                                               static_cast< float >(y),
+                                               10.0f));
     } else {
 
         // We create a new one
         NodeContainer           newModel;
-        irr::core::vector3df    position(static_cast<float>(x), static_cast<float>(y), 10.0f);
+        irr::core::vector3df    position(static_cast< float >(x),
+                                         static_cast< float >(y),
+                                         10.0f);
         irr::core::vector3df    rotation(0.0f, 0.0f, 0.0f);
 
         if ((newModel.node =
@@ -45,8 +47,9 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t y) 
                 throw IndieError(_INDIE_GFX_TEXTURE_FAILED);
 
         newModel.id = tile.getModelId();
-        newModel.node->setFrameLoop(tile.getModelFrameLoop().first, tile.getModelFrameLoop().second);
-        newModel.node->setCurrentFrame(tile.getModelFrameLoop().first);
+        newModel.node->setFrameLoop(static_cast< irr::s32 >(tile.getModelFrameLoop().first),
+                                    static_cast< irr::s32 >(tile.getModelFrameLoop().second));
+        newModel.node->setCurrentFrame(static_cast< float >(tile.getModelFrameLoop().first));
         this->_nodesLoaded[tile.getModelId()] = newModel;
     }
 
@@ -68,7 +71,8 @@ void    indie::Gfx::delete_old_nodes() {
 
 }
 
-void    indie::Gfx::updateMap(IMap const &map) {
+void    indie::Gfx::updateMap(const IMap &map) {
+
     std::size_t nbLayers    = map.getLayerNb();
     std::size_t map_width   = map.getWidth();
     std::size_t map_height  = map.getHeight();

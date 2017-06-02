@@ -13,7 +13,7 @@
 #include <string>
 #include <memory>
 
-#include "Event.hpp"
+#include "Common/Event.hpp"
 #include "Sound.hpp"
 #include "ISprite.hpp"
 #include "IModel.hpp"

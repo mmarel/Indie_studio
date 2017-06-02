@@ -13,8 +13,8 @@
 #include <string>
 #include <memory>
 
+#include "Common/Event.hpp"
 #include "GameState.hpp"
-#include "Event.hpp"
 #include "IStat.hpp"
 #include "IMap.hpp"
 #include "IGUI.hpp"
