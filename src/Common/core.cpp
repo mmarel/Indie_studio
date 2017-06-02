@@ -76,7 +76,6 @@ void    indie::Core::display_menu(indie::Gfx &_gfx)
 void    indie::Core::display_loop()
 {
     int state;
-    //std::unique_ptr<indie::Gfx> _gfx = std::make_unique<indie::Gfx>();
     indie::Gfx _gfx;
     //_gameLoad = 
 
