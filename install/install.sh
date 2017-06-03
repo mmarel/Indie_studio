@@ -61,5 +61,6 @@ while true; do
                                 liblua5.2-dev \
                                 liblua5.2-0 \
                                 graphviz
+	break;;
     esac
 done
