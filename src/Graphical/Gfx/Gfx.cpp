@@ -20,18 +20,24 @@ indie::Gfx::Gfx()
                                         true,
                                         false,
                                         0) ),
+          // Irrlicht Items
           _driver(this->_device->getVideoDriver()),
           _smgr(this->_device->getSceneManager()),
           _camera(),
           _guienv(this->_device->getGUIEnvironment()),
+          // Font
           _fonts(),
+          // Models Management
           _meshesLoaded(),
           _nodesLoaded(),
           _objectsId(),
+          // Events Management
+          _eventsOverlay(),
+          // Sprites Management
           _sprites()
 
     {
-        
+
         std::cout << "Launching Irrlicht GFX" << std::endl;
 
         this->_device->setWindowCaption(L"BAUNTLET");
@@ -95,6 +101,11 @@ indie::Gfx::Gfx()
 
             #if DEBUG_MODE
                 this->displayGraphicalInfos();
+
+                indie::Event    e;
+
+                this->pollEvents(e);
+
             #endif
 
             this->_guienv->drawAll();
@@ -129,6 +140,10 @@ void    indie::Gfx::set_window_settings() {
 
     // Load Default Font
     this->loadFonts();
+
+    // Set Event Receiver
+    this->_device->setEventReceiver(&this->_eventsOverlay);
+
 }
 
 void    indie::Gfx::displayGraphicalInfos() {

@@ -1,55 +1,16 @@
 //
 // Author: Marwane Khsime 
-// Date: 2017-05-22 17:49:33 
+// Date: 2017-05-05 05:08:14 
 //
 // Last Modified by:   Marwane Khsime 
-// Last Modified time: 2017-05-22 17:49:33
+// Last Modified time: 2017-05-05 05:08:14
 //
-#ifndef GAMESTATE_HPP_
-#define GAMESTATE_HPP_
 
-#include <vector>
-#include <map>
-#include "irr/irrlicht.h"
+#ifndef IGAME_STATE_H
+# define IGAME_STATE_H
 
 namespace indie
 {
-
-    ///
-    /// \enum TileTypeEvolution
-    /// \brief Type of map tile
-    ///
-    enum TileTypeEvolution
-    {
-        //! Empty tile
-        EMPTY = 0,
-        
-        //! Block tile
-        BLOCK,
-        
-        //! Obstacle tile
-        OBSTACLE,
-        
-        //! Enemy tile
-        ENEMY,
-        
-        //! Enemy shot tile
-        SHOT_ENEMY,
-        
-        //! Player shot tile
-        SHOT_PLAYER,
-        
-        //! Powerup tile
-        POWERUP,
-        
-        //! Player tile
-        PLAYER,
-        
-        //! Food tile
-        FOOD,
-    };
-
-
     ///
     /// \enum GameState
     /// \brief Describes current game state
@@ -78,18 +39,6 @@ namespace indie
         NB_GAME_STATE
     };
 
-    class EventKey : public irr::IEventReceiver
-    {
-        public:
-            EventKey();
-            virtual ~EventKey() {};
-
-            virtual bool    OnEvent(const irr::SEvent& event);
-            int             getKeyPressed() const;
-            bool            IsKeyDown(irr::EKEY_CODE keyCode) const;
-
-        private:
-            bool            keyMap[irr::KEY_KEY_CODES_COUNT];
-    };
 }
-#endif // !GAMESTATE_HPP_
+
+#endif // IGAME_STATE_H

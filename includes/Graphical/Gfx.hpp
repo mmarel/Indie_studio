@@ -14,10 +14,12 @@
 #include <unordered_map>
 #include <algorithm>
 
-#include "Interfaces/IGfx.hpp"
-#include "Exception/exception.hpp"
-#include "Common/common.hpp"
 #include "irr/irrlicht.h"
+#include "Interfaces/IGfx.hpp"
+#include "Common/common.hpp"
+#include "Graphical/irrEventsOverlay.hpp"
+//#include "Graphical/IrrlichtEventsCorrespondence.hpp"
+#include "Exception/exception.hpp"
 
 namespace indie
 {
@@ -124,7 +126,7 @@ namespace indie
             virtual void        updateMap(IMap const &map);
 
             //  Not allowed
-            void                operator=(const Gfx& gfx) = delete;
+            Gfx &operator=(const Gfx& gfx) = delete;
             Gfx(const Gfx &gfx) = delete;
 
         private:
@@ -169,6 +171,9 @@ namespace indie
             std::unordered_map<std::size_t, MeshContainer>      _meshesLoaded;
             std::unordered_map<std::size_t, NodeContainer>      _nodesLoaded;
             std::vector<std::size_t> _objectsId;
+
+            // Events
+            irrEventOverlay                                     _eventsOverlay;
 
         private:
             // Sprites

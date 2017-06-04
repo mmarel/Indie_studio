@@ -12,11 +12,18 @@
 #include <unordered_map>
 
 #include "Extern/irr/Keycodes.h"
-#include "Common/Event.hpp"
+#include "Interfaces/Event.hpp"
+
+// Desable warnings in this file
+#if defined( __clang__ )
+    #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wexit-time-destructors"
+#endif
 
 namespace indie
 {
-    static const std::unordered_map<const int, const int>   _irrKeyboardKeys = {
+
+    const std::unordered_map<int, int>   _irrKeyboardKeys = {
 
         { -1, indie::KB_NONE },
         { irr::EKEY_CODE::KEY_KEY_A, indie::KB_A },
@@ -109,23 +116,25 @@ namespace indie
 
     };
 
-     static const std::unordered_map<const int, const int>   _irrMouseKeys = {
+    const std::unordered_map<int, int>   _irrMouseKeys = {
 
-        { irr::EKEY_CODE::KEY_LBUTTON, indie::MouseKey::M_LEFT_CLICK },
-        { irr::EKEY_CODE::KEY_RBUTTON, indie::MouseKey::M_RIGHT_CLICK },
-        { irr::EKEY_CODE::KEY_MBUTTON, indie::MouseKey::M_MIDDLE_CLICK },
-        { irr::EKEY_CODE::KEY_XBUTTON1, indie::MouseKey::M_BT0 },
-        { irr::EKEY_CODE::KEY_XBUTTON2, indie::MouseKey::M_BT1 }
+        { irr::EMIE_LMOUSE_PRESSED_DOWN, indie::MouseKey::M_LEFT_CLICK },
+        { irr::EMIE_RMOUSE_PRESSED_DOWN, indie::MouseKey::M_RIGHT_CLICK }
         // Scroll is not supported
 
     };
 
-    static const std::unordered_map<const int, const int>   _irrControllerKey = {
+    const std::unordered_map<int, int>   _irrControllerKey = {
 
         { -1, C_NONE }
 
     };
 
 }
+
+// Disable exit warning
+#if defined(__clang__)
+    #pragma clang diagnostic pop
+#endif
 
 #endif // IRRLICHT_EVENTS_CORRESPONDENCE_HPP

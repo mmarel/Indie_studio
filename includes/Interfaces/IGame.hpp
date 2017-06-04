@@ -13,7 +13,7 @@
 #include <string>
 #include <memory>
 
-#include "Common/Event.hpp"
+#include "Event.hpp"
 #include "GameState.hpp"
 #include "IStat.hpp"
 #include "IMap.hpp"

@@ -13,10 +13,43 @@
 #include <string>
 #include <utility>
 #include "Color.hpp"
-#include "GameState.hpp"
 
 namespace indie
 {
+
+    ///
+    /// \enum TileTypeEvolution
+    /// \brief Type of map tile
+    ///
+    enum TileTypeEvolution
+    {
+        //! Empty tile
+        EMPTY = 0,
+        
+        //! Block tile
+        BLOCK,
+        
+        //! Obstacle tile
+        OBSTACLE,
+        
+        //! Enemy tile
+        ENEMY,
+        
+        //! Enemy shot tile
+        SHOT_ENEMY,
+        
+        //! Player shot tile
+        SHOT_PLAYER,
+        
+        //! Powerup tile
+        POWERUP,
+        
+        //! Player tile
+        PLAYER,
+        
+        //! Food tile
+        FOOD,
+    };
 
 	///
 	/// \enum ELookAT
