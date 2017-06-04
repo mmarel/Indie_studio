@@ -95,6 +95,8 @@ TARGET_LINK_LIBRARIES(
             -lpthread
             -lGL
             -lGLU
+            -lopenal
+            -lsndfile
 )
 
 ###############################################################################

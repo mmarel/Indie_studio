@@ -33,6 +33,8 @@ indie::Gfx::Gfx()
           _objectsId(),
           // Events Management
           _eventsOverlay(),
+          // Sound
+          _soundManager(),
           // Sprites Management
           _sprites()
 

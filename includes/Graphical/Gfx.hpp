@@ -18,14 +18,13 @@
 #include "Interfaces/IGfx.hpp"
 #include "Common/common.hpp"
 #include "Graphical/irrEventsOverlay.hpp"
-//#include "Graphical/IrrlichtEventsCorrespondence.hpp"
+#include "Sound/SoundManager.hpp"
 #include "Exception/exception.hpp"
 
 namespace indie
 {
 
     // GLOBAL PARAMETERS
-    # define SOUND_SUPPORTED    TRUE
     # define FULLSCREEN         TRUE
     # define SCREEN_WIDTH       1080
     # define SCREEN_HEIGHT      720
@@ -174,6 +173,9 @@ namespace indie
 
             // Events
             irrEventOverlay                                     _eventsOverlay;
+
+            // Sound Manager
+            SoundManager                                        _soundManager;
 
         private:
             // Sprites
