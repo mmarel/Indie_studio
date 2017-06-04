@@ -28,7 +28,13 @@ namespace indie
                  double shiftX,
                  double shiftY);
 
+            Tile(Tile &&) = default;
+            Tile(const Tile &) = default;
+            Tile &operator=(Tile &&) = default;
+            Tile &operator=(const Tile &) = default;
+
             virtual ~Tile() { }
+
 
             virtual Color                           getColor() const;
             virtual bool                            hasModel() const;
