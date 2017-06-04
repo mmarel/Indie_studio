@@ -63,16 +63,12 @@ void    indie::Core::display_game(indie::Gfx &_gfx)
     for (std::vector<indie::Sound>::const_iterator it = _sounds.begin(); it != _sounds.end(); it++)   
         _gfx.soundControl(*it);       
 
-    try {
-        _gfx.loadSprites(_gameLoad->getSpritesToLoad());
-        _gfx.loadModels(_gameLoad->getModelsToLoad());
-        _gfx.updateMap(_gameLoad->getCurrentMap());
-        _gfx.updateGUI(_gameLoad->getGUI());
-        _gfx.display();
-    } catch (const std::exception &err) {
-        std::cerr << err.what() << std::endl;
-        exit (EXIT_FAILURE);
-    }
+    // TODO : CHECK LOAD ATTEMPT
+    _gfx.loadSprites(_gameLoad->getSpritesToLoad());
+    _gfx.loadModels(_gameLoad->getModelsToLoad());
+    _gfx.updateMap(_gameLoad->getCurrentMap());
+    _gfx.updateGUI(_gameLoad->getGUI());
+    _gfx.display();
 }
 
 void    indie::Core::display_menu(indie::Gfx &_gfx)
