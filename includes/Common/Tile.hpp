@@ -41,6 +41,17 @@ namespace indie
             virtual double                          getShiftX() const;
             virtual double                          getShiftY() const;
 
+            void                    setColor(const Color &);
+            void                    setHasModel(bool);
+            void                    setMeshId(std::size_t);
+            void                    setModelId(std::size_t);
+            void                    setModelRotation(ELookAt);
+            void                    setModelTexture(const std::string &);
+            void                    setDoesAnimationChanged(bool);
+            void                    setModelFrameLoop(const std::pair<std::size_t, std::size_t> &);
+            void                    setShiftX(double);
+            void                    setShiftY(double);
+
         private:
 
             Color                                   _color;
