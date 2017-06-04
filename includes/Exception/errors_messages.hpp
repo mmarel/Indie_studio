@@ -28,5 +28,5 @@ namespace indie
     # define _INDIE_SOUND_NOT_FOUND                 "Indie Sound : Sound not found."
     # define _INDIE_SOUND_DEVICE_NOT_FOUND          "Indie Sound : No sound device found."
     # define _INDIE_SOUND_CONTEXT_FAILED            "Indie Sound : Failed to create context for sound."
-    # define _INDIE_SOUND_ACTIVE_CONTEXT_FAILED    "Indie Sound : Failed to active context for sound."
+    # define _INDIE_SOUND_ACTIVE_CONTEXT_FAILED     "Indie Sound : Failed to active context for sound."
 }

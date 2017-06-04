@@ -10,7 +10,7 @@
 #include <chrono>
 #include <thread>
 
-#include "Common/Core.hpp"
+#include "Core/Core.hpp"
 
 #ifdef _MSC_VER
 

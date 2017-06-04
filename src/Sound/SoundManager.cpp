@@ -123,7 +123,7 @@ void    indie::SoundManager::loadSounds(std::vector<std::pair<std::string, indie
 
         ALuint  Source;
         alGenSources(1, &Source);
-        alSourcei(Source, static_cast< ALsizei>(AL_BUFFER), Buffer);
+        alSourcei(Source, AL_BUFFER, Buffer);
 
         // push sound in map
         this->_sounds.insert(std::pair<size_t, ALuint>(x, Source));
