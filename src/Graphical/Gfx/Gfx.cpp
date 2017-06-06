@@ -117,6 +117,7 @@ indie::Gfx::Gfx()
 
         this->set_window_settings();
 
+        this->updateFlor(0);
         // This loop is just for testing
         while (this->_device->run())
         {
@@ -151,7 +152,6 @@ void    indie::Gfx::display() {
             indie::Event    e;
 
             this->pollEvents(e);
-            this->updateFlor(rand() % 10);
         #endif
 
         this->_guienv->drawAll();
