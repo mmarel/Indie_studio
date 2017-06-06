@@ -138,6 +138,14 @@ namespace indie
         /// \brief Get the current version of the GUI to display
         ///
         virtual IGUI &getGUI() = 0;
+
+        // Level
+        ///
+        /// \fn virtual std::size_t getFlor() const = 0
+        /// \brief Get the current flor for the scene level
+        ///
+        virtual std::size_t getFlor() const = 0;
+
   };
 }
 

@@ -21,6 +21,8 @@ namespace indie
     # define _INDIE_GFX_TEXTURE_FAILED              "Indie Gfx : Failed to load / apply texture."
     # define _INDIE_GFX_SPRITE_FAILED               "Indie Gfx : Failed to load sprite : "
     # define _INDIE_GFX_GUI_FAILED                  "Indie Gfx : Failed to load gui : "
+    # define _INDIE_GFX_SCENE_FLOR_INVALID          "Indie Gfx : Invalid flor for scene selected."
+    # define _INDIE_GFX_DEVICE_IS_OFF               "Indie Gfx : Can not display anything because the driver is not running."
     // ------- GAME
     // ------- SOUND MANAGER
     # define _INDIE_SOUND_NOT_SUPPORTED             "Indie Sound : Sound mode not supported."

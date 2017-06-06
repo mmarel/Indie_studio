@@ -27,6 +27,8 @@ indie::Gfx::Gfx()
           _guienv(this->_device->getGUIEnvironment()),
           // Font
           _fonts(),
+          // Scenes Management
+          _scenesLoaded(),
           // Models Management
           _meshesLoaded(),
           _nodesLoaded(),
@@ -58,16 +60,38 @@ indie::Gfx::Gfx()
             this->_smgr->addAnimatedMeshSceneNode(mesh,
                                                   NULL,
                                                   1,
-                                                  irr::core::vector3df(0.0f, 0.0f, 10.0f),
-                                                  irr::core::vector3df(0.0f, 180.0f, 0.0f));
+                                                  irr::core::vector3df(-4.5f, 0.0f, 15.0f),
+                                                  irr::core::vector3df(0.0f, 0.0f, 0.0f));
 
         if (node) {
             node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
             node->setMD2Animation(irr::scene::EMAT_STAND);
-            node->setMaterialTexture(0, this->_driver->getTexture("Textures/SkeletonMage/Blue.png"));
+            node->setMaterialTexture(0, this->_driver->getTexture("Textures/SkeletonMage/Green.png"));
         } else {
             std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
         }
+
+        // irr::scene::IAnimatedMesh   *mesh2 = this->_smgr->getMesh("Map/bot_right.obj");
+
+        // if (!mesh2) {
+        //     throw IndieError(_INDIE_GFX_MESH_FAILED);
+        // }
+
+        // irr::scene::IAnimatedMeshSceneNode *node2 =
+        //     this->_smgr->addAnimatedMeshSceneNode(mesh2,
+        //                                           NULL,
+        //                                           1,
+        //                                           irr::core::vector3df(0.0f, 0.0f, 10.0f),
+        //                                           irr::core::vector3df(0.0f, 0.0f, 0.0f));
+
+        // if (node2) {
+        //     node2->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+        //     node2->setMD2Animation(irr::scene::EMAT_STAND);
+        //     node2->setMaterialTexture(0, this->_driver->getTexture("Map/bot_right.png"));
+        // } else {
+        //     std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
+        // }
+
 
         irr::SKeyMap keyMap[5];
 
@@ -97,22 +121,7 @@ indie::Gfx::Gfx()
         while (this->_device->run())
         {
 
-            this->_driver->beginScene(true, true, SBlack);
-
-            this->_smgr->drawAll();
-
-            #if DEBUG_MODE
-                this->displayGraphicalInfos();
-
-                indie::Event    e;
-
-                this->pollEvents(e);
-
-            #endif
-
-            this->_guienv->drawAll();
-
-            this->_driver->endScene();
+            this->display();
 
         }
 
@@ -128,11 +137,37 @@ indie::Gfx::Gfx()
 indie::Gfx::~Gfx() {}
 
 void    indie::Gfx::display() {
-    std::cout << "display" << std::endl;
+
+    if (this->_device->run())
+    {
+
+        this->_driver->beginScene(true, true, SBlack);
+
+        this->_smgr->drawAll();
+
+        #if DEBUG_MODE
+            this->displayGraphicalInfos();
+
+            indie::Event    e;
+
+            this->pollEvents(e);
+            this->updateFlor(rand() % 10);
+        #endif
+
+        this->_guienv->drawAll();
+
+        this->_driver->endScene();
+
+    }   else {
+
+        std::cerr << _INDIE_GFX_DEVICE_IS_OFF << std::endl;
+
+    }
+
 }
 
 void    indie::Gfx::clear() {
-    std::cout << "clear" << std::endl;
+    this->_driver->beginScene(true, true, SBlack);
 }
 
 void    indie::Gfx::set_window_settings() {
@@ -143,8 +178,26 @@ void    indie::Gfx::set_window_settings() {
     // Load Default Font
     this->loadFonts();
 
+    std::vector<std::pair<std::string, std::string> > tmp = {
+                        std::make_pair("Map/bot_right.obj", "Map/bot_right.png"),
+                        std::make_pair("Map/bot_left.obj", "Map/bot_left.png"),
+                        std::make_pair("Map/top_left.obj", "Map/top_left.png"),
+                        std::make_pair("Map/top_right.obj", "Map/top_right.png"),
+                        std::make_pair("Map/ground.obj", "Map/ground.png"),
+                        std::make_pair("Map/pillars.obj", "Map/pillars.png")
+                    };
+
+    std::unique_ptr<indie::IScene>  mys = std::make_unique<Scene>(tmp);
+    
+    std::vector<std::unique_ptr<indie::IScene> >    scenes;
+
+    scenes.push_back(std::move(mys));
+
+    this->loadScene(std::move(scenes));
+
+    // this->updateFlor(0);
     // Set Event Receiver
-    this->_device->setEventReceiver(&this->_eventsOverlay);
+    // this->_device->setEventReceiver(&this->_eventsOverlay);
 
 }
 

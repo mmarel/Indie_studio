@@ -17,9 +17,11 @@
 #include "irr/irrlicht.h"
 #include "Interfaces/IGfx.hpp"
 #include "Common/common.hpp"
+#include "Common/Scene.hpp"
 #include "Graphical/irrEventsOverlay.hpp"
 #include "Sound/SoundManager.hpp"
 #include "Exception/exception.hpp"
+#include "GfxContainers.hpp"
 
 namespace indie
 {
@@ -39,57 +41,6 @@ namespace indie
 	const irr::video::SColor  SYellow(255, 255, 255, 0);
 	const irr::video::SColor  SMagenta(255, 255, 0, 255);
 	const irr::video::SColor  SCyan(255, 0, 255, 255);
-
-    // Containers For Models
-    struct  MeshContainer {
-
-        MeshContainer()
-                    : mesh(NULL), frameSequences() {
-        }
-
-        MeshContainer(irr::scene::IAnimatedMesh *_mesh,
-                      std::vector<std::pair<size_t, size_t> > _frameSequences)
-                      : mesh(_mesh), frameSequences(_frameSequences) {
-        }
-
-        MeshContainer(const MeshContainer &mc)
-            : mesh(mc.mesh), frameSequences(mc.frameSequences) {
-        }
-
-        MeshContainer &operator=(const MeshContainer &mc) {
-            this->mesh = mc.mesh;
-            this->frameSequences = mc.frameSequences;
-            return *this;
-        }
-
-        irr::scene::IAnimatedMesh                 *mesh;
-        std::vector<std::pair<size_t, size_t> >   frameSequences;
-    };
-
-    struct  NodeContainer {
-
-        NodeContainer()
-            : id(0), node(NULL) {
-        }
-
-        NodeContainer(size_t _id, irr::scene::IAnimatedMeshSceneNode *_node)
-            : id(_id), node(_node) {
-        }
-
-        NodeContainer(const NodeContainer &nc)
-            : id(nc.id), node(nc.node) {
-        }
-
-        NodeContainer &operator=(const NodeContainer &nc) {
-            this->id = nc.id;
-            this->node = nc.node;
-            return *this;
-        }
-
-        size_t                                      id;
-        irr::scene::IAnimatedMeshSceneNode          *node;
-
-    };
 
     class Gfx : public indie::IGfx {
 
@@ -112,6 +63,8 @@ namespace indie
             virtual bool        doesSupportSound() const;
             virtual void        loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds);
             virtual void        soundControl(const Sound &sound);
+            //  Scene
+            virtual void        loadScene(std::vector<std::unique_ptr<IScene> > &&scene);
             //  Sprites
             virtual void        loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprites);
             //  Models
@@ -123,7 +76,8 @@ namespace indie
             virtual void        updateGUI(IGUI &gui);
             //  Map
             virtual void        updateMap(IMap const &map);
-
+            // Scene appearance
+            virtual void        updateFlor(std::size_t);
             //  Not allowed
             Gfx &operator=(const Gfx& gfx) = delete;
             Gfx(const Gfx &gfx) = delete;
@@ -157,6 +111,7 @@ namespace indie
         // Member Variables
         //
         public:
+            // move in private, here for the moment for debug
 
             // Irrlicht Items
             std::unique_ptr<irr::IrrlichtDevice>                _device;
@@ -165,6 +120,9 @@ namespace indie
             irr::scene::ICameraSceneNode                        *_camera;
             irr::gui::IGUIEnvironment                           *_guienv;
             std::vector<irr::gui::IGUIFont *>                   _fonts;
+
+            // Scene Management
+            std::vector<SceneContainer>                         _scenesLoaded;
 
             // Models Management
             std::unordered_map<std::size_t, MeshContainer>      _meshesLoaded;
@@ -177,9 +135,11 @@ namespace indie
             // Sound Manager
             SoundManager                                        _soundManager;
 
-        private:
             // Sprites
             std::unordered_map<std::size_t, std::vector<irr::video::ITexture *> >   _sprites;
+
+        private:
+            void            display_mobs_everywhere();
     };
 
 }

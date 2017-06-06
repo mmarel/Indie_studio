@@ -1,0 +1,78 @@
+//
+// Author: Marwane Khsime 
+// Date: 2017-06-05 07:42:19 
+//
+// Last Modified by:   Marwane Khsime 
+// Last Modified time: 2017-06-05 07:42:19
+//
+
+#include "Graphical/Gfx.hpp"
+
+void    indie::Gfx::updateFlor(std::size_t flor) {
+
+    if (flor >= this->_scenesLoaded.size()) {
+        std::cerr << _INDIE_GFX_SCENE_FLOR_INVALID << std::endl;
+    }
+
+    for (std::size_t i = 0; i < this->_scenesLoaded.size(); ++i) {
+
+        for (std::size_t j = 0; j < this->_scenesLoaded.at(i)._scene.size(); ++j) {
+
+            this->_scenesLoaded.at(i)._scene.at(j).second->setVisible( i == flor ? true : false );
+
+        }
+
+    }
+
+}
+
+void    indie::Gfx::loadScene(std::vector<std::unique_ptr<indie::IScene> > &&scenes) {
+
+
+    // Clear the old Scene
+    for (std::size_t i = 0; i < this->_scenesLoaded.size(); ++i) {
+        
+        for (std::size_t j = 0; j < this->_scenesLoaded.at(i)._scene.size(); ++j) {
+            this->_scenesLoaded.at(i)._scene.at(j).second->remove();
+        }
+        this->_scenesLoaded.at(i)._scene.clear();
+
+    }
+
+    this->_scenesLoaded.clear();
+
+    for (std::size_t i = 0; i < scenes.size(); ++i) {
+
+        indie::SceneContainer   scene_container;;
+
+        for (std::size_t j = 0; j < scenes.at(i)->getNumberParts(); ++j) {
+
+            irr::scene::IAnimatedMesh   *mesh = this->_smgr->getMesh(scenes.at(i)->getPartAtPos(j).first.c_str());
+
+            if (!mesh) {
+                throw IndieError(_INDIE_GFX_MESH_FAILED);
+            }
+
+            irr::scene::IAnimatedMeshSceneNode *node =
+                this->_smgr->addAnimatedMeshSceneNode(mesh,
+                                                    NULL,
+                                                    1,
+                                                    irr::core::vector3df(0.0f, 0.0f, 10.0f),
+                                                    irr::core::vector3df(0.0f, 0.0f, 0.0f));
+
+            if (node) {
+                node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+                node->setMD2Animation(irr::scene::EMAT_STAND);
+                node->setMaterialTexture(0, this->_driver->getTexture(scenes.at(i)->getPartAtPos(j).second.c_str()));
+            } else {
+                std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
+            }
+
+            node->setVisible(false);
+            scene_container._scene.push_back( { mesh, node } );
+        }
+
+        this->_scenesLoaded.push_back(scene_container);
+    }
+
+}

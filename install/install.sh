@@ -42,30 +42,31 @@ done
 ############
 
 while true; do
-    read -p "Do you wish to project dependencies (y/n) ?  " yn
+    read -p "Do you wish to install dependencies for the project (y/n) ?  " yn
     case $yn in
 
         [Nn]* ) break;;
 
         [Yy]* )
 
-        sudo apt-get install    libegl1-mesa		    \
-                                libgl1-mesa-dev		    \
-                                libglu1-mesa		    \
-                                libglu1-mesa-dev	    \
+        sudo apt-get install    libegl1-mesa			\
+                                libgl1-mesa-dev			\
+                                libglu1-mesa			\
+                                libglu1-mesa-dev		\
                                 libsfml-dev		        \
-                                libgtest-dev		    \
-                                binutils-dev		    \
+                                libgtest-dev			\
+                                binutils-dev			\
                                 libtool			        \
                                 lua5.2			        \
-                                liblua5.2-dev		    \
+                                liblua5.2-dev			\
                                 liblua5.2-0		        \
                                 graphviz		        \
-                                libxrandr-dev		    \
+                                libxrandr-dev			\
                                 libxi-dev		        \
-                                libxrender-dev          \
-                                libsndfile1-dev         \
-                                install libopenal-dev
+                                libxrender-dev			\
+                                libsndfile1-dev			\
+                                install libopenal-dev		\
+				cmake
 	break;;
     esac
 done
