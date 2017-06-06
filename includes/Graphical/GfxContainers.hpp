@@ -23,8 +23,8 @@ namespace indie
         SceneContainer()
                     : _scene() {
         }
-        SceneContainer(const std::vector<std::pair<irr::scene::IAnimatedMesh *,
-                                                   irr::scene::IAnimatedMeshSceneNode *> > &scene)
+        SceneContainer(const std::vector<std::pair<irr::scene::IMesh *,
+                                                   irr::scene::IMeshSceneNode *> > &scene)
                                                    : _scene(scene) {
                                                     
         }
@@ -43,8 +43,8 @@ namespace indie
 
         }
 
-        std::vector<std::pair<irr::scene::IAnimatedMesh *,
-                              irr::scene::IAnimatedMeshSceneNode *> >   _scene;
+        std::vector<std::pair<irr::scene::IMesh *,
+                              irr::scene::IMeshSceneNode *> >   _scene;
     };
 
     // Containers For Models (meshes)

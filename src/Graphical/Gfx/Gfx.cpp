@@ -38,7 +38,9 @@ indie::Gfx::Gfx()
           // Sound
           _soundManager(),
           // Sprites Management
-          _sprites()
+          _sprites(),
+          // Utils
+          _orientation( { 0.0f, 270.0f, 180.f, 90.0f }) // NORTH, EAST, SOUTH, WEST
 
     {
 
@@ -60,7 +62,7 @@ indie::Gfx::Gfx()
             this->_smgr->addAnimatedMeshSceneNode(mesh,
                                                   NULL,
                                                   1,
-                                                  irr::core::vector3df(-4.5f, 0.0f, 15.0f),
+                                                  irr::core::vector3df(0.0f, 0.0f, 0.0f),
                                                   irr::core::vector3df(0.0f, 0.0f, 0.0f));
 
         if (node) {
@@ -70,28 +72,6 @@ indie::Gfx::Gfx()
         } else {
             std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
         }
-
-        // irr::scene::IAnimatedMesh   *mesh2 = this->_smgr->getMesh("Map/bot_right.obj");
-
-        // if (!mesh2) {
-        //     throw IndieError(_INDIE_GFX_MESH_FAILED);
-        // }
-
-        // irr::scene::IAnimatedMeshSceneNode *node2 =
-        //     this->_smgr->addAnimatedMeshSceneNode(mesh2,
-        //                                           NULL,
-        //                                           1,
-        //                                           irr::core::vector3df(0.0f, 0.0f, 10.0f),
-        //                                           irr::core::vector3df(0.0f, 0.0f, 0.0f));
-
-        // if (node2) {
-        //     node2->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-        //     node2->setMD2Animation(irr::scene::EMAT_STAND);
-        //     node2->setMaterialTexture(0, this->_driver->getTexture("Map/bot_right.png"));
-        // } else {
-        //     std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
-        // }
-
 
         irr::SKeyMap keyMap[5];
 
@@ -119,11 +99,12 @@ indie::Gfx::Gfx()
 
         this->updateFlor(0);
         // This loop is just for testing
+        std::size_t i = 0;
         while (this->_device->run())
         {
-
+            // node->setRotation( irr::core::vector3df( { 0.0f, _orientation[SOUTH - 1], 0.0f }) );
             this->display();
-
+            //std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
 
         //########################################## END TEST
@@ -222,4 +203,8 @@ void    indie::Gfx::displayGraphicalInfos() {
     //  FPS
     std::string fpsTxt("FPS : " + std::to_string(this->_driver->getFPS()));
     this->draw_text(fpsTxt, 0.0f, 0.050f, SCyan, SBlack);
+}
+
+void    indie::Gfx::display_mobs_all_map() {
+
 }

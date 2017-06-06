@@ -13,6 +13,8 @@
 #include <iostream>
 #include <unordered_map>
 #include <algorithm>
+#include <chrono>
+#include <thread>
 
 #include "irr/irrlicht.h"
 #include "Interfaces/IGfx.hpp"
@@ -138,8 +140,11 @@ namespace indie
             // Sprites
             std::unordered_map<std::size_t, std::vector<irr::video::ITexture *> >   _sprites;
 
+            // Utils
+            const std::array< float, 4 >                           _orientation;
+
         private:
-            void            display_mobs_everywhere();
+            void            display_mobs_all_map();
     };
 
 }

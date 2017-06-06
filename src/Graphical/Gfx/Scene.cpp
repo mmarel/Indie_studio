@@ -47,22 +47,21 @@ void    indie::Gfx::loadScene(std::vector<std::unique_ptr<indie::IScene> > &&sce
 
         for (std::size_t j = 0; j < scenes.at(i)->getNumberParts(); ++j) {
 
-            irr::scene::IAnimatedMesh   *mesh = this->_smgr->getMesh(scenes.at(i)->getPartAtPos(j).first.c_str());
+            irr::scene::IMesh   *mesh = this->_smgr->getMesh(scenes.at(i)->getPartAtPos(j).first.c_str());
 
             if (!mesh) {
                 throw IndieError(_INDIE_GFX_MESH_FAILED);
             }
 
-            irr::scene::IAnimatedMeshSceneNode *node =
-                this->_smgr->addAnimatedMeshSceneNode(mesh,
+            irr::scene::IMeshSceneNode *node =
+                this->_smgr->addMeshSceneNode(mesh,
                                                     NULL,
                                                     1,
-                                                    irr::core::vector3df(0.0f, 0.0f, 10.0f),
+                                                    irr::core::vector3df(0.0f, 0.0f, 0.0f),
                                                     irr::core::vector3df(0.0f, 0.0f, 0.0f));
 
             if (node) {
                 node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-                node->setMD2Animation(irr::scene::EMAT_STAND);
                 node->setMaterialTexture(0, this->_driver->getTexture(scenes.at(i)->getPartAtPos(j).second.c_str()));
             } else {
                 std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
