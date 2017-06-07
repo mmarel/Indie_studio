@@ -67,7 +67,7 @@ void    indie::Core::display_game(indie::Gfx &_gfx)
     _gfx.loadSprites(_gameLoad->getSpritesToLoad());
     _gfx.loadModels(_gameLoad->getModelsToLoad());
     _gfx.updateMap(_gameLoad->getCurrentMap());
-    _gfx.updateGUI(_gameLoad->getGUI());
+    _gfx.updateGUI(_gameLoad->getCurrentGUI());
     _gfx.display();
 }
 

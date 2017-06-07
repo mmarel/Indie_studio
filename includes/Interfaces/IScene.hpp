@@ -39,6 +39,21 @@ namespace indie
             ///
             ///
             virtual std::pair<std::string, std::string> getPartAtPos(std::size_t) const = 0;
+            ///
+            /// \fn virtual float getStartX() const = 0;
+            /// \brief Returns the starting x position of the game area.
+            ///
+            virtual float getStartX() const = 0;
+            ///
+            /// \fn virtual float getStartY() const = 0;
+            /// \brief Returns the starting y position of the game area.
+            ///
+            virtual float getStartY() const = 0;
+            ///
+            /// \fn virtual float getStartZ() const = 0;
+            /// \brief Returns the starting z position of the game area.
+            ///
+            virtual float getStartZ() const = 0;
     };
 }
 

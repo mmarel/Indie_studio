@@ -46,6 +46,20 @@ namespace indie
 
     class Gfx : public indie::IGfx {
 
+        ///
+        /// \enum EDIRECTION
+        ///	\brief Indicate the direction where the model is looking at.
+        ///
+        enum EDIRECTION {
+
+            IRR_UNKNOWN = -1,
+            IRR_NORTH = 0,
+            IRR_EAST = 1,
+            IRR_SOUTH = 2,
+            IRR_WEST = 3
+
+        };
+
         //
         // Member Functions
         //
@@ -66,7 +80,8 @@ namespace indie
             virtual void        loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds);
             virtual void        soundControl(const Sound &sound);
             //  Scene
-            virtual void        loadScene(std::vector<std::unique_ptr<IScene> > &&scene);
+            virtual void        loadScenes(std::vector<std::unique_ptr<IScene> > &&scene);
+            virtual void        updateDome(const std::string &);
             //  Sprites
             virtual void        loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprites);
             //  Models
@@ -75,11 +90,11 @@ namespace indie
             //  FONTS
             virtual void        loadFonts(const std::vector<std::string> &fonts_to_load = std::vector<std::string>());
             //  GUI
-            virtual void        updateGUI(IGUI &gui);
+            virtual void        updateGUI(const IGUI &gui);
             //  Map
-            virtual void        updateMap(IMap const &map);
+            virtual void        updateMap(const IMap &map);
             // Scene appearance
-            virtual void        updateFlor(std::size_t);
+            virtual void        updateScene(std::size_t);
             //  Not allowed
             Gfx &operator=(const Gfx& gfx) = delete;
             Gfx(const Gfx &gfx) = delete;
@@ -109,6 +124,41 @@ namespace indie
             double              get_real_posX(double pos) const noexcept;
             double              get_real_posY(double pos) const noexcept;
 
+            template < class T >
+            irr::core::vector3df    get_mesh_size(T const *mesh) const {
+            
+                irr::core::vector3df      edges_length = mesh->getTransformedBoundingBox().getExtent(); 
+
+                // TODO
+                // std::cout << "height: " << edges_length.Y << std::endl;
+
+                // std::cout << "width: " << edges_length.X << std::endl;
+
+                // std::cout << "depth: " << edges_length.Z << std::endl;
+
+                return edges_length;
+
+            }
+
+            template < class T >
+            void    set_mesh_dimensions(T *mesh, const irr::core::vector3df &size) {
+            
+                irr::core::vector3df        edges_length = mesh->getTransformedBoundingBox().getExtent();
+                irr::core::vector3df        current_scale = mesh->getScale();
+
+                mesh->setScale( irr::core::vector3df({
+
+                    (current_scale.X * size.X) / edges_length.X,
+                    (current_scale.Y * size.Y) / edges_length.Y,
+                    (current_scale.Z * size.Z) / edges_length.Z
+
+                }));
+
+            }
+
+            // TODO
+            void    test_drawing_map();
+
         //
         // Member Variables
         //
@@ -125,6 +175,7 @@ namespace indie
 
             // Scene Management
             std::vector<SceneContainer>                         _scenesLoaded;
+            irr::scene::ISceneNode                              *_dome;
 
             // Models Management
             std::unordered_map<std::size_t, MeshContainer>      _meshesLoaded;
@@ -141,10 +192,8 @@ namespace indie
             std::unordered_map<std::size_t, std::vector<irr::video::ITexture *> >   _sprites;
 
             // Utils
-            const std::array< float, 4 >                           _orientation;
-
-        private:
-            void            display_mobs_all_map();
+            const std::array< float, 4 >                        _orientation;
+            GfxInfos                                            _infos;
     };
 
 }

@@ -81,7 +81,7 @@ void    indie::Gfx::draw_component_sprite(const IComponent &cmp) {
                                true);
 }
 
-void    indie::Gfx::updateGUI(IGUI &gui) {
+void    indie::Gfx::updateGUI(const IGUI &gui) {
 
     for (std::size_t i = 0, count = gui.size(); i < count; ++i) {
 

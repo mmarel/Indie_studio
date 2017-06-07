@@ -43,10 +43,17 @@ namespace indie
 
         virtual ~Component() {}
 
-        ///Setters Methods
-        virtual void   setPosState(size_t);
+        // Setters Methods
+        virtual void                setX(double);
+        virtual void                setY(double);
+        virtual void                setWidth(double);
+        virtual void                setHeight(double);
+        virtual void                setBackgroundId(std::size_t);
+        virtual void                setBackgorundColor(const Color &);
+        virtual void                setTextColor(const Color &);
+        virtual void                setText(const std::string &);
 
-        ///Getters Methods
+        // Getters Methods
         virtual double              getX() const;
         virtual double              getY() const;
         virtual double              getWidth() const;
@@ -55,7 +62,7 @@ namespace indie
         virtual Color               getBackgroundColor() const;
         virtual Color               getTextColor() const;
         virtual std::string const & getText() const;
-        virtual size_t              getPosState() const;
+        virtual bool                hasSprite() const;
     };
 }
 

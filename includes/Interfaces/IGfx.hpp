@@ -79,13 +79,20 @@ namespace indie
         ///        font of the lib will be loaded.
         virtual void loadFonts(const std::vector<std::string> &fonts = std::vector<std::string>()) = 0;
 
-        // Models
+        // Scene
         ///
-        /// \fn virtual void loadScene(std::unique_ptr<IScene> &&scene) = 0
+        /// \fn virtual void loadScenes(std::unique_ptr<IScene> &&scene) = 0
         /// \brief Load Scene in the lib from the paths given by the game
         /// \param Scene to pass the path of the meshes and textures to give the lib
         ///        the way to search the assets
-        virtual void loadScene(std::vector<std::unique_ptr<IScene> > &&scene) = 0;
+        virtual void loadScenes(std::vector<std::unique_ptr<IScene> > &&scene) = 0;
+        ///
+        /// \fn virtual void updateDome(const std::string &dome) = 0
+        /// \brief Load a Dome from the path given by the game
+        /// \param Dome to pass the path of the texture to give the lib
+        ///        the way to search the assets
+        ///
+        virtual void updateDome(const std::string &dome) = 0;
 
         // Sprites
         ///
@@ -108,21 +115,21 @@ namespace indie
         /// \fn virtual void updateMap(IMap const &map) = 0
         /// \brief Updates the map (no direct display changes are made here)
         ///
-        virtual void updateMap(IMap const &map) = 0;
+        virtual void updateMap(const IMap &map) = 0;
 
         // GUI
         ///
-        /// \fn virtual void updateGUI(IGUI &gui) = 0
+        /// \fn virtual void updateGUI(const IGUI &gui) = 0
         /// \brief Updates the GUI (no direct display changes are made here)
         ///
-        virtual void updateGUI(IGUI &gui) = 0;
+        virtual void updateGUI(const IGUI &gui) = 0;
 
         // GUI
         ///
-        /// \fn virtual void updateLevel(std::size_t flor) = 0
+        /// \fn virtual void updateScene(std::size_t flor) = 0
         /// \brief Updates the scene appearance
         ///
-        virtual void updateFlor(std::size_t) = 0;
+        virtual void updateScene(std::size_t) = 0;
 
         // Display
         ///

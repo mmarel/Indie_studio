@@ -78,9 +78,6 @@ namespace indie
       ///
       virtual std::string const &getText() const = 0;
 
-        virtual void setPosState(size_t) = 0;
-
-        virtual size_t getPosState() const = 0;
     };
 }
 

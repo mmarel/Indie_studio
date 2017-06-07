@@ -31,45 +31,29 @@ indie::Component::Component(std::vector<indie::ISprite*> &sprites,
 
 }
 
-double indie::Component::getX() const {
-    return (_x);
-}
+double  indie::Component::getX() const { return (_x); }
+void    indie::Component::setX(double x) { this->_x = x; }
 
-double indie::Component::getY() const {
-    return (_y);
-}
 
-double indie::Component::getWidth() const {
-    return (_width);
-}
+double  indie::Component::getY() const { return (_y); }
+void    indie::Component::setY(double y) { this->_y = y; }
 
-double indie::Component::getHeight() const {
-    return (_height);
-}
+double  indie::Component::getWidth() const { return (_width); }
+void    indie::Component::setWidth(double width) { this->_width = width; }
 
-size_t indie::Component::getBackgroundId() const {
-    return (_backgroundId);
-}
+double  indie::Component::getHeight() const { return (_height); }
+void    indie::Component::setHeight(double height) { this->_height = height; }
 
-indie::Color indie::Component::getBackgroundColor() const {
-    return (_backgroundColor);
-}
+size_t  indie::Component::getBackgroundId() const { return (_backgroundId); }
+void    indie::Component::setBackgroundId(std::size_t id) { this->_backgroundId = id; }
 
-indie::Color indie::Component::getTextColor() const {
-    return (_textColor);
-}
+indie::Color    indie::Component::getBackgroundColor() const { return (_backgroundColor); }
+void            indie::Component::setBackgorundColor(const Color &color) { this->_backgroundColor = color; }
 
-std::string const& indie::Component::getText() const {
-    return (_text);
-}
+indie::Color    indie::Component::getTextColor() const { return (_textColor); }
+void            indie::Component::setTextColor(const Color &color) { this->_textColor = color; }
 
-size_t indie::Component::getPosState() const {
-    return (_posState);
-}
+std::string const&  indie::Component::getText() const { return (_text); }
+void                indie::Component::setText(const std::string &text) { this->_text = text; }
 
-void indie::Component::setPosState(size_t newPos) {
-    if (newPos <= _sprites.size())
-        _posState = newPos;
-    else
-        std::cerr << "posState > _sprites.size()" << std::endl;
-}
+bool                indie::Component::hasSprite() const { return this->_sprites.size() > 0 ? true : false; }

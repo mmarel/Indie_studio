@@ -39,7 +39,7 @@ namespace indie
     /// \fn virtual IComponent &at(std::size_t n) = 0
     /// \brief Access to the n element
     ///
-    virtual IComponent &at(std::size_t n) = 0;
+    virtual IComponent &at(std::size_t n) const = 0;
   };
 }
 
