@@ -21,6 +21,7 @@
 #include "ISprite.hpp"
 #include "Sound.hpp"
 #include "IModel.hpp"
+#include "IScene.hpp"
 
 namespace indie
 {
@@ -90,6 +91,19 @@ namespace indie
         ///
         virtual void process() = 0;
 
+        // Scene
+        ///
+        /// \fn virtual std::vector<std::unique_ptr<ISprite> > getSpritesToLoad() const = 0
+        /// \brief get the list of Sprites to load.
+        ///
+        virtual std::vector<std::unique_ptr<IScene> > getScenesToLoad() const = 0;
+        ///
+        /// \fn virtual bool getDomeToLoad() const = 0
+        /// \brief returns true and file the dome_path with the path of the texture
+        /// if the dome needs to be changed.
+        ///
+        virtual bool getDomeToLoad(std::string &dome_path) const = 0;
+
         // Sprites
         ///
         /// \fn virtual std::vector<std::unique_ptr<ISprite> > getSpritesToLoad() const = 0
@@ -137,6 +151,7 @@ namespace indie
         /// \fn virtual IGUI &getGUI() = 0
         /// \brief Get the current version of the GUI to display
         ///
+        // TODO
         virtual IGUI &getGUI() = 0;
 
         // Level

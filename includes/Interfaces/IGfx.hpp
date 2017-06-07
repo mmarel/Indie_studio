@@ -79,13 +79,20 @@ namespace indie
         ///        font of the lib will be loaded.
         virtual void loadFonts(const std::vector<std::string> &fonts = std::vector<std::string>()) = 0;
 
-        // Models
+        // Scene
         ///
         /// \fn virtual void loadScene(std::unique_ptr<IScene> &&scene) = 0
         /// \brief Load Scene in the lib from the paths given by the game
         /// \param Scene to pass the path of the meshes and textures to give the lib
         ///        the way to search the assets
         virtual void loadScene(std::vector<std::unique_ptr<IScene> > &&scene) = 0;
+        ///
+        /// \fn virtual void loadDome(const std::string &dome) = 0
+        /// \brief Load a Dome from the path given by the game
+        /// \param Dome to pass the path of the texture to give the lib
+        ///        the way to search the assets
+        ///
+        virtual void loadDome(const std::string &dome) = 0;
 
         // Sprites
         ///

@@ -13,10 +13,10 @@ irr::video::SColor  indie::Gfx::getSColor(const Color &color) const {
     return scolor;
 }
 
-double              indie::Gfx::get_real_posX(double pos) const noexcept {
+double                  indie::Gfx::get_real_posX(double pos) const noexcept {
     return pos * SCREEN_WIDTH;
 }
 
-double              indie::Gfx::get_real_posY(double pos) const noexcept {
+double                  indie::Gfx::get_real_posY(double pos) const noexcept {
     return pos * SCREEN_HEIGHT;
 }

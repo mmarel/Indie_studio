@@ -17,37 +17,75 @@
 
 namespace indie
 {
-    // Containers for Scenes
+
+    // Scene infos
+    struct SceneInfos {
+        irr::f32    startX;
+        irr::f32    startY;
+        irr::f32    width;
+        irr::f32    height;
+        irr::f32    depth;
+    };
+
+    struct GfxInfos {
+        SceneInfos  scene;
+        std::size_t flor;
+    };
+
+    // Container for Scenes
     struct SceneContainer
     {
         SceneContainer()
-                    : _scene() {
+                    : _scene(),
+                      _startX(0.0f),
+                      _startY(0.0f),
+                      _startZ(0.0f)
+        {
+
         }
-        SceneContainer(const std::vector<std::pair<irr::scene::IMesh *,
-                                                   irr::scene::IMeshSceneNode *> > &scene)
-                                                   : _scene(scene) {
-                                                    
+        SceneContainer(const std::vector<
+                                          std::pair<irr::scene::IMesh *, irr::scene::IMeshSceneNode *>
+                                        > &scene,
+                       float x,
+                       float y,
+                       float z)
+                    : _scene(scene),
+                      _startX(x),
+                      _startY(y),
+                      _startZ(z)
+        {
+
         }
-        SceneContainer(SceneContainer &&scene)
-                    : _scene(scene._scene) {
-                    
+        SceneContainer(SceneContainer &&scene, float x, float y, float z)
+                    : _scene(scene._scene),
+                      _startX(x),
+                      _startY(y),
+                      _startZ(z)
+        {
+
         }
-        SceneContainer(const SceneContainer &scene)
-                    : _scene(scene._scene) {
+        SceneContainer(const SceneContainer &scene, float x, float y, float z)
+                    : _scene(scene._scene),
+                      _startX(x),
+                      _startY(y),
+                      _startZ(z)
+        {
 
         }
 
-        SceneContainer &operator=(SceneContainer &&) = default;
-        SceneContainer &operator=(const SceneContainer &) = default;
-        ~SceneContainer() {
+        ~SceneContainer()
+        {
 
         }
 
         std::vector<std::pair<irr::scene::IMesh *,
                               irr::scene::IMeshSceneNode *> >   _scene;
+        float                                                   _startX;
+        float                                                   _startY;
+        float                                                   _startZ;
     };
 
-    // Containers For Models (meshes)
+    // Container For Models (meshes)
     struct  MeshContainer {
 
         MeshContainer()
@@ -69,8 +107,6 @@ namespace indie
             return *this;
         }
 
-        MeshContainer(MeshContainer &&) = default;
-        MeshContainer &operator=(MeshContainer &&) = default;
         ~MeshContainer() {
 
         };
@@ -100,8 +136,6 @@ namespace indie
             return *this;
         }
 
-        NodeContainer(NodeContainer &&) = default;
-        NodeContainer &operator=(NodeContainer &&) = default;
         ~NodeContainer() {
 
         };

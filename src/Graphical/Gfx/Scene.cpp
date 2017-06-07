@@ -8,6 +8,20 @@
 
 #include "Graphical/Gfx.hpp"
 
+void    indie::Gfx::loadDome(const std::string &dome) {
+    
+    if (this->_dome)
+        this->_dome->remove();
+
+    if (!(this->_dome = this->_smgr->addSkyDomeSceneNode(this->_driver->getTexture(dome.c_str()),
+                                                   32, 16, 1.0f, 2.0f))) {
+        std::cerr << _INDIE_GFX_DOME_FAILED << std::endl;
+    } else {
+        this->_dome->setRotation(irr::core::vector3df({ this->_orientation[IRR_SOUTH], 0.0f, 180.0f}));
+    }
+
+}
+
 void    indie::Gfx::updateFlor(std::size_t flor) {
 
     if (flor >= this->_scenesLoaded.size()) {
@@ -18,8 +32,16 @@ void    indie::Gfx::updateFlor(std::size_t flor) {
 
         for (std::size_t j = 0; j < this->_scenesLoaded.at(i)._scene.size(); ++j) {
 
-            this->_scenesLoaded.at(i)._scene.at(j).second->setVisible( i == flor ? true : false );
+            if (flor == i) {
+                this->_scenesLoaded.at(i)._scene.at(j).second->setVisible(true);
+            } else {
+                this->_scenesLoaded.at(i)._scene.at(j).second->setVisible(false);
+            }
 
+        }
+
+        if (flor == i) {
+            this->_infos.flor = flor;
         }
 
     }
@@ -43,7 +65,12 @@ void    indie::Gfx::loadScene(std::vector<std::unique_ptr<indie::IScene> > &&sce
 
     for (std::size_t i = 0; i < scenes.size(); ++i) {
 
-        indie::SceneContainer   scene_container;;
+        indie::SceneContainer   scene_container( std::vector<
+                                                    std::pair<irr::scene::IMesh *, irr::scene::IMeshSceneNode *>
+                                                 >(),
+                                                 scenes.at(i)->getStartX(),
+                                                 scenes.at(i)->getStartY(),
+                                                 scenes.at(i)->getStartZ() );
 
         for (std::size_t j = 0; j < scenes.at(i)->getNumberParts(); ++j) {
 
@@ -55,10 +82,10 @@ void    indie::Gfx::loadScene(std::vector<std::unique_ptr<indie::IScene> > &&sce
 
             irr::scene::IMeshSceneNode *node =
                 this->_smgr->addMeshSceneNode(mesh,
-                                                    NULL,
-                                                    1,
-                                                    irr::core::vector3df(0.0f, 0.0f, 0.0f),
-                                                    irr::core::vector3df(0.0f, 0.0f, 0.0f));
+                                              NULL,
+                                              1,
+                                              irr::core::vector3df(0.0f, 0.0f, 0.0f),
+                                              irr::core::vector3df(0.0f, 0.0f, 0.0f));
 
             if (node) {
                 node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -68,6 +95,7 @@ void    indie::Gfx::loadScene(std::vector<std::unique_ptr<indie::IScene> > &&sce
             }
 
             node->setVisible(false);
+
             scene_container._scene.push_back( { mesh, node } );
         }
 

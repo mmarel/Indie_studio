@@ -29,6 +29,7 @@ indie::Gfx::Gfx()
           _fonts(),
           // Scenes Management
           _scenesLoaded(),
+          _dome(),
           // Models Management
           _meshesLoaded(),
           _nodesLoaded(),
@@ -40,8 +41,9 @@ indie::Gfx::Gfx()
           // Sprites Management
           _sprites(),
           // Utils
-          _orientation( { 0.0f, 270.0f, 180.f, 90.0f }) // NORTH, EAST, SOUTH, WEST
-
+          // ------------  N      E       S      W
+          _orientation( { 0.0f, 270.0f, 180.f, 90.0f }),
+          _infos()
     {
 
         std::cout << "Launching Irrlicht GFX" << std::endl;
@@ -49,29 +51,7 @@ indie::Gfx::Gfx()
         this->_device->setWindowCaption(L"BAUNTLET");
 
         // TESTING MESH ####################################
-
-        // std::vector<std::pair<size_t, size_t> > fm = { { 0, 10 }  };
-        // std::vector<unique_ptr<IModel> > &&models = { Model("models/SkeletonWizard.b3d", fm)}
-        irr::scene::IAnimatedMesh   *mesh = this->_smgr->getMesh("Models/SkeletonMage/SkeletonMage.b3d");
-
-        if (!mesh) {
-            throw IndieError(_INDIE_GFX_MESH_FAILED);
-        }
-
-        irr::scene::IAnimatedMeshSceneNode *node =
-            this->_smgr->addAnimatedMeshSceneNode(mesh,
-                                                  NULL,
-                                                  1,
-                                                  irr::core::vector3df(0.0f, 0.0f, 0.0f),
-                                                  irr::core::vector3df(0.0f, 0.0f, 0.0f));
-
-        if (node) {
-            node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-            node->setMD2Animation(irr::scene::EMAT_STAND);
-            node->setMaterialTexture(0, this->_driver->getTexture("Textures/SkeletonMage/Green.png"));
-        } else {
-            std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
-        }
+        this->test_drawing_map();
 
         irr::SKeyMap keyMap[5];
 
@@ -97,14 +77,10 @@ indie::Gfx::Gfx()
 
         this->set_window_settings();
 
-        this->updateFlor(0);
         // This loop is just for testing
-        std::size_t i = 0;
         while (this->_device->run())
         {
-            // node->setRotation( irr::core::vector3df( { 0.0f, _orientation[SOUTH - 1], 0.0f }) );
             this->display();
-            //std::this_thread::sleep_for(std::chrono::milliseconds(500));
         }
 
         //########################################## END TEST
@@ -159,24 +135,6 @@ void    indie::Gfx::set_window_settings() {
     // Load Default Font
     this->loadFonts();
 
-    std::vector<std::pair<std::string, std::string> > tmp = {
-                        std::make_pair("Map/bot_right.obj", "Map/bot_right.png"),
-                        std::make_pair("Map/bot_left.obj", "Map/bot_left.png"),
-                        std::make_pair("Map/top_left.obj", "Map/top_left.png"),
-                        std::make_pair("Map/top_right.obj", "Map/top_right.png"),
-                        std::make_pair("Map/ground.obj", "Map/ground.png"),
-                        std::make_pair("Map/pillars.obj", "Map/pillars.png")
-                    };
-
-    std::unique_ptr<indie::IScene>  mys = std::make_unique<Scene>(tmp);
-    
-    std::vector<std::unique_ptr<indie::IScene> >    scenes;
-
-    scenes.push_back(std::move(mys));
-
-    this->loadScene(std::move(scenes));
-
-    // this->updateFlor(0);
     // Set Event Receiver
     // this->_device->setEventReceiver(&this->_eventsOverlay);
 
@@ -205,6 +163,104 @@ void    indie::Gfx::displayGraphicalInfos() {
     this->draw_text(fpsTxt, 0.0f, 0.050f, SCyan, SBlack);
 }
 
-void    indie::Gfx::display_mobs_all_map() {
+void    indie::Gfx::test_drawing_map() {
+
+    std::vector<std::pair<std::string, std::string> > tmp = {
+                        std::make_pair("Map/bot_right.obj", "Map/bot_right.png"),
+                        std::make_pair("Map/bot_left.obj", "Map/bot_left.png"),
+                        std::make_pair("Map/top_left.obj", "Map/top_left.png"),
+                        std::make_pair("Map/top_right.obj", "Map/top_right.png"),
+                        std::make_pair("Map/pillars.obj", "Map/pillars.png"),
+                        std::make_pair("Map/ground.obj", "Map/ground.png")
+    };
+
+    std::unique_ptr<indie::IScene>  mys = std::make_unique<Scene>(tmp, -13.0f, 0.0f, -13.0f);
+    
+    std::vector<std::unique_ptr<indie::IScene> >    scenes;
+
+    scenes.push_back(std::move(mys));
+
+    this->loadScene(std::move(scenes));
+
+    this->updateFlor(0);
+
+    this->loadDome("Textures/Dome/Hole.jpg");
+
+    std::vector<std::vector<int> >  map({
+
+        std::vector<int>({1, 0, 2, 2, 2, 2, 2, 2, 2, 0, 1}),
+        std::vector<int>({0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0}),
+        std::vector<int>({2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}),
+        std::vector<int>({2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2}),
+        std::vector<int>({2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}),
+        std::vector<int>({2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2}),
+        std::vector<int>({2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}),
+        std::vector<int>({2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2}),
+        std::vector<int>({2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}),
+        std::vector<int>({2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2}),
+        std::vector<int>({2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}),
+        std::vector<int>({0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0}),
+        std::vector<int>({1, 0, 2, 2, 2, 2, 2, 2, 2, 0, 1}),
+
+    });
+
+    for (std::size_t y = 0; y < 13; ++y) {
+
+        for (std::size_t x = 0; x < 11; ++x) {
+
+            if (map[y][x] == 1) {
+
+                irr::scene::IAnimatedMesh   *mesh = this->_smgr->getMesh("Models/SkeletonMage/SkeletonMage.b3d");
+
+                if (!mesh) {
+                    throw IndieError(_INDIE_GFX_MESH_FAILED);
+                }
+
+                irr::scene::IAnimatedMeshSceneNode *node =
+                    this->_smgr->addAnimatedMeshSceneNode(mesh,
+                                                        NULL,
+                                                        1,
+                                                        irr::core::vector3df(-12.5f + static_cast<float>(x), 0.0f, 13.5f - static_cast<float>(y)),
+                                                        irr::core::vector3df(0.0f, 0.0f, 0.0f));
+
+                if (node) {
+                    node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+                    // node->setMD2Animation(irr::scene::EMAT_STAND);
+                    node->setMaterialTexture(0, this->_driver->getTexture("Textures/SkeletonMage/Green.png"));
+                } else {
+                    std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
+                }
+
+                // node->setFrameLoop(0, 0);
+            }
+
+            else if (map[y][x] == 2) {
+
+                irr::scene::IAnimatedMesh   *mesh = this->_smgr->getMesh("Map/Box.md3");
+
+                if (!mesh) {
+                    throw IndieError(_INDIE_GFX_MESH_FAILED);
+                }
+
+                irr::scene::IAnimatedMeshSceneNode *node =
+                    this->_smgr->addAnimatedMeshSceneNode(mesh,
+                                                        NULL,
+                                                        1,
+                                                        irr::core::vector3df(-12.5f + static_cast<float>(x), 0.0f, 13.5f - static_cast<float>(y)),
+                                                        irr::core::vector3df(0.0f, 0.0f, 0.0f));
+
+                if (node) {
+                    node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+                    node->setMD2Animation(irr::scene::EMAT_STAND);
+                    node->setMaterialTexture(0, this->_driver->getTexture("Map/Box.png"));
+                } else {
+                    std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
+                }
+
+                node->setFrameLoop(0, 0);
+            }
+
+        }
+    }
 
 }
