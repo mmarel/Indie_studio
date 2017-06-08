@@ -5,7 +5,7 @@
 // Login   <maud.marel@epitech.eu>
 //
 // Started on  Thu May  4 16:03:42 2017 maud.marel@epitech.eu
-// Last update Thu Jun  1 17:49:36 2017 maud.marel@epitech.eu
+// Last update Tue Jun  6 15:53:13 2017 maud.marel@epitech.eu
 //
 
 #ifndef CORE_HPP_
@@ -42,7 +42,6 @@ namespace indie
       void              display_menu(indie::Gfx &);
       void              display_loop();
       void              getEventGame(indie::Gfx &);
-      void              display();
   };
 }
 
