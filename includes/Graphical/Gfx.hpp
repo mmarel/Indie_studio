@@ -19,7 +19,9 @@
 #include "irr/irrlicht.h"
 #include "Interfaces/IGfx.hpp"
 #include "Common/common.hpp"
-#include "Common/Scene.hpp"
+#include "Graphical/Model.hpp"
+#include "Game/Scene.hpp"
+#include "Game/Map.hpp"
 #include "Graphical/irrEventsOverlay.hpp"
 #include "Sound/SoundManager.hpp"
 #include "Exception/exception.hpp"
@@ -52,7 +54,6 @@ namespace indie
         ///
         enum EDIRECTION {
 
-            IRR_UNKNOWN = -1,
             IRR_NORTH = 0,
             IRR_EAST = 1,
             IRR_SOUTH = 2,
@@ -81,7 +82,6 @@ namespace indie
             virtual void        soundControl(const Sound &sound);
             //  Scene
             virtual void        loadScenes(std::vector<std::unique_ptr<IScene> > &&scene);
-            virtual void        updateDome(const std::string &);
             //  Sprites
             virtual void        loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprites);
             //  Models
@@ -93,13 +93,15 @@ namespace indie
             virtual void        updateGUI(const IGUI &gui);
             //  Map
             virtual void        updateMap(const IMap &map);
-            // Scene appearance
-            virtual void        updateScene(std::size_t);
             //  Not allowed
             Gfx &operator=(const Gfx& gfx) = delete;
             Gfx(const Gfx &gfx) = delete;
 
         private:
+
+            // Scene appearance
+            virtual void        update_scene(std::size_t);
+            virtual void        update_dome(const std::string &);
 
             // Window Settings
             void                set_window_settings();

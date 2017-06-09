@@ -52,6 +52,12 @@ namespace indie
 	/// \brief Get a specific ITile of the map
 	///
     virtual ITile const &at(size_t layer, size_t x, size_t y) const = 0;
+	///
+	/// \fn virtual size_t getHeight() const = 0
+	/// \brief Get the id of the scene of this map
+	///
+    virtual size_t getSceneId() const = 0;
+
   };
 }
 

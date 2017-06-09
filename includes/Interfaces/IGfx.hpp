@@ -69,7 +69,7 @@ namespace indie
         /// \brief Ask the lib to play a sound
         ///
         virtual void soundControl(const Sound &sound) = 0;
-
+  
         // Fonts
         ///
         /// \fn virtual void &loadFonts(std::vector<std::string> const &Fonts = std::vector<std::string>()) = 0
@@ -86,13 +86,6 @@ namespace indie
         /// \param Scene to pass the path of the meshes and textures to give the lib
         ///        the way to search the assets
         virtual void loadScenes(std::vector<std::unique_ptr<IScene> > &&scene) = 0;
-        ///
-        /// \fn virtual void updateDome(const std::string &dome) = 0
-        /// \brief Load a Dome from the path given by the game
-        /// \param Dome to pass the path of the texture to give the lib
-        ///        the way to search the assets
-        ///
-        virtual void updateDome(const std::string &dome) = 0;
 
         // Sprites
         ///
@@ -123,13 +116,6 @@ namespace indie
         /// \brief Updates the GUI (no direct display changes are made here)
         ///
         virtual void updateGUI(const IGUI &gui) = 0;
-
-        // GUI
-        ///
-        /// \fn virtual void updateScene(std::size_t flor) = 0
-        /// \brief Updates the scene appearance
-        ///
-        virtual void updateScene(std::size_t) = 0;
 
         // Display
         ///

@@ -6,7 +6,7 @@
 // Last Modified time: 2017-06-04 05:33:17
 //
 
-#include "Common/Component.hpp"
+#include "Game/Component.hpp"
 
 indie::Component::Component(std::vector<indie::ISprite*> &sprites,
                             size_t backId,

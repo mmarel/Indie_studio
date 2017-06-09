@@ -52,13 +52,12 @@ namespace indie
     };
 
 	///
-	/// \enum ELookAT
+	/// \enum class ELookAT : int
 	///	\brief Indicate the direction where the model is looking at.
 	///
-	enum ELookAt
+	enum class ELookAt : int
 	{
-		UNKNOWN = 0,
-		NORTH,
+		NORTH = 0,
 		EAST,
 		SOUTH,
 		WEST
@@ -95,32 +94,32 @@ namespace indie
 		/// \fn virtual size_t getModelId() const = 0
 		/// \brief Get the Mesh ID linked with the model
 		///
-		virtual size_t getMeshId() const = 0;
-		///
-		/// \fn virtual size_t getModelId() const = 0
-		/// \brief Get the Model ID
-		///
 		virtual size_t getModelId() const = 0;
 		///
-		/// \fn virtual ELookAt getModelRotation() const = 0
+		/// \fn virtual size_t getObjectId() const = 0
+		/// \brief Get the Model ID
+		///
+		virtual size_t getObjectId() const = 0;
+		///
+		/// \fn virtual ELookAt getObjectRotation() const = 0
 		/// \brief Get the direction towards which the character is directed
 		///
-		virtual ELookAt getModelRotation() const = 0;
+		virtual ELookAt getObjectRotation() const = 0;
 		///
-		/// \fn virtual std::string getModelTexture() const = 0
+		/// \fn virtual std::string getObjectTexture() const = 0
 		/// \brief Get the Model texture
 		///
-		virtual std::string getModelTexture() const = 0;
+		virtual std::string getObjectTexture() const = 0;
 		///
 		/// \fn virtual bool doesAnimationChanged() const = 0
 		/// \brief Returns true if the animation of the model has been changed
 		///
 		virtual bool doesAnimationChanged() const = 0;
 		///
-		/// \fn virtual std::pair<size_t, size_t> getModelFrameLoop() const = 0
+		/// \fn virtual std::pair<size_t, size_t> getObjectFrameLoop() const = 0
 		/// \brief Get the new frame loop of the model.
 		///
-		virtual std::pair<size_t, size_t> getModelFrameLoop() const = 0;
+		virtual std::pair<size_t, size_t> getObjectFrameLoop() const = 0;
 		///
 		/// \fn virtual double getShiftX() const = 0
 		/// \brief Get the tile position shift on x

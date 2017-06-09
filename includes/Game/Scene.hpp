@@ -20,23 +20,22 @@ namespace indie
     {
         public:
             Scene(const std::vector<std::pair<std::string, std::string> > &parts,
+                  const std::string &dome,
                   float x,
                   float y,
                   float z);
-            Scene(Scene &&) = delete;
-            Scene(const Scene &) = delete;
-            Scene &operator=(Scene &&) = delete;
-            Scene &operator=(const Scene &) = delete;
             virtual ~Scene();
 
             virtual float getStartX() const;
             virtual float getStartY() const;
             virtual float getStartZ() const;
+            virtual const std::string &getDome() const;
             virtual std::size_t getNumberParts() const;
-            virtual std::pair<std::string, std::string> getPartAtPos(std::size_t part) const;
+            virtual std::pair<std::string, std::string> getScenePartAtPos(std::size_t part) const;
 
         private:
             std::vector<std::pair<std::string, std::string> >   _sceneParts;
+            std::string _dome;
             float _x;
             float _y;
             float _z;

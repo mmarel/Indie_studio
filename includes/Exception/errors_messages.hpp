@@ -25,6 +25,7 @@ namespace indie
     # define _INDIE_GFX_SCENE_IS_INVALID            "Indie Gfx : Invalid scene selected."
     # define _INDIE_GFX_DEVICE_IS_OFF               "Indie Gfx : Can not display anything because the driver is not running."
     // ------- GAME
+    # define _INDIE_GAME_INVALID_MAP_INDEX          "Indie Game : Invalid map selected in factory."
     // ------- SOUND MANAGER
     # define _INDIE_SOUND_NOT_SUPPORTED             "Indie Sound : Sound mode not supported."
     # define _INDIE_SOUND_MODE_NOT_FOUND            "Indie Sound : Sound mode not found."

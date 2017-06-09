@@ -17,44 +17,33 @@ namespace indie
 
         public:
 
-            Tile(const Color &color,
-                 bool hasModel,
-                 std::size_t meshId,
-                 std::size_t modelId,
-                 ELookAt rotation,
-                 const std::string &texture,
-                 bool animationChanged,
-                 std::pair<size_t, size_t> frameLoop,
-                 double shiftX,
-                 double shiftY);
-
-            Tile(Tile &&) = default;
-            Tile(const Tile &) = default;
-            Tile &operator=(Tile &&) = default;
-            Tile &operator=(const Tile &) = default;
+            Tile(bool hasModel = false,
+                 std::size_t modelId = 0,
+                 const std::string &texture = ""
+                 );
 
             virtual ~Tile() { }
 
 
             virtual Color                           getColor() const;
             virtual bool                            hasModel() const;
-            virtual std::size_t                     getMeshId() const;
             virtual std::size_t                     getModelId() const;
-            virtual ELookAt                         getModelRotation() const;
-            virtual std::string                     getModelTexture() const;
+            virtual std::size_t                     getObjectId() const;
+            virtual ELookAt                         getObjectRotation() const;
+            virtual std::string                     getObjectTexture() const;
             virtual bool                            doesAnimationChanged() const;
-            virtual std::pair<size_t, size_t>       getModelFrameLoop() const;
+            virtual std::pair<size_t, size_t>       getObjectFrameLoop() const;
             virtual double                          getShiftX() const;
             virtual double                          getShiftY() const;
 
             void                    setColor(const Color &);
             void                    setHasModel(bool);
-            void                    setMeshId(std::size_t);
             void                    setModelId(std::size_t);
-            void                    setModelRotation(ELookAt);
-            void                    setModelTexture(const std::string &);
+            void                    setObjectId(std::size_t);
+            void                    setObjectRotation(ELookAt);
+            void                    setObjectTexture(const std::string &);
             void                    setDoesAnimationChanged(bool);
-            void                    setModelFrameLoop(const std::pair<std::size_t, std::size_t> &);
+            void                    setObjectFrameLoop(const std::pair<std::size_t, std::size_t> &);
             void                    setShiftX(double);
             void                    setShiftY(double);
 
@@ -62,12 +51,12 @@ namespace indie
 
             Color                                   _color;
             bool                                    _hasModel;
-            std::size_t                             _meshId;
             std::size_t                             _modelId;
-            ELookAt                                 _modelRotation;
-            std::string                             _modelTexture;
+            std::size_t                             _objectId;
+            ELookAt                                 _objectRotation;
+            std::string                             _objectTexture;
             bool                                    _doesAnimationChanged;
-            std::pair<std::size_t, std::size_t>     _modelFrameLoop;
+            std::pair<std::size_t, std::size_t>     _objectFrameLoop;
             double                                  _shiftX;
             double                                  _shiftY;
 
