@@ -60,8 +60,8 @@ void    indie::Core::display_game(indie::Gfx &_gfx)
 {
     getEventGame(_gfx);
     _gameLoad->process();
-    for (std::vector<indie::Sound>::const_iterator it = _sounds.begin(); it != _sounds.end(); it++)   
-        _gfx.soundControl(*it);       
+    for (std::vector<indie::Sound>::const_iterator it = _sounds.begin(); it != _sounds.end(); it++)
+        _gfx.soundControl(*it);
 
     // TODO : CHECK LOAD ATTEMPT
     _gfx.loadSprites(_gameLoad->getSpritesToLoad());
@@ -73,53 +73,40 @@ void    indie::Core::display_game(indie::Gfx &_gfx)
 
 void    indie::Core::display_menu(indie::Gfx &_gfx)
 {
-    std::cout << "DISPLAY MENU" << std::endl;
-    (void)_gfx;
+  _gfx.display();
 }
 
 void    indie::Core::display_loop()
 {
     int state;
     indie::Gfx _gfx;
-    //_gameLoad = 
+    //_gameLoad =
 
     /*
     ** Loop en fonction des GameState
     */
     while ((state = getGameState()) != indie::GameState::QUIT)
     {
-        _gfx.clear();
-        switch(state)
+      _gfx.clear();
+      switch(state)
         {
-            case indie::GameState::LOADING :
+	case indie::GameState::LOADING :
             {
-                std::cout << "LOADING" << std::endl;
-                load_sound_lib();
-                break;
+	      load_sound_lib();
+	      break;
             }
-            case indie::GameState::INGAME :
-            {
-                std::cout << "INGAME" << std::endl;
-                display_game(_gfx);
-                break;
-            }
-            case indie::GameState::MENU :
-            {
-                std::cout << "MENU" << std::endl;
-                display_menu(_gfx);
-                break;
-            }
-            default:
-                break;
+	case indie::GameState::INGAME :
+	  {
+	    display_game(_gfx);
+	    break;
+	  }
+	case indie::GameState::MENU :
+	  {
+	    display_menu(_gfx);
+	    break;
+	  }
+	default:
+	  break;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
-}
-
-void    indie::Core::display()
-{
-
-    std::cout << "display Core" << std::endl;
-
-    //display_loop(_gfx);
 }
