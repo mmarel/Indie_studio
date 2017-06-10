@@ -24,8 +24,6 @@ namespace indie
 
             virtual ~Tile() { }
 
-
-            virtual Color                           getColor() const;
             virtual bool                            hasModel() const;
             virtual std::size_t                     getModelId() const;
             virtual std::size_t                     getObjectId() const;
@@ -36,7 +34,6 @@ namespace indie
             virtual double                          getShiftX() const;
             virtual double                          getShiftY() const;
 
-            void                    setColor(const Color &);
             void                    setHasModel(bool);
             void                    setModelId(std::size_t);
             void                    setObjectId(std::size_t);
@@ -49,7 +46,6 @@ namespace indie
 
         private:
 
-            Color                                   _color;
             bool                                    _hasModel;
             std::size_t                             _modelId;
             std::size_t                             _objectId;

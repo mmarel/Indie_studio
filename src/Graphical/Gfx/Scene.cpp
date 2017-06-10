@@ -10,7 +10,6 @@
 
 void    indie::Gfx::update_dome(const std::string &dome) {
     
-    std::cout << "UPDATE DOME" << std::endl;
     if (this->_dome)
         this->_dome->remove();
 
@@ -18,7 +17,7 @@ void    indie::Gfx::update_dome(const std::string &dome) {
                                                    32, 16, 1.0f, 2.0f))) {
         std::cerr << _INDIE_GFX_DOME_FAILED << std::endl;
     } else {
-        this->_dome->setRotation(irr::core::vector3df({ this->_orientation[IRR_SOUTH], 0.0f, 180.0f}));
+        this->_dome->setRotation(irr::core::vector3df({ this->_orientation[IRR_NORTH], 0.0f, 90.0f}));
     }
 
 }

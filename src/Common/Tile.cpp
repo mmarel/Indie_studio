@@ -13,7 +13,6 @@ indie::Tile::Tile(bool hasModel,
                   const std::string &texture)
 
     :
-      _color(Color::Black),
       _hasModel(hasModel),
       _modelId(modelId),
       _objectId(0),
@@ -26,9 +25,6 @@ indie::Tile::Tile(bool hasModel,
 {
 
 }
-
-indie::Color        indie::Tile::getColor() const { return this->_color; }
-void                indie::Tile::setColor(const Color &color) { this->_color = color; }
 
 bool                indie::Tile::hasModel() const { return this->_hasModel; }
 void                indie::Tile::setHasModel(bool hm) { this->_hasModel = hm; }

@@ -8,17 +8,11 @@
 
 #include "Graphical/Gfx.hpp"
 
-void    indie::Gfx::draw_cube(const ITile &tile, std::size_t x, std::size_t z) {
-    (void)tile;
-    (void)x;
-    (void)z;
-}
-
 void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z) {
 
     if (this->_nodesLoaded.count(tile.getObjectId()) != 0) {
 
-        // Just set Position, Rotation and frames
+        // Just set Position, Rotation and frames here
         irr::scene::IAnimatedMeshSceneNode  *node = this->_nodesLoaded[tile.getObjectId()].node;
 
         if (tile.doesAnimationChanged())
@@ -32,7 +26,6 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z) 
         node->setRotation(irr::core::vector3df(0.0f, this->_orientation[static_cast<std::size_t>(tile.getObjectRotation())], 0.0f));
 
     } else {
-
         // We create a new one
         NodeContainer           newModel;
         irr::core::vector3df    position(this->_scenesLoaded[this->_infos._current_scene]._startX + static_cast< float >(x),
@@ -64,24 +57,6 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z) 
 
 }
 
-void    indie::Gfx::delete_old_nodes() {
-
-    std::unordered_map<std::size_t, NodeContainer>::iterator it = this->_nodesLoaded.begin();
-
-    while (it != this->_nodesLoaded.end()) {
-
-       if ((std::find(this->_objectsId.begin(), this->_objectsId.end(), it->second.id)) == this->_objectsId.end())
-       {
-           it->second.node->remove();
-           it = this->_nodesLoaded.erase(it);
-       } else {
-           ++it;
-       }
-
-    }
-
-}
-
 void    indie::Gfx::updateMap(const IMap &map) {
 
     std::size_t nbLayers    = map.getLayerNb();
@@ -95,12 +70,12 @@ void    indie::Gfx::updateMap(const IMap &map) {
         this->_infos._scene_loaded_once = true;
     }
 
-    (void)nbLayers;
-    (void)map_width;
-    (void)map_height;
-
     // Delete nodes unused
+    this->refresh_objects_id(map.getObjectsId());
     this->delete_old_nodes();
+
+    // Camera POV
+    this->set_camera_pov(map);
 
     // Layers
     for (std::size_t layer = 0; layer < nbLayers; ++layer) {
@@ -109,13 +84,8 @@ void    indie::Gfx::updateMap(const IMap &map) {
 
             for (std::size_t x = 0; x < map_width; ++x) {
 
-                // To change when tile will be ready
-                // Tile   tile = map.at(layer, x, y);
-
                 if (map.at(layer, x, y).hasModel())
                     this->draw_model(map.at(layer, x, y), x, y);
-                else
-                    this->draw_cube(map.at(layer, x ,y ), x, y);
 
             }
 

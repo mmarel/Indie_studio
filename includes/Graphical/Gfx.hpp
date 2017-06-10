@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <chrono>
 #include <thread>
+#include <cmath>
 
 #include "irr/irrlicht.h"
 #include "Interfaces/IGfx.hpp"
@@ -86,7 +87,6 @@ namespace indie
             virtual void        loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprites);
             //  Models
             virtual void        loadModels(std::vector<std::unique_ptr<IModel> > &&models);
-            virtual void        loadObjectsId(const std::vector<std::size_t> &objects);
             //  FONTS
             virtual void        loadFonts(const std::vector<std::string> &fonts_to_load = std::vector<std::string>());
             //  GUI
@@ -109,9 +109,11 @@ namespace indie
             // Game Info
             void                displayGraphicalInfos();
 
-            // Update
+            // Camera Management
+            void                set_camera_pov(const IMap &map);
+
+            // Update and Drawing
             void                draw_model(const ITile &tile, std::size_t x, std::size_t y);
-            void                draw_cube(const ITile &tile, std::size_t x, std::size_t y);
             void                draw_component_sprite(const IComponent &cmp);
             void                draw_component_text(const IComponent &cmp);
             void                draw_text(const std::string &txt,
@@ -119,6 +121,7 @@ namespace indie
                                           const irr::video::SColor &txtColor = irr::video::SColor(255,0,0,0),
                                           const irr::video::SColor &bgColor = irr::video::SColor(255,255,255,255));
 
+            void                refresh_objects_id(const std::vector<std::size_t> &objects);
             void                delete_old_nodes();
 
             // Utils
@@ -128,18 +131,7 @@ namespace indie
 
             template < class T >
             irr::core::vector3df    get_mesh_size(T const *mesh) const {
-            
-                irr::core::vector3df      edges_length = mesh->getTransformedBoundingBox().getExtent(); 
-
-                // TODO
-                // std::cout << "height: " << edges_length.Y << std::endl;
-
-                // std::cout << "width: " << edges_length.X << std::endl;
-
-                // std::cout << "depth: " << edges_length.Z << std::endl;
-
-                return edges_length;
-
+                return mesh->getTransformedBoundingBox().getExtent(); 
             }
 
             template < class T >

@@ -12,7 +12,6 @@ indie::Gfx::Gfx()
 
     // irr::createDevice (deviceType, windowSize, bits, fullscreen, stencilbuffer, vsync, receiver)
 
-
     try : _device(irr::createDevice (   irr::video::EDT_OPENGL,
                                         irr::core::dimension2d<irr::u32>(SCREEN_WIDTH, SCREEN_HEIGHT),
                                         32,
@@ -41,7 +40,7 @@ indie::Gfx::Gfx()
           // Sprites Management
           _sprites(),
           // Utils
-          // ------------  N      E       S      W
+          // ------------   N       E      S      W
           _orientation( { 180.0f, 270.0f, 0.0f, 90.0f }),
           _infos(0)
     {
@@ -50,58 +49,14 @@ indie::Gfx::Gfx()
 
         this->_device->setWindowCaption(L"BAUNTLET");
 
-        // TESTING MESH ####################################
-
-        irr::SKeyMap keyMap[5];
-
-        keyMap[0].Action = irr::EKA_MOVE_FORWARD;
-        keyMap[0].KeyCode = irr::KEY_KEY_Z;
-        keyMap[1].Action = irr::EKA_MOVE_BACKWARD;
-        keyMap[1].KeyCode = irr::KEY_KEY_S;
-        keyMap[2].Action = irr::EKA_STRAFE_LEFT;
-        keyMap[2].KeyCode = irr::KEY_KEY_Q;
-        keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
-        keyMap[3].KeyCode = irr::KEY_KEY_D;
-        keyMap[4].Action = irr::EKA_JUMP_UP;
-        keyMap[4].KeyCode = irr::KEY_SPACE;
-
-        // this->_camera = this->_smgr->addCameraSceneNode(NULL,
-        //                                                 //                    x     y     z
-        //                                                 irr::core::vector3df(-5.0f, 1.0f, 0.0f), // Position
-        //                                                 irr::core::vector3df(0.0f, 0.0f, 0.0f)  // Angle
-        //                                                 );
-
-        // Uncomment for use fps camera (can move, for debug)
-        this->_camera = this->_smgr->addCameraSceneNodeFPS(0, 100.0f, 0.025f, -1, keyMap, 5);
+        this->_camera = this->_smgr->addCameraSceneNode(NULL,
+                                                        //                    x     y     z
+                                                        irr::core::vector3df(0.0f, 0.0f, 0.0f), // Position
+                                                        irr::core::vector3df(0.0f, 0.0f, 0.0f)  // Angle
+                                                        );
 
         this->set_window_settings();
  
-        this->test_drawing_map();
-
-        indie::Map  map(0);
-        std::unique_ptr<indie::Model>   mod1 = std::make_unique<indie::Model>("Models/SkeletonMage/SkeletonMage.b3d",
-                                                        std::vector<std::pair<size_t, size_t> >( { std::make_pair(177, 252) } ));
-
-        std::unique_ptr<indie::Model>   mod2 = std::make_unique<indie::Model>("Map/Box.md3",
-                                                        std::vector<std::pair<size_t, size_t> >( { std::make_pair(0, 30) } ));
-
-        std::vector<std::unique_ptr<indie::IModel> >   models;
-
-        models.push_back(std::move(mod1));
-        models.push_back(std::move(mod2));
-
-        this->loadModels(std::move(models));
-
-        // This loop is just for testing
-        while (this->_device->run())
-        {
-            this->loadObjectsId(std::vector<std::size_t>( { 1, 2 } ) );
-            this->updateMap(map);
-            this->display();
-        }
-
-        //########################################## END TEST
-
     }
 
     catch (const std::exception &err) {
@@ -122,10 +77,6 @@ void    indie::Gfx::display() {
 
         #if DEBUG_MODE
             this->displayGraphicalInfos();
-
-            indie::Event    e;
-
-            this->pollEvents(e);
         #endif
 
         this->_guienv->drawAll();
@@ -153,7 +104,7 @@ void    indie::Gfx::set_window_settings() {
     this->loadFonts();
 
     // Set Event Receiver
-    // this->_device->setEventReceiver(&this->_eventsOverlay);
+    this->_device->setEventReceiver(&this->_eventsOverlay);
 
 }
 
@@ -178,25 +129,4 @@ void    indie::Gfx::displayGraphicalInfos() {
     //  FPS
     std::string fpsTxt("FPS : " + std::to_string(this->_driver->getFPS()));
     this->draw_text(fpsTxt, 0.0f, 0.050f, SCyan, SBlack);
-}
-
-void    indie::Gfx::test_drawing_map() {
-
-    std::vector<std::pair<std::string, std::string> > tmp = {
-                        std::make_pair("Map/bot_right.obj", "Map/bot_right.png"),
-                        std::make_pair("Map/bot_left.obj", "Map/bot_left.png"),
-                        std::make_pair("Map/top_left.obj", "Map/top_left.png"),
-                        std::make_pair("Map/top_right.obj", "Map/top_right.png"),
-                        std::make_pair("Map/pillars.obj", "Map/pillars.png"),
-                        std::make_pair("Map/ground.obj", "Map/ground.png")
-    };
-
-    std::unique_ptr<indie::IScene>  mys = std::make_unique<Scene>(tmp, "Textures/Dome/Storm.jpg", -13.0f, 0.0f, 13.5f);
-    
-    std::vector<std::unique_ptr<indie::IScene> >    scenes;
-
-    scenes.push_back(std::move(mys));
-
-    this->loadScenes(std::move(scenes));
-
 }

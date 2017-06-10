@@ -13,6 +13,7 @@
 #include <utility>
 #include <vector>
 
+#include "Interfaces/IMap.hpp"
 #include "irr/irrlicht.h"
 
 namespace indie
@@ -22,13 +23,15 @@ namespace indie
     struct GfxInfos {
         GfxInfos(std::size_t current_scene)
             : _current_scene(current_scene),
-              _scene_loaded_once(false)
+              _scene_loaded_once(false),
+              _camera_view_point(ECAMERA_VIEW::UNDEFINED)
         {
         }
         ~GfxInfos() {}
 
         std::size_t  _current_scene;
         bool         _scene_loaded_once;
+        ECAMERA_VIEW _camera_view_point;
     };
 
     // Container for Scenes

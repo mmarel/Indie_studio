@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <memory>
+#include <algorithm>
 #include "Interfaces/IMap.hpp"
 #include "Game/Tile.hpp"
 #include "Game/ModelsId.hpp"
@@ -39,11 +40,20 @@ namespace indie
             virtual std::size_t getWidth() const;
             virtual std::size_t getHeight() const;
             virtual std::size_t getSceneId() const;
+            virtual ECAMERA_VIEW getPOV() const;
+            virtual std::vector<std::size_t> getObjectsId() const;
             virtual ITile const &at(std::size_t layer,
                                     std::size_t x,
                                     std::size_t y) const;
 
+            void setSceneId(std::size_t sceneId);
+            void setCameraPOV(ECAMERA_VIEW pov);
+            void addObjectById(std::size_t add);
+            void deleteObjectById(std::size_t del);
+            void setObectsId(const std::vector<std::size_t> &ids);
+
         private:
+
             // Fill a layer from the index 'layer'
             void    create_layer(std::size_t layer);
 
@@ -60,6 +70,8 @@ namespace indie
             std::size_t _height;
             std::size_t _nbLayers;
             std::size_t _sceneId;
+            ECAMERA_VIEW    _scenePov;
+            std::vector<std::size_t>    _objectsId;
             std::vector<std::vector<std::vector< std::unique_ptr< Tile > > > > _layers;
             std::vector<std::vector< int > >   _rawMap;
     };

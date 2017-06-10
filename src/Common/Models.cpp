@@ -9,7 +9,7 @@
 #include "Graphical/Model.hpp"
 
 indie::Model::Model(const std::string &meshPath,
-                    std::vector<std::pair<size_t, size_t> > frameSequences)
+                    std::vector<std::pair<std::size_t, std::size_t> > frameSequences)
     :   _meshPath(meshPath),
         _frameSequences(frameSequences)
 {};
@@ -18,6 +18,6 @@ std::string indie::Model::getMeshPath() const {
     return this->_meshPath;
 }
 
-std::vector<std::pair<size_t, size_t> > indie::Model::getAnimationsFrames() const {
+std::vector<std::pair<std::size_t, std::size_t> > indie::Model::getAnimationsFrames() const {
     return this->_frameSequences;
 }

@@ -81,13 +81,8 @@ namespace indie
 		virtual ~ITile() {};
 
 		///
-		/// \fn virtual Color getColor() const = 0
-		/// \brief Get the color of the tile
-		///
-		virtual Color getColor() const = 0;
-		///
 		/// \fn virtual bool hasModel() const = 0
-		/// \brief Returns true if the Tile has a Model affected, if not, use getColor()
+		/// \brief Returns true if the Tile has a Model affected
 		///
 		virtual bool hasModel() const = 0;
 		///
