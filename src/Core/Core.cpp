@@ -12,7 +12,7 @@
 indie::Core::Core()
     : 
         _gfx(std::make_unique<indie::Gfx>()),
-        _game(),
+        _game(), // set make unique with the game when merge will be ok with game part
         _sounds(),
         _gameState(indie::GameState::NONE)
 {
