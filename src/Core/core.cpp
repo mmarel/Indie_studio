@@ -64,6 +64,7 @@ void    indie::Core::display_game(indie::Gfx &_gfx)
         _gfx.soundControl(*it);
 
     // TODO : CHECK LOAD ATTEMPT
+    _gfx.loadScenes(_gameLoad->getSpritesToLoad());
     _gfx.loadSprites(_gameLoad->getSpritesToLoad());
     _gfx.loadModels(_gameLoad->getModelsToLoad());
     _gfx.updateMap(_gameLoad->getCurrentMap());
