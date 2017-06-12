@@ -32,6 +32,15 @@ namespace indie
         //! In menu
         MENU,
 
+        //! In settings
+        SETTINGS,
+
+        //! In score
+        SCORE,
+
+        //! In room
+        ROOM,
+
         //! Quitting
         QUIT,
 

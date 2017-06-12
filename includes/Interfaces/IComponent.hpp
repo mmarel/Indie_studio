@@ -12,6 +12,7 @@
 #include <string>
 #include "GameState.hpp"
 #include "Color.hpp"
+#include "../Common/Sprite.hpp"
 
 namespace indie
 {
@@ -77,6 +78,8 @@ namespace indie
       /// \brief Get the text value
       ///
       virtual std::string const &getText() const = 0;
+
+      virtual indie::Sprite* &getSprite() = 0;
 
       // TODO
       // virtual void setPosState(size_t) = 0;

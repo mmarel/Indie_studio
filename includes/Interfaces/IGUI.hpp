@@ -40,6 +40,10 @@ namespace indie
     /// \brief Access to the n element
     ///
     virtual IComponent &at(std::size_t n) = 0;
+
+    virtual void loadComponents(indie::GameState) = 0;
+
+    virtual std::vector<std::unique_ptr<indie::ISprite> > getSprites() = 0;
   };
 }
 
