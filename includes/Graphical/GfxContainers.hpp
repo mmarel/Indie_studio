@@ -13,23 +13,25 @@
 #include <utility>
 #include <vector>
 
+#include "Interfaces/IMap.hpp"
 #include "irr/irrlicht.h"
 
 namespace indie
 {
 
-    // Scene infos
-    struct SceneInfos {
-        irr::f32    startX;
-        irr::f32    startY;
-        irr::f32    width;
-        irr::f32    height;
-        irr::f32    depth;
-    };
-
+    // Gfx Infos
     struct GfxInfos {
-        SceneInfos  scene;
-        std::size_t flor;
+        GfxInfos(std::size_t current_scene)
+            : _current_scene(current_scene),
+              _scene_loaded_once(false),
+              _camera_view_point(ECAMERA_VIEW::UNDEFINED)
+        {
+        }
+        ~GfxInfos() {}
+
+        std::size_t  _current_scene;
+        bool         _scene_loaded_once;
+        ECAMERA_VIEW _camera_view_point;
     };
 
     // Container for Scenes
@@ -37,6 +39,7 @@ namespace indie
     {
         SceneContainer()
                     : _scene(),
+                      _dome(""),
                       _startX(0.0f),
                       _startY(0.0f),
                       _startZ(0.0f)
@@ -46,26 +49,30 @@ namespace indie
         SceneContainer(const std::vector<
                                           std::pair<irr::scene::IMesh *, irr::scene::IMeshSceneNode *>
                                         > &scene,
+                       const std::string &dome,
                        float x,
                        float y,
                        float z)
                     : _scene(scene),
+                      _dome(dome),
                       _startX(x),
                       _startY(y),
                       _startZ(z)
         {
 
         }
-        SceneContainer(SceneContainer &&scene, float x, float y, float z)
+        SceneContainer(SceneContainer &&scene, const std::string &dome, float x, float y, float z)
                     : _scene(scene._scene),
+                      _dome(dome),
                       _startX(x),
                       _startY(y),
                       _startZ(z)
         {
 
         }
-        SceneContainer(const SceneContainer &scene, float x, float y, float z)
+        SceneContainer(const SceneContainer &scene, const std::string &dome, float x, float y, float z)
                     : _scene(scene._scene),
+                      _dome(dome),
                       _startX(x),
                       _startY(y),
                       _startZ(z)
@@ -80,6 +87,7 @@ namespace indie
 
         std::vector<std::pair<irr::scene::IMesh *,
                               irr::scene::IMeshSceneNode *> >   _scene;
+        std::string                                             _dome;
         float                                                   _startX;
         float                                                   _startY;
         float                                                   _startZ;

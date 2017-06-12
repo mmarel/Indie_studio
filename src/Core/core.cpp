@@ -64,11 +64,14 @@ void    indie::Core::display_game(indie::Gfx &_gfx)
         _gfx.soundControl(*it);
 
     // TODO : CHECK LOAD ATTEMPT
+//    _gfx.loadScenes(_gameLoad->getSpritesToLoad());
     _gfx.loadSprites(_gameLoad->getSpritesToLoad());
     _gfx.loadModels(_gameLoad->getModelsToLoad());
     _gfx.updateMap(_gameLoad->getCurrentMap());
-    _gfx.updateGUI(_gameLoad->getGUI());
+    _gfx.updateGUI(_gameLoad->getCurrentGUI());
     _gfx.display();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 }
 
 void    indie::Core::display_menu(indie::Gfx &_gfx)

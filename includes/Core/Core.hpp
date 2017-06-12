@@ -11,6 +11,9 @@
 #ifndef CORE_HPP_
 # define CORE_HPP_
 
+#include <chrono>
+#include <thread>
+
 #include "Interfaces/GameState.hpp"
 #include "Graphical/Gfx.hpp"
 #include "Interfaces/IGame.hpp"

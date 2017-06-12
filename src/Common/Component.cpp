@@ -6,7 +6,7 @@
 // Last Modified time: 2017-06-04 05:33:17
 //
 
-#include "Common/Component.hpp"
+#include "Game/Component.hpp"
 
 indie::Component::Component(indie::Sprite &sprite,
                             size_t backId,
@@ -57,37 +57,27 @@ indie::Component &indie::Component::operator=(const indie::Component &other) {
     return (*this);
 }
 
-double indie::Component::getX() const {
-    return (_x);
-}
+double  indie::Component::getX() const { return (_x); }
+void    indie::Component::setX(double x) { this->_x = x; }
 
-double indie::Component::getY() const {
-    return (_y);
-}
 
-double indie::Component::getWidth() const {
-    return (_width);
-}
+double  indie::Component::getY() const { return (_y); }
+void    indie::Component::setY(double y) { this->_y = y; }
 
-double indie::Component::getHeight() const {
-    return (_height);
-}
+double  indie::Component::getWidth() const { return (_width); }
+void    indie::Component::setWidth(double width) { this->_width = width; }
 
-size_t indie::Component::getBackgroundId() const {
-    return (_backgroundId);
-}
+double  indie::Component::getHeight() const { return (_height); }
+void    indie::Component::setHeight(double height) { this->_height = height; }
 
-indie::Color indie::Component::getBackgroundColor() const {
-    return (_backgroundColor);
-}
+size_t  indie::Component::getBackgroundId() const { return (_backgroundId); }
+void    indie::Component::setBackgroundId(std::size_t id) { this->_backgroundId = id; }
 
-indie::Color indie::Component::getTextColor() const {
-    return (_textColor);
-}
+indie::Color    indie::Component::getBackgroundColor() const { return (_backgroundColor); }
+void            indie::Component::setBackgorundColor(const Color &color) { this->_backgroundColor = color; }
 
-std::string const& indie::Component::getText() const {
-    return (_text);
-}
+indie::Color    indie::Component::getTextColor() const { return (_textColor); }
+void            indie::Component::setTextColor(const Color &color) { this->_textColor = color; }
 
 bool indie::Component::hasSprite() const {
     std::cout << "ICI : " << _sprite->getGraphicPath(0) << std::endl;
@@ -108,15 +98,5 @@ indie::Sprite* &indie::Component::getSprite() {
     return (_sprite);
 }
 
-/*
-size_t indie::Component::getPosState() const {
-    return (_posState);
-}
-
-void indie::Component::setPosState(size_t newPos) {
-    if (newPos <= _sprite->SpritesCount())
-        _posState = newPos;
-    else
-        std::cerr << "posState > _sprites.size()" << std::endl;
-}
-*/
+std::string const&  indie::Component::getText() const { return (_text); }
+void                indie::Component::setText(const std::string &text) { this->_text = text; }

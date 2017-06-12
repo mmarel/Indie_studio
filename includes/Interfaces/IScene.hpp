@@ -33,12 +33,12 @@ namespace indie
             ///
             virtual std::size_t getNumberParts() const = 0;
             ///
-            /// \fn virtual std::pair<std::string, std::string> getPartAtPos(std::size_t) const = 0
+            /// \fn virtual std::pair<std::string, std::string> getScenePartAtPos(std::size_t) const = 0
             /// \brief takes as parameter the index of the part and 
             ///        returns as a pair of strings the mesh and the texture associated with the mesh.
             ///
             ///
-            virtual std::pair<std::string, std::string> getPartAtPos(std::size_t) const = 0;
+            virtual std::pair<std::string, std::string> getScenePartAtPos(std::size_t) const = 0;
             ///
             /// \fn virtual float getStartX() const = 0;
             /// \brief Returns the starting x position of the game area.
@@ -54,6 +54,11 @@ namespace indie
             /// \brief Returns the starting z position of the game area.
             ///
             virtual float getStartZ() const = 0;
+            ///
+            /// \fn virtual const std::string &getDome() const = 0;
+            /// \brief Returns the path of the dome to load for this scene.
+            ///
+            virtual const std::string &getDome() const = 0;
     };
 }
 

@@ -6,57 +6,46 @@
 // Last Modified time: 2017-06-04 05:32:25
 //
 
-#include "Common/Tile.hpp"
+#include "Game/Tile.hpp"
 
-indie::Tile::Tile(const Color &color,
-                  bool hasModel,
-                  std::size_t meshId,
+indie::Tile::Tile(bool hasModel,
                   std::size_t modelId,
-                  ELookAt rotation,
-                  const std::string &texture,
-                  bool animationChanged,
-                  std::pair<size_t, size_t> frameLoop,
-                  double shiftX,
-                  double shiftY)
+                  const std::string &texture)
 
-    : _color(color),
+    :
       _hasModel(hasModel),
-      _meshId(meshId),
       _modelId(modelId),
-      _modelRotation(rotation),
-      _modelTexture(texture),
-      _doesAnimationChanged(animationChanged),
-      _modelFrameLoop(frameLoop),
-      _shiftX(shiftX),
-      _shiftY(shiftY)
-
+      _objectId(0),
+      _objectRotation(ELookAt::SOUTH),
+      _objectTexture(texture),
+      _doesAnimationChanged(false),
+      _objectFrameLoop(std::pair<std::size_t, std::size_t>(0, 0)),
+      _shiftX(0.0f),
+      _shiftY(0.0f)
 {
 
 }
 
-indie::Color        indie::Tile::getColor() const { return this->_color; }
-void                indie::Tile::setColor(const Color &color) { this->_color = color; }
-
 bool                indie::Tile::hasModel() const { return this->_hasModel; }
 void                indie::Tile::setHasModel(bool hm) { this->_hasModel = hm; }
-
-std::size_t         indie::Tile::getMeshId() const { return this->_meshId; }
-void                indie::Tile::setMeshId(std::size_t id) { this->_meshId = id; }
 
 std::size_t         indie::Tile::getModelId() const { return this->_modelId; }
 void                indie::Tile::setModelId(std::size_t id) { this->_modelId = id; }
 
-indie::ELookAt      indie::Tile::getModelRotation() const { return this->_modelRotation; }
-void                indie::Tile::setModelRotation(indie::ELookAt look) { this->_modelRotation = look; }
+std::size_t         indie::Tile::getObjectId() const { return this->_objectId; }
+void                indie::Tile::setObjectId(std::size_t id) { this->_objectId = id; }
 
-std::string         indie::Tile::getModelTexture() const { return this->_modelTexture; }
-void                indie::Tile::setModelTexture(const std::string &texture) { this->_modelTexture = texture; }
+indie::ELookAt      indie::Tile::getObjectRotation() const { return this->_objectRotation; }
+void                indie::Tile::setObjectRotation(indie::ELookAt look) { this->_objectRotation = look; }
+
+std::string         indie::Tile::getObjectTexture() const { return this->_objectTexture; }
+void                indie::Tile::setObjectTexture(const std::string &texture) { this->_objectTexture = texture; }
 
 bool                indie::Tile::doesAnimationChanged() const { return this->_doesAnimationChanged; }
 void                indie::Tile::setDoesAnimationChanged(bool v) { this->_doesAnimationChanged = v; }
 
-std::pair<std::size_t, std::size_t> indie::Tile::getModelFrameLoop() const { return this->_modelFrameLoop; }
-void                indie::Tile::setModelFrameLoop(const std::pair<std::size_t, std::size_t> &fl) { this->_modelFrameLoop = fl; }
+std::pair<std::size_t, std::size_t> indie::Tile::getObjectFrameLoop() const { return this->_objectFrameLoop; }
+void                indie::Tile::setObjectFrameLoop(const std::pair<std::size_t, std::size_t> &fl) { this->_objectFrameLoop = fl; }
 
 double              indie::Tile::getShiftX() const { return this->_shiftX; }
 void                indie::Tile::setShiftX(double x) { this->_shiftX = x; }

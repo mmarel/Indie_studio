@@ -4,10 +4,10 @@
 #include <map>
 #include <vector>
 #include <functional>
-#include "../Common/Sprite.hpp"
-#include "../Common/Component.hpp"
-#include "../Interfaces/GameState.hpp"
-#include "../Interfaces/IGUI.hpp"
+#include "Common/Sprite.hpp"
+#include "Game/Component.hpp"
+#include "Interfaces/GameState.hpp"
+#include "Interfaces/IGUI.hpp"
 
 namespace indie
 {
@@ -42,7 +42,7 @@ namespace indie
         virtual ~GUI(){}
 
         virtual std::size_t  size() const;
-        virtual IComponent &at(std::size_t n);
+        virtual IComponent &at(std::size_t n) const;
         virtual void loadComponents(indie::GameState);
         virtual std::vector<std::unique_ptr<indie::ISprite> > getSprites();
     };

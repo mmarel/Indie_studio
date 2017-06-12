@@ -12,7 +12,7 @@ std::size_t indie::GUI::size() const {
     return (_components.size());
 }
 
-indie::IComponent & indie::GUI::at(std::size_t n) {
+indie::IComponent & indie::GUI::at(std::size_t n) const {
     return (*_components.at(n));
 }
 
