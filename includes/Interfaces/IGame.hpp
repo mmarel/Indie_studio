@@ -58,8 +58,8 @@ namespace indie
         /// \brief Send events (keyboard, mouse, etc) to the game
         ///
         virtual void notifyEvent(std::vector<Event> &&events) = 0;
-
 /*
+
         NETWORK PART, working in progress about the architecture
 
         ///

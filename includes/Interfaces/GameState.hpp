@@ -44,8 +44,6 @@ namespace indie
         //! Quitting
         QUIT,
 
-        //! Number of game states
-        NB_GAME_STATE
     };
 
 }

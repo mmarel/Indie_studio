@@ -14,6 +14,8 @@ namespace indie
 
     // ------- GLOBAL
     # define _INDIE_LAUNCHING_FAILED                "Indie : Launching failed."
+    // ------- CORE
+    # define _INDIE_CORE_LOADING_FAILED             "Indie Core : Failed to get resources to load from the game to library."
     // ------- GFX
     # define _INDIE_GFX_FONT_FAILED                 "Indie Gfx : Failed to load font. Default font will be loaded instead."
     # define _INDIE_GFX_DEFAULT_FONT_FAILED         "Indie Gfx : Failed to load default font."

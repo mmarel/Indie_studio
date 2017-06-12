@@ -13,7 +13,7 @@
 
 #include <chrono>
 #include <thread>
-
+         
 #include "Interfaces/GameState.hpp"
 #include "Graphical/Gfx.hpp"
 #include "Interfaces/IGame.hpp"
@@ -24,27 +24,25 @@ namespace indie
 
   class	Core
   {
-    private:
-
-      indie::GameState          _gameState;
-      //indie::Gfx              _gfx;
-      indie::IGame              *_gameLoad;
-      std::vector<indie::Sound> _sounds;
-
     public:
       Core();
       ~Core();
 
-      Core(Core const &);
-      Core  &operator=(Core const &);
+      Core(Core const &) = delete;
+      Core  &operator=(Core const &) = delete;
 
-      indie::GameState  getGameState() const;
-      void              setGameState(const indie::GameState);
-      void              load_sound_lib();
-      void              display_game(indie::Gfx &);
-      void              display_menu(indie::Gfx &);
-      void              display_loop();
-      void              getEventGame(indie::Gfx &);
+      void              runCoreLoop();
+
+    private:
+
+      void              loading();
+      void              process();
+      void              notifyGame() const;
+
+      std::unique_ptr<indie::IGfx>     _gfx;
+      std::unique_ptr<indie::IGame>   _game;
+      std::vector<indie::Sound>       _sounds;
+      GameState                       _gameState;
   };
 }
 
