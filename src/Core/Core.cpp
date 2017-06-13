@@ -28,6 +28,7 @@ indie::Core::~Core()
 void            indie::Core::runCoreLoop()
 {
 
+    std::cout << "run" << std::endl;
     while (42) {
 
       this->_gameState = this->_game->getGameState();
