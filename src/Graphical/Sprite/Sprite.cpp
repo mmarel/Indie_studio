@@ -1,3 +1,11 @@
+//
+// Author: Sebastien Jacobin 
+// Date: 2017-06-14 01:29:26 
+//
+// Last Modified by:   Sebastien Jacobin 
+// Last Modified time: 2017-06-14 01:29:26
+//
+
 #include "Common/Sprite.hpp"
 
 indie::Sprite& indie::Sprite::operator=(const indie::Sprite &other) {
@@ -6,7 +14,6 @@ indie::Sprite& indie::Sprite::operator=(const indie::Sprite &other) {
 }
 
 size_t indie::Sprite::SpritesCount() const {
-    std::cout << "PUUUTE\n";
     return (_spritesPath.size());
 }
 
