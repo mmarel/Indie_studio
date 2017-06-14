@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-22 17:50:02 
+// Author: Marwane Khsime
+// Date: 2017-05-22 17:50:02
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-22 17:50:02
 //
 
@@ -75,10 +75,10 @@ namespace indie
 		///
 		virtual std::size_t getSceneId() const = 0;
 		///
-		/// \fn virtual std::vector<std::size_t> getObjectsId() const = 0
+		/// \fn virtual const std::vector<std::size_t> &getObjectsId() const = 0
 		/// \brief Get the id's of the objects in this map.
 		///
-		virtual std::vector<std::size_t> getObjectsId() const = 0;
+		virtual const std::vector<std::size_t> &getObjectsId() const = 0;
 
   };
 }

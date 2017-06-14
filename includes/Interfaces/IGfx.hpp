@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-24 03:51:40 
+// Author: Marwane Khsime
+// Date: 2017-05-24 03:51:40
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-24 03:51:40
 //
 
@@ -63,13 +63,13 @@ namespace indie
         /// \fn virtual void loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds) = 0
         /// \brief Ask the lib to remove and load new sounds
         ///
-        virtual void loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds) = 0;
+        virtual void loadSounds(std::unique_ptr<std::vector<std::pair<std::string, SoundType > > > sounds) = 0;
         ///
         /// \fn virtual void soundControl(const Sound &sound) = 0
         /// \brief Ask the lib to play a sound
         ///
         virtual void soundControl(const Sound &sound) = 0;
-  
+
         // Fonts
         ///
         /// \fn virtual void &loadFonts(std::vector<std::string> const &Fonts = std::vector<std::string>()) = 0

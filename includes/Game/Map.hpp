@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-06-04 06:10:56 
+// Author: Marwane Khsime
+// Date: 2017-06-04 06:10:56
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-06-04 06:10:56
 //
 
@@ -41,10 +41,13 @@ namespace indie
             virtual std::size_t getHeight() const;
             virtual std::size_t getSceneId() const;
             virtual ECAMERA_VIEW getPOV() const;
-            virtual std::vector<std::size_t> getObjectsId() const;
+            virtual const std::vector<std::size_t> &getObjectsId() const;
             virtual ITile const &at(std::size_t layer,
                                     std::size_t x,
                                     std::size_t y) const;
+            Tile        &at(std::size_t layer,
+                            std::size_t x,
+                            std::size_t y);
 
             void setSceneId(std::size_t sceneId);
             void setCameraPOV(ECAMERA_VIEW pov);
@@ -63,6 +66,9 @@ namespace indie
                                 MODELS_ID model_id = MODELS_ID::UNKNOWN,
                                 const std::string &resource_path = "");
 
+            // Init the tiles according to the rawmap
+            void    initTiles();
+
             // Map generators
             void    generate_little_map();
 
@@ -75,7 +81,7 @@ namespace indie
             std::vector<std::vector<std::vector< std::unique_ptr< Tile > > > > _layers;
             std::vector<std::vector< int > >   _rawMap;
     };
-   
+
 }
 
 

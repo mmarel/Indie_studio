@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-05 05:01:47 
+// Author: Marwane Khsime
+// Date: 2017-05-05 05:01:47
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-05 05:01:47
 //
 
@@ -96,41 +96,41 @@ namespace indie
         /// \fn virtual std::vector<std::unique_ptr<ISprite> > getSpritesToLoad() const = 0
         /// \brief get the list of Sprites to load.
         ///
-        virtual std::vector<std::unique_ptr<IScene> > getScenesToLoad() const = 0;
+        virtual std::unique_ptr<std::vector<std::unique_ptr<IScene> > > getScenesToLoad() const = 0;
 
         // Sprites
         ///
         /// \fn virtual std::vector<std::unique_ptr<ISprite> > getSpritesToLoad() const = 0
         /// \brief get the list of Sprites to load.
         ///
-        virtual std::vector<std::unique_ptr<ISprite> > getSpritesToLoad() const = 0;
+        virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSpritesToLoad() const = 0;
 
         // Models
         ///
         /// \fn virtual std::vector<std::unique_ptr<IModel> > getModelsToLoad() const = 0
         /// \brief get the list of Models to load.
         ///
-        virtual std::vector<std::unique_ptr<IModel> > getModelsToLoad() const = 0;
+        virtual std::unique_ptr<std::vector<std::unique_ptr<IModel> > > getModelsToLoad() const = 0;
         ///
         /// \fn virtual std::vector<size_t> getObjectsId() const = 0
         /// \brief get the list of objects currently in game.
         /// This function is used to indicate to the GFX what objects are still in play
         /// so that they do not have to recreate them.
         ///
-        virtual std::vector<size_t> getObjectsId() const = 0;
+        virtual const std::vector<size_t> &getObjectsId() const = 0;
 
         // Sound
         ///
         /// \fn virtual std::vector<std::string> getSoundsToLoad() const = 0
         /// \brief get the list of sound files to load.
         ///
-        virtual std::vector<std::pair<std::string, SoundType> > getSoundsToLoad() const = 0;
+        virtual std::unique_ptr<std::vector<std::pair<std::string, SoundType> > > getSoundsToLoad() const = 0;
 
         ///
         /// \fn     virtual std::vector<Sound> getSoundsToPlay() = 0
         /// \brief Get the sounds to play
         ///
-        virtual std::vector<Sound> getSoundsToPlay() = 0;
+        virtual const std::vector<Sound> &getSoundsToPlay() const = 0;
         /* You should return by std::move to not copy your vector and to clear it at the same time */
 
         // Map

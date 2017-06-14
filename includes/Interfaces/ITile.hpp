@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-22 17:50:23 
+// Author: Marwane Khsime
+// Date: 2017-05-22 17:50:23
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-22 17:50:23
 //
 
@@ -13,43 +13,10 @@
 #include <string>
 #include <utility>
 #include "Color.hpp"
+#include "Game/ModelsId.hpp"
 
 namespace indie
 {
-
-    ///
-    /// \enum TileTypeEvolution
-    /// \brief Type of map tile
-    ///
-    enum TileTypeEvolution
-    {
-        //! Empty tile
-        EMPTY = 0,
-        
-        //! Block tile
-        BLOCK,
-        
-        //! Obstacle tile
-        OBSTACLE,
-        
-        //! Enemy tile
-        ENEMY,
-        
-        //! Enemy shot tile
-        SHOT_ENEMY,
-        
-        //! Player shot tile
-        SHOT_PLAYER,
-        
-        //! Powerup tile
-        POWERUP,
-        
-        //! Player tile
-        PLAYER,
-        
-        //! Food tile
-        FOOD,
-    };
 
 	///
 	/// \enum class ELookAT : int
@@ -125,6 +92,11 @@ namespace indie
 		/// \brief Get the tile position shift on y
 		///
 		virtual double getShiftY() const = 0;
+			///
+		/// \fn virtual OBJECTS_ID getType() const = 0
+		/// \brief Get the type of the object int the tile
+		///
+    virtual OBJECTS_ID getType() const = 0;
 	};
 }
 

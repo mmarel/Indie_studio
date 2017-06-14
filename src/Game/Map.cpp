@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-06-04 06:45:22 
+// Author: Marwane Khsime
+// Date: 2017-06-04 06:45:22
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-06-04 06:45:22
 //
 
@@ -42,6 +42,11 @@ indie::ITile const &indie::Map::at(size_t layer, size_t x, size_t y) const
   return *this->_layers[layer][y][x];
 }
 
+indie::Tile &indie::Map::at(size_t layer, size_t x, size_t y)
+{
+  return *this->_layers[layer][y][x];
+}
+
 std::size_t  indie::Map::getLayerNb() const { return this->_nbLayers; }
 
 std::size_t  indie::Map::getWidth() const { return this->_width; }
@@ -54,7 +59,7 @@ void         indie::Map::setSceneId(std::size_t sceneId) { this->_sceneId = scen
 indie::ECAMERA_VIEW    indie::Map::getPOV() const { return this->_scenePov; }
 void                   indie::Map::setCameraPOV(indie::ECAMERA_VIEW pov) { this->_scenePov = pov; }
 
-std::vector<std::size_t>    indie::Map::getObjectsId() const { return this->_objectsId; }
+const std::vector<std::size_t>    &indie::Map::getObjectsId() const { return this->_objectsId; }
 
 void                        indie::Map::addObjectById(std::size_t add) {
     if (std::find(this->_objectsId.begin(), this->_objectsId.end(), add) == this->_objectsId.end())
@@ -93,4 +98,97 @@ void         indie::Map::create_layer(std::size_t layer)
 
     }
 
+}
+
+void  indie::Map::initTiles() {
+  int nobjects = 0;
+  int y = 0;
+  int x;
+
+  std::for_each(_layers[0].begin(), _layers[0].end(),
+    [&](std::vector<std::unique_ptr<Tile> > &line) {
+      x = 0;
+      std::for_each(line.begin(), line.end(),
+      [&](std::unique_ptr<Tile> &tile) {
+        indie::OBJECTS_ID type;
+
+        type = static_cast<indie::OBJECTS_ID>(_rawMap[y][x]);
+        tile->setType(type);
+        switch (type) {
+          case indie::OBJECTS_ID::EMPTY:
+            tile->setHasModel(false);
+            tile->setType(indie::OBJECTS_ID::EMPTY);
+            break;
+
+          case indie::OBJECTS_ID::WALL:
+            tile->setHasModel(false);
+            tile->setType(indie::OBJECTS_ID::WALL);
+            break;
+
+          case indie::OBJECTS_ID::PLAYER_ONE:
+            tile->setHasModel(true);
+            tile->setType(indie::OBJECTS_ID::PLAYER_ONE);
+            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            _objectsId.push_back(++nobjects);
+            tile->setObjectId(nobjects);
+            tile->setObjectTexture("textures/Blue.png");
+            tile->setDoesAnimationChanged(true);
+            tile->setObjectFrameLoop(indie::Tile::getSkeletonFrame("SPAWN"));
+            break;
+
+          case indie::OBJECTS_ID::PLAYER_TWO:
+            tile->setHasModel(true);
+            tile->setType(indie::OBJECTS_ID::PLAYER_TWO);
+            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            _objectsId.push_back(++nobjects);
+            tile->setObjectId(nobjects);
+            tile->setObjectTexture("textures/Red.png");
+            tile->setDoesAnimationChanged(true);
+            tile->setObjectFrameLoop(indie::Tile::getSkeletonFrame("SPAWN"));
+            break;
+
+          case indie::OBJECTS_ID::PLAYER_THREE:
+            tile->setHasModel(true);
+            tile->setType(indie::OBJECTS_ID::PLAYER_THREE);
+            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            _objectsId.push_back(++nobjects);
+            tile->setObjectId(nobjects);
+            tile->setObjectTexture("textures/Yellow.png");
+            tile->setDoesAnimationChanged(true);
+            tile->setObjectFrameLoop(indie::Tile::getSkeletonFrame("SPAWN"));
+            break;
+
+          case indie::OBJECTS_ID::PLAYER_FOURTH:
+            tile->setHasModel(true);
+            tile->setType(indie::OBJECTS_ID::PLAYER_FOURTH);
+            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            _objectsId.push_back(++nobjects);
+            tile->setObjectId(nobjects);
+            tile->setObjectTexture("textures/Green.png");
+            tile->setDoesAnimationChanged(true);
+            tile->setObjectFrameLoop(indie::Tile::getSkeletonFrame("SPAWN"));
+            break;
+
+          case indie::OBJECTS_ID::BOX:
+            tile->setHasModel(true);
+            tile->setType(indie::OBJECTS_ID::BOX);
+            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::BOX_MODEL));
+            _objectsId.push_back(++nobjects);
+            tile->setObjectId(nobjects);
+            tile->setObjectTexture("Map/Box.png");
+            tile->setDoesAnimationChanged(true);
+            tile->setObjectFrameLoop(std::pair<std::size_t, std::size_t>(1, 2)); // TODO check box frames
+            break;
+
+          case indie::OBJECTS_ID::UNKNOWN:
+          case indie::OBJECTS_ID::SQUAREBOMB:
+          case indie::OBJECTS_ID::PIKESBOMB:
+          case indie::OBJECTS_ID::TENTACLEBOMB:
+          default:
+            break;
+      }
+      x++;
+    });
+    y++;
+  });
 }

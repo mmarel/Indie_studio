@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-05 17:41:58 
+// Author: Marwane Khsime
+// Date: 2017-05-05 17:41:58
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-05 17:41:58
 //
 
@@ -79,7 +79,7 @@ namespace indie
             virtual bool        pollEvents(Event &e);
             //  Sound
             virtual bool        doesSupportSound() const;
-            virtual void        loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds);
+            virtual void        loadSounds(std::unique_ptr<std::vector<std::pair<std::string, SoundType > > > sounds);
             virtual void        soundControl(const Sound &sound);
             //  Scene
             virtual void        loadScenes(std::unique_ptr<std::vector<std::unique_ptr<IScene> > > scene);
@@ -131,12 +131,12 @@ namespace indie
 
             template < class T >
             irr::core::vector3df    get_mesh_size(T const *mesh) const {
-                return mesh->getTransformedBoundingBox().getExtent(); 
+                return mesh->getTransformedBoundingBox().getExtent();
             }
 
             template < class T >
             void    set_mesh_dimensions(T *mesh, const irr::core::vector3df &size) {
-            
+
                 irr::core::vector3df        edges_length = mesh->getTransformedBoundingBox().getExtent();
                 irr::core::vector3df        current_scale = mesh->getScale();
 

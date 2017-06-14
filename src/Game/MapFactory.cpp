@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-06-08 00:50:54 
+// Author: Marwane Khsime
+// Date: 2017-06-08 00:50:54
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-06-08 00:50:54
 //
 
@@ -32,5 +32,7 @@ void    indie::Map::generate_little_map() {
     this->_nbLayers = 1;
     this->_sceneId = 0;
     this->create_layer(0);
-
+    this->create_layer(1);
+    this->create_layer(2);
+    initTiles();
 }

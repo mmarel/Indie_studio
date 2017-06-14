@@ -1,10 +1,13 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-06-08 01:06:38 
+// Author: Marwane Khsime
+// Date: 2017-06-08 01:06:38
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-06-08 01:06:38
 //
+
+#ifndef MODELS_ID_HPP
+# define MODELS_ID_HPP
 
 namespace indie
 {
@@ -22,11 +25,21 @@ namespace indie
     enum class OBJECTS_ID : int {
 
         UNKNOWN = -1,
+        EMPTY,
         PLAYER_ONE = 1,
         PLAYER_TWO = 2,
         PLAYER_THREE = 3,
         PLAYER_FOURTH = 4,
-        BOX = 5
-
+        BOX = 5,
+        WALL,
+        SQUAREBOMB,
+        PIKESBOMB,
+        TENTACLEBOMB
     };
+
+  # define SQUAREBOMB_FRAMECD 5
+  # define PIKESBOMB_FRAMECD 5
+  # define TENTACLESBOMB_FRAMECD 5
 }
+
+#endif // MODELS_ID_HPP

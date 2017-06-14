@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-06-04 05:32:25 
+// Author: Marwane Khsime
+// Date: 2017-06-04 05:32:25
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-06-04 05:32:25
 //
 
@@ -21,7 +21,9 @@ indie::Tile::Tile(bool hasModel,
       _doesAnimationChanged(false),
       _objectFrameLoop(std::pair<std::size_t, std::size_t>(0, 0)),
       _shiftX(0.0f),
-      _shiftY(0.0f)
+      _shiftY(0.0f),
+      _type(indie::OBJECTS_ID::EMPTY),
+      _cd(0)
 {
 
 }
@@ -52,3 +54,35 @@ void                indie::Tile::setShiftX(double x) { this->_shiftX = x; }
 
 double              indie::Tile::getShiftY() const { return this->_shiftY; }
 void                indie::Tile::setShiftY(double y) { this->_shiftY = y; }
+
+indie::OBJECTS_ID indie::Tile::getType() const { return _type; }
+void                indie::Tile::setType(OBJECTS_ID type) { _type = type; }
+
+indie::Tile         &indie::Tile::operator=(const indie::Tile &other) {
+  if (this != &other) {
+    _hasModel = other._hasModel;
+    _modelId = other._modelId;
+    _objectId = other._modelId;
+    _objectRotation = other._objectRotation;
+    _objectTexture = other._objectTexture;
+    _doesAnimationChanged = other._doesAnimationChanged;
+    _objectFrameLoop = std::move(other._objectFrameLoop);
+    _shiftX = other._shiftX;
+    _shiftY = other._shiftY;
+    _type = other._type;
+  }
+  return *this;
+}
+
+void              indie::Tile::reset() {
+  _hasModel = false;
+  _modelId = 0;
+  _doesAnimationChanged = false;
+  _objectFrameLoop = { 0, 0 };
+  _shiftY = 0;
+  _shiftX = 0;
+  _type = indie::OBJECTS_ID::EMPTY;
+}
+
+std::size_t     indie::Tile::getCurrentCD() const { return _cd; }
+void            indie::Tile::setCD(std::size_t cd) { _cd = cd; }

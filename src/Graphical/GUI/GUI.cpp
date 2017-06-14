@@ -1,6 +1,6 @@
  #include "Common/GUI.hpp"
 
-indie::GUI::GUI() : _components(), _loadComps() {
+indie::GUI::GUI() : _sprites(), _components(), _loadComps() {
 
     _loadComps[indie::GameState::MENU] = std::bind(&indie::GUI::loadMenu, this);
     _loadComps[indie::GameState::SETTINGS] = std::bind(&indie::GUI::loadSettings, this);
