@@ -81,27 +81,27 @@ namespace indie
 
         // Scene
         ///
-        /// \fn virtual void loadScenes(std::unique_ptr<IScene> &&scene) = 0
+        /// \fn virtual void loadScenes(std::unique_ptr<std::vector<std::unique_ptr<IScene> > > scenes) = 0
         /// \brief Load Scene in the lib from the paths given by the game
         /// \param Scene to pass the path of the meshes and textures to give the lib
         ///        the way to search the assets
-        virtual void loadScenes(std::vector<std::unique_ptr<IScene> > &&scene) = 0;
+        virtual void loadScenes(std::unique_ptr<std::vector<std::unique_ptr<IScene> > > scenes) = 0;
 
         // Sprites
         ///
-        /// \fn virtual void loadSprites(std::vector<std::string> const &Sprites) = 0
+        /// \fn virtual void loadSprites(std::unique_ptr<std::vector<std::unique_ptr<ISprite> > > sprites) = 0
         /// \brief Load Sprites in the lib from the paths given by the game
         /// \param Sprites to pass the path of the Sprites to give the lib
         ///        the way to search the assets
-        virtual void loadSprites(std::vector<std::shared_ptr<ISprite> > &&sprites) = 0;
+        virtual void loadSprites(std::unique_ptr<std::vector<std::unique_ptr<ISprite> > > sprites) = 0;
 
         // Models
         ///
-        /// \fn virtual void loadModels(std::vector<std::unique_ptr<IModel> > &&models) = 0
+        /// \fn virtual void loadModels(std::unique_ptr<std::vector<std::unique_ptr<IModel> > > models) = 0
         /// \brief Load Models in the lib from the paths given by the game
         /// \param Models to pass the path of the Sprites to give the lib
         ///        the way to search the assets
-        virtual void loadModels(std::vector<std::unique_ptr<IModel> > &&models) = 0;
+        virtual void loadModels(std::unique_ptr<std::vector<std::unique_ptr<IModel> > > models) = 0;
 
         // Map
         ///

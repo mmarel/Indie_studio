@@ -45,7 +45,7 @@ void    indie::Gfx::update_scene(std::size_t scene) {
 
 }
 
-void    indie::Gfx::loadScenes(std::vector<std::unique_ptr<indie::IScene> > &&scenes) {
+void    indie::Gfx::loadScenes(std::unique_ptr<std::vector<std::unique_ptr<indie::IScene> > > scenes) {
 
 
     // Clear the old Scene
@@ -60,20 +60,20 @@ void    indie::Gfx::loadScenes(std::vector<std::unique_ptr<indie::IScene> > &&sc
 
     this->_scenesLoaded.clear();
 
-    for (std::size_t i = 0; i < scenes.size(); ++i) {
+    for (std::size_t i = 0; i < scenes->size(); ++i) {
 
         indie::SceneContainer   scene_container( std::vector<
                                                     std::pair<irr::scene::IMesh *,
                                                     irr::scene::IMeshSceneNode *>
                                                  >(),
-                                                 scenes.at(i)->getDome(),
-                                                 scenes.at(i)->getStartX(),
-                                                 scenes.at(i)->getStartY(),
-                                                 scenes.at(i)->getStartZ() );
+                                                 scenes->at(i)->getDome(),
+                                                 scenes->at(i)->getStartX(),
+                                                 scenes->at(i)->getStartY(),
+                                                 scenes->at(i)->getStartZ() );
 
-        for (std::size_t j = 0; j < scenes.at(i)->getNumberParts(); ++j) {
+        for (std::size_t j = 0; j < scenes->at(i)->getNumberParts(); ++j) {
 
-            irr::scene::IMesh   *mesh = this->_smgr->getMesh(scenes.at(i)->getScenePartAtPos(j).first.c_str());
+            irr::scene::IMesh   *mesh = this->_smgr->getMesh(scenes->at(i)->getScenePartAtPos(j).first.c_str());
 
             if (!mesh) {
                 throw IndieError(_INDIE_GFX_MESH_FAILED);
@@ -88,7 +88,7 @@ void    indie::Gfx::loadScenes(std::vector<std::unique_ptr<indie::IScene> > &&sc
 
             if (node) {
                 node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-                node->setMaterialTexture(0, this->_driver->getTexture(scenes.at(i)->getScenePartAtPos(j).second.c_str()));
+                node->setMaterialTexture(0, this->_driver->getTexture(scenes->at(i)->getScenePartAtPos(j).second.c_str()));
             } else {
                 std::cerr << _INDIE_GFX_TEXTURE_FAILED << std::endl;
             }
@@ -98,7 +98,7 @@ void    indie::Gfx::loadScenes(std::vector<std::unique_ptr<indie::IScene> > &&sc
             scene_container._scene.push_back( { mesh, node } );
         }
 
-        scene_container._dome = scenes.at(i)->getDome();
+        scene_container._dome = scenes->at(i)->getDome();
         this->_scenesLoaded.push_back(scene_container);
     }
 

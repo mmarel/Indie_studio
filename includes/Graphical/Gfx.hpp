@@ -82,11 +82,11 @@ namespace indie
             virtual void        loadSounds(std::vector<std::pair<std::string, SoundType > > const &sounds);
             virtual void        soundControl(const Sound &sound);
             //  Scene
-            virtual void        loadScenes(std::vector<std::unique_ptr<IScene> > &&scene);
+            virtual void        loadScenes(std::unique_ptr<std::vector<std::unique_ptr<IScene> > > scene);
             //  Sprites
-            virtual void        loadSprites(std::vector<std::shared_ptr<ISprite> > &&sprites);
+            virtual void        loadSprites(std::unique_ptr<std::vector<std::unique_ptr<ISprite> > > sprites);
             //  Models
-            virtual void        loadModels(std::vector<std::unique_ptr<IModel> > &&models);
+            virtual void        loadModels(std::unique_ptr<std::vector<std::unique_ptr<IModel> > > models);
             //  FONTS
             virtual void        loadFonts(const std::vector<std::string> &fonts_to_load = std::vector<std::string>());
             //  GUI
