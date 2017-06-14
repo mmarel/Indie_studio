@@ -1,6 +1,6 @@
 //
-// Author: Maud Marel 
-// Date: 2017-06-12 18:41:39 
+// Author: Maud Marel
+// Date: 2017-06-12 18:41:39
 //
 
 #ifndef KEYMAP_HPP_
@@ -13,10 +13,10 @@
 #include "Interfaces/Event.hpp"
 
 namespace indie
-{   
+{
     class keyMap
     {
-        std::map<indie::GameState, std::function<void(void)> > act;
+        std::map<indie::GameState, std::function<void(Event)> > act;
 
     public:
         keyMap();
