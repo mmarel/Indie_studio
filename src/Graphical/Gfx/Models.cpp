@@ -8,7 +8,25 @@
 
 #include "Graphical/Gfx.hpp"
 
-void        indie::Gfx::loadObjectsId(const std::vector<std::size_t> &objects) {
+void    indie::Gfx::delete_old_nodes() {
+
+    std::unordered_map<std::size_t, NodeContainer>::iterator it = this->_nodesLoaded.begin();
+
+    while (it != this->_nodesLoaded.end()) {
+
+       if ((std::find(this->_objectsId.begin(), this->_objectsId.end(), it->second.id)) == this->_objectsId.end())
+       {
+           it->second.node->remove();
+           it = this->_nodesLoaded.erase(it);
+       } else {
+           ++it;
+       }
+
+    }
+
+}
+
+void        indie::Gfx::refresh_objects_id(const std::vector<std::size_t> &objects) {
     this->_objectsId.clear();
     this->_objectsId = objects;
 }

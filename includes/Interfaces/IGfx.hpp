@@ -15,6 +15,7 @@
 
 #include "Event.hpp"
 #include "Sound.hpp"
+#include "IScene.hpp"
 #include "ISprite.hpp"
 #include "IModel.hpp"
 #include "IMap.hpp"
@@ -68,7 +69,7 @@ namespace indie
         /// \brief Ask the lib to play a sound
         ///
         virtual void soundControl(const Sound &sound) = 0;
-
+  
         // Fonts
         ///
         /// \fn virtual void &loadFonts(std::vector<std::string> const &Fonts = std::vector<std::string>()) = 0
@@ -77,6 +78,14 @@ namespace indie
         ///        the way to search the assets. If there is no parameter, the default
         ///        font of the lib will be loaded.
         virtual void loadFonts(const std::vector<std::string> &fonts = std::vector<std::string>()) = 0;
+
+        // Scene
+        ///
+        /// \fn virtual void loadScenes(std::unique_ptr<IScene> &&scene) = 0
+        /// \brief Load Scene in the lib from the paths given by the game
+        /// \param Scene to pass the path of the meshes and textures to give the lib
+        ///        the way to search the assets
+        virtual void loadScenes(std::vector<std::unique_ptr<IScene> > &&scene) = 0;
 
         // Sprites
         ///
@@ -88,7 +97,7 @@ namespace indie
 
         // Models
         ///
-        /// \fn virtual void loadModels(std::vector<std::string> const &Models) = 0
+        /// \fn virtual void loadModels(std::vector<std::unique_ptr<IModel> > &&models) = 0
         /// \brief Load Models in the lib from the paths given by the game
         /// \param Models to pass the path of the Sprites to give the lib
         ///        the way to search the assets
@@ -99,14 +108,14 @@ namespace indie
         /// \fn virtual void updateMap(IMap const &map) = 0
         /// \brief Updates the map (no direct display changes are made here)
         ///
-        virtual void updateMap(IMap const &map) = 0;
+        virtual void updateMap(const IMap &map) = 0;
 
         // GUI
         ///
-        /// \fn virtual void updateGUI(IGUI &gui) = 0
+        /// \fn virtual void updateGUI(const IGUI &gui) = 0
         /// \brief Updates the GUI (no direct display changes are made here)
         ///
-        virtual void updateGUI(IGUI &gui) = 0;
+        virtual void updateGUI(const IGUI &gui) = 0;
 
         // Display
         ///

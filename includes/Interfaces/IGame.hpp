@@ -21,6 +21,7 @@
 #include "ISprite.hpp"
 #include "Sound.hpp"
 #include "IModel.hpp"
+#include "IScene.hpp"
 
 namespace indie
 {
@@ -57,8 +58,8 @@ namespace indie
         /// \brief Send events (keyboard, mouse, etc) to the game
         ///
         virtual void notifyEvent(std::vector<Event> &&events) = 0;
-
 /*
+
         NETWORK PART, working in progress about the architecture
 
         ///
@@ -89,6 +90,13 @@ namespace indie
         /// \brief Make the game process a game loop
         ///
         virtual void process() = 0;
+
+        // Scene
+        ///
+        /// \fn virtual std::vector<std::unique_ptr<ISprite> > getSpritesToLoad() const = 0
+        /// \brief get the list of Sprites to load.
+        ///
+        virtual std::vector<std::unique_ptr<IScene> > getScenesToLoad() const = 0;
 
         // Sprites
         ///
@@ -130,14 +138,15 @@ namespace indie
         /// \fn virtual IMap const &getCurrentMap() const = 0
         /// \brief Get the current version of the map
         ///
-        virtual IMap const &getCurrentMap() const = 0;
+        virtual const IMap &getCurrentMap() const = 0;
 
         // GUI
         ///
-        /// \fn virtual IGUI &getGUI() = 0
+        /// \fn virtual const IGUI &getGUI() = 0
         /// \brief Get the current version of the GUI to display
         ///
-        virtual IGUI &getGUI() = 0;
+        virtual const IGUI &getCurrentGUI() = 0;
+
   };
 }
 

@@ -5,7 +5,7 @@
 ## Login   <marwane.khsime@epitech.eu>
 ## 
 ## Started on  Wed May  3 00:22:29 2017 marwane
-## Last update Sun Jun  4 05:02:39 2017 marwane
+## Last update Wed Jun  7 21:43:22 2017 marwane
 ##
 
 #
@@ -46,10 +46,10 @@ CXXFLAGS		=	-std=c++14
 CXXFLAGS		+=	-O2
 # Warnings
 CXXFLAGS		+=	-W -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor -Wunreachable-code		\
-					-Wundef	-Wold-style-cast -Woverloaded-virtual -Wfloat-equal 							\
-					-Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion 					\
-					-Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default 						\
-					-Wswitch-enum -Winline -Wno-narrowing										\
+				-Wundef	-Wold-style-cast -Woverloaded-virtual -Wfloat-equal 				\
+				-Wwrite-strings -Wpointer-arith -Wcast-qual -Wcast-align -Wconversion 			\
+				-Wredundant-decls -Wdouble-promotion -Winit-self -Wswitch-default 			\
+				-Wswitch-enum -Winline -Wno-narrowing							\
 
 # Include folders
 INCDIRS			:=	$(addprefix -I,$(shell find includes -type d -print))
@@ -57,8 +57,7 @@ CXXFLAGS		+=	$(INCDIRS)
 # Ignore Irrlicht warnings
 CXXFLAGS		+=	-isystem includes/Extern/
 # Libraries
-LDFLAGS			=	-lpthread -lGL -lGLU
-LDFLAGS			+=	-lXrandr -lXi -lXrender -ldrm -lXdamage -lXxf86vm -lXext -lX11 -lsndfile -lopenal
+LDFLAGS			+=	-lpthread -lXrandr -lXi -lXrender -ldrm -lXdamage -lXxf86vm -lXext -lX11 -lGL -lGLU -lopenal -lsndfile
 
 # Add the library according to the OS
 ifeq ($(OS_detected), Linux)
@@ -117,7 +116,7 @@ OBJECTS			:= 	$(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 $(BINDIR)/$(NAME):	$(OBJECTS)
 					@mkdir -p $(BINDIR)
-					@$(CXX) -o $@ $(OBJECTS) $(LDFLAGS)
+					@$(CXX) $(LDFLAGS) -o $@ $(OBJECTS)
 					@echo "[\033[94mProject $(NAME) build successfully!\033[0m]"
 
 $(OBJECTS):	$(OBJDIR)/%.o : $(SRCDIR)/%.cpp

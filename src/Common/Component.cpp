@@ -6,9 +6,9 @@
 // Last Modified time: 2017-06-04 05:33:17
 //
 
-#include "Common/Component.hpp"
+#include "Game/Component.hpp"
 
-indie::Component::Component(std::vector<indie::ISprite*> &sprites,
+indie::Component::Component(indie::Sprite &sprite,
                             size_t backId,
                             double x,
                             double y,
@@ -27,49 +27,76 @@ indie::Component::Component(std::vector<indie::ISprite*> &sprites,
         _backgroundColor(backColor),
         _textColor(textColor),
         _text(text),
-        _sprites(sprites) {
-
+        _sprite(&sprite) {
 }
 
-double indie::Component::getX() const {
-    return (_x);
+indie::Component::Component(const indie::Component &other)
+        : _x(other._x),
+          _y(other._y),
+          _width(other._width),
+          _height(other._height),
+          _backgroundId(other._backgroundId),
+          _posState(other._posState),
+          _backgroundColor(other._backgroundColor),
+          _textColor(other._textColor),
+          _text(other._text),
+          _sprite(other._sprite) {
 }
 
-double indie::Component::getY() const {
-    return (_y);
+indie::Component &indie::Component::operator=(const indie::Component &other) {
+    _x = other._x;
+    _y = other._y;
+    _width = other._width;
+    _height = other._height;
+    _backgroundId = other._backgroundId;
+    _posState = other._posState;
+    _backgroundColor = other._backgroundColor;
+    _textColor = other._textColor;
+    _text = other._text;
+    _sprite = other._sprite;
+    return (*this);
 }
 
-double indie::Component::getWidth() const {
-    return (_width);
+double  indie::Component::getX() const { return (_x); }
+void    indie::Component::setX(double x) { this->_x = x; }
+
+
+double  indie::Component::getY() const { return (_y); }
+void    indie::Component::setY(double y) { this->_y = y; }
+
+double  indie::Component::getWidth() const { return (_width); }
+void    indie::Component::setWidth(double width) { this->_width = width; }
+
+double  indie::Component::getHeight() const { return (_height); }
+void    indie::Component::setHeight(double height) { this->_height = height; }
+
+size_t  indie::Component::getBackgroundId() const { return (_backgroundId); }
+void    indie::Component::setBackgroundId(std::size_t id) { this->_backgroundId = id; }
+
+indie::Color    indie::Component::getBackgroundColor() const { return (_backgroundColor); }
+void            indie::Component::setBackgorundColor(const Color &color) { this->_backgroundColor = color; }
+
+indie::Color    indie::Component::getTextColor() const { return (_textColor); }
+void            indie::Component::setTextColor(const Color &color) { this->_textColor = color; }
+
+bool indie::Component::hasSprite() const {
+    std::cout << "ICI : " << _sprite->getGraphicPath(0) << std::endl;
+    if (_sprite->SpritesCount() > 0)
+        return (true);
+    return (false);
 }
 
-double indie::Component::getHeight() const {
-    return (_height);
-}
-
-size_t indie::Component::getBackgroundId() const {
-    return (_backgroundId);
-}
-
-indie::Color indie::Component::getBackgroundColor() const {
-    return (_backgroundColor);
-}
-
-indie::Color indie::Component::getTextColor() const {
-    return (_textColor);
-}
-
-std::string const& indie::Component::getText() const {
-    return (_text);
-}
-
-size_t indie::Component::getPosState() const {
+size_t indie::Component::getBackgroundPos() const {
     return (_posState);
 }
 
-void indie::Component::setPosState(size_t newPos) {
-    if (newPos <= _sprites.size())
-        _posState = newPos;
-    else
-        std::cerr << "posState > _sprites.size()" << std::endl;
+indie::Component::~Component() {
+    delete _sprite;
 }
+
+indie::Sprite* &indie::Component::getSprite() {
+    return (_sprite);
+}
+
+std::string const&  indie::Component::getText() const { return (_text); }
+void                indie::Component::setText(const std::string &text) { this->_text = text; }
