@@ -16,7 +16,8 @@ indie::Core::Core()
         _sounds(),
         _gameState(indie::GameState::NONE)
 {
-
+    if (!this->_gfx || !this->_game)
+        throw indie::IndieError(_INDIE_CORE_INIT_FAILED);
 }
 
 indie::Core::~Core()
@@ -24,42 +25,38 @@ indie::Core::~Core()
 
 }
 
-
 void            indie::Core::runCoreLoop()
 {
 
-    std::cout << "run" << std::endl;
     while (42) {
 
-      this->_gameState = this->_game->getGameState();
+        this->_gameState = this->_game->getGameState();
+        this->_gfx->clear();
 
-      this->_gfx->clear();
+        switch(this->_gameState) {
 
-      switch(this->_gameState)
-        {
+            case indie::GameState::QUIT:
+                return ;
+                break ;
 
-          case indie::GameState::QUIT:
-              return ;
-              break ;
+            case indie::GameState::LOADING:
+                this->loading();
+                break ;
 
-          case indie::GameState::LOADING:
-              this->loading();
-              break ;
+            case indie::GameState::INGAME:
+            case indie::GameState::MENU:
+            case indie::GameState::SCORE:
+            case indie::GameState::SETTINGS:
+            case indie::GameState::ROOM:
+                this->process();
+                break ;
 
-          case indie::GameState::INGAME:
-          case indie::GameState::MENU:
-          case indie::GameState::SCORE:
-          case indie::GameState::SETTINGS:
-          case indie::GameState::ROOM:
-              this->process();
-              break ;
+            case indie::GameState::NONE:
+            case indie::GameState::SPLASH_SCREEN: // To change when splash will be ready.
+            default:
+                break ;
 
-          case indie::GameState::NONE:
-          case indie::GameState::SPLASH_SCREEN: // To change when splash will be ready.
-          default:
-              break ;
-
-      }
+        } // switch
 
   }
 }
