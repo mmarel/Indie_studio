@@ -84,7 +84,7 @@ namespace indie
             //  Scene
             virtual void        loadScenes(std::vector<std::unique_ptr<IScene> > &&scene);
             //  Sprites
-            virtual void        loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprites);
+            virtual void        loadSprites(std::vector<std::shared_ptr<ISprite> > &&sprites);
             //  Models
             virtual void        loadModels(std::vector<std::unique_ptr<IModel> > &&models);
             //  FONTS

@@ -1,4 +1,4 @@
-#include "Common/GUI.hpp"
+ #include "Common/GUI.hpp"
 
 indie::GUI::GUI() : _components(), _loadComps() {
 
@@ -21,61 +21,46 @@ void indie::GUI::loadComponents(indie::GameState state) {
         _components = _loadComps[state]();
 }
 
-std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadMenu() {
-    std::vector<std::unique_ptr<indie::IComponent>> res;
+std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadMenu() {
+    std::vector<std::shared_ptr<indie::IComponent>> res;
 
     ///Load menu components
-    res.push_back(createComponent(0, 0, 0, 814, 134, indie::Color::Transparent, indie::Color::Red,
+    res.push_back(createComponent(0, 0.1f, 0.1f, 0.75f, 0.15f, indie::Color::White, indie::Color::Red,
                                    "Bomberman", "Sprites/bombTitle.png"));
-    res.push_back(createComponent(1, 0, 0, 180, 107, indie::Color::Transparent, indie::Color::White,
+    res.push_back(createComponent(1, 0.4f, 0.4f, 0.16f, 0.15f, indie::Color::White, indie::Color::White,
                                   "Play", "Sprites/playButton.png", "Sprites/playButton2.png"));
-    res.push_back(createComponent(2, 0, 0, 323, 92, indie::Color::Transparent, indie::Color::White,
-                                  "Settings", "Sprites/SettignsButton.png", "Sprites/SettingsButton2.png"));
-    res.push_back(createComponent(3, 0, 0, 174, 85, indie::Color::Transparent, indie::Color::White,
+    res.push_back(createComponent(2, 0.33f, 0.6f, 0.3f, 0.1f, indie::Color::White, indie::Color::White,
+                                  "Settings", "Sprites/SettingsButton.png", "Sprites/SettingsButton2.png"));
+    res.push_back(createComponent(3, 0.4f, 0.8f, 0.15f, 0.1f, indie::Color::White, indie::Color::White,
                                   "Exit", "Sprites/exitButton.png", "Sprites/exitButton2.png"));
 
     return (res);
 }
 
-std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadSettings() {
-    std::vector<std::unique_ptr<indie::IComponent>> res;
+std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadSettings() {
+    std::vector<std::shared_ptr<indie::IComponent>> res;
 
     ///Load Settings components
 
     return (res);
 }
 
-std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
-    std::vector<std::unique_ptr<indie::IComponent>> res;
+std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadScore() {
+    std::vector<std::shared_ptr<indie::IComponent>> res;
 
     ///Load Score components
 
     return (res);
 }
 
-std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadRoom() {
-    std::vector<std::unique_ptr<indie::IComponent>> res;
+std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadRoom() {
+    std::vector<std::shared_ptr<indie::IComponent>> res;
 
     ///Load Room Components
 
     return (res);
 }
 
-std::vector<std::unique_ptr<indie::ISprite> > indie::GUI::getSprites() {
-    std::vector<std::unique_ptr<indie::ISprite> > res;
-    std::unique_ptr<indie::ISprite> val;
-    indie::ISprite  *tmp_sprite;
-
-    for (size_t i = 0; i < _components.size(); ++i)
-    {
-        tmp_sprite = _components.at(i)->getSprite();
-        val = std::make_unique<indie::Sprite>();
-        std::cout << "ICI : " << tmp_sprite->SpritesCount() << std::endl;
-        for (size_t j = 0; j < tmp_sprite->SpritesCount(); ++j) {
-            std::cout << "ICI (second loop)\n";
-            val->addPath(tmp_sprite->getGraphicPath(j));
-        }
-        res.push_back(std::move(val));
-    }
-    return (res);
+std::vector<std::shared_ptr<indie::ISprite> > indie::GUI::getSprites() {
+    return (_sprites);
 }

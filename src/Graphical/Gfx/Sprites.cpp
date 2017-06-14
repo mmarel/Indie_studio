@@ -8,7 +8,7 @@
 
 #include "Graphical/Gfx.hpp"
 
-void    indie::Gfx::loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprt_to_load) {
+void    indie::Gfx::loadSprites(std::vector<std::shared_ptr<ISprite> > &&sprt_to_load) {
 
     for (std::size_t i = 0; i < sprt_to_load.size(); ++i) {
 
@@ -17,7 +17,10 @@ void    indie::Gfx::loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprt_to
             irr::video::ITexture    *img = this->_driver->getTexture(sprt_to_load.at(i)->getGraphicPath(x).c_str());
 
             if (img) {
+
+                this->_driver->makeColorKeyTexture(img, irr::core::position2d<irr::s32>(0, 0));
                 this->_sprites[i].push_back(img);
+
             } else {
                 // Throw ?
                 std::cerr << _INDIE_GFX_SPRITE_FAILED << sprt_to_load.at(i)->getGraphicPath(x) << std::endl;

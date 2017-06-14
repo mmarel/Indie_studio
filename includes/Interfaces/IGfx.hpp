@@ -93,7 +93,7 @@ namespace indie
         /// \brief Load Sprites in the lib from the paths given by the game
         /// \param Sprites to pass the path of the Sprites to give the lib
         ///        the way to search the assets
-        virtual void loadSprites(std::vector<std::unique_ptr<ISprite> > &&sprites) = 0;
+        virtual void loadSprites(std::vector<std::shared_ptr<ISprite> > &&sprites) = 0;
 
         // Models
         ///
