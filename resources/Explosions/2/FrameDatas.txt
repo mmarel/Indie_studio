@@ -1,6 +1,13 @@
 Pikes frame datas :
 
+Centre:
+
 1 - 48  : Infranchissable - non léthal
+49 - 65 : Infranchissable - léthal
+
+Zone d'effet:
+
+1 - 48 : Franchissable - non léthal
 49 - 65 : Infranchissable - léthal
 
 hitbox : (ne traverse pas les murs)
