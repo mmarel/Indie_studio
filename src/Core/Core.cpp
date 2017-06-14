@@ -22,7 +22,10 @@ indie::Core::Core()
 
 indie::Core::~Core()
 {
-
+    if (this->_gfx)
+        this->_gfx.reset();
+    if (this->_game)
+        this->_gfx.reset();
 }
 
 void            indie::Core::runCoreLoop()
