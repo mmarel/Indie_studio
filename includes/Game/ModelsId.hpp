@@ -25,16 +25,16 @@ namespace indie
     enum class OBJECTS_ID : int {
 
         UNKNOWN = -1,
-        EMPTY,
+        EMPTY = 0,
         PLAYER_ONE = 1,
         PLAYER_TWO = 2,
         PLAYER_THREE = 3,
         PLAYER_FOURTH = 4,
         BOX = 5,
-        WALL,
-        SQUAREBOMB,
-        PIKESBOMB,
-        TENTACLEBOMB
+        WALL = 6,
+        SQUAREBOMB = 7,
+        PIKESBOMB = 8,
+        TENTACLEBOMB = 9
     };
 
   # define SQUAREBOMB_FRAMECD 5

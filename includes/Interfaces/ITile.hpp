@@ -40,63 +40,69 @@ namespace indie
 	///
 	class ITile
 	{
-	public:
-		///
-		/// \fn virtual ~ITile()
-		/// \brief Virtual destructor of the interface
-		///
-		virtual ~ITile() {};
+		public:
+			///
+			/// \fn virtual ~ITile()
+			/// \brief Virtual destructor of the interface
+			///
+			virtual ~ITile() {};
 
-		///
-		/// \fn virtual bool hasModel() const = 0
-		/// \brief Returns true if the Tile has a Model affected
-		///
-		virtual bool hasModel() const = 0;
-		///
-		/// \fn virtual size_t getModelId() const = 0
-		/// \brief Get the Mesh ID linked with the model
-		///
-		virtual size_t getModelId() const = 0;
-		///
-		/// \fn virtual size_t getObjectId() const = 0
-		/// \brief Get the Model ID
-		///
-		virtual size_t getObjectId() const = 0;
-		///
-		/// \fn virtual ELookAt getObjectRotation() const = 0
-		/// \brief Get the direction towards which the character is directed
-		///
-		virtual ELookAt getObjectRotation() const = 0;
-		///
-		/// \fn virtual std::string getObjectTexture() const = 0
-		/// \brief Get the Model texture
-		///
-		virtual std::string getObjectTexture() const = 0;
-		///
-		/// \fn virtual bool doesAnimationChanged() const = 0
-		/// \brief Returns true if the animation of the model has been changed
-		///
-		virtual bool doesAnimationChanged() const = 0;
-		///
-		/// \fn virtual std::pair<size_t, size_t> getObjectFrameLoop() const = 0
-		/// \brief Get the new frame loop of the model.
-		///
-		virtual std::pair<size_t, size_t> getObjectFrameLoop() const = 0;
-		///
-		/// \fn virtual double getShiftX() const = 0
-		/// \brief Get the tile position shift on x
-		///
-		virtual double getShiftX() const = 0;
 			///
-		/// \fn virtual size_t getShiftY() const = 0
-		/// \brief Get the tile position shift on y
-		///
-		virtual double getShiftY() const = 0;
+			/// \fn virtual size_t getTileSize() const = 0
+			/// \brief Returns the size of the tile, in other words
+			///		   the number of elements in this tile.
 			///
-		/// \fn virtual OBJECTS_ID getType() const = 0
-		/// \brief Get the type of the object int the tile
-		///
-    virtual OBJECTS_ID getType() const = 0;
+			virtual size_t	getTileSize() const = 0;
+			///
+			/// \fn virtual bool hasModel(size_t at) const = 0
+			/// \brief Returns true if the Tile has a Model affected
+			///
+			virtual bool hasModel(size_t at) const = 0;
+			///
+			/// \fn virtual size_t getModelId(size_t at) const = 0
+			/// \brief Get the Mesh ID linked with the model
+			///
+			virtual size_t getModelId(size_t at) const = 0;
+			///
+			/// \fn virtual size_t getObjectId(size_t at) const = 0
+			/// \brief Get the Model ID
+			///
+			virtual size_t getObjectId(size_t at) const = 0;
+			///
+			/// \fn virtual ELookAt getObjectRotation(size_t at) const = 0
+			/// \brief Get the direction towards which the character is directed
+			///
+			virtual ELookAt getObjectRotation(size_t at) const = 0;
+			///
+			/// \fn virtual std::string getObjectTexture(size_t at) const = 0
+			/// \brief Get the Model texture
+			///
+			virtual std::string getObjectTexture(size_t at) const = 0;
+			///
+			/// \fn virtual bool doesAnimationChanged(size_t at) const = 0
+			/// \brief Returns true if the animation of the model has been changed
+			///
+			virtual bool doesAnimationChanged(size_t at) const = 0;
+			///
+			/// \fn virtual std::pair<size_t, size_t> getObjectFrameLoop(size_t at) const = 0
+			/// \brief Get the new frame loop of the model.
+			///
+			virtual std::pair<size_t, size_t> getObjectFrameLoop(size_t at) const = 0;
+			///
+			/// \fn virtual double getShiftX(size_t at) const = 0
+			/// \brief Get the tile position shift on x
+			///
+			virtual double getShiftX(size_t at) const = 0;
+				///
+			/// \fn virtual size_t getShiftY(size_t at) const = 0
+			/// \brief Get the tile position shift on y
+			///
+			virtual double getShiftY(size_t at) const = 0;
+			///
+			/// \fn virtual OBJECTS_ID getType(size_t at) const = 0
+			/// \brief Get the type of the object int the tile
+			///
+			virtual OBJECTS_ID getType(size_t at) const = 0;
 	};
 }
 

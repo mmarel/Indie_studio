@@ -23,34 +23,32 @@ namespace indie
 
         public:
 
-            Tile(bool hasModel = false,
-                 std::size_t modelId = 0,
-                 const std::string &texture = ""
-                 );
+            Tile();
 
             virtual ~Tile() { }
 
-            virtual bool                            hasModel() const;
-            virtual std::size_t                     getModelId() const;
-            virtual std::size_t                     getObjectId() const;
-            virtual ELookAt                         getObjectRotation() const;
-            virtual std::string                     getObjectTexture() const;
-            virtual bool                            doesAnimationChanged() const;
-            virtual std::pair<size_t, size_t>       getObjectFrameLoop() const;
-            virtual double                          getShiftX() const;
-            virtual double                          getShiftY() const;
-            virtual OBJECTS_ID                      getType() const;
+            virtual std::size_t                     getTileSize() const;
+            virtual bool                            hasModel(size_t at) const;
+            virtual std::size_t                     getModelId(size_t at) const;
+            virtual std::size_t                     getObjectId(size_t at) const;
+            virtual ELookAt                         getObjectRotation(size_t at) const;
+            virtual std::string                     getObjectTexture(size_t at) const;
+            virtual bool                            doesAnimationChanged(size_t at) const;
+            virtual std::pair<size_t, size_t>       getObjectFrameLoop(size_t at) const;
+            virtual double                          getShiftX(size_t at) const;
+            virtual double                          getShiftY(size_t at) const;
+            virtual OBJECTS_ID                      getType(size_t at) const;
 
-            void                    setHasModel(bool);
-            void                    setModelId(std::size_t);
-            void                    setObjectId(std::size_t);
-            void                    setObjectRotation(ELookAt);
-            void                    setObjectTexture(const std::string &);
-            void                    setDoesAnimationChanged(bool);
-            void                    setObjectFrameLoop(const std::pair<std::size_t, std::size_t> &);
-            void                    setShiftX(double);
-            void                    setShiftY(double);
-            void                    setType(OBJECTS_ID);
+            void                    setHasModel(size_t at, bool value);
+            void                    setModelId(size_t at, std::size_t id);
+            void                    setObjectId(size_t at, std::size_t id);
+            void                    setObjectRotation(size_t at, ELookAt lookat);
+            void                    setObjectTexture(size_t at, const std::string &texture);
+            void                    setDoesAnimationChanged(std::size_t at, bool value);
+            void                    setObjectFrameLoop(size_t at, const std::pair<std::size_t, std::size_t> &fl);
+            void                    setShiftX(size_t at, double x);
+            void                    setShiftY(size_t at, double y);
+            void                    setType(size_t at, OBJECTS_ID);
 
             void        setCD(std::size_t);
             std::size_t getCurrentCD() const;
@@ -69,16 +67,16 @@ namespace indie
                                                         std::pair<size_t, size_t>);
         private:
 
-            bool                                    _hasModel;
-            std::size_t                             _modelId;
-            std::size_t                             _objectId;
-            ELookAt                                 _objectRotation;
-            std::string                             _objectTexture;
-            bool                                    _doesAnimationChanged;
-            std::pair<std::size_t, std::size_t>     _objectFrameLoop;
-            double                                  _shiftX;
-            double                                  _shiftY;
-            OBJECTS_ID                              _type;
+            std::vector< bool >                                     _hasModel;
+            std::vector< std::size_t >                              _modelId;
+            std::vector< std::size_t >                              _objectId;
+            std::vector< ELookAt >                                  _objectRotation;
+            std::vector< std::string >                              _objectTexture;
+            std::vector< bool >                                     _doesAnimationChanged;
+            std::vector< std::pair<std::size_t, std::size_t> >      _objectFrameLoop;
+            std::vector< double >                                   _shiftX;
+            std::vector< double >                                   _shiftY;
+            std::vector< OBJECTS_ID >                               _type;
             std::size_t                             _cd;
     };
 }

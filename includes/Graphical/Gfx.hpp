@@ -113,7 +113,7 @@ namespace indie
             void                set_camera_pov(const IMap &map);
 
             // Update and Drawing
-            void                draw_model(const ITile &tile, std::size_t x, std::size_t y);
+            void                draw_model(const ITile &tile, std::size_t x, std::size_t z, std::size_t index);
             void                draw_component_sprite(const IComponent &cmp);
             void                draw_component_text(const IComponent &cmp);
             void                draw_text(const std::string &txt,

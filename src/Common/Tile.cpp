@@ -8,55 +8,55 @@
 
 #include "Game/Tile.hpp"
 
-indie::Tile::Tile(bool hasModel,
-                  std::size_t modelId,
-                  const std::string &texture)
+indie::Tile::Tile()
 
     :
-      _hasModel(hasModel),
-      _modelId(modelId),
-      _objectId(0),
-      _objectRotation(ELookAt::SOUTH),
-      _objectTexture(texture),
-      _doesAnimationChanged(false),
-      _objectFrameLoop(std::pair<std::size_t, std::size_t>(0, 0)),
-      _shiftX(0.0f),
-      _shiftY(0.0f),
-      _type(indie::OBJECTS_ID::EMPTY),
+      _hasModel( { false }),
+      _modelId( { 0 }),
+      _objectId( { 0 }),
+      _objectRotation( { indie::ELookAt::SOUTH }),
+      _objectTexture( { "" }),
+      _doesAnimationChanged( { false }),
+      _objectFrameLoop({ { 0, 0 } }),
+      _shiftX( { 0.0 } ),
+      _shiftY( { 0.0 }),
+      _type( { indie::OBJECTS_ID::EMPTY }),
       _cd(0)
 {
 
 }
 
-bool                indie::Tile::hasModel() const { return this->_hasModel; }
-void                indie::Tile::setHasModel(bool hm) { this->_hasModel = hm; }
+std::size_t         indie::Tile::getTileSize() const { return this->_hasModel.size(); }
 
-std::size_t         indie::Tile::getModelId() const { return this->_modelId; }
-void                indie::Tile::setModelId(std::size_t id) { this->_modelId = id; }
+bool                indie::Tile::hasModel(std::size_t at) const { return this->_hasModel.at(at); }
+void                indie::Tile::setHasModel(std::size_t at, bool hm) { this->_hasModel.at(at) = hm; }
 
-std::size_t         indie::Tile::getObjectId() const { return this->_objectId; }
-void                indie::Tile::setObjectId(std::size_t id) { this->_objectId = id; }
+std::size_t         indie::Tile::getModelId(std::size_t at) const { return this->_modelId.at(at); }
+void                indie::Tile::setModelId(std::size_t at, std::size_t id) { this->_modelId.at(at) = id; }
 
-indie::ELookAt      indie::Tile::getObjectRotation() const { return this->_objectRotation; }
-void                indie::Tile::setObjectRotation(indie::ELookAt look) { this->_objectRotation = look; }
+std::size_t         indie::Tile::getObjectId(std::size_t at) const { return this->_objectId.at(at); }
+void                indie::Tile::setObjectId(std::size_t at, std::size_t id) { this->_objectId.at(at) = id; }
 
-std::string         indie::Tile::getObjectTexture() const { return this->_objectTexture; }
-void                indie::Tile::setObjectTexture(const std::string &texture) { this->_objectTexture = texture; }
+indie::ELookAt      indie::Tile::getObjectRotation(std::size_t at) const { return this->_objectRotation.at(at); }
+void                indie::Tile::setObjectRotation(std::size_t at, indie::ELookAt look) { this->_objectRotation.at(at) = look; }
 
-bool                indie::Tile::doesAnimationChanged() const { return this->_doesAnimationChanged; }
-void                indie::Tile::setDoesAnimationChanged(bool v) { this->_doesAnimationChanged = v; }
+std::string         indie::Tile::getObjectTexture(std::size_t at) const { return this->_objectTexture.at(at); }
+void                indie::Tile::setObjectTexture(std::size_t at, const std::string &texture) { this->_objectTexture.at(at) = texture; }
 
-std::pair<std::size_t, std::size_t> indie::Tile::getObjectFrameLoop() const { return this->_objectFrameLoop; }
-void                indie::Tile::setObjectFrameLoop(const std::pair<std::size_t, std::size_t> &fl) { this->_objectFrameLoop = fl; }
+bool                indie::Tile::doesAnimationChanged(std::size_t at) const { return this->_doesAnimationChanged.at(at); }
+void                indie::Tile::setDoesAnimationChanged(std::size_t at, bool v) { this->_doesAnimationChanged.at(at) = v; }
 
-double              indie::Tile::getShiftX() const { return this->_shiftX; }
-void                indie::Tile::setShiftX(double x) { this->_shiftX = x; }
+std::pair<std::size_t, std::size_t> indie::Tile::getObjectFrameLoop(std::size_t at) const { return this->_objectFrameLoop.at(at); }
+void                indie::Tile::setObjectFrameLoop(std::size_t at, const std::pair<std::size_t, std::size_t> &fl) { this->_objectFrameLoop.at(at) = fl; }
 
-double              indie::Tile::getShiftY() const { return this->_shiftY; }
-void                indie::Tile::setShiftY(double y) { this->_shiftY = y; }
+double              indie::Tile::getShiftX(std::size_t at) const { return this->_shiftX.at(at); }
+void                indie::Tile::setShiftX(std::size_t at, double x) { this->_shiftX.at(at) = x; }
 
-indie::OBJECTS_ID indie::Tile::getType() const { return _type; }
-void                indie::Tile::setType(OBJECTS_ID type) { _type = type; }
+double              indie::Tile::getShiftY(std::size_t at) const { return this->_shiftY.at(at); }
+void                indie::Tile::setShiftY(std::size_t at, double y) { this->_shiftY.at(at) = y; }
+
+indie::OBJECTS_ID indie::Tile::getType(std::size_t at) const { return this->_type.at(at); }
+void                indie::Tile::setType(std::size_t at, OBJECTS_ID type) { this->_type.at(at) = type; }
 
 indie::Tile         &indie::Tile::operator=(const indie::Tile &other) {
   if (this != &other) {
@@ -75,13 +75,13 @@ indie::Tile         &indie::Tile::operator=(const indie::Tile &other) {
 }
 
 void              indie::Tile::reset() {
-  _hasModel = false;
-  _modelId = 0;
-  _doesAnimationChanged = false;
-  _objectFrameLoop = { 0, 0 };
-  _shiftY = 0;
-  _shiftX = 0;
-  _type = indie::OBJECTS_ID::EMPTY;
+  this->_hasModel =  { false };
+  this->_modelId = { 0 };
+  this->_doesAnimationChanged = { false };
+  this->_objectFrameLoop =  { { 0,0 } };
+  this->_shiftY = { 0.0 };
+  this->_shiftX = { 0.0 };
+  this->_type = { indie::OBJECTS_ID::EMPTY };
 }
 
 std::size_t     indie::Tile::getCurrentCD() const { return _cd; }
