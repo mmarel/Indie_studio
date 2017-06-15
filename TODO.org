@@ -1,0 +1,9 @@
+* INDIE STUDIO
+
+** TODO Meteors
+** TODO Power-ups
+*** TODO Models
+*** TODO Icons
+** TODO Menu (grimoire)
+*** TODO Images
+*** TODO Animations
