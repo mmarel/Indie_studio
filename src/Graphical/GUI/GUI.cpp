@@ -1,10 +1,10 @@
 #include "Common/GUI.hpp"
 
-indie::GUI::GUI() : _compId(0), _sprites(), _components(), _loadComps() {
+indie::GUI::GUI() : _compId(0), _sprites(), _components(), _loadComps(), _compActions() {
 
-    _loadComps[indie::GameState::MENU] = [this](){return loadMenu();};
+    _loadComps[indie::GameState::MAIN_MENU] = [this](){return loadMenu();};
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
-    _loadComps[indie::GameState::SCORE] = [this](){return loadScore();};
+    _loadComps[indie::GameState::SCOREBOARD] = [this](){return loadScore();};
     _loadComps[indie::GameState::ROOM] = [this](){return loadRoom();};
 }
 

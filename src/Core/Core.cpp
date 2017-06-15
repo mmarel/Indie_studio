@@ -10,7 +10,7 @@
 #include "Core/Core.hpp"
 
 indie::Core::Core()
-    : 
+    :
         _gfx(std::make_unique<indie::Gfx>()),
         _game(), // set make unique with the game when merge will be ok with game part
         _sounds(),
@@ -42,18 +42,16 @@ void            indie::Core::runCoreLoop()
                 return ;
                 break ;
 
-            case indie::GameState::LOADING:
-                this->loading();
-                break ;
 
             case indie::GameState::INGAME:
-            case indie::GameState::MENU:
-            case indie::GameState::SCORE:
+            case indie::GameState::MAIN_MENU:
+            case indie::GameState::SCOREBOARD:
             case indie::GameState::SETTINGS:
             case indie::GameState::ROOM:
                 this->process();
                 break ;
 
+            case indie::GameState::HELP:
             case indie::GameState::NONE:
             case indie::GameState::SPLASH_SCREEN: // To change when splash will be ready.
             default:

@@ -33,21 +33,20 @@ namespace indie {
 
     private:
       void  handleEvents();
-      void  move_left(indie::Player &);
-      void  move_right(indie::Player &);
-      void  move_down(indie::Player &);
-      void  move_up(indie::Player &);
-      void  bomb(indie::Player &);
+      void  move_left(indie::Tile &, size_t, size_t);
+      void  move_right(indie::Tile &, size_t, size_t);
+      void  move_down(indie::Tile &, size_t, size_t);
+      void  move_up(indie::Tile &, size_t, size_t);
+      void  move(size_t, indie::ELookAt);
+      void  bomb(size_t);
 
       // --- Process Part - Start
     public:
       virtual void process();
 
     private:
-      void  menuProcess();
       void  splashScreen();
       void  gameProcess();
-      void  quit();
 
     private:
       // Tile Handlers

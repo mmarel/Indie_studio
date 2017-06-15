@@ -1,15 +1,9 @@
 #include "Game/Game.hpp"
 
 void indie::Game::splashScreen() {
-  static int duration = 0;
-
-  duration++;
-  if (duration == 20) {
-    _gameState = indie::GameState::MENU;
-  }
+  _gameState = indie::GameState::MAIN_MENU;
+  _gui.loadComponents(_gameState);
 }
-
-void indie::Game::menuProcess() {}
 
 void indie::Game::gameProcess() {
   static std::map<indie::OBJECTS_ID, indie::TileHandler> tileHandlers = {
@@ -27,24 +21,20 @@ void indie::Game::gameProcess() {
     for (std::size_t y = 0; y < height; y++) {
       for (std::size_t x = 0; x < width; x++) {
         tile = _map.at(layer, x, y);
-        tileType = tile.getType();
+        tileType = tile.getType(0);
         if (tileHandlers.find(tileType) != tileHandlers.end()) { tileHandlers[tileType](x, y); }
       }
     }
   }
 }
-void indie::Game::quit() {}
-
 void indie::Game::process() {
   // main part
   static std::map<indie::GameState, indie::TurnHandler> handlers = {
     { indie::GameState::SPLASH_SCREEN, [this]() -> void { this->splashScreen(); } },
-    { indie::GameState::MENU, [this]() -> void { this->menuProcess(); } },
-    { indie::GameState::INGAME, [this]() -> void { this->gameProcess(); } },
-    { indie::GameState::QUIT, [this]() -> void { this->quit(); } }
+    { indie::GameState::INGAME, [this]() -> void { this->gameProcess(); } }
   };
 
+  if (_gameState == indie::GameState::SPLASH_SCREEN) { return splashScreen(); }
   handleEvents();
-  _gui.loadComponents(_gameState);
-  if (handlers.find(_gameState) != handlers.end()) { handlers[_gameState](); }
+  if (_gameState == indie::GameState::INGAME) { gameProcess(); }
 }

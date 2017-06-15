@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-22 17:49:57 
+// Author: Marwane Khsime
+// Date: 2017-05-22 17:49:57
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-22 17:49:57
 //
 
@@ -13,6 +13,7 @@
 #include <memory>
 #include <vector>
 #include "IComponent.hpp"
+# include "Interfaces/Event.hpp"
 
 namespace indie
 {

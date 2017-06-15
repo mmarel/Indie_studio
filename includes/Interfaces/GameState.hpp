@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-05 05:08:14 
+// Author: Marwane Khsime
+// Date: 2017-05-05 05:08:14
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-05 05:08:14
 //
 
@@ -17,33 +17,15 @@ namespace indie
     ///
     enum GameState
     {
-        //! Unknown game state
         NONE = -1,
-
-        //! Loading (need to load sounds / sprites)
-	    LOADING,
-
-        //! Splash screen
         SPLASH_SCREEN,
-
-        //! In game
+        MAIN_MENU,
         INGAME,
-
-        //! In menu
-        MENU,
-
-        //! In settings
         SETTINGS,
-
-        //! In score
-        SCORE,
-
-        //! In room
+        HELP,
         ROOM,
-
-        //! Quitting
-        QUIT,
-
+        SCOREBOARD,
+        QUIT
     };
 
 }

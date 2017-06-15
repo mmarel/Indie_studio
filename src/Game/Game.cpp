@@ -2,7 +2,7 @@
 
 indie::Game::Game() :
   _sounds(),
-  _gameState(LOADING),
+  _gameState(SPLASH_SCREEN),
   _events(),
   _map(0),
   _gui(),

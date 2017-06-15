@@ -113,71 +113,71 @@ void  indie::Map::initTiles() {
         indie::OBJECTS_ID type;
 
         type = static_cast<indie::OBJECTS_ID>(_rawMap[y][x]);
-        tile->setType(type);
+        tile->setType(0, type);
         switch (type) {
           case indie::OBJECTS_ID::EMPTY:
-            tile->setHasModel(false);
-            tile->setType(indie::OBJECTS_ID::EMPTY);
+            tile->setHasModel(0, false);
+            tile->setType(0, indie::OBJECTS_ID::EMPTY);
             break;
 
           case indie::OBJECTS_ID::WALL:
-            tile->setHasModel(false);
-            tile->setType(indie::OBJECTS_ID::WALL);
+            tile->setHasModel(0, false);
+            tile->setType(0, indie::OBJECTS_ID::WALL);
             break;
 
           case indie::OBJECTS_ID::PLAYER_ONE:
-            tile->setHasModel(true);
-            tile->setType(indie::OBJECTS_ID::PLAYER_ONE);
-            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            tile->setHasModel(0, true);
+            tile->setType(0, indie::OBJECTS_ID::PLAYER_ONE);
+            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
             _objectsId.push_back(++nobjects);
-            tile->setObjectId(nobjects);
-            tile->setObjectTexture("textures/Blue.png");
-            tile->setDoesAnimationChanged(true);
-            tile->setObjectFrameLoop(indie::Tile::getSkeletonFrame("SPAWN"));
+            tile->setObjectId(0, nobjects);
+            tile->setObjectTexture(0, "textures/Blue.png");
+            tile->setDoesAnimationChanged(0, true);
+            tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
 
           case indie::OBJECTS_ID::PLAYER_TWO:
-            tile->setHasModel(true);
-            tile->setType(indie::OBJECTS_ID::PLAYER_TWO);
-            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            tile->setHasModel(0, true);
+            tile->setType(0, indie::OBJECTS_ID::PLAYER_TWO);
+            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
             _objectsId.push_back(++nobjects);
-            tile->setObjectId(nobjects);
-            tile->setObjectTexture("textures/Red.png");
-            tile->setDoesAnimationChanged(true);
-            tile->setObjectFrameLoop(indie::Tile::getSkeletonFrame("SPAWN"));
+            tile->setObjectId(0, nobjects);
+            tile->setObjectTexture(0, "textures/Red.png");
+            tile->setDoesAnimationChanged(0, true);
+            tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
 
           case indie::OBJECTS_ID::PLAYER_THREE:
-            tile->setHasModel(true);
-            tile->setType(indie::OBJECTS_ID::PLAYER_THREE);
-            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            tile->setHasModel(0, true);
+            tile->setType(0, indie::OBJECTS_ID::PLAYER_THREE);
+            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
             _objectsId.push_back(++nobjects);
-            tile->setObjectId(nobjects);
-            tile->setObjectTexture("textures/Yellow.png");
-            tile->setDoesAnimationChanged(true);
-            tile->setObjectFrameLoop(indie::Tile::getSkeletonFrame("SPAWN"));
+            tile->setObjectId(0, nobjects);
+            tile->setObjectTexture(0, "textures/Yellow.png");
+            tile->setDoesAnimationChanged(0, true);
+            tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
 
           case indie::OBJECTS_ID::PLAYER_FOURTH:
-            tile->setHasModel(true);
-            tile->setType(indie::OBJECTS_ID::PLAYER_FOURTH);
-            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            tile->setHasModel(0, true);
+            tile->setType(0, indie::OBJECTS_ID::PLAYER_FOURTH);
+            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
             _objectsId.push_back(++nobjects);
-            tile->setObjectId(nobjects);
-            tile->setObjectTexture("textures/Green.png");
-            tile->setDoesAnimationChanged(true);
-            tile->setObjectFrameLoop(indie::Tile::getSkeletonFrame("SPAWN"));
+            tile->setObjectId(0, nobjects);
+            tile->setObjectTexture(0, "textures/Green.png");
+            tile->setDoesAnimationChanged(0, true);
+            tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
 
           case indie::OBJECTS_ID::BOX:
-            tile->setHasModel(true);
-            tile->setType(indie::OBJECTS_ID::BOX);
-            tile->setModelId(static_cast<std::size_t>(indie::MODELS_ID::BOX_MODEL));
+            tile->setHasModel(0, true);
+            tile->setType(0, indie::OBJECTS_ID::BOX);
+            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::BOX_MODEL));
             _objectsId.push_back(++nobjects);
-            tile->setObjectId(nobjects);
-            tile->setObjectTexture("Map/Box.png");
-            tile->setDoesAnimationChanged(true);
-            tile->setObjectFrameLoop(std::pair<std::size_t, std::size_t>(1, 2)); // TODO check box frames
+            tile->setObjectId(0, nobjects);
+            tile->setObjectTexture(0, "Map/Box.png");
+            tile->setDoesAnimationChanged(0, true);
+            tile->setObjectFrameLoop(0, std::pair<std::size_t, std::size_t>(1, 2)); // TODO check box frames
             break;
 
           case indie::OBJECTS_ID::UNKNOWN:

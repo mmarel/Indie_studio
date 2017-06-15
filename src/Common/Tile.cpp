@@ -20,8 +20,7 @@ indie::Tile::Tile()
       _objectFrameLoop({ { 0, 0 } }),
       _shiftX( { 0.0 } ),
       _shiftY( { 0.0 }),
-      _type( { indie::OBJECTS_ID::EMPTY }),
-      _cd(0)
+      _type( { indie::OBJECTS_ID::EMPTY })
 {
 
 }
@@ -66,7 +65,7 @@ indie::Tile         &indie::Tile::operator=(const indie::Tile &other) {
     _objectRotation = other._objectRotation;
     _objectTexture = other._objectTexture;
     _doesAnimationChanged = other._doesAnimationChanged;
-    _objectFrameLoop = std::move(other._objectFrameLoop);
+    _objectFrameLoop = other._objectFrameLoop;
     _shiftX = other._shiftX;
     _shiftY = other._shiftY;
     _type = other._type;
@@ -83,6 +82,3 @@ void              indie::Tile::reset() {
   this->_shiftX = { 0.0 };
   this->_type = { indie::OBJECTS_ID::EMPTY };
 }
-
-std::size_t     indie::Tile::getCurrentCD() const { return _cd; }
-void            indie::Tile::setCD(std::size_t cd) { _cd = cd; }

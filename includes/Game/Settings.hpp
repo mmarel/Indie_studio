@@ -22,8 +22,6 @@ namespace indie {
       KeyboardKey         bomb;
       std::vector<Bonus>  bonus;
       size_t              id;
-      size_t              x;
-      size_t              y;
     } Player;
 
     typedef enum          e_IA_LEVEL {

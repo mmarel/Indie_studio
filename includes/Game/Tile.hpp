@@ -50,8 +50,6 @@ namespace indie
             void                    setShiftY(size_t at, double y);
             void                    setType(size_t at, OBJECTS_ID);
 
-            void        setCD(std::size_t);
-            std::size_t getCurrentCD() const;
             Tile        &operator=(const Tile &);
             void        reset();
 
@@ -77,7 +75,6 @@ namespace indie
             std::vector< double >                                   _shiftX;
             std::vector< double >                                   _shiftY;
             std::vector< OBJECTS_ID >                               _type;
-            std::size_t                             _cd;
     };
 }
 

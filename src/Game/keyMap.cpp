@@ -8,9 +8,9 @@
 
 indie::keyMap::keyMap() : act()
 {
-    act[indie::GameState::MENU] = std::bind(&indie::keyMap::act_menu, this, std::placeholders::_1);
+    act[indie::GameState::MAIN_MENU] = std::bind(&indie::keyMap::act_menu, this, std::placeholders::_1);
     act[indie::GameState::SETTINGS] = std::bind(&indie::keyMap::act_settings, this, std::placeholders::_1);
-    act[indie::GameState::SCORE] = std::bind(&indie::keyMap::act_score, this, std::placeholders::_1);
+    act[indie::GameState::SCOREBOARD] = std::bind(&indie::keyMap::act_score, this, std::placeholders::_1);
     act[indie::GameState::ROOM] = std::bind(&indie::keyMap::act_room, this, std::placeholders::_1);
 }
 
