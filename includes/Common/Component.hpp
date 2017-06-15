@@ -24,7 +24,7 @@ namespace indie
         double _width;
         double _height;
         size_t _backgroundId;
-        size_t _posState;
+        size_t _backgroundPos;
         Color  _backgroundColor;
         Color  _textColor;
         std::string _text;
@@ -45,6 +45,7 @@ namespace indie
         virtual ~Component();
 
         ///Setters Methods
+        virtual void setBackgroundPos(size_t newPos);
 
         ///Getters Methods
         virtual double              getX() const;
