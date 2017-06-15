@@ -23,7 +23,7 @@ indie::Component::Component(indie::Sprite &sprite,
         _width(width),
         _height(height),
         _backgroundId(backId),
-        _posState(0),
+        _backgroundPos(0),
         _backgroundColor(backColor),
         _textColor(textColor),
         _text(text),
@@ -36,7 +36,7 @@ indie::Component::Component(const indie::Component &other)
           _width(other._width),
           _height(other._height),
           _backgroundId(other._backgroundId),
-          _posState(other._posState),
+          _backgroundPos(other._backgroundPos),
           _backgroundColor(other._backgroundColor),
           _textColor(other._textColor),
           _text(other._text),
@@ -49,7 +49,7 @@ indie::Component &indie::Component::operator=(const indie::Component &other) {
     _width = other._width;
     _height = other._height;
     _backgroundId = other._backgroundId;
-    _posState = other._posState;
+    _backgroundPos = other._backgroundPos;
     _backgroundColor = other._backgroundColor;
     _textColor = other._textColor;
     _text = other._text;
@@ -90,33 +90,23 @@ std::string const& indie::Component::getText() const {
 }
 
 bool indie::Component::hasSprite() const {
-    std::cout << "ICI : " << _sprite->getGraphicPath(0) << std::endl;
     if (_sprite->SpritesCount() > 0)
         return (true);
     return (false);
 }
 
 size_t indie::Component::getBackgroundPos() const {
-    return (_posState);
+    return (_backgroundPos);
 }
 
 indie::Component::~Component() {
     delete _sprite;
 }
 
+void indie::Component::setBackgroundPos(size_t newPos) {
+    _backgroundPos = newPos;
+}
+
 indie::Sprite* indie::Component::getSprite() {
     return (_sprite);
 }
-
-/*
-size_t indie::Component::getPosState() const {
-    return (_posState);
-}
-
-void indie::Component::setPosState(size_t newPos) {
-    if (newPos <= _sprite->SpritesCount())
-        _posState = newPos;
-    else
-        std::cerr << "posState > _sprites.size()" << std::endl;
-}
-*/

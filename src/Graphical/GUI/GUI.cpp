@@ -1,11 +1,11 @@
- #include "Common/GUI.hpp"
+#include "Common/GUI.hpp"
 
-indie::GUI::GUI() : _sprites(), _components(), _loadComps() {
+indie::GUI::GUI() : _compId(0), _sprites(), _components(), _loadComps() {
 
-    _loadComps[indie::GameState::MENU] = std::bind(&indie::GUI::loadMenu, this);
-    _loadComps[indie::GameState::SETTINGS] = std::bind(&indie::GUI::loadSettings, this);
-    _loadComps[indie::GameState::SCORE] = std::bind(&indie::GUI::loadScore, this);
-    _loadComps[indie::GameState::ROOM] = std::bind(&indie::GUI::loadRoom, this);
+    _loadComps[indie::GameState::MENU] = [this](){return loadMenu();};
+    _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
+    _loadComps[indie::GameState::SCORE] = [this](){return loadScore();};
+    _loadComps[indie::GameState::ROOM] = [this](){return loadRoom();};
 }
 
 std::size_t indie::GUI::size() const {
@@ -24,6 +24,7 @@ void indie::GUI::loadComponents(indie::GameState state) {
 std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadMenu() {
     std::vector<std::shared_ptr<indie::IComponent>> res;
 
+    _compId = 1;
     ///Load menu components
     res.push_back(createComponent(0, 0.1f, 0.1f, 0.75f, 0.15f, indie::Color::White, indie::Color::Red,
                                    "Bomberman", "Sprites/bombTitle.png"));
@@ -34,7 +35,21 @@ std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadMenu() {
     res.push_back(createComponent(3, 0.4f, 0.8f, 0.15f, 0.1f, indie::Color::White, indie::Color::White,
                                   "Exit", "Sprites/exitButton.png", "Sprites/exitButton2.png"));
 
+    if (!_compActions.empty())
+        _compActions.clear();
+
+    _compActions[indie::KeyboardKey::KB_ARROW_DOWN] = [this](){mainMenuKeyDown();};
+    _compActions[indie::KeyboardKey::KB_ARROW_UP] = [this](){mainMenuKeyUp();};
+    _compActions[indie::KeyboardKey::KB_ARROW_RIGHT] = [this](){mainMenuKeyRight();};
+    _compActions[indie::KeyboardKey::KB_ENTER] = [this](){mainMenuKeyEnter();};
+
     return (res);
+}
+
+void indie::GUI::notifyEvent(indie::EventType type, indie::KeyboardKey key) {
+    if (type == indie::EventType::ET_KEYBOARD)
+        if (_compActions.find(key) != _compActions.end())
+            _compActions[key]();
 }
 
 std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadSettings() {
@@ -63,4 +78,46 @@ std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadRoom() {
 
 std::vector<std::shared_ptr<indie::ISprite> > indie::GUI::getSprites() {
     return (_sprites);
+}
+
+void indie::GUI::mainMenuKeyDown() {
+    if (_compId + 1 < _components.size())
+    {
+        for (size_t i = 1; i < _components.size(); ++i)
+        {
+            if (i == _compId + 1)
+                _components.at(i)->setBackgroundPos(1);
+            else
+                _components.at(i)->setBackgroundPos(0);
+        }
+        _compId++;
+    }
+}
+
+void indie::GUI::mainMenuKeyUp() {
+    if (_compId - 1 > 1)
+    {
+        for (size_t i = 1; i < _components.size(); ++i)
+        {
+            if (i == _compId - 1)
+                _components.at(i)->setBackgroundPos(1);
+            else
+                _components.at(i)->setBackgroundPos(0);
+        }
+        _compId--;
+    }
+}
+
+void indie::GUI::mainMenuKeyRight() {
+    if (_compId == 1)
+        loadComponents(indie::GameState::ROOM);
+    if (_compId == 2)
+        loadComponents(indie::GameState::SETTINGS);
+}
+
+void indie::GUI::mainMenuKeyEnter() {
+    if (_compId == 1)
+        loadComponents(indie::GameState::ROOM);
+    if (_compId == 2)
+        loadComponents(indie::GameState::SETTINGS);
 }

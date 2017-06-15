@@ -4,19 +4,23 @@
 #include <map>
 #include <vector>
 #include <functional>
-#include "../Common/Sprite.hpp"
-#include "../Common/Component.hpp"
-#include "../Interfaces/GameState.hpp"
-#include "../Interfaces/IGUI.hpp"
+#include "Common/Sprite.hpp"
+#include "Common/Component.hpp"
+#include "Interfaces/GameState.hpp"
+#include "Interfaces/IGUI.hpp"
+#include "Interfaces/Event.hpp"
 
 namespace indie
 {
     class GUI : public IGUI
     {
     private:
-        std::vector<std::shared_ptr<indie::ISprite>>                                                   _sprites;
-        std::vector<std::shared_ptr<indie::IComponent>>                                                _components;
-        std::map<indie::GameState, std::function<std::vector<std::shared_ptr<indie::IComponent>> ()> > _loadComps;
+        size_t                                                                                     _compId;
+        std::vector<std::shared_ptr<indie::ISprite>>                                            _sprites;
+        std::vector<std::shared_ptr<indie::IComponent>>                                         _components;
+        std::map<indie::GameState,
+                std::function<std::vector<std::shared_ptr<indie::IComponent>> ()> >             _loadComps;
+        std::map<indie::KeyboardKey, std::function<void()> >                            _compActions;
 
         ///Load Components Functions
         std::vector<std::shared_ptr<indie::IComponent>>    loadMenu();
@@ -24,6 +28,12 @@ namespace indie
         std::vector<std::shared_ptr<indie::IComponent>>    loadScore();
         std::vector<std::shared_ptr<indie::IComponent>>    loadRoom(); ///Selection players etc..
 
+        ///Events load with Components
+        ///---Main Menu Events---
+        void    mainMenuKeyDown();
+        void    mainMenuKeyUp();
+        void    mainMenuKeyRight();
+        void    mainMenuKeyEnter();
 
         ///CreteComponent (*component params* + all paths to sprites)
         template <typename ... args>
@@ -48,6 +58,7 @@ namespace indie
         virtual IComponent &at(std::size_t n) const;
         virtual void loadComponents(indie::GameState);
         virtual std::vector<std::shared_ptr<indie::ISprite> > getSprites();
+        virtual void notifyEvent(indie::EventType, indie::KeyboardKey);
     };
 }
 

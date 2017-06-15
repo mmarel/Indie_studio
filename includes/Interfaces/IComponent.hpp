@@ -81,6 +81,8 @@ namespace indie
 
       virtual indie::Sprite* getSprite() = 0;
 
+      virtual void  setBackgroundPos(size_t newPos) = 0;
+
       // TODO
       // virtual void setPosState(size_t) = 0;
       // virtual size_t getPosState() const = 0;
