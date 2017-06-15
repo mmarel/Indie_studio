@@ -82,14 +82,17 @@ void    indie::Gfx::updateMap(const IMap &map) {
 
         for (std::size_t y = 0; y < map_height; ++y) {
 
-            for (std::size_t x = 0; x < map_width; ++x) {
+            // Note : we named the variable z because the x-axis of the map
+            // corresponds to the z-axis on our 3d planes
+            for (std::size_t z = 0; z < map_width; ++z) {
                 
-                for (std::size_t index = 0, thickness = map.at(layer, x, y).getTileSize();
+                // Here we loop on the tile to get all elements that are on it.
+                for (std::size_t index = 0, thickness = map.at(layer, z, y).getTileSize();
                      thickness > 0 && index < thickness;
                      ++index) {
 
-                    if (map.at(layer, x, y).hasModel(index))
-                        this->draw_model(map.at(layer, x, y), x, y, index);
+                    if (map.at(layer, z, y).hasModel(index))
+                        this->draw_model(map.at(layer, z, y), z, y, index);
 
                 }
 
