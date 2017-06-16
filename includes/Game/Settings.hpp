@@ -40,11 +40,19 @@ namespace indie {
       IA_HARD
     }                     IA_LEVEL;
 
+    typedef enum          e_PLAY_MOD {
+      PLAY_MOD_UNKNOWN = -1,
+      PLAY_MOD_LOCAL,
+      PLAY_MOD_ONLINE_HOST,
+      PLAY_MOD_ONLINE_CLIENT
+    }                     PlayMod;
+
     typedef struct              s_Settings {
       size_t                    volume;
       IA_LEVEL                  difficulty;
       std::vector<Player>       players;
       int                       nplayers;
+      PlayMod                   mod;
     } Settings;
 }
 

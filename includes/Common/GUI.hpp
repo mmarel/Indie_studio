@@ -58,7 +58,7 @@ namespace indie
         virtual IComponent &at(std::size_t n) const;
         virtual void loadComponents(indie::GameState);
         virtual std::vector<std::shared_ptr<indie::ISprite> > getSprites();
-        virtual void notifyEvent(indie::EventType, indie::KeyboardKey);
+        virtual void notifyEvent(const indie::Event &);
     };
 }
 

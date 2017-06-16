@@ -34,6 +34,25 @@ namespace indie {
       virtual void notifyEvent(std::vector<Event> &&events);
       virtual void setObjectsAnimationState(const std::vector<AnimationState> &);
 
+      // --- Process Part - Start
+    public:
+      virtual void process();
+
+    private:
+      void  splashScreen();
+      void  gameProcess();
+
+    private:
+      std::vector<indie::Player>::const_iterator getPlayerSettings(size_t) const;
+      indie::OBJECTS_ID getBombType(size_t) const;
+      void bonusTimer();
+
+    private:
+      void updateAnimations();
+      std::vector<indie::AnimationState>::const_iterator getAnimationStateIt(size_t) const;
+      void updatePlayerAnimation(Tile &, size_t);
+      void updateBombAnimation(Tile &, size_t, OBJECTS_ID);
+
     private:
       void  handleEvents();
       void  move_left(indie::Tile &, size_t, size_t);
@@ -44,22 +63,7 @@ namespace indie {
       void  bomb(size_t);
 
     private:
-      std::vector<indie::Player>::const_iterator getPlayerSettings(size_t) const;
-      indie::OBJECTS_ID getBombType(size_t) const;
-
-    private:
-      void updateAnimations();
-      std::vector<indie::AnimationState>::const_iterator getAnimationStateIt(size_t) const;
-      void updatePlayerAnimation(Tile &, size_t);
-      void updateBombAnimation(Tile &, size_t, OBJECTS_ID);
-
-      // --- Process Part - Start
-    public:
-      virtual void process();
-
-    private:
-      void  splashScreen();
-      void  gameProcess();
+      void AIhandler();
 
     private:
       // Tile Handlers

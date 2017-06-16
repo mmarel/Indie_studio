@@ -6,7 +6,7 @@ indie::Game::Game() :
   _events(),
   _map(0),
   _gui(),
-  _settings({ 50, IA_LEVEL::IA_MEDIUM, std::vector<Player>(), 1}),
+  _settings({ 50, IA_LEVEL::IA_MEDIUM, std::vector<Player>(), 1, indie::PlayMod::PLAY_MOD_LOCAL}),
   _objectsStates()
  {
    _settings.players.push_back({

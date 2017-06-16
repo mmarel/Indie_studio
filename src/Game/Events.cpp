@@ -138,7 +138,7 @@ void indie::Game::bomb(size_t playerId) {
 
 void indie::Game::handleEvents() {
   std::remove_if(_events.begin(), _events.end(),
-  [this](Event &event)-> bool {
+  [this](const Event &event)-> bool {
     std::cout << "handle events\n";
     std::vector<indie::Player>::iterator it;
 
@@ -166,9 +166,7 @@ void indie::Game::handleEvents() {
                           return event.kb_key == psettings.bomb;
                         })) != _settings.players.end()) { bomb((*it).id); }
 
-      } else {
-        // call gui handler
-      }
+      } else { _gui.notifyEvent(event); }
     return true;
   });
 }

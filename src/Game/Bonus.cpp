@@ -1,5 +1,16 @@
 #include "Game/Game.hpp"
 
+void indie::Game::bonusTimer() {
+  std::for_each(_settings.players.begin(), _settings.players.end(),
+    [](indie::Player &playerInfo){
+      std::remove_if(playerInfo.bonus.begin(), playerInfo.bonus.end(),
+        [](indie::Bonus &bonus){
+          bonus.duration--;
+          return bonus.duration == 0;
+        });
+    });
+}
+
 std::vector<indie::Player>::const_iterator indie::Game::getPlayerSettings(size_t id) const {
   return std::find_if(_settings.players.begin(), _settings.players.end(),
         [&id](const indie::Player &playerInfo){

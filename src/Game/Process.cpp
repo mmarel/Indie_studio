@@ -29,8 +29,16 @@ void indie::Game::gameProcess() {
   }
 }
 
+void indie::Game::AIhandler() {
+  std::for_each(_settings.players.begin(), _settings.players.end(),
+    [this](Player &player) {
+      if (player.type == indie::PlayerType::PLAYER_AI) {
+        // call ai(player, _settings.difficulty);
+      }
+    });
+}
+
 void indie::Game::process() {
-  // main part
   static std::map<indie::GameState, indie::TurnHandler> handlers = {
     { indie::GameState::SPLASH_SCREEN, [this]() -> void { this->splashScreen(); } },
     { indie::GameState::INGAME, [this]() -> void { this->gameProcess(); } }
@@ -39,8 +47,10 @@ void indie::Game::process() {
   if (_gameState == indie::GameState::SPLASH_SCREEN) { return splashScreen(); }
   std::cout << "process " << _map.at(0, 0, 0).getObjectId(0) << std::endl;
   if (_gameState == indie::GameState::INGAME) {
+    bonusTimer();
     updateAnimations();
     handleEvents();
+    // call ais;
     return;
     gameProcess();
   }

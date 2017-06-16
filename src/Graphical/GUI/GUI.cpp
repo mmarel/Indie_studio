@@ -46,10 +46,10 @@ std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadMenu() {
     return (res);
 }
 
-void indie::GUI::notifyEvent(indie::EventType type, indie::KeyboardKey key) {
-    if (type == indie::EventType::ET_KEYBOARD)
-        if (_compActions.find(key) != _compActions.end())
-            _compActions[key]();
+void indie::GUI::notifyEvent(const indie::Event &event) {
+    if (event.type == indie::EventType::ET_KEYBOARD)
+        if (_compActions.find(event.kb_key) != _compActions.end())
+            _compActions[event.kb_key]();
 }
 
 std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadSettings() {
