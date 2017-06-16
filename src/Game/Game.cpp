@@ -5,8 +5,8 @@ indie::Game::Game() :
   _gameState(SPLASH_SCREEN),
   _events(),
   _map(0),
-  _gui(),
   _settings({ 50, IA_LEVEL::IA_MEDIUM, std::vector<Player>(), 1, indie::PlayMod::PLAY_MOD_LOCAL}),
+  _gui(_settings),
   _objectsStates()
  {
    _settings.players.push_back({
@@ -24,7 +24,6 @@ indie::GameState indie::Game::getGameState() const {
 }
 
 void indie::Game::notifyEvent(std::vector<Event> &&events) {
-  std::cout << "------------------------notify event " << events.size() << std::endl;
   _events.insert(_events.end(), events.begin(), events.end());
 }
 

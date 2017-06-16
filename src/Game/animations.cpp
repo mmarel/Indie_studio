@@ -12,7 +12,6 @@ void indie::Game::updateBombAnimation(indie::Tile &tile, size_t i, indie::OBJECT
 }
 
 std::vector<indie::AnimationState>::const_iterator indie::Game::getAnimationStateIt(size_t id) const {
-  if (id == 1) {std::cout << "ouiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii\n"; }
   std::cout << "look for animation id " << id << std::endl;
   return std::find_if(_objectsStates.begin(), _objectsStates.end(),
           [&id](const AnimationState &animation)->bool {
@@ -22,23 +21,17 @@ std::vector<indie::AnimationState>::const_iterator indie::Game::getAnimationStat
 
 void indie::Game::updateAnimations() {
   std::cout << "update Animations" << _map.at(0, 0, 0).getObjectId(0) << std::endl;
-  indie::Tile tile;
   indie::OBJECTS_ID objectType;
   size_t tileSize;
   std::vector<indie::AnimationState>::const_iterator animation_it;
 
   if (_objectsStates.size() == 0) { return; }
   for (std::size_t layer = 0; layer <= 0; layer++) {
-    for (std::size_t y = 0; y < 1/*_map.getHeight()*/; y++) {
-      for (std::size_t x = 0; x < 1/*_map.getWidth()*/; x++) {
+    for (std::size_t y = 0; y < _map.getHeight(); y++) {
+      for (std::size_t x = 0; x < _map.getWidth(); x++) {
+        indie::Tile &tile = _map.at(layer, x, y);
         tileSize = tile.getTileSize();
-        (void)tileSize;
-        for (size_t i = 0; i < 1/*tileSize*/; i++) {
-          std::cout << "//id" << _map.at(0, 0, 0).getObjectId(0) << std::endl;
-            tile = _map.at(layer, x, y);
-          std::cout << "//--id" << _map.at(0, 0, 0).getObjectId(0) << std::endl;
-          std::cout << "//--//id" << _map.at(layer, x, y).getObjectId(0) << std::endl;
-          std::cout << "---id" << tile.getObjectId(0) << std::endl;
+        for (size_t i = 0; i < tileSize; i++) {
           objectType = tile.getType(i);
 
           if ((animation_it = getAnimationStateIt(tile.getObjectId(i))) != _objectsStates.end()) {

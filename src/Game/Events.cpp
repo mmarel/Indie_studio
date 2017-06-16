@@ -98,14 +98,11 @@ void indie::Game::move(size_t playerId,
   };
 
   if (moves_handlers.find(dir) == moves_handlers.end()) { return; }
-  std::cout << "moving " << std::endl;
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
       indie::Tile &tile = _map.at(0, x, y);
       if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
-        std::cout << "found player at x " << x << " y " << y << std::endl;
         indie::Tile &ntile = moves_handlers[dir](tile, x, y);
-        if (&ntile != &tile) { std::cout << "player moved tile\n";}
         ntile.setDoesAnimationChanged(0, true);
         ntile.setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("RUN"));
         return;
@@ -135,7 +132,6 @@ void indie::Game::bomb(size_t playerId) {
 void indie::Game::handleEvents() {
   std::remove_if(_events.begin(), _events.end(),
   [this](const Event &event)-> bool {
-    std::cout << "handle events\n";
     std::vector<indie::Player>::iterator it;
 
     if (_gameState == indie::GameState::INGAME &&
@@ -162,7 +158,7 @@ void indie::Game::handleEvents() {
                           return event.kb_key == psettings.bomb;
                         })) != _settings.players.end()) { bomb((*it).id); }
 
-      } else { _gui.notifyEvent(event, _settings); }
+      } else { _gui.notifyEvent(event); }
     return true;
   });
   _events.clear();

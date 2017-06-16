@@ -96,8 +96,8 @@ namespace indie {
       GameState                         _gameState;
       std::vector<Event>                _events;
       Map                               _map;
-      GUI                               _gui;
       Settings                          _settings;
+      GUI                               _gui;
       std::vector<AnimationState>       _objectsStates;
   };
 };
