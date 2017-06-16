@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-29 18:49:20 
+// Author: Marwane Khsime
+// Date: 2017-05-29 18:49:20
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-29 18:49:20
 //
 
@@ -49,21 +49,21 @@ void        indie::Gfx::loadModels(std::unique_ptr<std::vector<std::unique_ptr<I
 
 }
 
-std::vector< std::pair< std::size_t, bool > >  indie::Gfx::getObjectsAnimationState() const {
+std::vector<indie::AnimationState>  indie::Gfx::getObjectsAnimationState() const {
 
-    std::vector< std::pair < std::size_t, bool > >  list;
-    
+    std::vector<AnimationState>  list;
+
     for ( std::unordered_map<std::size_t, NodeContainer>::const_iterator it = this->_nodesLoaded.begin(); it != this->_nodesLoaded.end(); ++it) {
 
         // Checks whether the object has completed its animation or not
         if (it->second.node &&
-            it->second.node->getFrameNr() == 
+            it->second.node->getFrameNr() ==
                 static_cast<irr::f32>(it->second.frameLoop.second) ) {
 
             list.push_back( { it->second.id, true } );   // Completed
 
         } else {    // Or not
-        
+
             list.push_back( { it->second.id, false });
 
         }

@@ -119,13 +119,27 @@ void indie::Game::move(size_t playerId,
 }
 
 void indie::Game::bomb(size_t playerId) {
-  (void)playerId;
+  indie::Tile tile;
+  indie::Tile bombTile;
+  indie::OBJECTS_ID type = getBombType(playerId);
+
+  for (std::size_t y = 0; y < _map.getHeight(); y++) {
+    for (std::size_t x = 0; x < _map.getWidth(); x++) {
+      tile = _map.at(0, x, y);
+      if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
+        bombTile = _map.at(1, x, y);
+        bombTile.setDoesAnimationChanged(0, true);
+        bombTile.setObjectFrameLoop(0, indie::Tile::getNextFrame(type, {0, 0}));
+        return;
+      }
+    }
+  }
 }
 
 void indie::Game::handleEvents() {
-
   std::remove_if(_events.begin(), _events.end(),
   [this](Event &event)-> bool {
+    std::cout << "handle events\n";
     std::vector<indie::Player>::iterator it;
 
     if (_gameState == indie::GameState::INGAME &&

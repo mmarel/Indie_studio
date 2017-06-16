@@ -27,6 +27,7 @@
 #include "Sound/SoundManager.hpp"
 #include "Exception/exception.hpp"
 #include "GfxContainers.hpp"
+#include "Game/ModelsId.hpp"
 
 namespace indie
 {
@@ -87,7 +88,7 @@ namespace indie
             virtual void        loadSprites(std::unique_ptr<std::vector<std::unique_ptr<ISprite> > > sprites);
             //  Models
             virtual void        loadModels(std::unique_ptr<std::vector<std::unique_ptr<IModel> > > models);
-            virtual std::vector<std::pair< std::size_t, bool > >  getObjectsAnimationState() const;
+            virtual std::vector<AnimationState>  getObjectsAnimationState() const;
             //  FONTS
             virtual void        loadFonts(const std::vector<std::string> &fonts_to_load = std::vector<std::string>());
             //  GUI

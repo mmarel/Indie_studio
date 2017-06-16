@@ -52,11 +52,12 @@ void            indie::Core::runCoreLoop()
             case indie::GameState::MAIN_MENU:
             case indie::GameState::SCOREBOARD:
             case indie::GameState::SETTINGS:
+            case indie::GameState::HELP:
             case indie::GameState::ROOM:
+                _game->setObjectsAnimationState(_gfx->getObjectsAnimationState());
                 this->process();
                 break ;
 
-            case indie::GameState::HELP:
             case indie::GameState::NONE:
             default:
                 break ;

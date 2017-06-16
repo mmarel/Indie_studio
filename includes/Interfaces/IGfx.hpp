@@ -20,6 +20,7 @@
 #include "IModel.hpp"
 #include "IMap.hpp"
 #include "IGUI.hpp"
+#include "Game/ModelsId.hpp"
 
 namespace indie
 {
@@ -107,7 +108,7 @@ namespace indie
         /// \brief Returns a vector of pairs which contains the ids of the models and a boolean value
         ///        which indicate if the animation is terminated or not
         ///
-        virtual std::vector<std::pair< std::size_t, bool > >  getObjectsAnimationState() const = 0;
+        virtual std::vector<AnimationState>  getObjectsAnimationState() const = 0;
 
         // Map
         ///

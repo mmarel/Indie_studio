@@ -44,8 +44,12 @@ namespace indie {
       void  bomb(size_t);
 
     private:
+      std::vector<indie::Player>::const_iterator getPlayerSettings(size_t) const;
+      indie::OBJECTS_ID getBombType(size_t) const;
+
+    private:
       void updateAnimations();
-      std::vector<indie::AnimationState>::iterator getAnimationStateIt(size_t);
+      std::vector<indie::AnimationState>::const_iterator getAnimationStateIt(size_t) const;
       void updatePlayerAnimation(Tile &, size_t);
       void updateBombAnimation(Tile &, size_t, OBJECTS_ID);
 

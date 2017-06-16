@@ -8,7 +8,14 @@ indie::Game::Game() :
   _gui(),
   _settings({ 50, IA_LEVEL::IA_MEDIUM, std::vector<Player>(), 1}),
   _objectsStates()
- {}
+ {
+   _settings.players.push_back({
+     indie::KeyboardKey::KB_Q, indie::KeyboardKey::KB_D,
+     indie::KeyboardKey::KB_Z, indie::KeyboardKey::KB_S,
+     indie::KeyboardKey::KB_E,
+     std::vector<indie::Bonus>(),
+     1, indie::PlayerType::PLAYER_HUMAN});
+ }
 
 indie::Game::~Game() {}
 
@@ -17,6 +24,7 @@ indie::GameState indie::Game::getGameState() const {
 }
 
 void indie::Game::notifyEvent(std::vector<Event> &&events) {
+  std::cout << "------------------------notify event " << events.size() << std::endl;
   _events.insert(_events.end(), events.begin(), events.end());
 }
 

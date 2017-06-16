@@ -5,14 +5,22 @@
 
 namespace indie {
 
-    typedef enum    e_BonusType {
-      BONUS_UNKNOWN = -1
-    }               BonusType;
+    typedef enum          e_BonusType {
+      BONUS_UNKNOWN = -1,
+      BONUS_SQUAREBOMB = 7,
+      BONUS_TENTACLEBOMB = 9
+    }                     BonusType;
 
     typedef struct  s_Bonus {
       BonusType     type;
       size_t        duration;
     }               Bonus;
+
+    typedef enum        e_PlayerType {
+      PLAYER_UNKNOWN = -1,
+      PLAYER_HUMAN,
+      PLAYER_AI
+    }                     PlayerType;
 
     typedef struct        s_Player {
       KeyboardKey         move_left;
@@ -22,14 +30,15 @@ namespace indie {
       KeyboardKey         bomb;
       std::vector<Bonus>  bonus;
       size_t              id;
-    } Player;
+      PlayerType          type;
+    }                     Player;
 
     typedef enum          e_IA_LEVEL {
       IA_UNKNOWN = -1,
       IA_EASY,
       IA_MEDIUM,
       IA_HARD
-    }             IA_LEVEL;
+    }                     IA_LEVEL;
 
     typedef struct              s_Settings {
       size_t                    volume;

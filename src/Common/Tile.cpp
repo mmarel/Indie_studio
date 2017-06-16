@@ -32,7 +32,6 @@ void                indie::Tile::setHasModel(std::size_t at, bool hm) { this->_h
 
 std::size_t         indie::Tile::getModelId(std::size_t at) const { return this->_modelId.at(at); }
 void                indie::Tile::setModelId(std::size_t at, std::size_t id) { this->_modelId.at(at) = id; }
-
 std::size_t         indie::Tile::getObjectId(std::size_t at) const { return this->_objectId.at(at); }
 void                indie::Tile::setObjectId(std::size_t at, std::size_t id) { this->_objectId.at(at) = id; }
 

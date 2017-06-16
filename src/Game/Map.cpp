@@ -44,6 +44,8 @@ indie::ITile const &indie::Map::at(size_t layer, size_t x, size_t y) const
 
 indie::Tile &indie::Map::at(size_t layer, size_t x, size_t y)
 {
+  std::cout << "map at " << layer << " " << x << " " << y << std::endl;
+  std::cout << "map::at id " << _layers[layer][y][x]->getObjectId(0) << std::endl;
   return *this->_layers[layer][y][x];
 }
 
@@ -132,6 +134,7 @@ void  indie::Map::initTiles() {
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Blue.png");
+            std::cout << "tile object id " << tile->getObjectId(0) << std::endl;
             tile->setDoesAnimationChanged(0, false);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
@@ -180,10 +183,10 @@ void  indie::Map::initTiles() {
             tile->setObjectFrameLoop(0, std::pair<std::size_t, std::size_t>(0, 0));
             break;
 
-          case indie::OBJECTS_ID::UNKNOWN:
           case indie::OBJECTS_ID::SQUAREBOMB:
           case indie::OBJECTS_ID::PIKESBOMB:
           case indie::OBJECTS_ID::TENTACLEBOMB:
+          case indie::OBJECTS_ID::UNKNOWN:
           default:
             break;
       }
