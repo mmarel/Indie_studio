@@ -165,4 +165,5 @@ void indie::Game::handleEvents() {
       } else { _gui.notifyEvent(event, _settings); }
     return true;
   });
+  _events.clear();
 }
