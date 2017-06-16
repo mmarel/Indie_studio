@@ -23,7 +23,7 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
 
         node->setPosition(irr::core::vector3df(this->_scenesLoaded[this->_infos._current_scene]._startX + static_cast< float >(x),
                                                this->_scenesLoaded[this->_infos._current_scene]._startY,
-                                               this->_scenesLoaded[this->_infos._current_scene]._startZ + static_cast< float >(z)));
+                                               this->_scenesLoaded[this->_infos._current_scene]._startZ - static_cast< float >(z)));
 
         node->setRotation(irr::core::vector3df(0.0f, this->_orientation[static_cast<std::size_t>(tile.getObjectRotation(index))], 0.0f));
 
@@ -32,7 +32,7 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
         NodeContainer           newModel;
         irr::core::vector3df    position(this->_scenesLoaded[this->_infos._current_scene]._startX + static_cast< float >(x),
                                          this->_scenesLoaded[this->_infos._current_scene]._startY,
-                                         this->_scenesLoaded[this->_infos._current_scene]._startZ + static_cast< float >(z));
+                                         this->_scenesLoaded[this->_infos._current_scene]._startZ - static_cast< float >(z));
         irr::core::vector3df    rotation(0.0f, this->_orientation[static_cast<std::size_t>(tile.getObjectRotation(index))], 0.0f);
 
         if ((newModel.node =
