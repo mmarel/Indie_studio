@@ -19,8 +19,13 @@ std::vector<indie::AnimationState>::const_iterator indie::Game::getAnimationStat
           });
 }
 
+void indie::Game::removeObject(indie::Tile &tile, size_t i) {
+  _map.deleteObjectById(tile.getObjectId(i));
+  tile.deleteElement(i);
+}
+
 void indie::Game::updateAnimations() {
-  std::cout << "update Animations" << _map.at(0, 0, 0).getObjectId(0) << std::endl;
+  std::cout << "update Animations count: " << _objectsStates.size() << std::endl;
   indie::OBJECTS_ID objectType;
   size_t tileSize;
   std::vector<indie::AnimationState>::const_iterator animation_it;
@@ -35,13 +40,12 @@ void indie::Game::updateAnimations() {
           objectType = tile.getType(i);
 
           if ((animation_it = getAnimationStateIt(tile.getObjectId(i))) != _objectsStates.end()) {
-            std::cout << "animtion found" << std::endl;
-            // check death
-            /*if (animation.over && indie::Tile::isDeathFrame(objectType, tile->getObjectFrameLoop(i))) {
-              remove object
-            }*/
+            std::cout << "animtion found " << std::endl;
             if ((*animation_it).over) { std::cout << "oveeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer\n\n\n";}
-            if ((*animation_it).over &&
+            if ((*animation_it).over && indie::Tile::isDeathFrame(tile.getModelId(i), tile.getObjectFrameLoop(i))) {
+              removeObject(tile, i);
+            }
+            else if ((*animation_it).over &&
                 objectType >= indie::OBJECTS_ID::PLAYER_ONE &&
                 objectType <= indie::OBJECTS_ID::PLAYER_FOURTH) { updatePlayerAnimation(tile, i); }
             else if ((*animation_it).over &&
@@ -49,7 +53,6 @@ void indie::Game::updateAnimations() {
                       objectType <= indie::OBJECTS_ID::TENTACLEBOMB) { updateBombAnimation(tile, i, objectType); }
             else if (!(*animation_it).over) { std::cout << "not over" << std::endl; tile.setDoesAnimationChanged(i, false); }
           }
-          else if (x == 0 && y == 0 && layer == 0) { std::cout << "no animation" << std::endl; }
         }
       }
     }

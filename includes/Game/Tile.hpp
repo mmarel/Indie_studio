@@ -53,6 +53,7 @@ namespace indie
 
             Tile        &operator=(const Tile &);
             void        reset();
+            void        deleteElement(size_t);
 
         public:
           static std::pair<size_t, size_t> getSkeletonFrame(std::string);
@@ -63,6 +64,8 @@ namespace indie
           static std::pair<size_t, size_t> getNextFramePikesBomb(std::pair<size_t, size_t>);
           static std::pair<size_t, size_t> getNextFrameTentacleBomb(std::pair<size_t, size_t>);
           static std::pair<size_t, size_t> getNextFrame(OBJECTS_ID,
+                                                        std::pair<size_t, size_t>);
+          static bool                      isDeathFrame(MODELS_ID,
                                                         std::pair<size_t, size_t>);
         private:
 

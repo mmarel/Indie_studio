@@ -29,7 +29,7 @@ void    indie::Map::generate_little_map() {
 
     this->_width = 11;
     this->_height = 13;
-    this->_nbLayers = 1;
+    this->_nbLayers = 3;
     this->_sceneId = 0;
     this->create_layer(0);
     this->create_layer(1);

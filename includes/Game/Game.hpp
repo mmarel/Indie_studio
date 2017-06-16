@@ -52,6 +52,7 @@ namespace indie {
       std::vector<indie::AnimationState>::const_iterator getAnimationStateIt(size_t) const;
       void updatePlayerAnimation(Tile &, size_t);
       void updateBombAnimation(Tile &, size_t, OBJECTS_ID);
+      void removeObject(Tile &, size_t);
 
     private:
       void  handleEvents();

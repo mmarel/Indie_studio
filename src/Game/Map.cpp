@@ -128,11 +128,10 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::PLAYER_ONE:
             tile->setHasModel(0, true);
             tile->setType(0, indie::OBJECTS_ID::PLAYER_ONE);
-            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Blue.png");
-            std::cout << "tile object id " << tile->getObjectId(0) << std::endl;
             tile->setDoesAnimationChanged(0, false);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
@@ -140,7 +139,7 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::PLAYER_TWO:
             tile->setHasModel(0, true);
             tile->setType(0, indie::OBJECTS_ID::PLAYER_TWO);
-            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Red.png");
@@ -151,7 +150,7 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::PLAYER_THREE:
             tile->setHasModel(0, true);
             tile->setType(0, indie::OBJECTS_ID::PLAYER_THREE);
-            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Yellow.png");
@@ -162,7 +161,7 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::PLAYER_FOURTH:
             tile->setHasModel(0, true);
             tile->setType(0, indie::OBJECTS_ID::PLAYER_FOURTH);
-            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
+            tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Green.png");
@@ -173,7 +172,7 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::BOX:
             tile->setHasModel(0, true);
             tile->setType(0, indie::OBJECTS_ID::BOX);
-            tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::BOX_MODEL));
+            tile->setModelId(0, indie::MODELS_ID::BOX_MODEL);
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Map/Box.png");

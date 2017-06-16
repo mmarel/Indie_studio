@@ -43,14 +43,13 @@ void indie::Game::process() {
     { indie::GameState::SPLASH_SCREEN, [this]() -> void { this->splashScreen(); } },
     { indie::GameState::INGAME, [this]() -> void { this->gameProcess(); } }
   };
-
+  std::cout << "process\n";
   if (_gameState == indie::GameState::SPLASH_SCREEN) { return splashScreen(); }
   if (_gameState == indie::GameState::INGAME) {
     bonusTimer();
     updateAnimations();
     handleEvents();
-    // call ais;
-    return;
-    gameProcess();
-  }
+    AIhandler();
+    //gameProcess();
+  } else { handleEvents(); }
 }

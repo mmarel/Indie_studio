@@ -48,7 +48,7 @@ namespace indie {
     }                     PlayMod;
 
     typedef struct              s_Settings {
-      size_t                    volume;
+      float                     volume;
       IA_LEVEL                  difficulty;
       std::vector<Player>       players;
       int                       nplayers;

@@ -81,3 +81,17 @@ void              indie::Tile::reset() {
   this->_shiftX = { 0.0 };
   this->_type = { indie::OBJECTS_ID::EMPTY };
 }
+
+void  indie::Tile::deleteElement(size_t i) {
+  if (_hasModel.size() == 1) { return reset(); }
+  _hasModel.erase(_hasModel.begin() + i);
+  _modelId.erase(_modelId.begin() + i);
+  _objectId.erase(_objectId.begin() + i);
+  _objectRotation.erase(_objectRotation.begin() + i);
+  _objectTexture.erase(_objectTexture.begin() + i);
+  _doesAnimationChanged.erase(_doesAnimationChanged.begin() + i);
+  _objectFrameLoop.erase(_objectFrameLoop.begin() + i);
+  _shiftX.erase(_shiftX.begin() + i);
+  _shiftY.erase(_shiftY.begin() + i);
+  _type.erase(_type.begin() + i);
+}

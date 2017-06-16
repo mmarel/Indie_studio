@@ -101,3 +101,12 @@ bool  indie::Tile::isFrameLethal(indie::OBJECTS_ID type,
             return frame.first >= lethalFrame.first && frame.second <= lethalFrame.second;
           }) != lethalFrames.end();
 }
+
+bool  indie::Tile::isDeathFrame(indie::MODELS_ID type,
+                                std::pair<size_t, size_t> frame) {
+  static std::map<indie::MODELS_ID, std::pair<size_t, size_t>  > frames = {
+    { indie::MODELS_ID::SKELETON_MODEL, {38, 68} },
+    { indie::MODELS_ID::BOX_MODEL, {1, 25} }
+  };
+  return frames.find(type) != frames.end() && frames[type] == frame;
+}

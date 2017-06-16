@@ -130,8 +130,8 @@ void indie::Game::bomb(size_t playerId) {
 }
 
 void indie::Game::handleEvents() {
-  std::remove_if(_events.begin(), _events.end(),
-  [this](const Event &event)-> bool {
+  std::for_each(_events.begin(), _events.end(),
+  [this](const Event &event) {
     std::vector<indie::Player>::iterator it;
 
     if (_gameState == indie::GameState::INGAME &&
@@ -159,7 +159,6 @@ void indie::Game::handleEvents() {
                         })) != _settings.players.end()) { bomb((*it).id); }
 
       } else { _gui.notifyEvent(event); }
-    return true;
   });
   _events.clear();
 }
