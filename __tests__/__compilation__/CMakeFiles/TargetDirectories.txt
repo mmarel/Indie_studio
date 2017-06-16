@@ -1,0 +1,5 @@
+/home/sam/Epitech/cpp_indie_studio/__tests__/__compilation__/CMakeFiles/package_source.dir
+/home/sam/Epitech/cpp_indie_studio/__tests__/__compilation__/CMakeFiles/package.dir
+/home/sam/Epitech/cpp_indie_studio/__tests__/__compilation__/CMakeFiles/edit_cache.dir
+/home/sam/Epitech/cpp_indie_studio/__tests__/__compilation__/CMakeFiles/indie_studio.dir
+/home/sam/Epitech/cpp_indie_studio/__tests__/__compilation__/CMakeFiles/rebuild_cache.dir

@@ -39,5 +39,14 @@ std::unique_ptr<std::vector<std::pair<std::string, indie::SoundType> > > indie::
 std::unique_ptr<std::vector<std::unique_ptr<indie::IScene> > > indie::Game::getScenesToLoad() const {
   std::unique_ptr<std::vector<std::unique_ptr<indie::IScene> > > scenesToLoad;
 
+  scenesToLoad = std::make_unique<std::vector<std::unique_ptr<indie::IScene> > >();
+  (*scenesToLoad).push_back(std::make_unique<indie::Scene>(
+    std::vector<std::pair<std::string, std::string > > ({ std::make_pair("Map/bot_right.obj", "Map/bot_right.png"),
+                                                          std::make_pair("Map/bot_left.obj", "Map/bot_left.png"),
+                                                          std::make_pair("Map/top_left.obj", "Map/top_left.png"),
+                                                          std::make_pair("Map/top_right.obj", "Map/top_right.png"),
+                                                          std::make_pair("Map/ground.obj", "Map/ground.png"),
+                                                          std::make_pair("Map/pillars.obj", "Map/pillars.png")
+                                                        }), std::string("Textures/Dome/Hole.jpg"), 0, 0, 0));
   return std::move(scenesToLoad);
 }
