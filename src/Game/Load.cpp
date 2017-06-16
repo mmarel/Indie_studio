@@ -26,6 +26,11 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::IModel> > > indie::Game::getM
       std::vector<std::pair<size_t, size_t> >(
         {{1, 36}, {38, 68}, {70, 150}, {152, 175}, {177, 252}})
     ));
+
+  (*modelsToLoad).push_back(std::make_unique<indie::Model>("Map/Box.md3",
+      std::vector<std::pair<size_t, size_t> >(
+        {{0, 0}, {1, 25}})
+    ));
   return std::move(modelsToLoad);
 }
 
@@ -46,6 +51,6 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::IScene> > > indie::Game::getS
                                                           std::make_pair("Map/top_right.obj", "Map/top_right.png"),
                                                           std::make_pair("Map/ground.obj", "Map/ground.png"),
                                                           std::make_pair("Map/pillars.obj", "Map/pillars.png")
-                                                        }), std::string("Textures/Dome/Hole.jpg"), -13.5f, 0.0f, 13.5f));
+                                                        }), std::string("Textures/Dome/Hole.jpg"), -13.0f, 0.0f, 13.5f));
   return std::move(scenesToLoad);
 }

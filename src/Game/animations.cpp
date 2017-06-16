@@ -40,6 +40,7 @@ void indie::Game::updateAnimations() {
             /*if (animation.over && indie::Tile::isDeathFrame(objectType, tile->getObjectFrameLoop(i))) {
               remove object
             }*/
+            if ((*animation_it).over) { std::cout << "oveeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer\n\n\n";}
             if ((*animation_it).over &&
                 objectType >= indie::OBJECTS_ID::PLAYER_ONE &&
                 objectType <= indie::OBJECTS_ID::PLAYER_FOURTH) { updatePlayerAnimation(tile, i); }

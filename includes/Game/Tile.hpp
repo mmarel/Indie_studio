@@ -10,6 +10,7 @@
 # define TILE_HPP
 
 # include "Interfaces/ITile.hpp"
+# include "Game/ModelsId.hpp"
 # include <vector>
 # include <map>
 # include <algorithm>
@@ -29,7 +30,7 @@ namespace indie
 
             virtual std::size_t                     getTileSize() const;
             virtual bool                            hasModel(size_t at) const;
-            virtual std::size_t                     getModelId(size_t at) const;
+            virtual indie::MODELS_ID                getModelId(size_t at) const;
             virtual std::size_t                     getObjectId(size_t at) const;
             virtual ELookAt                         getObjectRotation(size_t at) const;
             virtual std::string                     getObjectTexture(size_t at) const;
@@ -40,7 +41,7 @@ namespace indie
             virtual OBJECTS_ID                      getType(size_t at) const;
 
             void                    setHasModel(size_t at, bool value);
-            void                    setModelId(size_t at, std::size_t id);
+            void                    setModelId(size_t at, indie::MODELS_ID);
             void                    setObjectId(size_t at, std::size_t id);
             void                    setObjectRotation(size_t at, ELookAt lookat);
             void                    setObjectTexture(size_t at, const std::string &texture);
@@ -65,16 +66,16 @@ namespace indie
                                                         std::pair<size_t, size_t>);
         private:
 
-            std::vector< bool >                                     _hasModel;
-            std::vector< std::size_t >                              _modelId;
-            std::vector< std::size_t >                              _objectId;
-            std::vector< ELookAt >                                  _objectRotation;
-            std::vector< std::string >                              _objectTexture;
-            std::vector< bool >                                     _doesAnimationChanged;
-            std::vector< std::pair<std::size_t, std::size_t> >      _objectFrameLoop;
-            std::vector< double >                                   _shiftX;
-            std::vector< double >                                   _shiftY;
-            std::vector< OBJECTS_ID >                               _type;
+            std::vector<bool>                                     _hasModel;
+            std::vector<indie::MODELS_ID>                         _modelId;
+            std::vector<std::size_t>                              _objectId;
+            std::vector<ELookAt>                                  _objectRotation;
+            std::vector<std::string>                              _objectTexture;
+            std::vector<bool>                                     _doesAnimationChanged;
+            std::vector<std::pair<std::size_t, std::size_t> >      _objectFrameLoop;
+            std::vector<double>                                   _shiftX;
+            std::vector<double>                                   _shiftY;
+            std::vector<OBJECTS_ID>                               _type;
     };
 }
 

@@ -62,7 +62,7 @@ namespace indie
 			/// \fn virtual size_t getModelId(size_t at) const = 0
 			/// \brief Get the Mesh ID linked with the model
 			///
-			virtual size_t getModelId(size_t at) const = 0;
+			virtual indie::MODELS_ID getModelId(size_t at) const = 0;
 			///
 			/// \fn virtual size_t getObjectId(size_t at) const = 0
 			/// \brief Get the Model ID

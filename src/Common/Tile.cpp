@@ -30,8 +30,8 @@ std::size_t         indie::Tile::getTileSize() const { return this->_hasModel.si
 bool                indie::Tile::hasModel(std::size_t at) const { return this->_hasModel.at(at); }
 void                indie::Tile::setHasModel(std::size_t at, bool hm) { this->_hasModel.at(at) = hm; }
 
-std::size_t         indie::Tile::getModelId(std::size_t at) const { return this->_modelId.at(at); }
-void                indie::Tile::setModelId(std::size_t at, std::size_t id) { this->_modelId.at(at) = id; }
+indie::MODELS_ID   indie::Tile::getModelId(std::size_t at) const { return this->_modelId.at(at); }
+void                indie::Tile::setModelId(std::size_t at, indie::MODELS_ID id) { this->_modelId.at(at) = id; }
 std::size_t         indie::Tile::getObjectId(std::size_t at) const { return this->_objectId.at(at); }
 void                indie::Tile::setObjectId(std::size_t at, std::size_t id) { this->_objectId.at(at) = id; }
 
@@ -60,7 +60,7 @@ indie::Tile         &indie::Tile::operator=(const indie::Tile &other) {
   if (this != &other) {
     _hasModel = other._hasModel;
     _modelId = other._modelId;
-    _objectId = other._modelId;
+    _objectId = other._objectId;
     _objectRotation = other._objectRotation;
     _objectTexture = other._objectTexture;
     _doesAnimationChanged = other._doesAnimationChanged;
@@ -72,11 +72,9 @@ indie::Tile         &indie::Tile::operator=(const indie::Tile &other) {
   return *this;
 }
 
-#include <iostream>
 void              indie::Tile::reset() {
-  std::cout << "reset tile" << std::endl;
   this->_hasModel =  { false };
-  this->_modelId = { 0 };
+  this->_modelId = { indie::MODELS_ID::UNKNOWN };
   this->_doesAnimationChanged = { false };
   this->_objectFrameLoop =  { { 0,0 } };
   this->_shiftY = { 0.0 };

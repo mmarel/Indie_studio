@@ -51,7 +51,7 @@ std::pair<size_t, size_t>   indie::Tile::getSkeletonFrame(std::string state) {
     { "DIE", {38, 68} },
     { "IDLE", {70, 150} },
     { "RUN", {152, 175} },
-    { "SPAWN", {177, 252} }
+    { "SPAWN", {177, 250} }
   };
   std::map<std::string, std::pair<size_t, size_t> >::const_iterator frame_it;
 
