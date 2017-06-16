@@ -37,6 +37,11 @@ namespace indie
         TENTACLEBOMB = 9
     };
 
+    typedef struct s_AnimationState {
+      size_t id;
+      bool over;
+    }              AnimationState;
+
   # define SQUAREBOMB_FRAMECD 5
   # define PIKESBOMB_FRAMECD 5
   # define TENTACLESBOMB_FRAMECD 5

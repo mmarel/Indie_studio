@@ -27,6 +27,7 @@ void indie::Game::gameProcess() {
     }
   }
 }
+
 void indie::Game::process() {
   // main part
   static std::map<indie::GameState, indie::TurnHandler> handlers = {
@@ -35,7 +36,10 @@ void indie::Game::process() {
   };
 
   if (_gameState == indie::GameState::SPLASH_SCREEN) { return splashScreen(); }
-  return ;
-  handleEvents();
-  if (_gameState == indie::GameState::INGAME) { gameProcess(); }
+  if (_gameState == indie::GameState::INGAME) { 
+    updateAnimations();
+    handleEvents();
+    return;
+    gameProcess();
+  }
 }

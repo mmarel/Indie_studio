@@ -22,6 +22,7 @@
 #include "Sound.hpp"
 #include "IModel.hpp"
 #include "IScene.hpp"
+# include "Game/ModelsId.hpp"
 
 namespace indie
 {
@@ -146,6 +147,8 @@ namespace indie
         /// \brief Get the current version of the GUI to display
         ///
         virtual const IGUI &getCurrentGUI() const = 0;
+
+        virtual void setObjectsAnimationState(const std::vector<AnimationState> &) = 0;
 
   };
 }

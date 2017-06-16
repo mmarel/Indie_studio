@@ -32,6 +32,7 @@ namespace indie {
 
     public:
       virtual void notifyEvent(std::vector<Event> &&events);
+      virtual void setObjectsAnimationState(const std::vector<AnimationState> &);
 
     private:
       void  handleEvents();
@@ -41,6 +42,12 @@ namespace indie {
       void  move_up(indie::Tile &, size_t, size_t);
       void  move(size_t, indie::ELookAt);
       void  bomb(size_t);
+
+    private:
+      void updateAnimations();
+      std::vector<indie::AnimationState>::iterator getAnimationStateIt(size_t);
+      void updatePlayerAnimation(Tile &, size_t);
+      void updateBombAnimation(Tile &, size_t, OBJECTS_ID);
 
       // --- Process Part - Start
     public:
@@ -77,12 +84,13 @@ namespace indie {
       virtual const std::vector<Sound>  &getSoundsToPlay() const;
 
     private:
-      std::vector<indie::Sound> _sounds;
-      GameState               _gameState;
-      std::vector<Event>      _events;
-      Map                     _map;
-      GUI                     _gui;
-      Settings                _settings;
+      std::vector<indie::Sound>         _sounds;
+      GameState                         _gameState;
+      std::vector<Event>                _events;
+      Map                               _map;
+      GUI                               _gui;
+      Settings                          _settings;
+      std::vector<AnimationState>       _objectsStates;
   };
 };
 

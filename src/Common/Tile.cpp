@@ -18,8 +18,8 @@ indie::Tile::Tile()
       _objectTexture( { "" }),
       _doesAnimationChanged( { false }),
       _objectFrameLoop({ { 0, 0 } }),
-      _shiftX( { 0.0 } ),
-      _shiftY( { 0.0 }),
+      _shiftX( { 0.5 } ),
+      _shiftY( { 0.5 }),
       _type( { indie::OBJECTS_ID::EMPTY })
 {
 

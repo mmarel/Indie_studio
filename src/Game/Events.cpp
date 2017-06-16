@@ -13,7 +13,6 @@ void indie::Game::move_left(indie::Tile &player,
   if (newShift < 0.0 && x > 0) {
     nearPlayerTile = _map.at(0, x - 1, y);
     nearBombTile = _map.at(1, x - 1, y);
-
     // Players and Bombs are blocking movements
     if (nearPlayerTile.getType(0) == indie::OBJECTS_ID::EMPTY &&
         nearBombTile.getType(0) == indie::OBJECTS_ID::EMPTY) {
@@ -37,7 +36,6 @@ void indie::Game::move_right(indie::Tile &player,
   if (newShift > 1.0 && x < (_map.getWidth() - 1)) {
     nearPlayerTile = _map.at(0, x + 1, y);
     nearBombTile = _map.at(1, x + 1, y);
-
     // Players and Bombs are blocking movements
     if (nearPlayerTile.getType(0) == indie::OBJECTS_ID::EMPTY &&
         nearBombTile.getType(0) == indie::OBJECTS_ID::EMPTY) {
@@ -61,7 +59,6 @@ void indie::Game::move_down(indie::Tile &player,
   if (newShift > 1.0 && y < (_map.getHeight() - 1)) {
     nearPlayerTile = _map.at(0, x, y + 1);
     nearBombTile = _map.at(1, x, y + 1);
-
     // Players and Bombs are blocking movements
     if (nearPlayerTile.getType(0) == indie::OBJECTS_ID::EMPTY &&
         nearBombTile.getType(0) == indie::OBJECTS_ID::EMPTY) {
@@ -86,7 +83,6 @@ void indie::Game::move_up(indie::Tile &player,
   if (newShift < 0.0 && y > 0) {
     nearPlayerTile = _map.at(0, x, y - 1);
     nearBombTile = _map.at(1, x, y - 1);
-
     // Players and Bombs are blocking movements
     if (nearPlayerTile.getType(0) == indie::OBJECTS_ID::EMPTY &&
         nearBombTile.getType(0) == indie::OBJECTS_ID::EMPTY) {
@@ -114,6 +110,8 @@ void indie::Game::move(size_t playerId,
       tile = _map.at(0, x, y);
       if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
         moves_handlers[dir](tile, x, y);
+        tile.setDoesAnimationChanged(0, true);
+        tile.setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("RUN"));
         return;
       }
     }
