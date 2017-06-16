@@ -36,7 +36,7 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
         irr::core::vector3df    rotation(0.0f, this->_orientation[static_cast<std::size_t>(tile.getObjectRotation(index))], 0.0f);
 
         if ((newModel.node =
-                this->_smgr->addAnimatedMeshSceneNode(this->_meshesLoaded[tile.getModelId(index)].mesh,
+                this->_smgr->addAnimatedMeshSceneNode(this->_meshesLoaded[static_cast<std::size_t>(tile.getModelId(index))].mesh,
                                                       NULL,
                                                       1,
                                                       position,
@@ -51,7 +51,7 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
             }
 
         newModel.id = tile.getObjectId(index);
-        newModel.modelId = tile.getModelId(index);
+        newModel.modelId = static_cast< size_t >(tile.getModelId(index));
         newModel.frameLoop = tile.getObjectFrameLoop(index);
         newModel.node->setFrameLoop(static_cast< irr::s32 >(tile.getObjectFrameLoop(index).first),
                                     static_cast< irr::s32 >(tile.getObjectFrameLoop(index).second));
