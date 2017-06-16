@@ -114,7 +114,6 @@ void indie::Game::move(size_t playerId,
       tile = _map.at(0, x, y);
       if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
         moves_handlers[dir](tile, x, y);
-        // check death zone
         return;
       }
     }

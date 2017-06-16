@@ -132,7 +132,7 @@ void  indie::Map::initTiles() {
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Blue.png");
-            tile->setDoesAnimationChanged(0, true);
+            tile->setDoesAnimationChanged(0, false);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
 
@@ -143,7 +143,7 @@ void  indie::Map::initTiles() {
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Red.png");
-            tile->setDoesAnimationChanged(0, true);
+            tile->setDoesAnimationChanged(0, false);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
 
@@ -154,7 +154,7 @@ void  indie::Map::initTiles() {
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Yellow.png");
-            tile->setDoesAnimationChanged(0, true);
+            tile->setDoesAnimationChanged(0, false);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
 
@@ -165,7 +165,7 @@ void  indie::Map::initTiles() {
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Green.png");
-            tile->setDoesAnimationChanged(0, true);
+            tile->setDoesAnimationChanged(0, false);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
 
@@ -177,7 +177,7 @@ void  indie::Map::initTiles() {
             tile->setObjectId(0, nobjects);
             tile->setObjectTexture(0, "Map/Box.png");
             tile->setDoesAnimationChanged(0, true);
-            tile->setObjectFrameLoop(0, std::pair<std::size_t, std::size_t>(1, 2)); // TODO check box frames
+            tile->setObjectFrameLoop(0, std::pair<std::size_t, std::size_t>(0, 0));
             break;
 
           case indie::OBJECTS_ID::UNKNOWN:
