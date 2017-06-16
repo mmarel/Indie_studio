@@ -1,6 +1,6 @@
 #include "Common/GUI.hpp"
 
-indie::GUI::GUI() : _compId(0), _sprites(), _components(), _loadComps(), _compActions() {
+indie::GUI::GUI(indie::Settings& settings) : _compId(0), _settings(settings), _sprites(), _components(), _loadComps(), _compActions() {
 
     _loadComps[indie::GameState::MAIN_MENU] = [this](){return loadMenu();};
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
@@ -46,8 +46,7 @@ std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadMenu() {
     return (res);
 }
 
-void indie::GUI::notifyEvent(const indie::Event &event, indie::Settings &settings) {
-  (void)settings;
+void indie::GUI::notifyEvent(const indie::Event &event) {
     if (event.type == indie::EventType::ET_KEYBOARD)
         if (_compActions.find(event.kb_key) != _compActions.end())
             _compActions[event.kb_key]();

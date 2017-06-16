@@ -16,12 +16,15 @@ namespace indie
     class GUI : public IGUI
     {
     private:
-        size_t                                                                                     _compId;
-        std::vector<std::shared_ptr<indie::ISprite>>                                            _sprites;
-        std::vector<std::shared_ptr<indie::IComponent>>                                         _components;
-        std::map<indie::GameState,
-                std::function<std::vector<std::shared_ptr<indie::IComponent>> ()> >             _loadComps;
-        std::map<indie::KeyboardKey, std::function<void()> >                            _compActions;
+        typedef std::function<std::vector<std::shared_ptr<indie::IComponent>> ()> _loadCompfunc;
+        typedef std::function<void()>                                            _compActionsfunc;
+
+        size_t                                                _compId;
+        indie::Settings&                                       _settings;
+        std::vector<std::shared_ptr<indie::ISprite>>          _sprites;
+        std::vector<std::shared_ptr<indie::IComponent>>       _components;
+        std::map<indie::GameState, _loadCompfunc>             _loadComps;
+        std::map<indie::KeyboardKey, _compActionsfunc>        _compActions;
 
         ///Load Components Functions
         std::vector<std::shared_ptr<indie::IComponent>>    loadMenu();
@@ -52,14 +55,14 @@ namespace indie
         }
 
     public:
-        GUI();
+        GUI(indie::Settings&);
         virtual ~GUI(){}
 
         virtual std::size_t  size() const;
         virtual IComponent &at(std::size_t n) const;
         virtual void loadComponents(indie::GameState);
         virtual std::vector<std::shared_ptr<indie::ISprite> > getSprites();
-        virtual void notifyEvent(const indie::Event &, indie::Settings &);
+        virtual void notifyEvent(const indie::Event &);
     };
 }
 
