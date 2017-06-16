@@ -91,8 +91,10 @@ void    indie::Gfx::updateMap(const IMap &map) {
                      thickness > 0 && index < thickness;
                      ++index) {
 
-                    if (map.at(layer, z, y).hasModel(index))
+                    if (map.at(layer, z, y).hasModel(index)) {
+                        std::cout << "model found at " << "[" << z << "][" << y << "]" << std::endl;
                         this->draw_model(map.at(layer, z, y), z, y, index);
+                    }
 
                 }
 

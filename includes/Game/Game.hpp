@@ -12,7 +12,9 @@
 # include <map>
 
 namespace indie {
+
   # define PLAYER_SPEED 0.2
+
   typedef std::function<void()>                                               TurnHandler;
   typedef std::function<void(const std::size_t &, const std::size_t &)>       TileHandler;
 
@@ -69,10 +71,10 @@ namespace indie {
                                   const std::size_t &);
     public:
       virtual GameState                 getGameState() const;
-      virtual const IMap                &getCurrentMap() const = 0;
+      virtual const IMap                &getCurrentMap() const;
       virtual const std::vector<size_t> &getObjectsId() const;
-      virtual const IGUI                &getGUI() const = 0;
-      virtual const std::vector<Sound>  &getSoundsToPlay() const = 0;
+      virtual const IGUI                &getCurrentGUI() const;
+      virtual const std::vector<Sound>  &getSoundsToPlay() const;
 
     private:
       std::vector<indie::Sound> _sounds;

@@ -5,7 +5,7 @@
 ## Login   <marwane.khsime@epitech.eu>
 ## 
 ## Started on  Wed May  3 00:22:29 2017 marwane
-## Last update Wed Jun  7 21:43:22 2017 marwane
+## Last update Fri Jun 16 03:25:03 2017 marwane
 ##
 
 #
@@ -94,6 +94,7 @@ endif
 SRCDIR   		= src
 OBJDIR   		= obj
 BINDIR   		= ./bin
+BUILDDIR		= build
 
 # SOURCES
 SOURCES			= 	$(wildcard $(SRCDIR)/*.cpp)
@@ -145,5 +146,7 @@ clean:
 fclean: 			clean
 					@$(RM) $(BINDIR)
 					@echo "[\033[97mExecutable removed!\033[0m]"
+					@rm -rf $(BUILDDIR)/CMakeFiles $(BUILDDIR)/cmake_install.cmake $(BUILDDIR)/CPackConfig.cmake
+					@rm -rf $(BUILDDIR)/CPackSourceConfig.cmake $(BUILDDIR)/CMakeCache.txt $(BUILDDIR)/Makefile $(BUILDDIR)/bin
 
 re:					fclean $(BINDIR)/$(NAME)

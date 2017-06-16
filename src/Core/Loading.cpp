@@ -13,13 +13,19 @@ void    indie::Core::loading() {
     try {
 
     // Sounds
-    this->_gfx->loadSounds(this->_game->getSoundsToLoad());
+    // this->_gfx->loadSounds(this->_game->getSoundsToLoad());
+    
     // Scenes
     this->_gfx->loadScenes(this->_game->getScenesToLoad());
+
     // Models
     this->_gfx->loadModels(this->_game->getModelsToLoad());
+
+    std::cout << "loading ended" << std::endl;
+    
     // Sprites
-    this->_gfx->loadSprites(this->_game->getSpritesToLoad());
+    // this->_gfx->loadSprites(this->_game->getSpritesToLoad());
+    
     // Font 
     // TODO
 

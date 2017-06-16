@@ -16,11 +16,16 @@ void        indie::Core::process() {
     // Run the Game once time
     this->_game->process();
 
+    std::cout << "GAME PROCCESS OK" << std::endl;
+
     this->_gfx->updateMap(this->_game->getCurrentMap());
-    this->_gfx->updateGUI(this->_game->getCurrentGUI());
+    std::cout << "GFX MAP OK" << std::endl;
+
+    //this->_gfx->updateGUI(this->_game->getCurrentGUI());
+    std::cout << "GFX GUI OK" << std::endl;
 
     this->_gfx->display();
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
     std::cout << "turn" << std::endl;
 }

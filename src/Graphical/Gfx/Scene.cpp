@@ -61,7 +61,7 @@ void    indie::Gfx::loadScenes(std::unique_ptr<std::vector<std::unique_ptr<indie
     this->_scenesLoaded.clear();
 
     for (std::size_t i = 0; i < scenes->size(); ++i) {
-
+        
         indie::SceneContainer   scene_container( std::vector<
                                                     std::pair<irr::scene::IMesh *,
                                                     irr::scene::IMeshSceneNode *>

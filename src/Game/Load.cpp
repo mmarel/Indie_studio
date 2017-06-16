@@ -22,11 +22,10 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::IModel> > > indie::Game::getM
   std::unique_ptr<std::vector<std::unique_ptr<indie::IModel> > > modelsToLoad;
 
   modelsToLoad = std::make_unique<std::vector<std::unique_ptr<indie::IModel> > >();
-  (*modelsToLoad)[indie::ModelType::MODEL_SKELETON] =
-    std::make_unique<indie::Model>("Models/SkeletonMage/SkeletonMage.b3d",
+  (*modelsToLoad).push_back(std::make_unique<indie::Model>("Models/SkeletonMage/SkeletonMage.b3d",
       std::vector<std::pair<size_t, size_t> >(
         {{1, 36}, {38, 68}, {70, 150}, {152, 175}, {177, 252}})
-    );
+    ));
   return std::move(modelsToLoad);
 }
 

@@ -31,6 +31,6 @@ const indie::IMap &indie::Game::getCurrentMap() const {
   return _map;
 }
 
-const indie::IGUI &indie::Game::getGUI() const {
+const indie::IGUI &indie::Game::getCurrentGUI() const {
   return _gui;
 }

@@ -16,6 +16,7 @@
          
 #include "Interfaces/GameState.hpp"
 #include "Graphical/Gfx.hpp"
+#include "Game/Game.hpp"
 #include "Interfaces/IGame.hpp"
 #include "Interfaces/Sound.hpp"
 

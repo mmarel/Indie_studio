@@ -12,7 +12,7 @@
 indie::Core::Core()
     :
         _gfx(std::make_unique<indie::Gfx>()),
-        _game(), // set make unique with the game when merge will be ok with game part
+        _game(std::make_unique<indie::Game>()), // set make unique with the game when merge will be ok with game part
         _sounds(),
         _gameState(indie::GameState::NONE)
 {
@@ -42,6 +42,11 @@ void            indie::Core::runCoreLoop()
                 return ;
                 break ;
 
+            case indie::GameState::SPLASH_SCREEN: // To change when splash will be ready.
+                this->loading();
+                this->process();
+                break ;
+
 
             case indie::GameState::INGAME:
             case indie::GameState::MAIN_MENU:
@@ -53,7 +58,6 @@ void            indie::Core::runCoreLoop()
 
             case indie::GameState::HELP:
             case indie::GameState::NONE:
-            case indie::GameState::SPLASH_SCREEN: // To change when splash will be ready.
             default:
                 break ;
 

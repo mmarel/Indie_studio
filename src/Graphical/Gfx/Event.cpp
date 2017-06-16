@@ -10,6 +10,7 @@
 
 bool        indie::Gfx::pollEvents(Event &e) {
 
+    return false;
     if (this->_eventsOverlay.getLastEvent(e)) {
         return true;
     }

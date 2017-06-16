@@ -145,7 +145,7 @@ namespace indie
         /// \fn virtual const IGUI &getGUI() = 0
         /// \brief Get the current version of the GUI to display
         ///
-        virtual const IGUI &getCurrentGUI() = 0;
+        virtual const IGUI &getCurrentGUI() const = 0;
 
   };
 }

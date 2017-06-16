@@ -131,7 +131,7 @@ void  indie::Map::initTiles() {
             tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
-            tile->setObjectTexture(0, "textures/Blue.png");
+            tile->setObjectTexture(0, "Textures/SkeletonMage/Blue.png");
             tile->setDoesAnimationChanged(0, true);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
@@ -142,7 +142,7 @@ void  indie::Map::initTiles() {
             tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
-            tile->setObjectTexture(0, "textures/Red.png");
+            tile->setObjectTexture(0, "Textures/SkeletonMage/Red.png");
             tile->setDoesAnimationChanged(0, true);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
@@ -153,7 +153,7 @@ void  indie::Map::initTiles() {
             tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
-            tile->setObjectTexture(0, "textures/Yellow.png");
+            tile->setObjectTexture(0, "Textures/SkeletonMage/Yellow.png");
             tile->setDoesAnimationChanged(0, true);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;
@@ -164,7 +164,7 @@ void  indie::Map::initTiles() {
             tile->setModelId(0, static_cast<std::size_t>(indie::MODELS_ID::SKELETON_MODEL));
             _objectsId.push_back(++nobjects);
             tile->setObjectId(0, nobjects);
-            tile->setObjectTexture(0, "textures/Green.png");
+            tile->setObjectTexture(0, "Textures/SkeletonMage/Green.png");
             tile->setDoesAnimationChanged(0, true);
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
             break;

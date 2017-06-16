@@ -35,6 +35,7 @@ void indie::Game::process() {
   };
 
   if (_gameState == indie::GameState::SPLASH_SCREEN) { return splashScreen(); }
+  return ;
   handleEvents();
   if (_gameState == indie::GameState::INGAME) { gameProcess(); }
 }
