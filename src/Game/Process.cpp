@@ -48,7 +48,7 @@ void indie::Game::process() {
   std::cout << "process " << _map.at(0, 0, 0).getObjectId(0) << std::endl;
   if (_gameState == indie::GameState::INGAME) {
     bonusTimer();
-    updateAnimations();
+    //updateAnimations();
     handleEvents();
     // call ais;
     return;

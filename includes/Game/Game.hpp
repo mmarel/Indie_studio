@@ -13,7 +13,7 @@
 
 namespace indie {
 
-  # define PLAYER_SPEED 0.2
+  # define PLAYER_SPEED 1.1
 
   typedef std::function<void()>                                               TurnHandler;
   typedef std::function<void(const std::size_t &, const std::size_t &)>       TileHandler;
@@ -55,10 +55,10 @@ namespace indie {
 
     private:
       void  handleEvents();
-      void  move_left(indie::Tile &, size_t, size_t);
-      void  move_right(indie::Tile &, size_t, size_t);
-      void  move_down(indie::Tile &, size_t, size_t);
-      void  move_up(indie::Tile &, size_t, size_t);
+      Tile &move_left(indie::Tile &, size_t, size_t);
+      Tile &move_right(indie::Tile &, size_t, size_t);
+      Tile &move_down(indie::Tile &, size_t, size_t);
+      Tile &move_up(indie::Tile &, size_t, size_t);
       void  move(size_t, indie::ELookAt);
       void  bomb(size_t);
 

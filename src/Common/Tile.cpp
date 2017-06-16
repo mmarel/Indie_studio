@@ -72,7 +72,9 @@ indie::Tile         &indie::Tile::operator=(const indie::Tile &other) {
   return *this;
 }
 
+#include <iostream>
 void              indie::Tile::reset() {
+  std::cout << "reset tile" << std::endl;
   this->_hasModel =  { false };
   this->_modelId = { 0 };
   this->_doesAnimationChanged = { false };

@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-06-03 19:40:20 
+// Author: Marwane Khsime
+// Date: 2017-06-03 19:40:20
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-06-03 19:40:20
 //
 
@@ -10,7 +10,6 @@
 
 bool        indie::Gfx::pollEvents(Event &e) {
 
-    return false;
     if (this->_eventsOverlay.getLastEvent(e)) {
         return true;
     }

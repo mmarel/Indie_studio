@@ -54,7 +54,6 @@ void            indie::Core::runCoreLoop()
             case indie::GameState::SETTINGS:
             case indie::GameState::HELP:
             case indie::GameState::ROOM:
-                _game->setObjectsAnimationState(_gfx->getObjectsAnimationState());
                 this->process();
                 break ;
 

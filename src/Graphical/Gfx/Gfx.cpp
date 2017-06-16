@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-05 17:53:29 
+// Author: Marwane Khsime
+// Date: 2017-05-05 17:53:29
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-05 17:53:29
 //
 
@@ -48,30 +48,30 @@ indie::Gfx::Gfx()
         std::cout << "Launching Irrlicht GFX" << std::endl;
 
         this->_device->setWindowCaption(L"BAUNTLET");
-        
-        irr::SKeyMap keyMap[5];                                                                                                                                                                                                                
-                                                                                                                                                                                                                                               
-        keyMap[0].Action = irr::EKA_MOVE_FORWARD;                                                                                                                                                                                              
-        keyMap[0].KeyCode = irr::KEY_KEY_Z;                                                                                                                                                                                                    
-        keyMap[1].Action = irr::EKA_MOVE_BACKWARD;                                                                                                                                                                                             
-        keyMap[1].KeyCode = irr::KEY_KEY_S;                                                                                                                                                                                                    
-        keyMap[2].Action = irr::EKA_STRAFE_LEFT;                                                                                                                                                                                               
-        keyMap[2].KeyCode = irr::KEY_KEY_Q;                                                                                                                                                                                                    
-        keyMap[3].Action = irr::EKA_STRAFE_RIGHT;                                                                                                                                                                                              
-        keyMap[3].KeyCode = irr::KEY_KEY_D;                                                                                                                                                                                                    
-        keyMap[4].Action = irr::EKA_JUMP_UP;                                                                                                                                                                                                   
+
+/*        irr::SKeyMap keyMap[5];
+
+        keyMap[0].Action = irr::EKA_MOVE_FORWARD;
+        keyMap[0].KeyCode = irr::KEY_KEY_Z;
+        keyMap[1].Action = irr::EKA_MOVE_BACKWARD;
+        keyMap[1].KeyCode = irr::KEY_KEY_S;
+        keyMap[2].Action = irr::EKA_STRAFE_LEFT;
+        keyMap[2].KeyCode = irr::KEY_KEY_Q;
+        keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
+        keyMap[3].KeyCode = irr::KEY_KEY_D;
+        keyMap[4].Action = irr::EKA_JUMP_UP;
         keyMap[4].KeyCode = irr::KEY_SPACE;
 
         this->_camera = this->_smgr->addCameraSceneNodeFPS(0, 100.0f, 0.025f, -1, keyMap, 5);
-
-        // this->_camera = this->_smgr->addCameraSceneNode(NULL,
-        //                                                 //                    x     y     z
-        //                                                 irr::core::vector3df(0.0f, 0.0f, 0.0f), // Position
-        //                                                 irr::core::vector3df(0.0f, 0.0f, 0.0f)  // Angle
-        //                                                 );
+*/
+         this->_camera = this->_smgr->addCameraSceneNode(NULL,
+                                                                          //x     y     z
+                                                       irr::core::vector3df(0.0f, 0.0f, 0.0f), // Position
+                                                         irr::core::vector3df(0.0f, 0.0f, 0.0f)  // Angle
+                                                         );
 
         this->set_window_settings();
- 
+
     }
 
     catch (const std::exception &err) {
@@ -119,7 +119,7 @@ void    indie::Gfx::set_window_settings() {
     this->loadFonts();
 
     // Set Event Receiver
-    // this->_device->setEventReceiver(&this->_eventsOverlay);
+    this->_device->setEventReceiver(&this->_eventsOverlay);
 
 }
 

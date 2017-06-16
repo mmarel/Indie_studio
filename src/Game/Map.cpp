@@ -44,8 +44,6 @@ indie::ITile const &indie::Map::at(size_t layer, size_t x, size_t y) const
 
 indie::Tile &indie::Map::at(size_t layer, size_t x, size_t y)
 {
-  std::cout << "map at " << layer << " " << x << " " << y << std::endl;
-  std::cout << "map::at id " << _layers[layer][y][x]->getObjectId(0) << std::endl;
   return *this->_layers[layer][y][x];
 }
 

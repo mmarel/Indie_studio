@@ -9,6 +9,7 @@
 #include "Interfaces/GameState.hpp"
 #include "Interfaces/IGUI.hpp"
 #include "Interfaces/Event.hpp"
+# include "Game/Settings.hpp"
 
 namespace indie
 {
@@ -58,7 +59,7 @@ namespace indie
         virtual IComponent &at(std::size_t n) const;
         virtual void loadComponents(indie::GameState);
         virtual std::vector<std::shared_ptr<indie::ISprite> > getSprites();
-        virtual void notifyEvent(const indie::Event &);
+        virtual void notifyEvent(const indie::Event &, indie::Settings &);
     };
 }
 

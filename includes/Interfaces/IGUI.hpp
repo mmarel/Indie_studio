@@ -14,6 +14,7 @@
 #include <vector>
 #include "IComponent.hpp"
 # include "Interfaces/Event.hpp"
+# include "Game/Settings.hpp"
 
 namespace indie
 {
@@ -46,7 +47,7 @@ namespace indie
 
     virtual std::vector<std::shared_ptr<indie::ISprite> > getSprites() = 0;
 
-    virtual void notifyEvent(const indie::Event &) = 0;
+    virtual void notifyEvent(const indie::Event &, indie::Settings &) = 0;
 
   };
 }

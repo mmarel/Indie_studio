@@ -46,7 +46,8 @@ std::vector<std::shared_ptr<indie::IComponent>> indie::GUI::loadMenu() {
     return (res);
 }
 
-void indie::GUI::notifyEvent(const indie::Event &event) {
+void indie::GUI::notifyEvent(const indie::Event &event, indie::Settings &settings) {
+  (void)settings;
     if (event.type == indie::EventType::ET_KEYBOARD)
         if (_compActions.find(event.kb_key) != _compActions.end())
             _compActions[event.kb_key]();
