@@ -10,23 +10,24 @@
 
 void        indie::Core::process() {
 
+    // [ from GFX to GAME ]
     // Notify the game by sending gfx inputs
     this->notifyGame();
+    // this->_game->setObjectsAnimationState(this->_gfx->getObjectsAnimationState());
+
 
     // Run the Game once time
     this->_game->process();
-    //std::cout << "GAME PROCCESS OK" << std::endl;
 
+
+    // [ from GAME to GFX ]
+    // Update the game map in the GFX
     this->_gfx->updateMap(this->_game->getCurrentMap());
-    this->_gfx->getObjectsAnimationState();
-    // std::cout << "GFX MAP OK" << std::endl;
-
+    // Update the GUI in the GFX
     //this->_gfx->updateGUI(this->_game->getCurrentGUI());
-    // std::cout << "GFX GUI OK" << std::endl;
 
+
+    // Refresh the screen
     this->_gfx->display();
 
-
-    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    std::cout << "turn" << std::endl;
 }
