@@ -102,6 +102,12 @@ namespace indie
         /// \param Models to pass the path of the Sprites to give the lib
         ///        the way to search the assets
         virtual void loadModels(std::unique_ptr<std::vector<std::unique_ptr<IModel> > > models) = 0;
+        ///
+        /// \fn virtual std::vector<std::pair< std::size_t, bool >  getObjectsAnimationState() const = 0
+        /// \brief Returns a vector of pairs which contains the ids of the models and a boolean value
+        ///        which indicate if the animation is terminated or not
+        ///
+        virtual std::vector<std::pair< std::size_t, bool > >  getObjectsAnimationState() const = 0;
 
         // Map
         ///

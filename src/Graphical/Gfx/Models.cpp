@@ -44,9 +44,32 @@ void        indie::Gfx::loadModels(std::unique_ptr<std::vector<std::unique_ptr<I
         if (!(container.mesh = this->_smgr->getMesh(models->at(i)->getMeshPath().c_str())))
             throw indie::IndieError(_INDIE_GFX_MESH_FAILED);
 
-        container.frameSequences = models->at(i)->getAnimationsFrames();
-
         this->_meshesLoaded[i] = container;
     }
+
+}
+
+std::vector< std::pair< std::size_t, bool > >  indie::Gfx::getObjectsAnimationState() const {
+
+    std::vector< std::pair < std::size_t, bool > >  list;
+    
+    for ( std::unordered_map<std::size_t, NodeContainer>::const_iterator it = this->_nodesLoaded.begin(); it != this->_nodesLoaded.end(); ++it) {
+
+        // Checks whether the object has completed its animation or not
+        if (it->second.node &&
+            it->second.node->getFrameNr() == 
+                static_cast<irr::f32>(it->second.frameLoop.second) ) {
+
+            list.push_back( { it->second.id, true } );   // Completed
+
+        } else {    // Or not
+        
+            list.push_back( { it->second.id, false });
+
+        }
+
+    }
+
+    return list;
 
 }

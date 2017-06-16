@@ -15,9 +15,11 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
         // Just set Position, Rotation and frames here
         irr::scene::IAnimatedMeshSceneNode  *node = this->_nodesLoaded[tile.getObjectId(index)].node;
 
-        if (tile.doesAnimationChanged(index))
+        if (tile.doesAnimationChanged(index)) {
+            this->_nodesLoaded[tile.getObjectId(index)].frameLoop = tile.getObjectFrameLoop(index);
             node->setFrameLoop(static_cast< irr::s32 >(tile.getObjectFrameLoop(index).first),
                                static_cast< irr::s32 >(tile.getObjectFrameLoop(index).second));
+        }
 
         node->setPosition(irr::core::vector3df(this->_scenesLoaded[this->_infos._current_scene]._startX + static_cast< float >(x),
                                                this->_scenesLoaded[this->_infos._current_scene]._startY,
@@ -49,9 +51,12 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
             }
 
         newModel.id = tile.getObjectId(index);
+        newModel.modelId = tile.getModelId(index);
+        newModel.frameLoop = tile.getObjectFrameLoop(index);
         newModel.node->setFrameLoop(static_cast< irr::s32 >(tile.getObjectFrameLoop(index).first),
                                     static_cast< irr::s32 >(tile.getObjectFrameLoop(index).second));
         newModel.node->setCurrentFrame(static_cast< float >(tile.getObjectFrameLoop(index).first));
+        newModel.node->setLoopMode(false);
         this->_nodesLoaded[tile.getObjectId(index)] = newModel;
     }
 

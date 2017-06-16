@@ -97,58 +97,82 @@ namespace indie
     struct  MeshContainer {
 
         MeshContainer()
-                    : mesh(NULL), frameSequences() {
+                    : mesh(NULL)
+        {
+
         }
 
-        MeshContainer(irr::scene::IAnimatedMesh *_mesh,
-                      std::vector<std::pair<size_t, size_t> > _frameSequences)
-                      : mesh(_mesh), frameSequences(_frameSequences) {
+        MeshContainer(irr::scene::IAnimatedMesh *_mesh)
+                      : mesh(_mesh)
+        {
+
         }
 
         MeshContainer(const MeshContainer &mc)
-            : mesh(mc.mesh), frameSequences(mc.frameSequences) {
+            : mesh(mc.mesh)
+        {
+
         }
 
         MeshContainer &operator=(const MeshContainer &mc) {
+
+            if (this == &mc)
+                return *this;
+
             this->mesh = mc.mesh;
-            this->frameSequences = mc.frameSequences;
             return *this;
+
         }
 
-        ~MeshContainer() {
+        ~MeshContainer()
+        {
 
         };
 
         irr::scene::IAnimatedMesh                 *mesh;
-        std::vector<std::pair<size_t, size_t> >   frameSequences;
     };
 
     // Container for nodes (objects)
     struct  NodeContainer {
 
         NodeContainer()
-            : id(0), node(NULL) {
+            : id(0), modelId(0), frameLoop( { 0, 0 } ), node(NULL)
+        {
+
         }
 
-        NodeContainer(size_t _id, irr::scene::IAnimatedMeshSceneNode *_node)
-            : id(_id), node(_node) {
+        NodeContainer(size_t _id, size_t _modelId, std::pair<size_t, size_t> _frameLoop, irr::scene::IAnimatedMeshSceneNode *_node)
+            : id(_id), modelId(_modelId), frameLoop(_frameLoop), node(_node)
+        {
+
         }
 
         NodeContainer(const NodeContainer &nc)
-            : id(nc.id), node(nc.node) {
+            : id(nc.id), modelId(nc.modelId), frameLoop(nc.frameLoop), node(nc.node)
+        {
+
         }
 
-        NodeContainer &operator=(const NodeContainer &nc) {
+        NodeContainer &operator=(const NodeContainer &nc)
+        {
+            if (this == &nc)
+                return *this;
+
             this->id = nc.id;
+            this->modelId = nc.modelId;
+            this->frameLoop = nc.frameLoop;
             this->node = nc.node;
             return *this;
         }
 
-        ~NodeContainer() {
+        ~NodeContainer()
+        {
 
         };
 
         size_t                                      id;
+        size_t                                      modelId;
+        std::pair< size_t, size_t >                 frameLoop;
         irr::scene::IAnimatedMeshSceneNode          *node;
 
     };
