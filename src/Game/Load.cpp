@@ -31,6 +31,16 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::IModel> > > indie::Game::getM
       std::vector<std::pair<size_t, size_t> >(
         {{0, 0}, {1, 25}})
     ));
+
+  (*modelsToLoad).push_back(std::make_unique<indie::Model>("Explosions/2/Pikes_1.md3",
+      std::vector<std::pair<size_t, size_t> >(
+        {{1, 48}, {49, 65}})
+    ));
+
+  (*modelsToLoad).push_back(std::make_unique<indie::Model>("Explosions/1/Square_Explosion.md3",
+      std::vector<std::pair<size_t, size_t> >(
+        {{1, 48}, {49, 65}})
+    ));
   return std::move(modelsToLoad);
 }
 

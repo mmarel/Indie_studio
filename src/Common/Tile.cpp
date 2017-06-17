@@ -18,8 +18,8 @@ indie::Tile::Tile()
       _objectTexture( { "" }),
       _doesAnimationChanged( { false }),
       _objectFrameLoop({ { 0, 0 } }),
-      _shiftX( { 0.5 } ),
-      _shiftY( { 0.5 }),
+      _shiftX( { 0.0 } ),
+      _shiftY( { 0.0 }),
       _type( { indie::OBJECTS_ID::EMPTY })
 {
 
@@ -94,4 +94,10 @@ void  indie::Tile::deleteElement(size_t i) {
   _shiftX.erase(_shiftX.begin() + i);
   _shiftY.erase(_shiftY.begin() + i);
   _type.erase(_type.begin() + i);
+}
+#include <iostream>
+bool  indie::Tile::isTangible(size_t at) const {
+  if (_type[at] == indie::OBJECTS_ID::WALL) {std::cout << "wallllll hackkk\n";  }
+  return _type[at] != indie::OBJECTS_ID::EMPTY &&
+        _type[at] != indie::OBJECTS_ID::PIKESBOMB;
 }

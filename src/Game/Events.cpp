@@ -3,88 +3,84 @@
 indie::Tile &indie::Game::move_left(indie::Tile &player,
                                     size_t x, size_t y) {
   double newShift;
+  bool tangible;
 
-  player.setObjectRotation(0, indie::ELookAt::WEST);
   newShift = player.getShiftX(0) - PLAYER_SPEED;
-  player.setShiftX(0, newShift);
-  if (newShift < 0.0 && x > 0) {
-    indie::Tile &nearPlayerTile = _map.at(0, x - 1, y);
-    indie::Tile &nearBombTile = _map.at(1, x - 1, y);
-    // Players and Bombs are blocking movements
-    if (nearPlayerTile.getType(0) == indie::OBJECTS_ID::EMPTY &&
-        nearBombTile.getType(0) == indie::OBJECTS_ID::EMPTY) {
+  tangible = (x == 0 || _map.at(0, x - 1, y).isTangible(0) || _map.at(1, x - 1, y).isTangible(0));
+  if (newShift < 0.0 && !tangible) {
+      std::cout << "go left cell\n";
+      indie::Tile &nearPlayerTile = _map.at(0, x - 1, y);
+
       nearPlayerTile = player;
       player.reset();
       nearPlayerTile.setShiftX(0, 1.0 + newShift);
       return nearPlayerTile;
     }
-  } else if (newShift < 0.0 && x == 0) { player.setShiftX(0, 0.0); }
+    else if (tangible && newShift < 0.3) { player.setShiftX(0, 0.3); }
+    else if (newShift >= 0.0) { player.setShiftX(0, newShift); }
   return player;
 }
 
 indie::Tile &indie::Game::move_right(indie::Tile &player,
                                       size_t x, size_t y) {
   double newShift;
+  bool tangible;
 
-  player.setObjectRotation(0, indie::ELookAt::EAST);
   newShift = player.getShiftX(0) + PLAYER_SPEED;
-  player.setShiftX(0, newShift);
-  if (newShift > 1.0 && x < (_map.getWidth() - 1)) {
-    indie::Tile &nearPlayerTile = _map.at(0, x + 1, y);
-    indie::Tile &nearBombTile = _map.at(1, x + 1, y);
-    // Players and Bombs are blocking movements
-    if (nearPlayerTile.getType(0) == indie::OBJECTS_ID::EMPTY &&
-        nearBombTile.getType(0) == indie::OBJECTS_ID::EMPTY) {
+  tangible = (x == (_map.getWidth() - 1) || _map.at(0, x + 1, y).isTangible(0) || _map.at(1, x + 1, y).isTangible(0));
+  if (newShift >= 1.0 && !tangible) {
+      std::cout << "go right cell\n";
+      indie::Tile &nearPlayerTile = _map.at(0, x + 1, y);
+
       nearPlayerTile = player;
       player.reset();
       nearPlayerTile.setShiftX(0, newShift - 1.0);
       return nearPlayerTile;
-    }
-  } else if (newShift > 1.0) { player.setShiftX(0, 1.0); }
+  }
+  else if (tangible && newShift > 0.7) { player.setShiftX(0, 0.7); }
+  else if (newShift < 1.0) { player.setShiftX(0, newShift); }
   return player;
 }
 
 indie::Tile &indie::Game::move_down(indie::Tile &player,
                                     size_t x, size_t y) {
   double newShift;
+  bool tangible;
 
-  player.setObjectRotation(0, indie::ELookAt::SOUTH);
   newShift = player.getShiftY(0) + PLAYER_SPEED;
-  player.setShiftY(0, newShift);
-  if (newShift > 1.0 && y < (_map.getHeight() - 1)) {
-    indie::Tile &nearPlayerTile = _map.at(0, x, y + 1);
-    indie::Tile &nearBombTile = _map.at(1, x, y + 1);
-    // Players and Bombs are blocking movements
-    if (nearPlayerTile.getType(0) == indie::OBJECTS_ID::EMPTY &&
-        nearBombTile.getType(0) == indie::OBJECTS_ID::EMPTY) {
+  tangible = (y == (_map.getHeight() - 1) || _map.at(0, x, y + 1).isTangible(0) || _map.at(1, x, y + 1).isTangible(0));
+  if (newShift >= 1.0 && !tangible) {
+      std::cout << "go down cell\n";
+      indie::Tile &nearPlayerTile = _map.at(0, x, y + 1);
+
       nearPlayerTile = player;
       player.reset();
       nearPlayerTile.setShiftY(0, newShift - 1.0);
       return nearPlayerTile;
     }
-  } else if (newShift > 1.0) { player.setShiftY(0, 1.0); }
+    else if (tangible && newShift > 0.7) { player.setShiftY(0, 0.7); }
+    else if (newShift < 1.0) { player.setShiftY(0, newShift); }
   return player;
 }
 
 indie::Tile &indie::Game::move_up(indie::Tile &player,
                                   size_t x, size_t y) {
   double newShift;
+  bool tangible;
 
-  player.setObjectRotation(0, indie::ELookAt::NORTH);
   newShift = player.getShiftY(0) - PLAYER_SPEED;
-  player.setShiftY(0, newShift);
-  if (newShift < 0.0 && y > 0) {
-    indie::Tile &nearPlayerTile = _map.at(0, x, y - 1);
-    indie::Tile &nearBombTile = _map.at(1, x, y - 1);
-    // Players and Bombs are blocking movements
-    if (nearPlayerTile.getType(0) == indie::OBJECTS_ID::EMPTY &&
-        nearBombTile.getType(0) == indie::OBJECTS_ID::EMPTY) {
+  tangible = (y == 0 || _map.at(0, x, y - 1).isTangible(0) || _map.at(1, x, y - 1).isTangible(0));
+  if (newShift < 0.0 && !tangible) {
+      std::cout << "go up cell\n";
+      indie::Tile &nearPlayerTile = _map.at(0, x, y - 1);
+
       nearPlayerTile = player;
       player.reset();
       nearPlayerTile.setShiftY(0, 1.0 + newShift);
       return nearPlayerTile;
-    }
-  } else if (newShift < 0.0) { player.setShiftY(0, 0.0); }
+  }
+  else if (tangible && newShift < 0.3) { player.setShiftY(0, 0.3); }
+  else if (newShift >= 0.0) { player.setShiftY(0, newShift); }
   return player;
 }
 
@@ -103,6 +99,7 @@ void indie::Game::move(size_t playerId,
       indie::Tile &tile = _map.at(0, x, y);
       if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
         indie::Tile &ntile = moves_handlers[dir](tile, x, y);
+        ntile.setObjectRotation(0, dir);
         ntile.setDoesAnimationChanged(0, true);
         ntile.setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("RUN"));
         return;
@@ -112,16 +109,21 @@ void indie::Game::move(size_t playerId,
 }
 
 void indie::Game::bomb(size_t playerId) {
-  indie::Tile tile;
-  indie::Tile bombTile;
   indie::OBJECTS_ID type = getBombType(playerId);
 
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
-      tile = _map.at(0, x, y);
-      if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
-        bombTile = _map.at(1, x, y);
+      if (_map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
+        if (_map.at(1, x, y).getType(0) != indie::OBJECTS_ID::EMPTY) { return; }
+        indie::Tile &bombTile = _map.at(1, x, y);
+        size_t objectId = _map.newId();
+        std::cout << "bomb id " << objectId << "---------------------------------" << std::endl;
+        bombTile.setHasModel(0, true);
         bombTile.setDoesAnimationChanged(0, true);
+        bombTile.setModelId(0, indie::Tile::getModelId(type));
+        bombTile.setObjectId(0, objectId);
+        bombTile.setType(0, type);
+        _map.addObjectById(objectId);
         bombTile.setObjectFrameLoop(0, indie::Tile::getNextFrame(type, {0, 0}));
         return;
       }

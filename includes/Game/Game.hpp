@@ -13,7 +13,7 @@
 
 namespace indie {
 
-  # define PLAYER_SPEED 1.0
+  # define PLAYER_SPEED 0.4
 
   typedef std::function<void()>                                               TurnHandler;
   typedef std::function<void(const std::size_t &, const std::size_t &)>       TileHandler;

@@ -1,13 +1,24 @@
 #include "Game/Game.hpp"
 
+void indie::Game::removeObject(indie::Tile &tile, size_t i) {
+  std::cout << "remove object id " << i << "    --------------------------------------------" << std::endl;
+  _map.deleteObjectById(tile.getObjectId(i));
+  tile.deleteElement(i);
+}
+
 void indie::Game::updatePlayerAnimation(indie::Tile &tile, size_t i) {
   tile.setDoesAnimationChanged(i, true);
   tile.setObjectFrameLoop(i, indie::Tile::getSkeletonFrame("IDLE"));
 }
 
 void indie::Game::updateBombAnimation(indie::Tile &tile, size_t i, indie::OBJECTS_ID objectType) {
+  std::cout << "update bomb animation ------------------------------------------\n";
+  std::pair<size_t, size_t> nextframe = indie::Tile::getNextFrame(objectType, tile.getObjectFrameLoop(i));
+
+  if (nextframe.first == 0 && nextframe.second == 0){ std::cout << "last bomb frame\n"; _gameState = indie::GameState::QUIT;removeObject(tile, i); }
+  std::cout << "frame " << nextframe.first << "   " << nextframe.second << std::endl;
   tile.setDoesAnimationChanged(i, true);
-  tile.setObjectFrameLoop(i, indie::Tile::getNextFrame(objectType, tile.getObjectFrameLoop(i)));
+  tile.setObjectFrameLoop(i, nextframe);
 }
 
 std::vector<indie::AnimationState>::const_iterator indie::Game::getAnimationStateIt(size_t id) const {
@@ -17,26 +28,25 @@ std::vector<indie::AnimationState>::const_iterator indie::Game::getAnimationStat
           });
 }
 
-void indie::Game::removeObject(indie::Tile &tile, size_t i) {
-  _map.deleteObjectById(tile.getObjectId(i));
-  tile.deleteElement(i);
-}
-
 void indie::Game::updateAnimations() {
   indie::OBJECTS_ID objectType;
   size_t tileSize;
   std::vector<indie::AnimationState>::const_iterator animation_it;
 
   if (_objectsStates.size() == 0) { return; }
-  for (std::size_t layer = 0; layer <= 0; layer++) {
+  for (std::size_t layer = 0; layer <= 2; layer++) {
     for (std::size_t y = 0; y < _map.getHeight(); y++) {
       for (std::size_t x = 0; x < _map.getWidth(); x++) {
         indie::Tile &tile = _map.at(layer, x, y);
+
         tileSize = tile.getTileSize();
         for (size_t i = 0; i < tileSize; i++) {
           objectType = tile.getType(i);
-
           if ((animation_it = getAnimationStateIt(tile.getObjectId(i))) != _objectsStates.end()) {
+            if ((*animation_it).over) {
+              if (tile.getObjectId(i) == 4) { std::cout << "yolooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"; }
+              std::cout << "animation  over id " << tile.getObjectId(i) << std::endl;
+          }
             if ((*animation_it).over && indie::Tile::isDeathFrame(tile.getModelId(i), tile.getObjectFrameLoop(i))) {
               removeObject(tile, i);
             }

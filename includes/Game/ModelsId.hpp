@@ -17,9 +17,9 @@ namespace indie
         UNKNOWN = -1,
         SKELETON_MODEL = 0,
         BOX_MODEL = 1,
-        EXPLOSION_MODEL = 2,
-        TRAP_MODEL = 3
-
+        PIKES_MODEL = 2,
+        SQUAREBOMB_MODEL = 3,
+        TENTACLEBOMB_MODEL = 4
     };
 
     enum class OBJECTS_ID : int {

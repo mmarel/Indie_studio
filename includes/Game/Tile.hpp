@@ -18,7 +18,7 @@
 
 namespace indie
 {
-    typedef std::function<std::pair<size_t, size_t>()> FrameSeeker;
+    typedef std::function<std::pair<size_t, size_t>(std::pair<size_t, size_t> &)> FrameSeeker;
 
     class Tile : public indie::ITile {
 
@@ -54,6 +54,10 @@ namespace indie
             Tile        &operator=(const Tile &);
             void        reset();
             void        deleteElement(size_t);
+            bool        isTangible(size_t) const;
+
+        public:
+          static indie::MODELS_ID getModelId(indie::OBJECTS_ID);
 
         public:
           static std::pair<size_t, size_t> getSkeletonFrame(std::string);
