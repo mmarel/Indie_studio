@@ -12,7 +12,7 @@ indie::Tile::Tile()
 
     :
       _hasModel( { false }),
-      _modelId( { 0 }),
+      _modelId( { indie::MODELS_ID::UNKNOWN }),
       _objectId( { 0 }),
       _objectRotation( { indie::ELookAt::SOUTH }),
       _objectTexture( { "" }),

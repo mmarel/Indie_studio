@@ -107,11 +107,13 @@ void  indie::Map::initTiles() {
 
   std::for_each(_layers[0].begin(), _layers[0].end(),
     [&](std::vector<std::unique_ptr<Tile> > &line) {
+      std::cout << "init tiles y " << y << std::endl;
       x = 0;
       std::for_each(line.begin(), line.end(),
       [&](std::unique_ptr<Tile> &tile) {
         indie::OBJECTS_ID type;
 
+          std::cout << "init tiles x " << x << std::endl;
         type = static_cast<indie::OBJECTS_ID>(_rawMap[y][x]);
         tile->setType(0, type);
         switch (type) {
@@ -126,14 +128,23 @@ void  indie::Map::initTiles() {
             break;
 
           case indie::OBJECTS_ID::PLAYER_ONE:
+          std::cout << "player one\n";
             tile->setHasModel(0, true);
+            std::cout << "a\n";
             tile->setType(0, indie::OBJECTS_ID::PLAYER_ONE);
+            std::cout << "b\n";
             tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
+            std::cout << "c\n";
             _objectsId.push_back(++nobjects);
+            std::cout << "d\n";
             tile->setObjectId(0, nobjects);
+            std::cout << "e\n";
             tile->setObjectTexture(0, "Textures/SkeletonMage/Blue.png");
+            std::cout << "f\n";
             tile->setDoesAnimationChanged(0, false);
+            std::cout << "g\n";
             tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
+            std::cout << "player one setted\n";
             break;
 
           case indie::OBJECTS_ID::PLAYER_TWO:

@@ -47,13 +47,14 @@ namespace indie {
       PLAY_MOD_ONLINE_CLIENT
     }                     PlayMod;
 
-    typedef struct              s_Settings {
+    struct              Settings {
       float                     volume;
       IA_LEVEL                  difficulty;
       std::vector<Player>       players;
       int                       nplayers;
       PlayMod                   mod;
-    } Settings;
+    };
 }
+
 
 #endif // SETTINGS_HPP

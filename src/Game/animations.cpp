@@ -1,9 +1,8 @@
 #include "Game/Game.hpp"
 
 void indie::Game::updatePlayerAnimation(indie::Tile &tile, size_t i) {
-  std::cout << "updatePlayerAnimation" << std::endl;
   tile.setDoesAnimationChanged(i, true);
-  tile.setObjectFrameLoop(i, indie::Tile::getSkeletonFrame("RUN"));
+  tile.setObjectFrameLoop(i, indie::Tile::getSkeletonFrame("IDLE"));
 }
 
 void indie::Game::updateBombAnimation(indie::Tile &tile, size_t i, indie::OBJECTS_ID objectType) {
@@ -12,7 +11,6 @@ void indie::Game::updateBombAnimation(indie::Tile &tile, size_t i, indie::OBJECT
 }
 
 std::vector<indie::AnimationState>::const_iterator indie::Game::getAnimationStateIt(size_t id) const {
-  std::cout << "look for animation id " << id << std::endl;
   return std::find_if(_objectsStates.begin(), _objectsStates.end(),
           [&id](const AnimationState &animation)->bool {
             return animation.id == id;
@@ -25,7 +23,6 @@ void indie::Game::removeObject(indie::Tile &tile, size_t i) {
 }
 
 void indie::Game::updateAnimations() {
-  std::cout << "update Animations count: " << _objectsStates.size() << std::endl;
   indie::OBJECTS_ID objectType;
   size_t tileSize;
   std::vector<indie::AnimationState>::const_iterator animation_it;
@@ -40,8 +37,6 @@ void indie::Game::updateAnimations() {
           objectType = tile.getType(i);
 
           if ((animation_it = getAnimationStateIt(tile.getObjectId(i))) != _objectsStates.end()) {
-            std::cout << "animtion found " << std::endl;
-            if ((*animation_it).over) { std::cout << "oveeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeer\n\n\n";}
             if ((*animation_it).over && indie::Tile::isDeathFrame(tile.getModelId(i), tile.getObjectFrameLoop(i))) {
               removeObject(tile, i);
             }
@@ -51,7 +46,7 @@ void indie::Game::updateAnimations() {
             else if ((*animation_it).over &&
                       objectType >= indie::OBJECTS_ID::SQUAREBOMB &&
                       objectType <= indie::OBJECTS_ID::TENTACLEBOMB) { updateBombAnimation(tile, i, objectType); }
-            else if (!(*animation_it).over) { std::cout << "not over" << std::endl; tile.setDoesAnimationChanged(i, false); }
+            else if (!(*animation_it).over) { tile.setDoesAnimationChanged(i, false); }
           }
         }
       }

@@ -71,7 +71,7 @@ indie::Gfx::Gfx()
                                                          );
 
         this->set_window_settings();
-
+        std::cout << "fin gfx ctor\n";
     }
 
     catch (const std::exception &err) {

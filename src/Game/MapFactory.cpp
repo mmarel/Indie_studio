@@ -9,7 +9,6 @@
 #include "Game/Map.hpp"
 
 void    indie::Map::generate_little_map() {
-
     this->_rawMap = std::vector<std::vector< int > >
       ({
         std::vector< int >({ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }),

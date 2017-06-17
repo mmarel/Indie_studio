@@ -16,6 +16,7 @@ indie::Core::Core()
         _sounds(),
         _gameState(indie::GameState::NONE)
 {
+  std::cout << "core ctor\n";
     if (!this->_gfx || !this->_game)
         throw indie::IndieError(_INDIE_CORE_INIT_FAILED);
 }
