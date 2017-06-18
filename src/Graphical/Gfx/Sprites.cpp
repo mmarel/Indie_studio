@@ -10,7 +10,7 @@
 
 void    indie::Gfx::loadSprites(std::unique_ptr<std::vector<std::unique_ptr<ISprite> > > sprt_to_load) {
 
-    std::cout << "ICI\n";
+    std::cout << "loapSprites\n";
     for (std::size_t i = 0; i < sprt_to_load->size(); ++i) {
 
         for (std::size_t x = 0, count = sprt_to_load->at(i)->SpritesCount(); x < count; ++x) {

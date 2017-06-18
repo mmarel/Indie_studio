@@ -49,9 +49,14 @@ void            indie::Core::runCoreLoop()
 
 
             case indie::GameState::INGAME:
+                this->process();
+                break;
+                
             case indie::GameState::MAIN_MENU:
             case indie::GameState::SCOREBOARD:
             case indie::GameState::SETTINGS:
+                this->process();
+                break;
             case indie::GameState::HELP:
             case indie::GameState::ROOM:
                 this->process();

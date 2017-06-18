@@ -43,7 +43,7 @@ namespace indie
     ///
     virtual IComponent &at(std::size_t n) const = 0;
 
-    virtual void loadComponents(indie::GameState) = 0;
+    virtual void loadComponents(indie::GameState&) = 0;
 
     virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites() const = 0;
 

@@ -1,6 +1,6 @@
 #include "Common/GUI.hpp"
 
-indie::GUI::GUI(indie::Settings& settings) : _posBackground(0), _settings(settings), _components(), _loadComps(), _compActions() {
+indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackground(0), _settings(settings), _gameState(state), _components(), _loadComps(), _compActions() {
 
     _loadComps[indie::GameState::MAIN_MENU] = [this](){return loadMenu();};
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
@@ -17,7 +17,8 @@ indie::IComponent & indie::GUI::at(std::size_t n) const {
     return (*_components.at(n));
 }
 
-void indie::GUI::loadComponents(indie::GameState state) {
+void indie::GUI::loadComponents(indie::GameState& state) {
+    _components.clear();
     if (_loadComps.find(state) != _loadComps.end())
         _components = _loadComps[state]();
 }
@@ -28,6 +29,7 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
     sprites = std::make_unique<std::vector<std::unique_ptr<indie::ISprite> > >();
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/main/main_select_play.png", "Menu/main/main_select_settings.png", "Menu/main/main_select_highscores.png", "Menu/main/main_select_exit.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/settings/settings_base.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/settings/settings_sound_5.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/room_base.png"));
     return (std::move(sprites));
 }
@@ -42,14 +44,8 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadMenu() {
 
     _posBackground = 0;
     ///Load menu components
-    res.push_back(createComponent(0, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White,
-                                   "Bomberman", "Menu/main/main_select_play.png", "Menu/main/main_select_settings.png", "Menu/main/main_select_highscores.png", "Menu/main/main_select_exit.png"));
-//    res.push_back(createComponent(1, 0.4f, 0.4f, 0.16f, 0.15f, indie::Color::White, indie::Color::White,
-//                                  "Play", "Sprites/playButton.png", "Sprites/playButton2.png"));
-//    res.push_back(createComponent(2, 0.33f, 0.6f, 0.3f, 0.1f, indie::Color::White, indie::Color::White,
-//                                  "Settings", "Sprites/SettingsButton.png", "Sprites/SettingsButton2.png"));
-//    res.push_back(createComponent(3, 0.4f, 0.8f, 0.15f, 0.1f, indie::Color::White, indie::Color::White,
-//                                  "Exit", "Sprites/exitButton.png", "Sprites/exitButton2.png"));
+     res.push_back(createComponent(0, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White,
+                                      "Bomberman", "Menu/main/main_select_play.png", "Menu/main/main_select_settings.png", "Menu/main/main_select_highscores.png", "Menu/main/main_select_exit.png"));
 
     if (!_compActions.empty())
         _compActions.clear();
@@ -60,12 +56,19 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadMenu() {
     _compActions[indie::KeyboardKey::KB_ENTER] = [this](){mainMenuKeyEnter();};
 
     return (res);
-}
+}   
 
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadSettings() {
     std::vector<std::unique_ptr<indie::IComponent>> res;
 
     ///Load Settings components
+    _posBackground = 0;
+    
+    res.push_back(createComponent(1, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White,
+                                   "Settings", "Menu/settings/settings_base.png"));
+    res.push_back(createComponent(2, 0.2f, 0.5f, 0.5f, 0.5f, indie::Color::White, indie::Color::White,
+                                    "Settings", "Menu/settings/settings_sound_5.png"));
+    
 
     if (!_compActions.empty())
         _compActions.clear();
@@ -109,30 +112,48 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
 
 void indie::GUI::mainMenuKeyDown() {
     std::cout << "POS : " << _components.at(0)->getBackgroundPos() << std::endl;
+    std::cout << "POS 2 : " << _posBackground << std::endl;
     if (_posBackground + 1 < 4)
     {
 //        std::cout << "SET : " << _posBackground + 1 << std::endl;
-        _components.at(0)->setBackgroundPos(_posBackground++);
+        _components.at(0)->setBackgroundPos(++_posBackground);
     }
 }
 
 void indie::GUI::mainMenuKeyUp() {
-    if (_posBackground - 1 > 0)
-        _components.at(0)->setBackgroundPos(_posBackground--);
+    std::cout << "POS : " << _components.at(0)->getBackgroundPos() << std::endl;
+    std::cout << "POS 2 : " << _posBackground << std::endl;
+
+    if (_posBackground > 0)
+        _components.at(0)->setBackgroundPos(--_posBackground);
 }
 
 void indie::GUI::mainMenuKeyRight() {
-//    if (_compId == 1)
-//        loadComponents(indie::GameState::ROOM);
-//    if (_compId == 2)
-//        loadComponents(indie::GameState::SETTINGS);
+    if (_posBackground == 0)
+        _gameState = indie::GameState::INGAME;
+    if (_posBackground == 1)
+    {
+        _gameState = indie::GameState::SETTINGS;
+        loadComponents(_gameState);
+    }
+    if (_posBackground == 2)
+        _gameState = indie::GameState::SCOREBOARD;
+    if (_posBackground == 3)
+        _gameState = indie::GameState::QUIT;
 }
 
 void indie::GUI::mainMenuKeyEnter() {
-//    if (_compId == 1)
-//        loadComponents(indie::GameState::ROOM);
-//    if (_compId == 2)
-//        loadComponents(indie::GameState::SETTINGS);
+    if (_posBackground == 0)
+        _gameState = indie::GameState::INGAME;
+    if (_posBackground == 1)
+    {
+        _gameState = indie::GameState::SETTINGS;
+        loadComponents(_gameState);
+    }
+    if (_posBackground == 2)
+        _gameState = indie::GameState::SCOREBOARD;
+    if (_posBackground == 3)
+        _gameState = indie::GameState::QUIT;
 }
 
 ///     Event Main Menu functions --- End

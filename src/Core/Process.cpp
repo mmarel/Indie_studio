@@ -25,7 +25,8 @@ void        indie::Core::process() {
     // Update the game map in the GFX
     this->_gfx->updateMap(this->_game->getCurrentMap());
     // Update the GUI in the GFX
-    this->_gfx->updateGUI(this->_game->getCurrentGUI());
+    if (_game->getGameState() == indie::GameState::MAIN_MENU || _game->getGameState() == indie::GameState::SETTINGS)
+        this->_gfx->updateGUI(this->_game->getCurrentGUI());
 
 
     // Refresh the screen
