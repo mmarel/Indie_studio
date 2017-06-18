@@ -26,7 +26,9 @@ void indie::GUI::loadComponents(indie::GameState state) {
 std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getSprites() const {
     std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > sprites;
 
-    (*sprites).push_back(std::make_unique<indie::Sprite>(""));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/main/main_select_play.png", "Menu/main/main_select_settings.png", "Menu/main/main_select_highscores.png", "Menu/main/main_select_exit.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/settings/settings_base.png"));
+        (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/room_base.png"));
     return (std::move(sprites));
 }
 void indie::GUI::notifyEvent(const indie::Event &event) {
