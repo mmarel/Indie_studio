@@ -19,7 +19,7 @@ namespace indie
         typedef std::function<std::vector<std::unique_ptr<indie::IComponent>> ()> _loadCompfunc;
         typedef std::function<void()>                                            _compActionsfunc;
 
-        size_t                                                _compId;
+        size_t                                                _posBackground;
         indie::Settings&                                       _settings;
         std::vector<std::unique_ptr<indie::IComponent>>       _components;
         std::map<indie::GameState, _loadCompfunc>             _loadComps;

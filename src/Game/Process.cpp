@@ -45,10 +45,7 @@ void indie::Game::process() {
   };
   if (_gameState == indie::GameState::SPLASH_SCREEN) { return splashScreen(); }
   if (_gameState == indie::GameState::MAIN_MENU)
-  {
     handleEvents();
-    this->_gui.loadComponents(_gameState);
-  }
   if (_gameState == indie::GameState::INGAME) {
     bonusTimer();
     updateAnimations();
