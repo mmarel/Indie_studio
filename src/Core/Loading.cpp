@@ -21,13 +21,14 @@ void    indie::Core::loading() {
     // Models
     this->_gfx->loadModels(this->_game->getModelsToLoad());
 
+    // Sprites
+    this->_gfx->loadSprites(this->_game->getSpritesToLoad());
 
-        // Sprites
-        this->_gfx->loadSprites(this->_game->getSpritesToLoad());
+    std::cout << "loading ended" << std::endl;
 
-        std::cout << "loading ended" << std::endl;
-        // Font
     // TODO
+    // Font
+    // this->_gfx->loadFonts(this->_game->getFont());
 
     } catch (const std::exception &err) {
 

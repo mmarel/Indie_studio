@@ -21,7 +21,7 @@ bool        indie::irrEventOverlay::getLastEvent(std::vector<Event> &events) {
 
     bool    hasEvent = false;
 
-    for (std::size_t i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i) {
+    for (int i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i) {
 
         if (this->KeysDown[i] && _irrKeyboardKeys.count(i)) {
 
@@ -32,7 +32,7 @@ bool        indie::irrEventOverlay::getLastEvent(std::vector<Event> &events) {
             e.type = ET_KEYBOARD;
             e.action = AT_PRESSED;
 
-            e.kb_key = indie::_irrKeyboardKeys.at(static_cast<int>(i));
+            e.kb_key = indie::_irrKeyboardKeys.at(i);
 
             e.pos_rel.x = 0.0;
             e.pos_rel.y = 0.0;

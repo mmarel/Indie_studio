@@ -2,7 +2,7 @@
 
 void indie::Game::splashScreen() {
   _gameState = indie::GameState::MAIN_MENU;
-    _gameState = indie::GameState::INGAME; // TODO remove when core loop ended (with menus)
+  // _gameState = indie::GameState::INGAME; // TODO remove when core loop ended (with menus)
   _gui.loadComponents(_gameState);
 }
 

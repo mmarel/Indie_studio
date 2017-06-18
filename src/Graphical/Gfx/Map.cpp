@@ -21,9 +21,9 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
                                static_cast< irr::s32 >(tile.getObjectFrameLoop(index).second));
         }
 
-        node->setPosition(irr::core::vector3df(this->_scenesLoaded[this->_infos._current_scene]._startX + static_cast< float >(x) + tile.getShiftX(index),
+        node->setPosition(irr::core::vector3df(this->_scenesLoaded[this->_infos._current_scene]._startX + static_cast< float >(x) + static_cast< float >(tile.getShiftX(index)),
                                                this->_scenesLoaded[this->_infos._current_scene]._startY,
-                                               this->_scenesLoaded[this->_infos._current_scene]._startZ - static_cast< float >(z) - tile.getShiftY(index)));
+                                               this->_scenesLoaded[this->_infos._current_scene]._startZ - static_cast< float >(z) - static_cast< float >(tile.getShiftY(index))));
 
         // TODO
         if (tile.getModelId(index) == indie::MODELS_ID::SKELETON_MODEL) {
@@ -36,9 +36,9 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
     } else {
         // We create a new one
         NodeContainer           newModel;
-        irr::core::vector3df    position(this->_scenesLoaded[this->_infos._current_scene]._startX + static_cast< float >(x) + tile.getShiftX(index),
+        irr::core::vector3df    position(this->_scenesLoaded[this->_infos._current_scene]._startX + static_cast< float >(x) + static_cast< float >(tile.getShiftX(index)),
                                          this->_scenesLoaded[this->_infos._current_scene]._startY,
-                                         this->_scenesLoaded[this->_infos._current_scene]._startZ - static_cast< float >(z) - tile.getShiftY(index));
+                                         this->_scenesLoaded[this->_infos._current_scene]._startZ - static_cast< float >(z) - static_cast< float >(tile.getShiftY(index)));
         irr::core::vector3df    rotation(0.0f, this->_orientation[static_cast<std::size_t>(tile.getObjectRotation(index))], 0.0f);
 
         if ((newModel.node =
@@ -113,6 +113,8 @@ void    indie::Gfx::updateMap(const IMap &map) {
         }
 
     }
+
+    this->_smgr->drawAll();
 
     return ;
 }

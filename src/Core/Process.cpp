@@ -10,15 +10,16 @@
 
 void        indie::Core::process() {
 
+    // Clear the GFX
+    this->_gfx->clear();
+
     // [ from GFX to GAME ]
     // Notify the game by sending gfx inputs
     this->notifyGame();
     this->_game->setObjectsAnimationState(this->_gfx->getObjectsAnimationState());
 
-
     // Run the Game once time
     this->_game->process();
-
 
     // [ from GAME to GFX ]
     // Update the game map in the GFX

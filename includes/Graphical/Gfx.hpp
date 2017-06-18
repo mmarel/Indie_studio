@@ -47,6 +47,7 @@ namespace indie
 	const irr::video::SColor  SYellow(255, 255, 255, 0);
 	const irr::video::SColor  SMagenta(255, 255, 0, 255);
 	const irr::video::SColor  SCyan(255, 0, 255, 255);
+    const irr::video::SColor  Trr(0, 0, 0, 0);
 
     class Gfx : public indie::IGfx {
 

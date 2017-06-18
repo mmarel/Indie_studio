@@ -68,10 +68,10 @@ indie::Gfx::Gfx()
         this->_camera = this->_smgr->addCameraSceneNodeFPS(0, 100.0f, 0.025f, -1, keyMap, 5);
 */
          this->_camera = this->_smgr->addCameraSceneNode(NULL,
-                                                                          //x     y     z
-                                                       irr::core::vector3df(0.0f, 0.0f, 0.0f), // Position
-                                                         irr::core::vector3df(0.0f, 0.0f, 0.0f)  // Angle
-                                                         );
+                                                        //                    x     y     z
+                                                        irr::core::vector3df(0.0f, 0.0f, 0.0f), // Position
+                                                        irr::core::vector3df(0.0f, 0.0f, 0.0f)  // Angle
+                                                        );
 
         this->set_window_settings();
     }
@@ -88,21 +88,17 @@ void    indie::Gfx::display() {
     if (this->_device->run())
     {
 
-        this->_driver->beginScene(true, true, SBlack);
-
-        this->_smgr->drawAll();
+        this->_guienv->drawAll();
 
         #if DEBUG_MODE
             this->displayGraphicalInfos();
         #endif
 
-        this->_guienv->drawAll();
-
         this->_driver->endScene();
 
     }   else {
 
-        std::cerr << _INDIE_GFX_DEVICE_IS_OFF << std::endl;
+        throw indie::IndieError(_INDIE_GFX_DEVICE_IS_OFF);
 
     }
 
@@ -130,9 +126,9 @@ void    indie::Gfx::displayGraphicalInfos() {
     //  Camera Position
     irr::core::vector3df posCam = this->_camera->getPosition();
     std::string camTxt = "CAMERA POS ( " +  std::to_string(posCam.X) + ", " +
-                                        std::to_string(posCam.Y) + ", " +
-                                        std::to_string(posCam.Z) + " )";
-    this->draw_text(camTxt, 0.0f, 0.0f, SCyan, SBlack);
+                                            std::to_string(posCam.Y) + ", " +
+                                            std::to_string(posCam.Z) + " )";
+    this->draw_text(camTxt, 0.0f, 0.0f, SGreen, SBlack);
 
     irr::core::vector3df pos = this->_camera->getAbsolutePosition();
     irr::core::vector3df target = this->_camera->getTarget();
@@ -141,9 +137,9 @@ void    indie::Gfx::displayGraphicalInfos() {
     std::string dirTxt = "CAMERA ANGLE ( " +  std::to_string(dir.X) + ", " +
                                               std::to_string(dir.Y) + ", " +
                                               std::to_string(dir.Z) + " )";
-    this->draw_text(dirTxt, 0.0f, 0.025f, SCyan, SBlack);
+    this->draw_text(dirTxt, 0.0f, 0.025f, SGreen, SBlack);
 
     //  FPS
     std::string fpsTxt("FPS : " + std::to_string(this->_driver->getFPS()));
-    this->draw_text(fpsTxt, 0.0f, 0.050f, SCyan, SBlack);
+    this->draw_text(fpsTxt, 0.0f, 0.050f, SGreen, SBlack);
 }
