@@ -56,19 +56,19 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadMenu() {
     _compActions[indie::KeyboardKey::KB_ENTER] = [this](){mainMenuKeyEnter();};
 
     return (res);
-}   
+}
 
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadSettings() {
     std::vector<std::unique_ptr<indie::IComponent>> res;
 
     ///Load Settings components
     _posBackground = 0;
-    
+
     res.push_back(createComponent(1, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White,
                                    "Settings", "Menu/settings/settings_base.png"));
     res.push_back(createComponent(2, 0.2f, 0.5f, 0.5f, 0.5f, indie::Color::White, indie::Color::White,
                                     "Settings", "Menu/settings/settings_sound_5.png"));
-    
+
 
     if (!_compActions.empty())
         _compActions.clear();
