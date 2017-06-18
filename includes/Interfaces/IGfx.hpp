@@ -52,7 +52,7 @@ namespace indie
         /// If there is an event to poll, it is filled and true is returned.
         /// If not, false is returned.
         ///
-        virtual bool pollEvents(Event &e) = 0;
+        virtual bool pollEvents(std::vector<Event> &e) = 0;
 
         // Sound
         ///

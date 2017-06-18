@@ -12,13 +12,18 @@ indie::Gfx::Gfx()
 
     // irr::createDevice (deviceType, windowSize, bits, fullscreen, stencilbuffer, vsync, receiver)
 
-    try : _device(irr::createDevice (   irr::video::EDT_OPENGL,
+    try : 
+    
+          // Events Management
+          _eventsOverlay(),
+          // Device
+          _device(irr::createDevice (   irr::video::EDT_OPENGL,
                                         irr::core::dimension2d<irr::u32>(SCREEN_WIDTH, SCREEN_HEIGHT),
                                         32,
                                         false,
                                         true,
                                         false,
-                                        0) ),
+                                        &this->_eventsOverlay) ),
           // Irrlicht Items
           _driver(this->_device->getVideoDriver()),
           _smgr(this->_device->getSceneManager()),
@@ -33,8 +38,6 @@ indie::Gfx::Gfx()
           _meshesLoaded(),
           _nodesLoaded(),
           _objectsId(),
-          // Events Management
-          _eventsOverlay(),
           // Sound
           _soundManager(),
           // Sprites Management
@@ -71,7 +74,6 @@ indie::Gfx::Gfx()
                                                          );
 
         this->set_window_settings();
-        std::cout << "fin gfx ctor\n";
     }
 
     catch (const std::exception &err) {
@@ -119,7 +121,7 @@ void    indie::Gfx::set_window_settings() {
     this->loadFonts();
 
     // Set Event Receiver
-    this->_device->setEventReceiver(&this->_eventsOverlay);
+    // this->_device->setEventReceiver(&this->_eventsOverlay);
 
 }
 
