@@ -19,7 +19,7 @@ bool    indie::irrEventOverlay::OnEvent(const irr::SEvent &irr_event) {
 
 bool        indie::irrEventOverlay::getLastEvent(std::vector<Event> &events) {
 
-    bool    empty = true;
+    bool    hasEvent = false;
 
     for (std::size_t i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i) {
 
@@ -27,7 +27,7 @@ bool        indie::irrEventOverlay::getLastEvent(std::vector<Event> &events) {
 
             indie::Event    e;
 
-            empty = false;
+            hasEvent = true;
 
             e.type = ET_KEYBOARD;
             e.action = AT_PRESSED;
@@ -45,5 +45,5 @@ bool        indie::irrEventOverlay::getLastEvent(std::vector<Event> &events) {
 
     }
 
-    return empty;
+    return hasEvent;
 }
