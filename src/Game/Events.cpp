@@ -123,11 +123,21 @@ void indie::Game::SquareBomb(indie::Tile &bombTile) {
   bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::SQUAREBOMB_MODEL));
 }
 
+void indie::Game::PikesBomb(indie::Tile &bombTile) {
+  bombTile.setModelId(0, indie::MODELS_ID::PIKES_MODEL_1);
+  bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::PIKES_MODEL_1));
+}
+
+void indie::Game::TentacleBomb(indie::Tile &bombTile) {
+  bombTile.setModelId(0, indie::MODELS_ID::TENTACLE_MODEL_6);
+  bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::TENTACLE_MODEL_6));
+}
+
 void indie::Game::bomb(size_t playerId) {
   static std::map<indie::OBJECTS_ID, std::function<void(indie::Tile &)> > bombHandlers = {
     { indie::OBJECTS_ID::SQUAREBOMB, [this](indie::Tile &tile){ this->SquareBomb(tile); } },
-    { indie::OBJECTS_ID::PIKESBOMB, [this](indie::Tile &tile){ this->SquareBomb(tile); } },
-    { indie::OBJECTS_ID::TENTACLEBOMB, [this](indie::Tile &tile){ this->SquareBomb(tile); } }
+    { indie::OBJECTS_ID::PIKESBOMB, [this](indie::Tile &tile){ this->PikesBomb(tile); } },
+    { indie::OBJECTS_ID::TENTACLEBOMB, [this](indie::Tile &tile){ this->TentacleBomb(tile); } }
   };
   indie::OBJECTS_ID type = getBombType(playerId);
 
@@ -179,7 +189,7 @@ void indie::Game::handleEvents() {
                           return event.kb_key == psettings.bomb;
                         })) != _settings.players.end()) { bomb((*it).id); }
 
-      } else { std::cout << "this is not my event biatch\n"; _gui.notifyEvent(event); }
+      } else { _gui.notifyEvent(event); }
   });
   _events.clear();
 }

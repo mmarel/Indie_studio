@@ -52,7 +52,7 @@ namespace indie {
       void updateAnimations();
       std::vector<indie::AnimationState>::const_iterator getAnimationStateIt(size_t) const;
       void updatePlayerAnimation(Tile &, size_t);
-      void updateBombAnimation(Tile &, size_t, OBJECTS_ID);
+      void updateBombAnimation(Tile &, size_t, OBJECTS_ID, size_t x, size_t y);
       void removeObject(Tile &, size_t);
 
     private:
@@ -64,6 +64,15 @@ namespace indie {
       void  move(size_t, indie::ELookAt);
       void  bomb(size_t);
       void  SquareBomb(indie::Tile &);
+      void  PikesBomb(indie::Tile &);
+      void  TentacleBomb(indie::Tile &);
+
+    private:
+      void explode(indie::Tile &, size_t i, size_t x, size_t y);
+      void squareExplosion(size_t x, size_t y);
+      void pikesTrap(size_t x, size_t y);
+      void kill(indie::Tile &);
+      void explodeBox(indie::Tile &);
 
     private:
       void AIhandler();

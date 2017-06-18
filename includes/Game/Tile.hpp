@@ -54,6 +54,7 @@ namespace indie
             void        reset();
             void        deleteElement(size_t);
             bool        isTangible(size_t) const;
+            void        newElem(size_t);
 
         private:
 

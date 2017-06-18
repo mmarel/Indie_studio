@@ -82,9 +82,7 @@ void              indie::Tile::reset() {
   this->_type = { indie::OBJECTS_ID::EMPTY };
 }
 
-#include <iostream>
 void  indie::Tile::deleteElement(size_t i) {
-  std::cout << "delete element " << i << std::endl;
   if (_hasModel.size() == 1) { return reset(); }
   _hasModel.erase(_hasModel.begin() + i);
   _modelId.erase(_modelId.begin() + i);
@@ -97,9 +95,20 @@ void  indie::Tile::deleteElement(size_t i) {
   _shiftY.erase(_shiftY.begin() + i);
   _type.erase(_type.begin() + i);
 }
-#include <iostream>
+
 bool  indie::Tile::isTangible(size_t at) const {
-  if (_type[at] == indie::OBJECTS_ID::WALL) {std::cout << "wallllll hackkk\n";  }
   return _type[at] != indie::OBJECTS_ID::EMPTY &&
         _type[at] != indie::OBJECTS_ID::PIKESBOMB;
+}
+
+void  indie::Tile::newElem(size_t id) {
+  _hasModel.push_back(false);
+  _modelId.push_back(indie::MODELS_ID::UNKNOWN);
+  _objectId.push_back(id);
+  _objectRotation.push_back(indie::ELookAt::SOUTH);
+  _doesAnimationChanged.push_back(false);
+  _objectFrameLoop.push_back({0,0});
+  _shiftX.push_back(0.0);
+  _shiftY.push_back(0.0);
+  _type.push_back(indie::OBJECTS_ID::EMPTY);
 }
