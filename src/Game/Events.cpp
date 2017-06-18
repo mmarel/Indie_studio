@@ -97,7 +97,6 @@ void indie::Game::move(size_t playerId,
     { indie::ELookAt::EAST, [this](indie::Tile &tile, size_t x, size_t y) ->indie::Tile &{ return move_right(tile, x, y); } },
   };
 
-    std::cout << "///////////////////////////////move////\n";
   if (moves_handlers.find(dir) == moves_handlers.end()) { return; }
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
@@ -132,7 +131,6 @@ void indie::Game::bomb(size_t playerId) {
   };
   indie::OBJECTS_ID type = getBombType(playerId);
 
-    std::cout << "///////////////////////////////bomb////\n";
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
       if (_map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
@@ -140,7 +138,6 @@ void indie::Game::bomb(size_t playerId) {
         indie::Tile &bombTile = _map.at(1, x, y);
 
         size_t objectId = _map.newId();
-        std::cout << "bomb id " << objectId << "---------------------------------" << std::endl;
         bombHandlers[type](bombTile);
         bombTile.setHasModel(0, true);
         bombTile.setDoesAnimationChanged(0, true);
@@ -155,15 +152,12 @@ void indie::Game::bomb(size_t playerId) {
 }
 
 void indie::Game::handleEvents() {
-  std::cout << "handleEvents\n";
   std::for_each(_events.begin(), _events.end(),
   [this](const Event &event) {
     std::vector<indie::Player>::iterator it;
-    std::cout << "event : \n";
     if (_gameState == indie::GameState::INGAME &&
         event.type == indie::EventType::ET_KEYBOARD &&
         event.action == indie::ActionType::AT_PRESSED) {
-          std::cout << "heeeeeeeeeeeeeeeeeeere\n";
         if ((it = std::find_if(_settings.players.begin(), _settings.players.end(),
                   [&event](Player &psettings)-> bool{
                     return event.kb_key == psettings.move_left;

@@ -2,7 +2,7 @@
 
 std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameSquareBomb(std::pair<size_t, size_t> current_frame) {
   static std::vector<std::pair<size_t, size_t > > frames = {
-    {0, 0}, {1, 66}, {67, 82}, {83, 90}
+    {0, 0}, {1, 66}, {67, 82}, {83, 84}
   };
   size_t frameID = 0;
 

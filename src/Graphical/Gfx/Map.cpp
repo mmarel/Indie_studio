@@ -27,11 +27,8 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
 
         // TODO
         if (tile.getModelId(index) == indie::MODELS_ID::SKELETON_MODEL) {
-            // std::cout << "position x : " << this->_scenesLoaded[this->_infos._current_scene]._startX + static_cast< float >(x) << std::endl;
-            // std::cout << "position y : " << this->_scenesLoaded[this->_infos._current_scene]._startY << std::endl;
-            // std::cout << "position z : " << this->_scenesLoaded[this->_infos._current_scene]._startZ - static_cast< float >(z) - tile.getShiftY(index) << std::endl;
-            std::cout << "SHIFT X => " << tile.getShiftX(index) << std::endl;
-            std::cout << "SHIFT Z => " << tile.getShiftY(index) << std::endl;
+            // std::cout << "SHIFT X => " << tile.getShiftX(index) << std::endl;
+            // std::cout << "SHIFT Z => " << tile.getShiftY(index) << std::endl;
         }
 
         node->setRotation(irr::core::vector3df(0.0f, this->_orientation[static_cast<std::size_t>(tile.getObjectRotation(index))], 0.0f));
@@ -106,7 +103,6 @@ void    indie::Gfx::updateMap(const IMap &map) {
                      ++index) {
 
                     if (map.at(layer, z, y).hasModel(index)) {
-                        std::cout << "model found at " << "[" << z << "][" << y << "]" << std::endl;
                         this->draw_model(map.at(layer, z, y), z, y, index);
                     }
 

@@ -15,7 +15,6 @@ void indie::Game::updatePlayerAnimation(indie::Tile &tile, size_t i) {
 void indie::Game::updateBombAnimation(indie::Tile &tile, size_t i, indie::OBJECTS_ID objectType) {
   std::pair<size_t, size_t> nextframe = indie::ResourceHandler::getNextFrame(objectType, tile.getObjectFrameLoop(i));
 
-  std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! update animation to frame " << nextframe.first << "   " << nextframe.second << std::endl;
   if (nextframe.first == 0 && nextframe.second == 0){ return removeObject(tile, i); }
   tile.setDoesAnimationChanged(i, true);
   tile.setObjectFrameLoop(i, nextframe);
@@ -45,8 +44,8 @@ void indie::Game::updateAnimations() {
           if ((animation_it = getAnimationStateIt(tile.getObjectId(i))) != _objectsStates.end()) {
 
             if ((*animation_it).over) {
-              std::cout << "animation  over id " << tile.getObjectId(i) << std::endl;
-            } else if ((*animation_it).id == 4) { std::cout << "fuckiiiiiiiiiiiiiiiiiiiiiiiin bomb not over\n"; }
+              /* std::cout << "animation  over id " << tile.getObjectId(i) << std::endl; */
+            } else if ((*animation_it).id == 4) { /* std::cout << "fuckiiiiiiiiiiiiiiiiiiiiiiiin bomb not over\n"; */ }
             if ((*animation_it).over && indie::ResourceHandler::isDeathFrame(tile.getModelId(i), tile.getObjectFrameLoop(i))) {
               removeObject(tile, tile.getObjectId(i));
             }

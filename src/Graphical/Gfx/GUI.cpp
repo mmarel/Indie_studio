@@ -91,7 +91,7 @@ void    indie::Gfx::draw_component_sprite(const IComponent &cmp) {
 
 void    indie::Gfx::updateGUI(const IGUI &gui) {
 
-    std::cout << "GUI : " << &gui << std::endl;
+    // std::cout << "GUI : " << &gui << std::endl;
     for (std::size_t i = 0, count = gui.size(); i < count; ++i) {
         std::cout << "ICI\n";
         std::cout << "COMP : " << gui.at(i).getWidth() << std::endl;
