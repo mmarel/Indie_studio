@@ -6,6 +6,8 @@ indie::GUI::GUI(indie::Settings& settings) : _compId(0), _settings(settings), _s
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
     _loadComps[indie::GameState::SCOREBOARD] = [this](){return loadScore();};
     _loadComps[indie::GameState::ROOM] = [this](){return loadRoom();};
+
+    _sprites = std::make_unique<std::vector<std::unique_ptr<indie::ISprite>>>();
 }
 
 std::size_t indie::GUI::size() const {
@@ -21,12 +23,11 @@ void indie::GUI::loadComponents(indie::GameState state) {
         _components = _loadComps[state]();
 }
 
-std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getSprites() {
-    std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > vect;
+std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getSprites() const {
+    std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > sprites;
 
-    for (int i = 0; i < _sprites.size(); ++i)
-        (*vect).push_back(std::move(_sprites.at(i)));
-    return (std::move(vect));
+    (*sprites).push_back(std::make_unique<indie::Sprite>(""));
+    return (std::move(sprites));
 }
 void indie::GUI::notifyEvent(const indie::Event &event) {
     if (event.type == indie::EventType::ET_KEYBOARD)

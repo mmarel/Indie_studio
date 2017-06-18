@@ -21,7 +21,7 @@ namespace indie
 
         size_t                                                _compId;
         indie::Settings&                                       _settings;
-        std::vector<std::unique_ptr<indie::ISprite>>          _sprites;
+        std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > >          _sprites;
         std::vector<std::unique_ptr<indie::IComponent>>       _components;
         std::map<indie::GameState, _loadCompfunc>             _loadComps;
         std::map<indie::KeyboardKey, _compActionsfunc>        _compActions;
@@ -64,7 +64,7 @@ namespace indie
             tmp = std::make_unique<indie::Sprite>(paths...);
 
             res = std::make_unique<indie::Component>(*tmp, back_id, x, y, width, height, backColor, textColor, text);
-            _sprites.push_back(std::move(tmp));
+            (*_sprites).push_back(std::move(tmp));
             return (res);
         }
 
@@ -75,7 +75,7 @@ namespace indie
         virtual std::size_t  size() const;
         virtual IComponent &at(std::size_t n) const;
         virtual void loadComponents(indie::GameState);
-        virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites();
+        virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites() const;
         virtual void notifyEvent(const indie::Event &);
     };
 }
