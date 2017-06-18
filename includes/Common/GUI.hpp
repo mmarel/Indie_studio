@@ -21,6 +21,7 @@ namespace indie
 
         size_t                                                _posBackground;
         indie::Settings&                                       _settings;
+        indie::GameState&                                      _gameState;
         std::vector<std::unique_ptr<indie::IComponent>>       _components;
         std::map<indie::GameState, _loadCompfunc>             _loadComps;
         std::map<indie::KeyboardKey, _compActionsfunc>        _compActions;
@@ -65,12 +66,12 @@ namespace indie
         }
 
     public:
-        GUI(indie::Settings&);
+        GUI(indie::Settings&, indie::GameState&);
         virtual ~GUI(){}
 
         virtual std::size_t  size() const;
         virtual IComponent &at(std::size_t n) const;
-        virtual void loadComponents(indie::GameState);
+        virtual void loadComponents(indie::GameState&);
         virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites() const;
         virtual void notifyEvent(const indie::Event &);
     };

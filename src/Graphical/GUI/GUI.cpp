@@ -1,6 +1,6 @@
 #include "Common/GUI.hpp"
 
-indie::GUI::GUI(indie::Settings& settings) : _posBackground(0), _settings(settings), _components(), _loadComps(), _compActions() {
+indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackground(0), _settings(settings), _gameState(state), _components(), _loadComps(), _compActions() {
 
     _loadComps[indie::GameState::MAIN_MENU] = [this](){return loadMenu();};
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
@@ -17,7 +17,7 @@ indie::IComponent & indie::GUI::at(std::size_t n) const {
     return (*_components.at(n));
 }
 
-void indie::GUI::loadComponents(indie::GameState state) {
+void indie::GUI::loadComponents(indie::GameState& state) {
     if (_loadComps.find(state) != _loadComps.end())
         _components = _loadComps[state]();
 }
@@ -109,16 +109,20 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
 
 void indie::GUI::mainMenuKeyDown() {
     std::cout << "POS : " << _components.at(0)->getBackgroundPos() << std::endl;
+    std::cout << "POS 2 : " << _posBackground << std::endl;
     if (_posBackground + 1 < 4)
     {
 //        std::cout << "SET : " << _posBackground + 1 << std::endl;
-        _components.at(0)->setBackgroundPos(_posBackground++);
+        _components.at(0)->setBackgroundPos(++_posBackground);
     }
 }
 
 void indie::GUI::mainMenuKeyUp() {
-    if (_posBackground - 1 > 0)
-        _components.at(0)->setBackgroundPos(_posBackground--);
+    std::cout << "POS : " << _components.at(0)->getBackgroundPos() << std::endl;
+    std::cout << "POS 2 : " << _posBackground << std::endl;
+
+    if (_posBackground > 0)
+        _components.at(0)->setBackgroundPos(--_posBackground);
 }
 
 void indie::GUI::mainMenuKeyRight() {
