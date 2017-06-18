@@ -1,22 +1,21 @@
 #include "Game/Game.hpp"
 
 void indie::Game::removeObject(indie::Tile &tile, size_t i) {
-  std::cout << "remove object id " << i << "    --------------------------------------------" << std::endl;
+  std::cout << "remove object id " << tile.getObjectId(i) << "    --------------------------------------------" << std::endl;
   _map.deleteObjectById(tile.getObjectId(i));
   tile.deleteElement(i);
+  std::cout << "object removed\n";
 }
 
 void indie::Game::updatePlayerAnimation(indie::Tile &tile, size_t i) {
   tile.setDoesAnimationChanged(i, true);
-  tile.setObjectFrameLoop(i, indie::Tile::getSkeletonFrame("IDLE"));
+  tile.setObjectFrameLoop(i, indie::ResourceHandler::getSkeletonFrame("IDLE"));
 }
 
 void indie::Game::updateBombAnimation(indie::Tile &tile, size_t i, indie::OBJECTS_ID objectType) {
-  std::cout << "update bomb animation ------------------------------------------\n";
-  std::pair<size_t, size_t> nextframe = indie::Tile::getNextFrame(objectType, tile.getObjectFrameLoop(i));
+  std::pair<size_t, size_t> nextframe = indie::ResourceHandler::getNextFrame(objectType, tile.getObjectFrameLoop(i));
 
-  if (nextframe.first == 0 && nextframe.second == 0){ std::cout << "last bomb frame\n"; _gameState = indie::GameState::QUIT;removeObject(tile, i); }
-  std::cout << "frame " << nextframe.first << "   " << nextframe.second << std::endl;
+  if (nextframe.first == 0 && nextframe.second == 0){ removeObject(tile, i); }
   tile.setDoesAnimationChanged(i, true);
   tile.setObjectFrameLoop(i, nextframe);
 }
@@ -47,8 +46,8 @@ void indie::Game::updateAnimations() {
               if (tile.getObjectId(i) == 4) { std::cout << "yolooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"; }
               std::cout << "animation  over id " << tile.getObjectId(i) << std::endl;
           }
-            if ((*animation_it).over && indie::Tile::isDeathFrame(tile.getModelId(i), tile.getObjectFrameLoop(i))) {
-              removeObject(tile, i);
+            if ((*animation_it).over && indie::ResourceHandler::isDeathFrame(tile.getModelId(i), tile.getObjectFrameLoop(i))) {
+              removeObject(tile, tile.getObjectId(i));
             }
             else if ((*animation_it).over &&
                 objectType >= indie::OBJECTS_ID::PLAYER_ONE &&

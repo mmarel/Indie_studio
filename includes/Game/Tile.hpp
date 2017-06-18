@@ -18,7 +18,6 @@
 
 namespace indie
 {
-    typedef std::function<std::pair<size_t, size_t>(std::pair<size_t, size_t> &)> FrameSeeker;
 
     class Tile : public indie::ITile {
 
@@ -56,21 +55,6 @@ namespace indie
             void        deleteElement(size_t);
             bool        isTangible(size_t) const;
 
-        public:
-          static indie::MODELS_ID getModelId(indie::OBJECTS_ID);
-
-        public:
-          static std::pair<size_t, size_t> getSkeletonFrame(std::string);
-          static std::pair<size_t, size_t> getLethalFrame(OBJECTS_ID);
-          static bool                      isFrameLethal(OBJECTS_ID,
-                                                          std::pair<size_t, size_t>);
-          static std::pair<size_t, size_t> getNextFrameSquareBomb(std::pair<size_t, size_t>);
-          static std::pair<size_t, size_t> getNextFramePikesBomb(std::pair<size_t, size_t>);
-          static std::pair<size_t, size_t> getNextFrameTentacleBomb(std::pair<size_t, size_t>);
-          static std::pair<size_t, size_t> getNextFrame(OBJECTS_ID,
-                                                        std::pair<size_t, size_t>);
-          static bool                      isDeathFrame(MODELS_ID,
-                                                        std::pair<size_t, size_t>);
         private:
 
             std::vector<bool>                                     _hasModel;

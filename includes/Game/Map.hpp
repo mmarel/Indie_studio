@@ -15,6 +15,7 @@
 #include "Interfaces/IMap.hpp"
 #include "Game/Tile.hpp"
 #include "Game/ModelsId.hpp"
+#include "Game/ResourceHandler.hpp"
 #include "Exception/exception.hpp"
 
 namespace indie

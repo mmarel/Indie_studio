@@ -71,7 +71,7 @@ void                        indie::Map::addObjectById(std::size_t add) {
 
 void                        indie::Map::deleteObjectById(std::size_t del) {
 
-    if (std::find(this->_objectsId.begin(), this->_objectsId.end(), del) == this->_objectsId.end())
+    if (std::find(this->_objectsId.begin(), this->_objectsId.end(), del) != this->_objectsId.end())
         this->_objectsId.erase(std::remove(this->_objectsId.begin(), this->_objectsId.end(), del),
                                this->_objectsId.end());
     else
@@ -128,7 +128,7 @@ void  indie::Map::initTiles() {
             _objectsId.push_back(++_id);
             tile->setObjectId(0, _id);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Blue.png");
-            tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
+            tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
             break;
 
           case indie::OBJECTS_ID::PLAYER_TWO:
@@ -139,7 +139,7 @@ void  indie::Map::initTiles() {
             _objectsId.push_back(++_id);
             tile->setObjectId(0, _id);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Red.png");
-            tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
+            tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
             break;
 
           case indie::OBJECTS_ID::PLAYER_THREE:
@@ -150,7 +150,7 @@ void  indie::Map::initTiles() {
             _objectsId.push_back(++_id);
             tile->setObjectId(0, _id);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Yellow.png");
-            tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
+            tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
             break;
 
           case indie::OBJECTS_ID::PLAYER_FOURTH:
@@ -161,7 +161,7 @@ void  indie::Map::initTiles() {
             _objectsId.push_back(++_id);
             tile->setObjectId(0, _id);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Green.png");
-            tile->setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("SPAWN"));
+            tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
             break;
 
           case indie::OBJECTS_ID::BOX:

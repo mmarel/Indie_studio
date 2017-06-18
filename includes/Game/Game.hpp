@@ -3,6 +3,7 @@
 
 # include "Interfaces/Sound.hpp"
 # include "Graphical/Model.hpp"
+# include "Game/ResourceHandler.hpp"
 # include "Game/Load.hpp"
 # include "Game/Scene.hpp"
 # include "Game/Map.hpp"
@@ -13,7 +14,7 @@
 
 namespace indie {
 
-  # define PLAYER_SPEED 0.4
+  # define PLAYER_SPEED 0.2
 
   typedef std::function<void()>                                               TurnHandler;
   typedef std::function<void(const std::size_t &, const std::size_t &)>       TileHandler;
@@ -62,6 +63,7 @@ namespace indie {
       Tile &move_up(indie::Tile &, size_t, size_t);
       void  move(size_t, indie::ELookAt);
       void  bomb(size_t);
+      void  SquareBomb(indie::Tile &);
 
     private:
       void AIhandler();

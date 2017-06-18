@@ -24,7 +24,9 @@ indie::GameState indie::Game::getGameState() const {
 }
 
 void indie::Game::notifyEvent(std::vector<Event> &&events) {
+  std::cout << "notify  events " << events.size() << "------------------------------------------------------------------------"<< std::endl;
   _events.insert(_events.end(), events.begin(), events.end());
+    std::cout << "saved " << _events.size() << "------------------------------------------------------------------------"<< std::endl;
 }
 
 const std::vector<size_t> &indie::Game::getObjectsId() const {

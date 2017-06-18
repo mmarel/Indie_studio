@@ -16,6 +16,7 @@ indie::Tile &indie::Game::move_left(indie::Tile &player,
       nearPlayerTile.setShiftX(0, 1.0 + newShift);
       return nearPlayerTile;
     }
+    else if (tangible) { player.setShiftX(0, 0.0); }
     else if (tangible && newShift < 0.3) { player.setShiftX(0, 0.3); }
     else if (newShift >= 0.0) { player.setShiftX(0, newShift); }
   return player;
@@ -37,6 +38,7 @@ indie::Tile &indie::Game::move_right(indie::Tile &player,
       nearPlayerTile.setShiftX(0, newShift - 1.0);
       return nearPlayerTile;
   }
+  else if (tangible) { player.setShiftX(0, 0.0); }
   else if (tangible && newShift > 0.7) { player.setShiftX(0, 0.7); }
   else if (newShift < 1.0) { player.setShiftX(0, newShift); }
   return player;
@@ -58,6 +60,7 @@ indie::Tile &indie::Game::move_down(indie::Tile &player,
       nearPlayerTile.setShiftY(0, newShift - 1.0);
       return nearPlayerTile;
     }
+    else if (tangible) { player.setShiftY(0, 0.0); }
     else if (tangible && newShift > 0.7) { player.setShiftY(0, 0.7); }
     else if (newShift < 1.0) { player.setShiftY(0, newShift); }
   return player;
@@ -79,6 +82,7 @@ indie::Tile &indie::Game::move_up(indie::Tile &player,
       nearPlayerTile.setShiftY(0, 1.0 + newShift);
       return nearPlayerTile;
   }
+  else if (tangible) { player.setShiftY(0, 0.0); }
   else if (tangible && newShift < 0.3) { player.setShiftY(0, 0.3); }
   else if (newShift >= 0.0) { player.setShiftY(0, newShift); }
   return player;
@@ -93,38 +97,57 @@ void indie::Game::move(size_t playerId,
     { indie::ELookAt::EAST, [this](indie::Tile &tile, size_t x, size_t y) ->indie::Tile &{ return move_right(tile, x, y); } },
   };
 
+    std::cout << "///////////////////////////////move////\n";
   if (moves_handlers.find(dir) == moves_handlers.end()) { return; }
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
       indie::Tile &tile = _map.at(0, x, y);
       if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
         indie::Tile &ntile = moves_handlers[dir](tile, x, y);
+        std::pair<size_t, size_t> current_frame;
+        std::pair<size_t, size_t> run_frame = indie::ResourceHandler::getSkeletonFrame("RUN");
+
         ntile.setObjectRotation(0, dir);
-        ntile.setDoesAnimationChanged(0, true);
-        ntile.setObjectFrameLoop(0, indie::Tile::getSkeletonFrame("RUN"));
+        current_frame = ntile.getObjectFrameLoop(0);
+        if (current_frame != run_frame) {
+          ntile.setDoesAnimationChanged(0, true);
+          ntile.setObjectFrameLoop(0, run_frame);
+        }
         return;
       }
     }
   }
 }
 
+void indie::Game::SquareBomb(indie::Tile &bombTile) {
+  bombTile.setModelId(0, indie::MODELS_ID::SQUAREBOMB_MODEL);
+  bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::SQUAREBOMB_MODEL));
+}
+
 void indie::Game::bomb(size_t playerId) {
+  static std::map<indie::OBJECTS_ID, std::function<void(indie::Tile &)> > bombHandlers = {
+    { indie::OBJECTS_ID::SQUAREBOMB, [this](indie::Tile &tile){ this->SquareBomb(tile); } },
+    { indie::OBJECTS_ID::PIKESBOMB, [this](indie::Tile &tile){ this->SquareBomb(tile); } },
+    { indie::OBJECTS_ID::TENTACLEBOMB, [this](indie::Tile &tile){ this->SquareBomb(tile); } }
+  };
   indie::OBJECTS_ID type = getBombType(playerId);
 
+    std::cout << "///////////////////////////////bomb////\n";
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
       if (_map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
         if (_map.at(1, x, y).getType(0) != indie::OBJECTS_ID::EMPTY) { return; }
         indie::Tile &bombTile = _map.at(1, x, y);
+
         size_t objectId = _map.newId();
         std::cout << "bomb id " << objectId << "---------------------------------" << std::endl;
+        bombHandlers[type](bombTile);
         bombTile.setHasModel(0, true);
         bombTile.setDoesAnimationChanged(0, true);
-        bombTile.setModelId(0, indie::Tile::getModelId(type));
         bombTile.setObjectId(0, objectId);
         bombTile.setType(0, type);
         _map.addObjectById(objectId);
-        bombTile.setObjectFrameLoop(0, indie::Tile::getNextFrame(type, {0, 0}));
+        bombTile.setObjectFrameLoop(0, indie::ResourceHandler::getNextFrame(type, {0, 0}));
         return;
       }
     }
@@ -132,13 +155,15 @@ void indie::Game::bomb(size_t playerId) {
 }
 
 void indie::Game::handleEvents() {
+  std::cout << "handleEvents\n";
   std::for_each(_events.begin(), _events.end(),
   [this](const Event &event) {
     std::vector<indie::Player>::iterator it;
-
+    std::cout << "event : \n";
     if (_gameState == indie::GameState::INGAME &&
         event.type == indie::EventType::ET_KEYBOARD &&
         event.action == indie::ActionType::AT_PRESSED) {
+          std::cout << "heeeeeeeeeeeeeeeeeeere\n";
         if ((it = std::find_if(_settings.players.begin(), _settings.players.end(),
                   [&event](Player &psettings)-> bool{
                     return event.kb_key == psettings.move_left;
@@ -160,7 +185,7 @@ void indie::Game::handleEvents() {
                           return event.kb_key == psettings.bomb;
                         })) != _settings.players.end()) { bomb((*it).id); }
 
-      } else { _gui.notifyEvent(event); }
+      } else { std::cout << "this is not my event biatch\n"; _gui.notifyEvent(event); }
   });
   _events.clear();
 }

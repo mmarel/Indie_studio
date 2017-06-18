@@ -82,7 +82,9 @@ void              indie::Tile::reset() {
   this->_type = { indie::OBJECTS_ID::EMPTY };
 }
 
+#include <iostream>
 void  indie::Tile::deleteElement(size_t i) {
+  std::cout << "delete element " << i << std::endl;
   if (_hasModel.size() == 1) { return reset(); }
   _hasModel.erase(_hasModel.begin() + i);
   _modelId.erase(_modelId.begin() + i);
