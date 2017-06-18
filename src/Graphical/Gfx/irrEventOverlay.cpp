@@ -32,7 +32,7 @@ bool        indie::irrEventOverlay::getLastEvent(std::vector<Event> &events) {
             e.type = ET_KEYBOARD;
             e.action = AT_PRESSED;
 
-            e.kb_key = static_cast< KeyboardKey >(i);
+            e.kb_key = indie::_irrKeyboardKeys.at(static_cast<int>(i));
 
             e.pos_rel.x = 0.0;
             e.pos_rel.y = 0.0;

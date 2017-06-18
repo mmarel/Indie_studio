@@ -12,7 +12,8 @@ void    indie::Core::notifyGame() const {
 
     std::vector<Event>  events_recorded;
 
-    if (this->_gfx->pollEvents(events_recorded))
+    if (this->_gfx->pollEvents(events_recorded)) {
         this->_game->notifyEvent(std::move(events_recorded));
+    }
 
 }
