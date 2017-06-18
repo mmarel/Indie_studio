@@ -2,20 +2,7 @@
 
 
 std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::Game::getSpritesToLoad() const {
-  std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > >  spritesToLoad;
-
-    spritesToLoad = std::make_unique<std::vector<std::unique_ptr<indie::ISprite> > >();
-  /*spritesToLoad[indie::SpriteType::SPRT_BOMBTITLE] =
-    std::make_unique<indie::Sprite>(std::vector<std::string>({"Sprites/bombTitle.png"}));
-  spritesToLoad[indie::SpriteType::SPRT_EXITBUTTON] =
-    std::make_unique<indie::Sprite>(std::vector<std::string>({"Sprites/exitButton.png", "Sprites/exitButton2.png"}));
-  spritesToLoad[indie::SpriteType::SPRT_OPTBUTTON] =
-  std::make_unique<indie::Sprite>(std::vector<std::string>({"Sprites/optionButton.png", "Sprites/optionButton2.png"}));
-  spritesToLoad[indie::SpriteType::SPRT_PLAYBUTTON] =
-  std::make_unique<indie::Sprite>(std::vector<std::string>({"Sprites/playButton.png", "Sprites/playButton2.png"}));
-  spritesToLoad[indie::SpriteType::SPRT_SETTINGSBUTTON] =
-  std::make_unique<indie::Sprite>(std::vector<std::string>({"Sprites/settingsButton.png", "Sprites/settingsButton2.png"}));*/
-  return std::move(spritesToLoad);
+  return (std::move(_gui.getSprites()));
 }
 
 std::unique_ptr<std::vector<std::unique_ptr<indie::IModel> > > indie::Game::getModelsToLoad() const {

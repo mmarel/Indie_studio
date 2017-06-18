@@ -77,6 +77,7 @@ void    indie::Gfx::draw_component_sprite(const IComponent &cmp) {
                                             this->_sprites[cmp.getBackgroundId()][cmp.getBackgroundPos()]->getSize().Height
                                             );
 
+
     irr::video::SColor  color = this->getSColor(cmp.getBackgroundColor());
 
     this->_driver->draw2DImage(this->_sprites[cmp.getBackgroundId()][cmp.getBackgroundPos()],
@@ -85,16 +86,25 @@ void    indie::Gfx::draw_component_sprite(const IComponent &cmp) {
                                0,
                                &color,
                                true);
+    std::cout << "END\n";
 }
 
 void    indie::Gfx::updateGUI(const IGUI &gui) {
 
+    std::cout << "GUI : " << &gui << std::endl;
     for (std::size_t i = 0, count = gui.size(); i < count; ++i) {
-
+        std::cout << "ICI\n";
+        std::cout << "COMP : " << gui.at(i).getWidth() << std::endl;
         if (gui.at(i).hasSprite())
+        {
+            std::cout << "IF\n";
             this->draw_component_sprite(gui.at(i));
+        }
         else
+        {
+            std::cout << "ELSE\n";
             this->draw_component_text(gui.at(i));
+        }
 
     }
 

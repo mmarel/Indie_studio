@@ -2,7 +2,7 @@
 
 void indie::Game::splashScreen() {
   _gameState = indie::GameState::MAIN_MENU;
-    _gameState = indie::GameState::INGAME; // TODO remove when core loop ended (with menus)
+//    _gameState = indie::GameState::INGAME; // TODO remove when core loop ended (with menus)
   _gui.loadComponents(_gameState);
 }
 
@@ -45,6 +45,11 @@ void indie::Game::process() {
   };
   std::cout << "process\n";
   if (_gameState == indie::GameState::SPLASH_SCREEN) { return splashScreen(); }
+  if (_gameState == indie::GameState::MAIN_MENU)
+  {
+    handleEvents();
+    this->_gui.loadComponents(_gameState);
+  }
   if (_gameState == indie::GameState::INGAME) {
     bonusTimer();
     updateAnimations();

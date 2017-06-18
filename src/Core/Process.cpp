@@ -24,7 +24,7 @@ void        indie::Core::process() {
     // Update the game map in the GFX
     this->_gfx->updateMap(this->_game->getCurrentMap());
     // Update the GUI in the GFX
-    //this->_gfx->updateGUI(this->_game->getCurrentGUI());
+    this->_gfx->updateGUI(this->_game->getCurrentGUI());
 
 
     // Refresh the screen

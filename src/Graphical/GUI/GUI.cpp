@@ -1,13 +1,12 @@
 #include "Common/GUI.hpp"
 
-indie::GUI::GUI(indie::Settings& settings) : _compId(0), _settings(settings), _sprites(), _components(), _loadComps(), _compActions() {
+indie::GUI::GUI(indie::Settings& settings) : _compId(0), _settings(settings), _components(), _loadComps(), _compActions() {
 
     _loadComps[indie::GameState::MAIN_MENU] = [this](){return loadMenu();};
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
     _loadComps[indie::GameState::SCOREBOARD] = [this](){return loadScore();};
     _loadComps[indie::GameState::ROOM] = [this](){return loadRoom();};
 
-    _sprites = std::make_unique<std::vector<std::unique_ptr<indie::ISprite>>>();
 }
 
 std::size_t indie::GUI::size() const {
@@ -26,9 +25,10 @@ void indie::GUI::loadComponents(indie::GameState state) {
 std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getSprites() const {
     std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > sprites;
 
+    sprites = std::make_unique<std::vector<std::unique_ptr<indie::ISprite> > >();
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/main/main_select_play.png", "Menu/main/main_select_settings.png", "Menu/main/main_select_highscores.png", "Menu/main/main_select_exit.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/settings/settings_base.png"));
-        (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/room_base.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/room_base.png"));
     return (std::move(sprites));
 }
 void indie::GUI::notifyEvent(const indie::Event &event) {
@@ -48,8 +48,8 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadMenu() {
                                   "Play", "Sprites/playButton.png", "Sprites/playButton2.png"));
     res.push_back(createComponent(2, 0.33f, 0.6f, 0.3f, 0.1f, indie::Color::White, indie::Color::White,
                                   "Settings", "Sprites/SettingsButton.png", "Sprites/SettingsButton2.png"));
-    res.push_back(createComponent(3, 0.4f, 0.8f, 0.15f, 0.1f, indie::Color::White, indie::Color::White,
-                                  "Exit", "Sprites/exitButton.png", "Sprites/exitButton2.png"));
+//    res.push_back(createComponent(3, 0.4f, 0.8f, 0.15f, 0.1f, indie::Color::White, indie::Color::White,
+//                                  "Exit", "Sprites/exitButton.png", "Sprites/exitButton2.png"));
 
     if (!_compActions.empty())
         _compActions.clear();

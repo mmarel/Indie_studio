@@ -8,7 +8,7 @@
 
 #include "Common/Component.hpp"
 
-indie::Component::Component(indie::Sprite &sprite,
+indie::Component::Component(indie::Sprite *sprite,
                             size_t backId,
                             double x,
                             double y,
@@ -27,7 +27,7 @@ indie::Component::Component(indie::Sprite &sprite,
         _backgroundColor(backColor),
         _textColor(textColor),
         _text(text),
-        _sprite(&sprite) {
+        _sprite(sprite) {
 }
 
 indie::Component::Component(const indie::Component &other)
