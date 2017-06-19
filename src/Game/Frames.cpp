@@ -17,7 +17,7 @@ std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameSquareBomb(std::
 
 std::pair<size_t, size_t>   indie::ResourceHandler::getNextFramePikesBomb(std::pair<size_t, size_t> current_frame) {
   static std::vector<std::pair<size_t, size_t > > frames = {
-    {0, 0}, {1, 48}, {49, 65}
+    {0, 0}, {1, 48}, {49, 64}
   };
   size_t frameID = 0;
 
@@ -74,7 +74,7 @@ std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrame(indie::OBJECTS_
 std::pair<size_t, size_t>   indie::ResourceHandler::getLethalFrame(indie::OBJECTS_ID bombType) {
   static std::map<indie::OBJECTS_ID, std::pair<size_t, size_t> > frames = {
     { indie::OBJECTS_ID::SQUAREBOMB, { 67, 82 } },
-    { indie::OBJECTS_ID::PIKESBOMB, { 49, 65 } },
+    { indie::OBJECTS_ID::PIKESBOMB, { 49, 64 } },
     { indie::OBJECTS_ID::TENTACLEBOMB, { 52, 68 } },
     { indie::OBJECTS_ID::BOX, { 1, 25 } }
   };
@@ -89,7 +89,7 @@ bool  indie::ResourceHandler::isFrameLethal(indie::OBJECTS_ID type,
                                   std::pair<size_t, size_t> frame) {
   static std::map<indie::OBJECTS_ID, std::vector<std::pair<size_t, size_t> > > frames = {
     { indie::OBJECTS_ID::SQUAREBOMB, { {67, 90} }},
-    { indie::OBJECTS_ID::PIKESBOMB, { {49, 65} } },
+    { indie::OBJECTS_ID::PIKESBOMB, { {49, 64} } },
     { indie::OBJECTS_ID::TENTACLEBOMB, { {52, 68} } }
   };
   std::map<indie::OBJECTS_ID, std::vector<std::pair<size_t, size_t> > >::const_iterator frame_it;

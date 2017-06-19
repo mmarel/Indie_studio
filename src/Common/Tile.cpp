@@ -113,3 +113,25 @@ void  indie::Tile::newElem(size_t id) {
   _type.push_back(indie::OBJECTS_ID::EMPTY);
   _objectTexture.push_back("");
 }
+
+void indie::Tile::setElem(size_t at, size_t id, indie::OBJECTS_ID type,
+                          bool hasModel, indie::MODELS_ID modelId,
+                          bool doesAnimationChanged, std::pair<size_t, size_t> frames,
+                          std::string texture,
+                          indie::ELookAt rotation,
+                          double shiftX, double shiftY) {
+  if (at == _hasModel.size()) {
+    if (at == 1  && _type[0] == indie::OBJECTS_ID::EMPTY){ at = 0; }
+    else { newElem(id); }
+  }
+  _hasModel[at] = hasModel;
+  _modelId[at] = modelId;
+  _objectId[at] = id;
+  _objectRotation[at] = rotation;
+  _objectTexture[at] = texture;
+  _doesAnimationChanged[at] = doesAnimationChanged;
+  _objectFrameLoop[at] = frames;
+  _shiftX[at] = shiftX;
+  _shiftY[at] = shiftY;
+  _type[at] = type;
+}

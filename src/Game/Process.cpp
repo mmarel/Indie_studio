@@ -32,8 +32,8 @@ void indie::Game::gameProcess() {
 
 void indie::Game::menuProcess() {
     handleEvents();
-    /*while (_timer.Elapsed().count() < 70);
-    _timer.Reset();*/
+    while (_timer.Elapsed().count() < 70);
+    _timer.Reset();
 }
 
 void indie::Game::process() {
@@ -44,7 +44,6 @@ void indie::Game::process() {
     { indie::GameState::SETTINGS, [this]() -> void { this->menuProcess(); } },
     { indie::GameState::ROOM, [this]() -> void { this->menuProcess(); } }
   };
-  std::cout << "process state " << _gameState << "\n";
   _soundsToPlay.clear();
   if (handlers.find(_gameState) != handlers.end()) { return handlers[_gameState](); }
   handleEvents();

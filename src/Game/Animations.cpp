@@ -14,7 +14,7 @@ void indie::Game::updatePlayerAnimation(indie::Tile &tile, size_t i) {
 void indie::Game::updateBombAnimation(indie::Tile &tile, size_t &i, indie::OBJECTS_ID objectType, size_t x, size_t y) {
   std::pair<size_t, size_t> nextframe = indie::ResourceHandler::getNextFrame(objectType, tile.getObjectFrameLoop(i));
 
-  if (nextframe.first == 0 && nextframe.second == 0){
+  if (nextframe.first == 0 && nextframe.second == 0) {
     removeObject(tile, i);
     i--;
     return;
