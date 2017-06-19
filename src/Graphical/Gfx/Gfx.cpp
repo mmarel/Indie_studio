@@ -120,6 +120,9 @@ void    indie::Gfx::set_window_settings() {
 
     // Image Quality
     this->_driver->setTextureCreationFlag (irr::video::ETCF_OPTIMIZED_FOR_QUALITY, true);
+
+    // Desable Log
+    this->_device->getLogger()->setLogLevel(irr::ELL_WARNING);
 }
 
 void    indie::Gfx::displayGraphicalInfos() {
