@@ -10,8 +10,6 @@
 
 void        indie::Core::process() {
 
-    static bool z = false;
-
     // Clear the GFX
     this->_gfx->clear();
 
@@ -33,16 +31,11 @@ void        indie::Core::process() {
 
     const std::vector<indie::Sound> &soundsToPlay = _game->getSoundsToPlay();
 
-    if (!z) {
-    
         std::for_each(soundsToPlay.begin(), soundsToPlay.end(), [this](const indie::Sound &sound) {
-    
+
             this->_gfx->soundControl(sound);
-    
+
         });
-    
-        z = !z;
-    }
 
 
     // Refresh the screen

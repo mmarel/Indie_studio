@@ -108,7 +108,6 @@ size_t indie::Map::newId() {
 void  indie::Map::initTiles() {
   int y = 0;
   int x;
-  std::cout << "-------------- inittiles\n";
   std::for_each(_layers[0].begin(), _layers[0].end(),
     [&](std::vector<std::unique_ptr<Tile> > &line) {
       x = 0;
@@ -165,7 +164,6 @@ void  indie::Map::initTiles() {
             break;
 
           case indie::OBJECTS_ID::WALL:
-            std::cout << "wall find\n";
           case indie::OBJECTS_ID::EMPTY:
           case indie::OBJECTS_ID::SQUAREBOMB:
           case indie::OBJECTS_ID::PIKESBOMB:
