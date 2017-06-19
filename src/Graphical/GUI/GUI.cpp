@@ -115,7 +115,6 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
     res.push_back(createComponent(4, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White,
                                     "Score", "Sprites/score.png"));
 
-    _compActions[indie::KeyboardKey::KB_ARROW_LEFT] = [this](){scoreMenuKeyLeft();};
     _compActions[indie::KeyboardKey::KB_ENTER] = [this](){scoreMenuKeyEnter();};
 
     return (res);
@@ -320,11 +319,6 @@ void indie::GUI::roomMenuKeyEnter() {
 ///     Event Room Menu functions --- End
 ///---------------------------------------------------------
 ///     Event Score Menu functions --- Start
-
-void indie::GUI::scoreMenuKeyLeft() {
-    _gameState = indie::GameState::MAIN_MENU;
-    loadComponents(_gameState);
-}
 
 void indie::GUI::scoreMenuKeyEnter() {
     _gameState = indie::GameState::MAIN_MENU;

@@ -16,13 +16,14 @@ namespace indie
     class   Score
     {
         std::vector<int>            _scores;
-        std::vector<std::string>    _names;
+        std::vector<std::string>    _dates;
 
     public:
         Score();
         ~Score();
         int get_bigger_score();
-        void add_score(const std::string &, int);
+        void add_score(int);
+        std::string get_date();
     };
 }
 

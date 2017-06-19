@@ -3,9 +3,10 @@
 // Date: 2017-06-17 18:44:40 
 //
 
+#include <ctime>
 #include "Game/Score.hpp"
 
-indie::Score::Score() : _scores(), _names()
+indie::Score::Score() : _scores(), _dates()
 {
   std::string line;
   std::size_t found;
@@ -23,7 +24,7 @@ indie::Score::Score() : _scores(), _names()
       score = std::stoi(str, &sz);
       _scores.push_back(score);
       str = line.substr(found, line.size());
-      _names.push_back(str);
+      _dates.push_back(str);
     }
     file.close();
   }
@@ -54,7 +55,19 @@ int  indie::Score::get_bigger_score()
   return (pos);
 }
 
-void  indie::Score::add_score(const std::string &name, int score)
+std::string indie::Score::get_date()
+{
+  time_t    t;
+  struct tm datetime;
+  char      date[32];
+ 
+  time(&t);
+  datetime = *localtime(&t);
+  strftime(date, 32, "%d-%m-%Y", &datetime);
+  return (date);
+}
+
+void  indie::Score::add_score(int score)
 {
   unsigned int nb = 0;
   int max;
@@ -62,7 +75,7 @@ void  indie::Score::add_score(const std::string &name, int score)
   long unsigned int size;
 
   _scores.push_back(score);
-  _names.push_back(name);
+  _dates.push_back(get_date());
   if (file.is_open())
   {
     size = _scores.size();
@@ -71,10 +84,10 @@ void  indie::Score::add_score(const std::string &name, int score)
       max = get_bigger_score();
       file << _scores[max];
       file << " ";
-      file << _names[max];
+      file << _dates[max];
       file << "\n";
       _scores.erase(_scores.begin() + max);
-      _names.erase(_names.begin() + max);
+      _dates.erase(_dates.begin() + max);
       nb++;
     }
     file.close();

@@ -31,7 +31,6 @@ indie::Core::~Core()
 
 void            indie::Core::runCoreLoop()
 {
-
     while (42) {
 
         this->_gameState = this->_game->getGameState();
