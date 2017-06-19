@@ -13,9 +13,6 @@ indie::Gfx::Gfx()
     // irr::createDevice (deviceType, windowSize, bits, fullscreen, stencilbuffer, vsync, receiver)
 
     try : 
-    
-          // Events Management
-          _eventsOverlay(),
           // Device
           _device(irr::createDevice (   irr::video::EDT_OPENGL,
                                         irr::core::dimension2d<irr::u32>(SCREEN_WIDTH, SCREEN_HEIGHT),
@@ -23,7 +20,7 @@ indie::Gfx::Gfx()
                                         false,
                                         true,
                                         false,
-                                        &this->_eventsOverlay) ),
+                                        NULL) ),
           // Irrlicht Items
           _driver(this->_device->getVideoDriver()),
           _smgr(this->_device->getSceneManager()),
@@ -31,6 +28,8 @@ indie::Gfx::Gfx()
           _guienv(this->_device->getGUIEnvironment()),
           // Font
           _fonts(),
+          // Events Management
+          _eventsOverlay(),
           // Scenes Management
           _scenesLoaded(),
           _dome(),
@@ -117,8 +116,10 @@ void    indie::Gfx::set_window_settings() {
     this->loadFonts();
 
     // Set Event Receiver
-    // this->_device->setEventReceiver(&this->_eventsOverlay);
+    this->_device->setEventReceiver(&this->_eventsOverlay);
 
+    // Image Quality
+    this->_driver->setTextureCreationFlag (irr::video::ETCF_OPTIMIZED_FOR_QUALITY, true);
 }
 
 void    indie::Gfx::displayGraphicalInfos() {

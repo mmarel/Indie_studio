@@ -77,13 +77,12 @@ void    indie::Gfx::draw_component_sprite(const IComponent &cmp) {
                                             this->_sprites[cmp.getBackgroundId()][cmp.getBackgroundPos()]->getSize().Height
                                             );
 
-
-    // irr::video::SColor  color = this->getSColor(cmp.getBackgroundColor());
-    // (void)color;
-
     this->_driver->draw2DImage(this->_sprites[cmp.getBackgroundId()][cmp.getBackgroundPos()],
                                position,
-                               sprite_area);
+                               sprite_area,
+                               0,
+                               NULL,
+                               true);
 }
 
 void    indie::Gfx::updateGUI(const IGUI &gui) {
