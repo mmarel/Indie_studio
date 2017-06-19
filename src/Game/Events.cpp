@@ -101,18 +101,19 @@ void indie::Game::move(size_t playerId,
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
       indie::Tile &tile = _map.at(0, x, y);
-      if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
-        indie::Tile &ntile = moves_handlers[dir](tile, x, y);
-        std::pair<size_t, size_t> current_frame;
-        std::pair<size_t, size_t> run_frame = indie::ResourceHandler::getSkeletonFrame("RUN");
+      if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId) &&
+          !indie::ResourceHandler::isDeathFrame(indie::MODELS_ID::SKELETON_MODEL, tile.getObjectFrameLoop(0))) {
 
-        ntile.setObjectRotation(0, dir);
-        current_frame = ntile.getObjectFrameLoop(0);
-        if (current_frame != run_frame) {
-          ntile.setDoesAnimationChanged(0, true);
-          ntile.setObjectFrameLoop(0, run_frame);
-        }
-        return;
+          indie::Tile &ntile = moves_handlers[dir](tile, x, y);
+          std::pair<size_t, size_t> current_frame;
+          std::pair<size_t, size_t> run_frame = indie::ResourceHandler::getSkeletonFrame("RUN");
+
+          ntile.setObjectRotation(0, dir);
+          current_frame = ntile.getObjectFrameLoop(0);
+          if (current_frame != run_frame) {
+            ntile.setDoesAnimationChanged(0, true);
+            ntile.setObjectFrameLoop(0, run_frame);
+          }
       }
     }
   }
@@ -120,6 +121,7 @@ void indie::Game::move(size_t playerId,
 
 void indie::Game::SquareBomb(indie::Tile &bombTile) {
   size_t objectId = _map.newId();
+
   bombTile.setObjectId(0, objectId);
   _map.addObjectById(objectId);
   bombTile.setHasModel(0, true);
@@ -130,8 +132,9 @@ void indie::Game::SquareBomb(indie::Tile &bombTile) {
   bombTile.setObjectFrameLoop(0, indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::SQUAREBOMB, {0, 0}));
 }
 
-void indie::Game::PikesBomb(indie::Tile &bombTile, size_t x, size_t y) {
+void indie::Game::PikesBomb(indie::Tile &bombTile) {
   size_t objectId = _map.newId();
+
   bombTile.setObjectId(0, objectId);
   _map.addObjectById(objectId);
   bombTile.setHasModel(0, true);
@@ -149,7 +152,7 @@ void indie::Game::TentacleBomb(indie::Tile &bombTile, size_t x, size_t y) {
   size_t southSize = 1;
   size_t objectId;
 
-  while (westSize < 6 && x >= westSize && _map.at(0, x - westSize, y).getType(0) == indie::OBJECTS_ID::EMPTY) { std::cout << "westsize " << westSize << std::endl; westSize++; }
+  while (westSize < 6 && x >= westSize && _map.at(0, x - westSize, y).getType(0) == indie::OBJECTS_ID::EMPTY) { westSize++; }
   while (northSize < 6 && y >= northSize && _map.at(0,  x, y - northSize).getType(0) == indie::OBJECTS_ID::EMPTY) { northSize++; }
   while (eastSize < 6 && (x + eastSize) < _map.getWidth() && _map.at(0, x + eastSize, y).getType(0) == indie::OBJECTS_ID::EMPTY) { eastSize++; }
   while (southSize < 6 && (y + southSize) < _map.getHeight() && _map.at(0, x, y + southSize).getType(0) == indie::OBJECTS_ID::EMPTY) { southSize++; }
@@ -183,19 +186,25 @@ void indie::Game::TentacleBomb(indie::Tile &bombTile, size_t x, size_t y) {
 
 void indie::Game::bomb(size_t playerId) {
   static std::map<indie::OBJECTS_ID, std::function<void(indie::Tile &, size_t, size_t)> > bombHandlers = {
-    { indie::OBJECTS_ID::SQUAREBOMB, [this](indie::Tile &tile, size_t x, size_t y){ this->SquareBomb(tile); } },
-    { indie::OBJECTS_ID::PIKESBOMB, [this](indie::Tile &tile, size_t x, size_t y){ this->PikesBomb(tile, x, y); } },
+    { indie::OBJECTS_ID::SQUAREBOMB, [this](indie::Tile &tile, size_t x, size_t y){ (void)x; (void)y; this->SquareBomb(tile); } },
+    { indie::OBJECTS_ID::PIKESBOMB, [this](indie::Tile &tile, size_t x, size_t y){ (void)x; (void)y; this->PikesBomb(tile); } },
     { indie::OBJECTS_ID::TENTACLEBOMB, [this](indie::Tile &tile, size_t x, size_t y){ this->TentacleBomb(tile, x, y); } }
   };
   indie::OBJECTS_ID type = getBombType(playerId);
+  indie::SoundId sound;
+  int bombId;
 
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
       if (_map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {
-        if (_map.at(1, x, y).getType(0) != indie::OBJECTS_ID::EMPTY) { return; }
+        if (indie::ResourceHandler::isDeathFrame(indie::MODELS_ID::SKELETON_MODEL, _map.at(0, x, y).getObjectFrameLoop(0)) || _map.at(1, x, y).getType(0) != indie::OBJECTS_ID::EMPTY) { return; }
         indie::Tile &bombTile = _map.at(1, x, y);
 
+        bombId = static_cast<int>(type) - static_cast<int>(indie::OBJECTS_ID::SQUAREBOMB);
+        bombId += static_cast<int>(indie::SoundId::SOUND_EXPLOSION_1);
+        sound = static_cast<indie::SoundId>(bombId);
         bombHandlers[type](bombTile, x, y);
+        _soundsToPlay.push_back(indie::Sound(sound, indie::SoundAction::UNIQUE, _settings.volume));
         return;
       }
     }

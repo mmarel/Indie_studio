@@ -40,6 +40,9 @@ namespace indie {
       virtual void process();
 
     private:
+      void initSettings();
+
+    private:
       void  splashScreen();
       void  gameProcess();
 
@@ -54,6 +57,8 @@ namespace indie {
       void updatePlayerAnimation(Tile &, size_t);
       void updateBombAnimation(Tile &, size_t &, OBJECTS_ID, size_t x, size_t y);
       void removeObject(Tile &, size_t);
+      bool isEnded() const;
+      void reset();
 
     private:
       void  handleEvents();
@@ -64,7 +69,7 @@ namespace indie {
       void  move(size_t, indie::ELookAt);
       void  bomb(size_t);
       void  SquareBomb(indie::Tile &);
-      void  PikesBomb(indie::Tile &, size_t x, size_t y);
+      void  PikesBomb(indie::Tile &);
       void  TentacleBomb(indie::Tile &, size_t x, size_t y);
 
     private:
@@ -78,25 +83,6 @@ namespace indie {
     private:
       void AIhandler();
 
-    private:
-      // Tile Handlers
-      void  handleBomb(const std::size_t &,
-                        const std::size_t &);
-      void  handlePlayer(const std::size_t &,
-                          const std::size_t &,
-                          int);
-
-    private:
-      void spreadBombAnimation(const std::size_t &,
-                                const std::size_t &,
-                                const std::size_t &,
-                                const std::size_t &);
-      void spreadBombAnimationLine(const std::size_t &,
-                                    const std::size_t &,
-                                    const std::size_t &);
-      void spreadBombAnimationCol(const std::size_t &,
-                                  const std::size_t &,
-                                  const std::size_t &);
     public:
       virtual GameState                 getGameState() const;
       virtual const IMap                &getCurrentMap() const;
@@ -105,7 +91,8 @@ namespace indie {
       virtual const std::vector<Sound>  &getSoundsToPlay() const;
 
     private:
-      std::vector<indie::Sound>         _sounds;
+      std::vector<indie::Sound>         _soundsToPlay;
+      indie::Sound                      _music;
       GameState                         _gameState;
       std::vector<Event>                _events;
       Map                               _map;

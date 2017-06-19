@@ -1,13 +1,11 @@
 #include "Game/Game.hpp"
 
 void indie::Game::kill(indie::Tile &player) {
-  std::cout << "kill player " << player.getObjectId(0) << " : this guys is a biiiiig noooob\n";
   player.setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("DIE"));
   player.setDoesAnimationChanged(0, true);
 }
 
 void indie::Game::explodeBox(indie::Tile &box) {
-  std::cout << "box explosion id "<< box.getObjectId(0) << "\n";
   box.setObjectFrameLoop(0, indie::ResourceHandler::getLethalFrame(indie::OBJECTS_ID::BOX));
   box.setDoesAnimationChanged(0, true);
 }
@@ -22,7 +20,8 @@ void indie::Game::squareExplosion(size_t center_x, size_t center_y) {
       target_x = center_x + c;
       target_y = center_y + y;
       if (((c == 0 || c % 2 != 0) || (y == 0 || y % 2 != 0)) &&
-        target_x >= 0 && target_x < _map.getWidth() && target_y + y >= 0 && target_y + y < _map.getHeight()) {
+        static_cast<size_t>(target_x) >= 0 && static_cast<size_t>(target_x) < _map.getWidth() &&
+        static_cast<size_t>(target_y) >= 0 && static_cast<size_t>(target_y) < _map.getHeight()) {
         indie::Tile &playerTarget = _map.at(0, target_x, target_y);
 
         type = playerTarget.getType(0);

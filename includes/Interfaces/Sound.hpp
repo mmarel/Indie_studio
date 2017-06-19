@@ -14,6 +14,7 @@ namespace indie
 
     enum SoundId {
       SOUND_UNKNOWN = -1,
+      SOUND_NONE,
       SOUND_MENU,
       SOUND_GAME_FAULT_LINES,
       SOUND_GAME_INNONCENCE_MANGLED,
