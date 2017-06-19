@@ -1,7 +1,7 @@
 #include "Game/Game.hpp"
 
 indie::Game::Game() :
-  _sounds(),
+  _sounds({indie::Sound(indie::SoundId::SOUND_SKELELETON_SPAWN, indie::SoundAction::UNIQUE, 50.0f)}),
   _gameState(SPLASH_SCREEN),
   _events(),
   _map(0),
@@ -32,6 +32,7 @@ const std::vector<size_t> &indie::Game::getObjectsId() const {
 }
 
 const std::vector<indie::Sound> &indie::Game::getSoundsToPlay() const {
+  std::cout << "----------- get sounds to play\n";
   return _sounds;
 }
 

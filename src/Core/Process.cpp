@@ -28,6 +28,13 @@ void        indie::Core::process() {
     if (_game->getGameState() == indie::GameState::MAIN_MENU || _game->getGameState() == indie::GameState::SETTINGS)
         this->_gfx->updateGUI(this->_game->getCurrentGUI());
 
+    const std::vector<indie::Sound> &soundsToPlay = _game->getSoundsToPlay();
+
+    std::for_each(soundsToPlay.begin(), soundsToPlay.end(),
+    [this](const indie::Sound &sound) {
+      this->_gfx->soundControl(sound);
+    });
+
 
     // Refresh the screen
     this->_gfx->display();
