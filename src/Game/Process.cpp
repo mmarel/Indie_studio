@@ -30,10 +30,19 @@ void indie::Game::gameProcess() {
   AIhandler();
 }
 
+void indie::Game::menuProcess() {
+    handleEvents();
+    while (_timer.Elapsed().count() < 70);
+    _timer.Reset();
+}
+
 void indie::Game::process() {
   static std::map<indie::GameState, indie::TurnHandler> handlers = {
     { indie::GameState::SPLASH_SCREEN, [this]() -> void { this->splashScreen(); } },
-    { indie::GameState::INGAME, [this]() -> void { this->gameProcess(); } }
+    { indie::GameState::INGAME, [this]() -> void { this->gameProcess(); } },
+    { indie::GameState::MAIN_MENU, [this]() -> void { this->menuProcess(); } },
+    { indie::GameState::SETTINGS, [this]() -> void { this->menuProcess(); } },
+    { indie::GameState::ROOM, [this]() -> void { this->menuProcess(); } }
   };
   _soundsToPlay.clear();
   if (handlers.find(_gameState) != handlers.end()) { return handlers[_gameState](); }
