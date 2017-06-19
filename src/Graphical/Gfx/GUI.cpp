@@ -87,7 +87,7 @@ void    indie::Gfx::draw_component_sprite(const IComponent &cmp) {
 
 void    indie::Gfx::updateGUI(const IGUI &gui) {
 
-    for (std::size_t i = 0, count = gui.size(); i < count; ++i) {
+    for (std::size_t i = 0; i < gui.size(); i++) {
         if (gui.at(i).hasSprite())
             this->draw_component_sprite(gui.at(i));
         else

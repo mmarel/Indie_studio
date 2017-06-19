@@ -31,7 +31,6 @@ indie::Core::~Core()
 
 void            indie::Core::runCoreLoop()
 {
-
     while (42) {
 
         this->_gameState = this->_game->getGameState();
@@ -53,10 +52,17 @@ void            indie::Core::runCoreLoop()
                 break;
                 
             case indie::GameState::MAIN_MENU:
+                this->process();
+                break;
+
             case indie::GameState::SCOREBOARD:
+                this->process();
+                break;
+                
             case indie::GameState::SETTINGS:
                 this->process();
                 break;
+
             case indie::GameState::HELP:
             case indie::GameState::ROOM:
                 this->process();
