@@ -53,6 +53,10 @@ namespace indie
         void  roomMenuKeyLeft();
         void  roomMenuKeyEnter();
 
+        ///---Score Menu Events---
+        void    scoreMenuKeyLeft();
+        void    scoreMenuKeyEnter();
+
         ///CreteComponent (*component params* + all paths to sprites)
         template <typename ... args>
         std::unique_ptr<indie::IComponent>   createComponent(size_t back_id, double x, double y,

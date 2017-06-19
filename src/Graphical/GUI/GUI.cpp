@@ -31,12 +31,15 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/settings/settings_base.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/settings/settings_sound_5.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/room_base.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Sprites/score.png"));
     return (std::move(sprites));
 }
 void indie::GUI::notifyEvent(const indie::Event &event) {
     if (event.type == indie::EventType::ET_KEYBOARD)
+    {
         if (_compActions.find(event.kb_key) != _compActions.end())
             _compActions[event.kb_key]();
+    }
 }
 
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadMenu() {
@@ -65,8 +68,8 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadSettings() {
     _posBackground = 0;
 
     res.push_back(createComponent(1, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White,
-                                   "Settings", "Menu/settings/settings_base.png"));
-    res.push_back(createComponent(2, 0.2f, 0.5f, 0.5f, 0.5f, indie::Color::White, indie::Color::White,
+                                 "Settings", "Menu/settings/settings_base.png"));
+    res.push_back(createComponent(2, 0.2f, 0.5f, 0.15f, 0.1f, indie::Color::White, indie::Color::White,
                                     "Settings", "Menu/settings/settings_sound_5.png"));
 
 
@@ -86,6 +89,10 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadRoom() {
     std::vector<std::unique_ptr<indie::IComponent>> res;
 
     ///Load Room Components
+    _posBackground = 0;
+
+    res.push_back(createComponent(3, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White,
+                                    "ROOM", "Menu/room/room_base.png"));
 
     if (!_compActions.empty())
         _compActions.clear();
@@ -103,6 +110,13 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
     std::vector<std::unique_ptr<indie::IComponent>> res;
 
     ///Load Score components
+    _posBackground = 0;
+
+    res.push_back(createComponent(4, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White,
+                                    "Score", "Sprites/score.png"));
+
+    _compActions[indie::KeyboardKey::KB_ARROW_LEFT] = [this](){scoreMenuKeyLeft();};
+    _compActions[indie::KeyboardKey::KB_ENTER] = [this](){scoreMenuKeyEnter();};
 
     return (res);
 }
@@ -130,29 +144,41 @@ void indie::GUI::mainMenuKeyUp() {
 
 void indie::GUI::mainMenuKeyRight() {
     if (_posBackground == 0)
-        _gameState = indie::GameState::INGAME;
-    if (_posBackground == 1)
+    {
+        _gameState = indie::GameState::ROOM;
+        loadComponents(_gameState);
+    }
+    else if (_posBackground == 1)
     {
         _gameState = indie::GameState::SETTINGS;
         loadComponents(_gameState);
     }
-    if (_posBackground == 2)
+    else if (_posBackground == 2)
+    {
         _gameState = indie::GameState::SCOREBOARD;
-    if (_posBackground == 3)
+        loadComponents(_gameState);
+    }
+    else if (_posBackground == 3)
         _gameState = indie::GameState::QUIT;
 }
 
 void indie::GUI::mainMenuKeyEnter() {
     if (_posBackground == 0)
-        _gameState = indie::GameState::INGAME;
-    if (_posBackground == 1)
+    {
+        _gameState = indie::GameState::ROOM;
+        loadComponents(_gameState);
+    }
+    else if (_posBackground == 1)
     {
         _gameState = indie::GameState::SETTINGS;
         loadComponents(_gameState);
     }
-    if (_posBackground == 2)
+    else if (_posBackground == 2)
+    {
         _gameState = indie::GameState::SCOREBOARD;
-    if (_posBackground == 3)
+        loadComponents(_gameState);
+    }
+    else if (_posBackground == 3)
         _gameState = indie::GameState::QUIT;
 }
 
@@ -235,6 +261,8 @@ void indie::GUI::settMenuKeyEnter() {
 ///     Event Room Menu functions --- Start
 
 void indie::GUI::roomMenuKeyDown() {
+    if (_posBackground < 3)
+        ++_posBackground;
 //    if (_compId + 1 < _components.size())
 //    {
 //        for (size_t i = 1; i < _components.size(); ++i)
@@ -263,28 +291,6 @@ void indie::GUI::roomMenuKeyUp() {
 }
 
 void indie::GUI::roomMenuKeyRight() {
-//    switch (_compId) {
-//        case 2: {
-//            if (_settings.nplayers + 1 < 5)
-//                _settings.nplayers++;
-//            break;
-//        }
-//        case 3: {
-//            if (_settings.nplayers + 1 < 5)
-//                _settings.nplayers++;
-//            break;
-//        }
-//        case 4: loadComponents(indie::GameState::INGAME);
-//            break;
-//        case 6: ///Join Component
-//            break;
-//        case 7: ///Host Component
-//            break;
-//        case 8: loadComponents(indie::GameState::MAIN_MENU);
-//            break;
-//        default:
-//            break;
-//    }
 }
 
 void indie::GUI::roomMenuKeyLeft() {
@@ -307,28 +313,22 @@ void indie::GUI::roomMenuKeyLeft() {
 }
 
 void indie::GUI::roomMenuKeyEnter() {
-//    switch (_compId) {
-//        case 2: {
-//            if (_settings.nplayers + 1 < 5)
-//                _settings.nplayers++;
-//            break;
-//        }
-//        case 3: {
-//            if (_settings.nplayers + 1 < 5)
-//                _settings.nplayers++;
-//            break;
-//        }
-//        case 4: loadComponents(indie::GameState::INGAME);
-//            break;
-//        case 6: ///Join Component
-//            break;
-//        case 7: ///Host Component
-//            break;
-//        case 8: loadComponents(indie::GameState::MAIN_MENU);
-//            break;
-//        default:
-//            break;
-//    }
+    if (_posBackground != 0)
+        _gameState = indie::GameState::INGAME;
 }
 
 ///     Event Room Menu functions --- End
+///---------------------------------------------------------
+///     Event Score Menu functions --- Start
+
+void indie::GUI::scoreMenuKeyLeft() {
+    _gameState = indie::GameState::MAIN_MENU;
+    loadComponents(_gameState);
+}
+
+void indie::GUI::scoreMenuKeyEnter() {
+    _gameState = indie::GameState::MAIN_MENU;
+    loadComponents(_gameState);
+}
+
+///     Event Score Menu functions --- End
