@@ -36,8 +36,7 @@ namespace indie
         ///---Main Menu Events---
         void    mainMenuKeyDown();
         void    mainMenuKeyUp();
-        void    mainMenuKeyRight();
-        void    mainMenuKeyEnter();
+        void    mainMenuKeyAccess();
 
         ///---Settings Menu Events---
         void   settMenuKeyDown();
@@ -61,11 +60,11 @@ namespace indie
         template <typename ... args>
         std::unique_ptr<indie::IComponent>   createComponent(size_t back_id, double x, double y,
                                                              double width, double height, indie::Color backColor,
-                                                             indie::Color textColor, std::string text,
-                                                             args... paths) {
+                                                             indie::Color textColor, bool hasSprite = true,
+                                                             std::string text = "") {
             std::unique_ptr<indie::IComponent> res;
 
-            res = std::make_unique<indie::Component>(new indie::Sprite(paths...), back_id, x, y, width, height, backColor, textColor, text);
+            res = std::make_unique<indie::Component>(hasSprite, back_id, x, y, width, height, backColor, textColor, text);
             return (res);
         }
 

@@ -89,13 +89,9 @@ void    indie::Gfx::updateGUI(const IGUI &gui) {
 
     for (std::size_t i = 0; i < gui.size(); i++) {
         if (gui.at(i).hasSprite())
-        {
             this->draw_component_sprite(gui.at(i));
-        }
         else
-        {
             this->draw_component_text(gui.at(i));
-        }
     }
 
 }

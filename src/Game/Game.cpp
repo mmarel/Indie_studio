@@ -1,6 +1,7 @@
 #include "Game/Game.hpp"
 
 indie::Game::Game() :
+  _timer(),
   _soundsToPlay({indie::Sound(indie::SoundId::SOUND_SKELELETON_SPAWN, indie::SoundAction::UNIQUE, 50.0f)}),
   _music(indie::Sound(indie::SoundId::SOUND_NONE, indie::SoundAction::PLAY, 50.0f)),
   _gameState(SPLASH_SCREEN),

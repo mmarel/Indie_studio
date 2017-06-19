@@ -126,13 +126,20 @@ void indie::Game::SquareBomb(indie::Tile &bombTile) {
 
 void indie::Game::PikesBomb(indie::Tile &bombTile) {
   size_t objectId = _map.newId();
+  size_t modelId;
 
+  //modelId = static_cast<size_t>(indie::MODELS_ID::PIKES_MODEL_1) + rand() % 4;
+  //bombTile.setModelId(0, static_cast<indie::MODELS_ID>(modelId));
+  //bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(static_cast<indie::MODELS_ID>(modelId)));
+  /*for (size_t i = 1; i < 3; i++) {
+    if ()
+  }*/
   bombTile.setObjectId(0, objectId);
   _map.addObjectById(objectId);
   bombTile.setHasModel(0, true);
+  bombTile.setModelId(0, indie::MODELS_ID::PIKES_MODEL_CENTER);
+  bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::PIKES_MODEL_CENTER));
   bombTile.setDoesAnimationChanged(0, true);
-  bombTile.setModelId(0, indie::MODELS_ID::PIKES_MODEL_1);
-  bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::PIKES_MODEL_1));
   bombTile.setType(0, indie::OBJECTS_ID::PIKESBOMB);
   bombTile.setObjectFrameLoop(0, indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}));
 }

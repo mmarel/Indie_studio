@@ -22,7 +22,7 @@ namespace indie
 
         public:
 
-            explicit Timer() {
+            explicit Timer() : _start() {
                 this->Reset();
             }
 

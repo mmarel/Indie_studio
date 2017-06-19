@@ -10,8 +10,6 @@
 
 void        indie::Core::process() {
 
-    static bool z = false;
-
     // Clear the GFX
     this->_gfx->clear();
 
@@ -27,21 +25,17 @@ void        indie::Core::process() {
     // Update the game map in the GFX
     this->_gfx->updateMap(this->_game->getCurrentMap());
     // Update the GUI in the GFX
-    if (_game->getGameState() != indie::GameState::INGAME)
+    if (_game->getGameState() == indie::GameState::MAIN_MENU || _game->getGameState() == indie::GameState::SETTINGS
+            || _game->getGameState() == indie::GameState::ROOM)
         this->_gfx->updateGUI(this->_game->getCurrentGUI());
 
     const std::vector<indie::Sound> &soundsToPlay = _game->getSoundsToPlay();
 
-    if (!z) {
-    
         std::for_each(soundsToPlay.begin(), soundsToPlay.end(), [this](const indie::Sound &sound) {
-    
+
             this->_gfx->soundControl(sound);
-    
+
         });
-    
-        z = !z;
-    }
 
 
     // Refresh the screen

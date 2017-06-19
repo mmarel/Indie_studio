@@ -11,6 +11,7 @@
 # include "Interfaces/IGame.hpp"
 # include "Common/GUI.hpp"
 # include <map>
+#include "Common/Timer.hpp"
 
 namespace indie {
 
@@ -45,6 +46,7 @@ namespace indie {
     private:
       void  splashScreen();
       void  gameProcess();
+      void  menuProcess();
 
     private:
       std::vector<indie::Player>::const_iterator getPlayerSettings(size_t) const;
@@ -91,6 +93,7 @@ namespace indie {
       virtual const std::vector<Sound>  &getSoundsToPlay() const;
 
     private:
+      indie::Timer                      _timer;
       std::vector<indie::Sound>         _soundsToPlay;
       indie::Sound                      _music;
       GameState                         _gameState;

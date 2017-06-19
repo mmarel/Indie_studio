@@ -35,7 +35,6 @@ namespace indie {
 
     typedef enum          e_IA_LEVEL {
       IA_UNKNOWN = -1,
-      IA_EASY,
       IA_MEDIUM,
       IA_HARD
     }                     IA_LEVEL;

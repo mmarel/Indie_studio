@@ -64,6 +64,7 @@ void indie::Game::updateAnimations() {
               pos--;
               if (isEnded()) {
                 _gameState = indie::GameState::MAIN_MENU;
+                _gui.loadComponents(_gameState);
                 return;
               }
             }
