@@ -1,8 +1,8 @@
 //
-// Author: Marwane Khsime 
-// Date: 2017-05-22 19:17:54 
+// Author: Marwane Khsime
+// Date: 2017-05-22 19:17:54
 //
-// Last Modified by:   Marwane Khsime 
+// Last Modified by:   Marwane Khsime
 // Last Modified time: 2017-05-22 19:17:54
 //
 
@@ -25,11 +25,6 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
                                                this->_scenesLoaded[this->_infos._current_scene]._startY,
                                                this->_scenesLoaded[this->_infos._current_scene]._startZ - static_cast< float >(z) - static_cast< float >(tile.getShiftY(index))));
 
-        // TODO
-        if (tile.getModelId(index) == indie::MODELS_ID::SKELETON_MODEL) {
-            // std::cout << "SHIFT X => " << tile.getShiftX(index) << std::endl;
-            // std::cout << "SHIFT Z => " << tile.getShiftY(index) << std::endl;
-        }
 
         node->setRotation(irr::core::vector3df(0.0f, this->_orientation[static_cast<std::size_t>(tile.getObjectRotation(index))], 0.0f));
 
@@ -96,7 +91,7 @@ void    indie::Gfx::updateMap(const IMap &map) {
             // Note : we named the variable z because the x-axis of the map
             // corresponds to the z-axis on our 3d planes
             for (std::size_t z = 0; z < map_width; ++z) {
-                
+
                 // Here we loop on the tile to get all elements that are on it.
                 for (std::size_t index = 0, thickness = map.at(layer, z, y).getTileSize();
                      thickness > 0 && index < thickness;

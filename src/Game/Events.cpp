@@ -7,18 +7,16 @@ indie::Tile &indie::Game::move_left(indie::Tile &player,
 
   newShift = player.getShiftX(0) - PLAYER_SPEED;
   tangible = (x == 0 || _map.at(0, x - 1, y).isTangible(0) || _map.at(1, x - 1, y).isTangible(0));
-  if (newShift < 0.0 && !tangible) {
-      std::cout << "go left cell\n";
-      indie::Tile &nearPlayerTile = _map.at(0, x - 1, y);
+  if (newShift < 0.0 && !tangible && player.getShiftY(0) <= 0.3) {
+    indie::Tile &nearPlayerTile = _map.at(0, x - 1, y);
 
-      nearPlayerTile = player;
-      player.reset();
-      nearPlayerTile.setShiftX(0, 1.0 + newShift);
-      return nearPlayerTile;
-    }
-    else if (tangible) { player.setShiftX(0, 0.0); }
-    else if (tangible && newShift < 0.3) { player.setShiftX(0, 0.3); }
-    else if (newShift >= 0.0) { player.setShiftX(0, newShift); }
+    nearPlayerTile = player;
+    player.reset();
+    nearPlayerTile.setShiftX(0, 1.0 + newShift);
+    return nearPlayerTile;
+  }
+  else if (tangible || player.getShiftY(0) > 0.3) { player.setShiftX(0, newShift < 0.3 ? 0.3 : newShift); }
+  else if (player.getShiftY(0) <= 0.3 && newShift >= 0.0) { player.setShiftX(0, newShift); }
   return player;
 }
 
@@ -29,18 +27,16 @@ indie::Tile &indie::Game::move_right(indie::Tile &player,
 
   newShift = player.getShiftX(0) + PLAYER_SPEED;
   tangible = (x == (_map.getWidth() - 1) || _map.at(0, x + 1, y).isTangible(0) || _map.at(1, x + 1, y).isTangible(0));
-  if (newShift >= 1.0 && !tangible) {
-      std::cout << "go right cell\n";
-      indie::Tile &nearPlayerTile = _map.at(0, x + 1, y);
+  if (newShift >= 1.0 && !tangible && player.getShiftY(0) <= 0.3) {
+    indie::Tile &nearPlayerTile = _map.at(0, x + 1, y);
 
-      nearPlayerTile = player;
-      player.reset();
-      nearPlayerTile.setShiftX(0, newShift - 1.0);
-      return nearPlayerTile;
+    nearPlayerTile = player;
+    player.reset();
+    nearPlayerTile.setShiftX(0, newShift - 1.0);
+    return nearPlayerTile;
   }
-  else if (tangible) { player.setShiftX(0, 0.0); }
-  else if (tangible && newShift > 0.7) { player.setShiftX(0, 0.7); }
-  else if (newShift < 1.0) { player.setShiftX(0, newShift); }
+  else if (tangible || player.getShiftY(0) > 0.3) { player.setShiftX(0, newShift > 0.3 ? 0.3 : newShift); }
+  else if (player.getShiftY(0) <= 0.3 && newShift < 1.0) { player.setShiftX(0, newShift); }
   return player;
 }
 
@@ -51,18 +47,17 @@ indie::Tile &indie::Game::move_down(indie::Tile &player,
 
   newShift = player.getShiftY(0) + PLAYER_SPEED;
   tangible = (y == (_map.getHeight() - 1) || _map.at(0, x, y + 1).isTangible(0) || _map.at(1, x, y + 1).isTangible(0));
-  if (newShift >= 1.0 && !tangible) {
-      std::cout << "go down cell\n";
-      indie::Tile &nearPlayerTile = _map.at(0, x, y + 1);
+  if (newShift >= 1.0 && !tangible && player.getShiftX(0) <= 0.3) {
+    indie::Tile &nearPlayerTile = _map.at(0, x, y + 1);
 
-      nearPlayerTile = player;
-      player.reset();
-      nearPlayerTile.setShiftY(0, newShift - 1.0);
-      return nearPlayerTile;
-    }
-    else if (tangible) { player.setShiftY(0, 0.0); }
-    else if (tangible && newShift > 0.7) { player.setShiftY(0, 0.7); }
-    else if (newShift < 1.0) { player.setShiftY(0, newShift); }
+    nearPlayerTile = player;
+    player.reset();
+    nearPlayerTile.setShiftY(0, newShift - 1.0);
+    nearPlayerTile.setShiftX(0, 0.0);
+    return nearPlayerTile;
+  }
+  else if (tangible || player.getShiftX(0) > 3.0) { player.setShiftY(0, 0.0); }
+  else if (player.getShiftX(0) <= 0.3 && newShift < 1.0) { player.setShiftY(0, newShift); }
   return player;
 }
 
@@ -73,18 +68,17 @@ indie::Tile &indie::Game::move_up(indie::Tile &player,
 
   newShift = player.getShiftY(0) - PLAYER_SPEED;
   tangible = (y == 0 || _map.at(0, x, y - 1).isTangible(0) || _map.at(1, x, y - 1).isTangible(0));
-  if (newShift < 0.0 && !tangible) {
-      std::cout << "go up cell\n";
-      indie::Tile &nearPlayerTile = _map.at(0, x, y - 1);
+  if (newShift < 0.0 && !tangible && player.getShiftX(0) <= 0.3) {
+    indie::Tile &nearPlayerTile = _map.at(0, x, y - 1);
 
-      nearPlayerTile = player;
-      player.reset();
-      nearPlayerTile.setShiftY(0, 1.0 + newShift);
-      return nearPlayerTile;
+    nearPlayerTile = player;
+    player.reset();
+    nearPlayerTile.setShiftY(0, 1.0 + newShift);
+    nearPlayerTile.setShiftX(0, 0.0);
+    return nearPlayerTile;
   }
-  else if (tangible) { player.setShiftY(0, 0.0); }
-  else if (tangible && newShift < 0.3) { player.setShiftY(0, 0.3); }
-  else if (newShift >= 0.0) { player.setShiftY(0, newShift); }
+  else if (tangible || player.getShiftX(0) > 3.0) { player.setShiftY(0, newShift > 0.3 ? newShift : 0.3); }
+  else if (player.getShiftX(0) <= 0.3 && newShift >= 0.0) { player.setShiftY(0, newShift); }
   return player;
 }
 
@@ -110,10 +104,8 @@ void indie::Game::move(size_t playerId,
 
           ntile.setObjectRotation(0, dir);
           current_frame = ntile.getObjectFrameLoop(0);
-          if (current_frame != run_frame) {
-            ntile.setDoesAnimationChanged(0, true);
-            ntile.setObjectFrameLoop(0, run_frame);
-          }
+          ntile.setDoesAnimationChanged(0, true);
+          ntile.setObjectFrameLoop(0, run_frame);
       }
     }
   }
