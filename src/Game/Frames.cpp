@@ -32,7 +32,7 @@ std::pair<size_t, size_t>   indie::ResourceHandler::getNextFramePikesBomb(std::p
 
 std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameTentacleBomb(std::pair<size_t, size_t> current_frame) {
   static std::vector<std::pair<size_t, size_t > > frames = {
-    {0, 0}, {1, 51}, {52, 68}, {69, 79}, {80, 85}
+    {0, 0}, {1, 51}, {52, 68}, {69, 85}
   };
   size_t frameID = 0;
 

@@ -11,10 +11,14 @@ void indie::Game::updatePlayerAnimation(indie::Tile &tile, size_t i) {
   tile.setObjectFrameLoop(i, indie::ResourceHandler::getSkeletonFrame("IDLE"));
 }
 
-void indie::Game::updateBombAnimation(indie::Tile &tile, size_t i, indie::OBJECTS_ID objectType, size_t x, size_t y) {
+void indie::Game::updateBombAnimation(indie::Tile &tile, size_t &i, indie::OBJECTS_ID objectType, size_t x, size_t y) {
   std::pair<size_t, size_t> nextframe = indie::ResourceHandler::getNextFrame(objectType, tile.getObjectFrameLoop(i));
 
-  if (nextframe.first == 0 && nextframe.second == 0){ return removeObject(tile, i); }
+  if (nextframe.first == 0 && nextframe.second == 0){
+    removeObject(tile, i);
+    i--;
+    return;
+  }
   if (indie::ResourceHandler::isFrameLethal(tile.getType(i), nextframe)) {
     explode(tile, i, x, y);
   }
@@ -29,6 +33,16 @@ std::vector<indie::AnimationState>::const_iterator indie::Game::getAnimationStat
           });
 }
 
+bool indie::Game::isEnded() const {
+  //int nPlayers = 0;
+
+  return true;
+  /*nPlayers = std::accumulate(_settings.players.begin(), _settings.players.end(), 0,
+              [](Player &player) {
+                return
+              });*/
+}
+
 void indie::Game::updateAnimations() {
   indie::OBJECTS_ID objectType;
   size_t tileSize;
@@ -41,23 +55,24 @@ void indie::Game::updateAnimations() {
         indie::Tile &tile = _map.at(layer, x, y);
 
         tileSize = tile.getTileSize();
-        for (size_t i = 0; i < tileSize; i++) {
-          objectType = tile.getType(i);
-          if ((animation_it = getAnimationStateIt(tile.getObjectId(i))) != _objectsStates.end()) {
+        for (size_t i = 0, pos = 0; i < tileSize; i++, pos++) {
+          objectType = tile.getType(pos);
+          if ((animation_it = getAnimationStateIt(tile.getObjectId(pos))) != _objectsStates.end()) {
 
-            if ((*animation_it).over) {
-               std::cout << "animation  over id " << tile.getObjectId(i) << std::endl;
-            } else if ((*animation_it).id == 4) { /* std::cout << "fuckiiiiiiiiiiiiiiiiiiiiiiiin bomb not over\n"; */ }
-            if ((*animation_it).over && indie::ResourceHandler::isDeathFrame(tile.getModelId(i), tile.getObjectFrameLoop(i))) {
-              std::cout << "object dead, should be removed\n";
-              removeObject(tile, i);
+            if ((*animation_it).over && indie::ResourceHandler::isDeathFrame(tile.getModelId(pos), tile.getObjectFrameLoop(pos))) {
+              removeObject(tile, pos);
+              pos--;
+              if (isEnded()) {
+                _gameState = indie::GameState::MAIN_MENU;
+                return;
+              }
             }
             else if ((*animation_it).over &&
                 objectType >= indie::OBJECTS_ID::PLAYER_ONE &&
-                objectType <= indie::OBJECTS_ID::PLAYER_FOURTH) { updatePlayerAnimation(tile, i); }
+                objectType <= indie::OBJECTS_ID::PLAYER_FOURTH) { updatePlayerAnimation(tile, pos); }
             else if ((*animation_it).over &&
                       objectType >= indie::OBJECTS_ID::SQUAREBOMB &&
-                      objectType <= indie::OBJECTS_ID::TENTACLEBOMB) { updateBombAnimation(tile, i, objectType, x, y); }
+                      objectType <= indie::OBJECTS_ID::TENTACLEBOMB) { updateBombAnimation(tile, pos, objectType, x, y); }
             else if (!(*animation_it).over) { tile.setDoesAnimationChanged(i, false); }
           }
         }

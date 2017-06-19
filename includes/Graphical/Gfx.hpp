@@ -162,8 +162,6 @@ namespace indie
         public:
             // move in private, here for the moment for debug
 
-            // Events
-            irrEventOverlay                                     _eventsOverlay;
 
             // Irrlicht Items
             std::unique_ptr<irr::IrrlichtDevice>                _device;
@@ -172,6 +170,9 @@ namespace indie
             irr::scene::ICameraSceneNode                        *_camera;
             irr::gui::IGUIEnvironment                           *_guienv;
             std::vector<irr::gui::IGUIFont *>                   _fonts;
+
+            // Events
+            irrEventOverlay                                     _eventsOverlay;
 
             // Scene Management
             std::vector<SceneContainer>                         _scenesLoaded;
