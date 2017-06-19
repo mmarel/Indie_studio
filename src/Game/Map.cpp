@@ -108,7 +108,7 @@ size_t indie::Map::newId() {
 void  indie::Map::initTiles() {
   int y = 0;
   int x;
-
+  std::cout << "-------------- inittiles\n";
   std::for_each(_layers[0].begin(), _layers[0].end(),
     [&](std::vector<std::unique_ptr<Tile> > &line) {
       x = 0;
@@ -122,8 +122,6 @@ void  indie::Map::initTiles() {
 
           case indie::OBJECTS_ID::PLAYER_ONE:
             tile->setHasModel(0, true);
-            tile->setShiftX(0, 0.30);
-            tile->setShiftY(0, 0.30);
             tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
             _objectsId.push_back(++_id);
             tile->setObjectId(0, _id);
@@ -133,8 +131,6 @@ void  indie::Map::initTiles() {
 
           case indie::OBJECTS_ID::PLAYER_TWO:
             tile->setHasModel(0, true);
-            tile->setShiftX(0, 0.30);
-            tile->setShiftY(0, 0.30);
             tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
             _objectsId.push_back(++_id);
             tile->setObjectId(0, _id);
@@ -144,8 +140,6 @@ void  indie::Map::initTiles() {
 
           case indie::OBJECTS_ID::PLAYER_THREE:
             tile->setHasModel(0, true);
-            tile->setShiftX(0, 0.30);
-            tile->setShiftY(0, 0.30);
             tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
             _objectsId.push_back(++_id);
             tile->setObjectId(0, _id);
@@ -155,8 +149,6 @@ void  indie::Map::initTiles() {
 
           case indie::OBJECTS_ID::PLAYER_FOURTH:
             tile->setHasModel(0, true);
-            tile->setShiftX(0, 0.30);
-            tile->setShiftY(0, 0.30);
             tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
             _objectsId.push_back(++_id);
             tile->setObjectId(0, _id);
@@ -173,6 +165,7 @@ void  indie::Map::initTiles() {
             break;
 
           case indie::OBJECTS_ID::WALL:
+            std::cout << "wall find\n";
           case indie::OBJECTS_ID::EMPTY:
           case indie::OBJECTS_ID::SQUAREBOMB:
           case indie::OBJECTS_ID::PIKESBOMB:

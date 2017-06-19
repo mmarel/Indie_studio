@@ -35,6 +35,7 @@ void indie::Game::process() {
     { indie::GameState::SPLASH_SCREEN, [this]() -> void { this->splashScreen(); } },
     { indie::GameState::INGAME, [this]() -> void { this->gameProcess(); } }
   };
+  _soundsToPlay.clear();
   if (handlers.find(_gameState) != handlers.end()) { return handlers[_gameState](); }
   handleEvents();
 }
