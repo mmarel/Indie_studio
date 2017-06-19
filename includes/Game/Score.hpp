@@ -24,6 +24,8 @@ namespace indie
         int get_bigger_score();
         void add_score(int);
         std::string get_date();
+        std::vector<int>    GetScores() const;
+        std::vector<std::string>    GetDates() const;
     };
 }
 

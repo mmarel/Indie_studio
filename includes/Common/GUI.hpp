@@ -53,8 +53,10 @@ namespace indie
         void  roomMenuKeyEnter();
 
         ///---Score Menu Events---
-        void    scoreMenuKeyLeft();
         void    scoreMenuKeyEnter();
+        void    getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double);
+        void    getTabDates(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double);
+
 
         ///CreteComponent (*component params* + all paths to sprites)
         template <typename ... args>
@@ -77,6 +79,7 @@ namespace indie
         virtual void loadComponents(indie::GameState&);
         virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites() const;
         virtual void notifyEvent(const indie::Event &);
+        
     };
 }
 

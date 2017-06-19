@@ -23,7 +23,7 @@ indie::Score::Score() : _scores(), _dates()
       str = line.substr(0, found);
       score = std::stoi(str, &sz);
       _scores.push_back(score);
-      str = line.substr(found, line.size());
+      str = line.substr(found + 1, line.size());
       _dates.push_back(str);
     }
     file.close();
@@ -63,7 +63,7 @@ std::string indie::Score::get_date()
  
   time(&t);
   datetime = *localtime(&t);
-  strftime(date, 32, "%d-%m-%Y", &datetime);
+  strftime(date, 32, "%d.%m.%Y", &datetime);
   return (date);
 }
 
@@ -92,4 +92,14 @@ void  indie::Score::add_score(int score)
     }
     file.close();
   }
+}
+
+std::vector<int>  indie::Score::GetScores() const
+{
+  return (_scores);
+}
+
+std::vector<std::string>  indie::Score::GetDates() const
+{
+  return (_dates);
 }

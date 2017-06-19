@@ -1,3 +1,4 @@
+#include <Game/Score.hpp>
 #include <Interfaces/Sound.hpp>
 #include "Common/GUI.hpp"
 
@@ -49,6 +50,17 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/arrow.png", "Menu/arrow-rev.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/room_base.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Sprites/score.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/0.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/1.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/2.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/3.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/4.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/5.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/6.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/7.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/8.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/9.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/dot.png"));
     return (std::move(sprites));
 }
 void indie::GUI::notifyEvent(const indie::Event &event) {
@@ -129,12 +141,38 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadRoom() {
 
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
     std::vector<std::unique_ptr<indie::IComponent>> res;
+    std::unique_ptr<indie::Score> score = std::make_unique<indie::Score>();
+    double  y;
+    double  height;
 
-    ///Load Score components
     _posBackground = 0;
 
-    res.push_back(createComponent(4, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White,
-                                    "Score", "Sprites/score.png"));
+    ///Load Score components
+
+
+    std::vector<int> scores = score->GetScores();
+    std::vector<std::string> dates = score->GetDates();
+
+    res.push_back(createComponent(6, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
+    y = 0.35f;
+    height = 0.41f;
+    for(std::vector<int>::iterator i = scores.begin(); i != scores.end(); ++i)  
+    {
+        getTabNumber(res, std::to_string(*i), 0.10f, y, 0.16f, height);
+        y += 0.1;
+        height += 0.1;
+    }
+    y = 0.35f;
+    height = 0.41f;
+    for(std::vector<std::string>::iterator i = dates.begin(); i != dates.end();++i)
+    {
+        getTabDates(res, *i, 0.33f, y, 0.39f, height);
+        y += 0.1;
+        height += 0.1;
+    }
+
+    if (!_compActions.empty())
+        _compActions.clear();
 
     _compActions[indie::KeyboardKey::KB_ENTER] = [this](){scoreMenuKeyEnter();};
 
@@ -331,6 +369,39 @@ void indie::GUI::roomMenuKeyEnter() {
 void indie::GUI::scoreMenuKeyEnter() {
     _gameState = indie::GameState::MAIN_MENU;
     loadComponents(_gameState);
+}
+
+void    indie::GUI::getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &res, std::string score, double x, double y, double width, double height)
+{
+    int nb;
+    double  pos_x;
+
+    pos_x = x;
+    for (int i = 0; score[i] != '\0'; ++i)
+    {
+        nb = score[i] - 48 + 7;
+        res.push_back(createComponent(nb, pos_x, y, width, height, indie::Color::White, indie::Color::White));
+        pos_x += 0.06;
+        width += 0.06;
+    }
+}
+
+void    indie::GUI::getTabDates(std::vector<std::unique_ptr<indie::IComponent>> &res, std::string score, double x, double y, double width, double height)
+{
+    int nb;
+    double  pos_x;
+
+    pos_x = x;
+    for (int i = 0; score[i] != '\0'; ++i)
+    {
+        if (score[i] >= '0' && score[i] <= '9')
+            nb = score[i] - 48 + 7;             
+        else
+            nb = 17;
+        res.push_back(createComponent(nb, pos_x, y, width, height, indie::Color::White, indie::Color::White));
+        pos_x += 0.06;
+        width += 0.06;
+    }
 }
 
 ///     Event Score Menu functions --- End
