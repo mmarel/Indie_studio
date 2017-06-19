@@ -99,11 +99,9 @@ void indie::Game::move(size_t playerId,
           !indie::ResourceHandler::isDeathFrame(indie::MODELS_ID::SKELETON_MODEL, tile.getObjectFrameLoop(0))) {
 
           indie::Tile &ntile = moves_handlers[dir](tile, x, y);
-          std::pair<size_t, size_t> current_frame;
           std::pair<size_t, size_t> run_frame = indie::ResourceHandler::getSkeletonFrame("RUN");
 
           ntile.setObjectRotation(0, dir);
-          current_frame = ntile.getObjectFrameLoop(0);
           ntile.setDoesAnimationChanged(0, true);
           ntile.setObjectFrameLoop(0, run_frame);
       }
@@ -114,34 +112,60 @@ void indie::Game::move(size_t playerId,
 void indie::Game::SquareBomb(indie::Tile &bombTile) {
   size_t objectId = _map.newId();
 
-  bombTile.setObjectId(0, objectId);
   _map.addObjectById(objectId);
-  bombTile.setHasModel(0, true);
-  bombTile.setDoesAnimationChanged(0, true);
-  bombTile.setModelId(0, indie::MODELS_ID::SQUAREBOMB_MODEL);
-  bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::SQUAREBOMB_MODEL));
-  bombTile.setType(0, indie::OBJECTS_ID::SQUAREBOMB);
-  bombTile.setObjectFrameLoop(0, indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::SQUAREBOMB, {0, 0}));
+  bombTile.setElem(bombTile.getTileSize(), objectId,
+                  indie::OBJECTS_ID::SQUAREBOMB,
+                  true, indie::MODELS_ID::SQUAREBOMB_MODEL, true,
+                  indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::SQUAREBOMB, {0, 0}),
+                  indie::ResourceHandler::getTexture(indie::MODELS_ID::SQUAREBOMB_MODEL));
 }
 
-void indie::Game::PikesBomb(indie::Tile &bombTile) {
-  size_t objectId = _map.newId();
+void indie::Game::PikesBomb(indie::Tile &bombTile, size_t center_x, size_t center_y) {
+  size_t objectId;
   size_t modelId;
+  size_t x;
+  std::vector<std::pair<size_t, size_t>> targets;
+  std::vector<bool> stopPropagation = { false, false, false, false };
 
-  //modelId = static_cast<size_t>(indie::MODELS_ID::PIKES_MODEL_1) + rand() % 4;
-  //bombTile.setModelId(0, static_cast<indie::MODELS_ID>(modelId));
-  //bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(static_cast<indie::MODELS_ID>(modelId)));
-  /*for (size_t i = 1; i < 3; i++) {
-    if ()
-  }*/
-  bombTile.setObjectId(0, objectId);
+  for (size_t i = 1; i <= 3; i++) {
+    x = 0;
+    targets = { {center_x - i,  center_y},
+                {center_x,      center_y - i},
+                {center_x + i,  center_y},
+                {center_x,      center_y + i } };
+
+    std::for_each(targets.begin(), targets.end(),
+      [&](std::pair<size_t, size_t> &targetPos) {
+
+        if (!stopPropagation[x] &&
+            targetPos.first < _map.getWidth() && targetPos.second < _map.getHeight()) {
+
+          indie::Tile &target = _map.at(1, targetPos.first, targetPos.second);
+
+          objectId = _map.newId();
+          _map.addObjectById(objectId);
+          modelId = static_cast<size_t>(indie::MODELS_ID::PIKES_MODEL_1) + rand() % 4;
+          target.setElem(target.getTileSize(), objectId,
+                          indie::OBJECTS_ID::PIKESBOMB,
+                          true, static_cast<indie::MODELS_ID>(modelId), true,
+                          indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}),
+                          indie::ResourceHandler::getTexture(static_cast<indie::MODELS_ID>(modelId)));
+
+          if (_map.at(0, targetPos.first, targetPos.second).getType(0) == indie::OBJECTS_ID::BOX ||
+              _map.at(0, targetPos.first, targetPos.second).getType(0) == indie::OBJECTS_ID::WALL) {
+            stopPropagation[x] = true;
+          }
+        } else { stopPropagation[x] = true; }
+        x++;
+    });
+  }
+  objectId  = _map.newId();
   _map.addObjectById(objectId);
-  bombTile.setHasModel(0, true);
-  bombTile.setModelId(0, indie::MODELS_ID::PIKES_MODEL_CENTER);
-  bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::PIKES_MODEL_CENTER));
-  bombTile.setDoesAnimationChanged(0, true);
-  bombTile.setType(0, indie::OBJECTS_ID::PIKESBOMB);
-  bombTile.setObjectFrameLoop(0, indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}));
+  bombTile.setElem(0, objectId,
+                  indie::OBJECTS_ID::PIKESBOMB,
+                  true, indie::MODELS_ID::PIKES_MODEL_CENTER, true,
+                  indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}),
+                  indie::ResourceHandler::getTexture(indie::MODELS_ID::PIKES_MODEL_CENTER));
 }
 
 void indie::Game::TentacleBomb(indie::Tile &bombTile, size_t x, size_t y) {
@@ -171,22 +195,21 @@ void indie::Game::TentacleBomb(indie::Tile &bombTile, size_t x, size_t y) {
   };
   for (size_t i = 0; i < 5; i++) {
     objectId = _map.newId();
-    if (i != 0) { bombTile.newElem(objectId); } else { bombTile.setObjectId(0, objectId); }
+    if (i != 0) { bombTile.newElem(objectId); }
     _map.addObjectById(objectId);
-    bombTile.setHasModel(i, true);
-    bombTile.setDoesAnimationChanged(i, true);
-    bombTile.setModelId(i, models[i]);
-    bombTile.setObjectTexture(i, indie::ResourceHandler::getTexture(models[i]));
-    bombTile.setType(i, indie::OBJECTS_ID::TENTACLEBOMB);
-    bombTile.setObjectFrameLoop(i, indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::TENTACLEBOMB, {0, 0}));
-    bombTile.setObjectRotation(i, dirs[i]);
+    bombTile.setElem(bombTile.getTileSize(), objectId,
+                    indie::OBJECTS_ID::TENTACLEBOMB,
+                    true, models[i], true,
+                    indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::TENTACLEBOMB, {0, 0}),
+                    indie::ResourceHandler::getTexture(models[i]),
+                    dirs[i]);
   }
 }
 
 void indie::Game::bomb(size_t playerId) {
   static std::map<indie::OBJECTS_ID, std::function<void(indie::Tile &, size_t, size_t)> > bombHandlers = {
     { indie::OBJECTS_ID::SQUAREBOMB, [this](indie::Tile &tile, size_t x, size_t y){ (void)x; (void)y; this->SquareBomb(tile); } },
-    { indie::OBJECTS_ID::PIKESBOMB, [this](indie::Tile &tile, size_t x, size_t y){ (void)x; (void)y; this->PikesBomb(tile); } },
+    { indie::OBJECTS_ID::PIKESBOMB, [this](indie::Tile &tile, size_t x, size_t y){ this->PikesBomb(tile,x , y); } },
     { indie::OBJECTS_ID::TENTACLEBOMB, [this](indie::Tile &tile, size_t x, size_t y){ this->TentacleBomb(tile, x, y); } }
   };
   indie::OBJECTS_ID type = getBombType(playerId);

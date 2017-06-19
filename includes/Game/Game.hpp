@@ -71,7 +71,7 @@ namespace indie {
       void  move(size_t, indie::ELookAt);
       void  bomb(size_t);
       void  SquareBomb(indie::Tile &);
-      void  PikesBomb(indie::Tile &);
+      void  PikesBomb(indie::Tile &, size_t, size_t);
       void  TentacleBomb(indie::Tile &, size_t x, size_t y);
 
     private:

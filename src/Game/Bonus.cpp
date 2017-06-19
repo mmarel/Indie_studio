@@ -28,7 +28,7 @@ indie::OBJECTS_ID indie::Game::getBombType(size_t playerId) const {
       return bonus.type == BONUS_SQUAREBOMB || bonus.type == BONUS_TENTACLEBOMB;
     });
     //return indie::OBJECTS_ID::TENTACLEBOMB;
-    return indie::OBJECTS_ID::SQUAREBOMB;
+    //return indie::OBJECTS_ID::SQUAREBOMB;
   if (bonus_it == (*playerInfo_it).bonus.end()) { return indie::OBJECTS_ID::PIKESBOMB; }
   return static_cast<indie::OBJECTS_ID>((*bonus_it).type);
 }

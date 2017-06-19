@@ -1,7 +1,6 @@
 #include "Game/Game.hpp"
 
 void indie::Game::removeObject(indie::Tile &tile, size_t i) {
-  std::cout << "remove object id " << tile.getObjectId(i) << std::endl;
   _map.deleteObjectById(tile.getObjectId(i));
   tile.deleteElement(i);
 }
@@ -14,7 +13,7 @@ void indie::Game::updatePlayerAnimation(indie::Tile &tile, size_t i) {
 void indie::Game::updateBombAnimation(indie::Tile &tile, size_t &i, indie::OBJECTS_ID objectType, size_t x, size_t y) {
   std::pair<size_t, size_t> nextframe = indie::ResourceHandler::getNextFrame(objectType, tile.getObjectFrameLoop(i));
 
-  if (nextframe.first == 0 && nextframe.second == 0){
+  if (nextframe.first == 0 && nextframe.second == 0) {
     removeObject(tile, i);
     i--;
     return;
@@ -35,7 +34,7 @@ std::vector<indie::AnimationState>::const_iterator indie::Game::getAnimationStat
 
 bool indie::Game::isEnded() const {
   //int nPlayers = 0;
-
+  std::cout << "end game\n";
   return true;
   /*nPlayers = std::accumulate(_settings.players.begin(), _settings.players.end(), 0,
               [](Player &player) {
