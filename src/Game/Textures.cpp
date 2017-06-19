@@ -9,12 +9,12 @@ std::string indie::ResourceHandler::getTexture(indie::MODELS_ID model) {
     { indie::MODELS_ID::PIKES_MODEL_3, "Explosions/2/Pikes_3.png" },
     { indie::MODELS_ID::PIKES_MODEL_4, "Explosions/2/Pikes_4.png" },
     { indie::MODELS_ID::PIKES_MODEL_CENTER, "Explosions/2/Pikes_Center.png" },
-    { indie::MODELS_ID::TENTACLE_MODEL_1, "Explosions/3/Tentacle_1.png" },
-    { indie::MODELS_ID::TENTACLE_MODEL_2, "Explosions/3/Tentacle_2.png" },
-    { indie::MODELS_ID::TENTACLE_MODEL_3, "Explosions/3/Tentacle_3.png" },
-    { indie::MODELS_ID::TENTACLE_MODEL_4, "Explosions/3/Tentacle_4.png" },
-    { indie::MODELS_ID::TENTACLE_MODEL_5, "Explosions/3/Tentacle_5.png" },
-    { indie::MODELS_ID::TENTACLE_MODEL_6, "Explosions/3/Tentacle_6.png" },
+    { indie::MODELS_ID::TENTACLE_MODEL_1, "Explosions/3/Tentacle.png" },
+    { indie::MODELS_ID::TENTACLE_MODEL_2, "Explosions/3/Tentacle.png" },
+    { indie::MODELS_ID::TENTACLE_MODEL_3, "Explosions/3/Tentacle.png" },
+    { indie::MODELS_ID::TENTACLE_MODEL_4, "Explosions/3/Tentacle.png" },
+    { indie::MODELS_ID::TENTACLE_MODEL_5, "Explosions/3/Tentacle.png" },
+    { indie::MODELS_ID::TENTACLE_MODEL_6, "Explosions/3/Tentacle.png" },
     { indie::MODELS_ID::TENTACLE_MODEL_PORTAL, "Explosions/3/Portal.png" },
   };
 

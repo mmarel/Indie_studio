@@ -119,25 +119,73 @@ void indie::Game::move(size_t playerId,
 }
 
 void indie::Game::SquareBomb(indie::Tile &bombTile) {
+  size_t objectId = _map.newId();
+  bombTile.setObjectId(0, objectId);
+  _map.addObjectById(objectId);
+  bombTile.setHasModel(0, true);
+  bombTile.setDoesAnimationChanged(0, true);
   bombTile.setModelId(0, indie::MODELS_ID::SQUAREBOMB_MODEL);
   bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::SQUAREBOMB_MODEL));
+  bombTile.setType(0, indie::OBJECTS_ID::SQUAREBOMB);
+  bombTile.setObjectFrameLoop(0, indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::SQUAREBOMB, {0, 0}));
 }
 
-void indie::Game::PikesBomb(indie::Tile &bombTile) {
+void indie::Game::PikesBomb(indie::Tile &bombTile, size_t x, size_t y) {
+  size_t objectId = _map.newId();
+  bombTile.setObjectId(0, objectId);
+  _map.addObjectById(objectId);
+  bombTile.setHasModel(0, true);
+  bombTile.setDoesAnimationChanged(0, true);
   bombTile.setModelId(0, indie::MODELS_ID::PIKES_MODEL_1);
   bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::PIKES_MODEL_1));
+  bombTile.setType(0, indie::OBJECTS_ID::PIKESBOMB);
+  bombTile.setObjectFrameLoop(0, indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}));
 }
 
-void indie::Game::TentacleBomb(indie::Tile &bombTile) {
-  bombTile.setModelId(0, indie::MODELS_ID::TENTACLE_MODEL_6);
-  bombTile.setObjectTexture(0, indie::ResourceHandler::getTexture(indie::MODELS_ID::TENTACLE_MODEL_6));
+void indie::Game::TentacleBomb(indie::Tile &bombTile, size_t x, size_t y) {
+  size_t eastSize = 1;
+  size_t northSize = 1;
+  size_t westSize = 1;
+  size_t southSize = 1;
+  size_t objectId;
+
+  while (westSize < 6 && x >= westSize && _map.at(0, x - westSize, y).getType(0) == indie::OBJECTS_ID::EMPTY) { std::cout << "westsize " << westSize << std::endl; westSize++; }
+  while (northSize < 6 && y >= northSize && _map.at(0,  x, y - northSize).getType(0) == indie::OBJECTS_ID::EMPTY) { northSize++; }
+  while (eastSize < 6 && (x + eastSize) < _map.getWidth() && _map.at(0, x + eastSize, y).getType(0) == indie::OBJECTS_ID::EMPTY) { eastSize++; }
+  while (southSize < 6 && (y + southSize) < _map.getHeight() && _map.at(0, x, y + southSize).getType(0) == indie::OBJECTS_ID::EMPTY) { southSize++; }
+  std::vector<indie::MODELS_ID> models = {
+    indie::MODELS_ID::TENTACLE_MODEL_PORTAL,
+    static_cast<indie::MODELS_ID>(westSize + 7),
+    static_cast<indie::MODELS_ID>(northSize + 7),
+    static_cast<indie::MODELS_ID>(eastSize + 7),
+    static_cast<indie::MODELS_ID>(southSize + 7)
+  };
+  std::vector<indie::ELookAt> dirs = {
+    indie::ELookAt::SOUTH,
+    indie::ELookAt::NORTH,
+    indie::ELookAt::EAST,
+    indie::ELookAt::SOUTH,
+    indie::ELookAt::WEST
+  };
+  for (size_t i = 0; i < 5; i++) {
+    objectId = _map.newId();
+    if (i != 0) { bombTile.newElem(objectId); } else { bombTile.setObjectId(0, objectId); }
+    _map.addObjectById(objectId);
+    bombTile.setHasModel(i, true);
+    bombTile.setDoesAnimationChanged(i, true);
+    bombTile.setModelId(i, models[i]);
+    bombTile.setObjectTexture(i, indie::ResourceHandler::getTexture(models[i]));
+    bombTile.setType(i, indie::OBJECTS_ID::TENTACLEBOMB);
+    bombTile.setObjectFrameLoop(i, indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::TENTACLEBOMB, {0, 0}));
+    bombTile.setObjectRotation(i, dirs[i]);
+  }
 }
 
 void indie::Game::bomb(size_t playerId) {
-  static std::map<indie::OBJECTS_ID, std::function<void(indie::Tile &)> > bombHandlers = {
-    { indie::OBJECTS_ID::SQUAREBOMB, [this](indie::Tile &tile){ this->SquareBomb(tile); } },
-    { indie::OBJECTS_ID::PIKESBOMB, [this](indie::Tile &tile){ this->PikesBomb(tile); } },
-    { indie::OBJECTS_ID::TENTACLEBOMB, [this](indie::Tile &tile){ this->TentacleBomb(tile); } }
+  static std::map<indie::OBJECTS_ID, std::function<void(indie::Tile &, size_t, size_t)> > bombHandlers = {
+    { indie::OBJECTS_ID::SQUAREBOMB, [this](indie::Tile &tile, size_t x, size_t y){ this->SquareBomb(tile); } },
+    { indie::OBJECTS_ID::PIKESBOMB, [this](indie::Tile &tile, size_t x, size_t y){ this->PikesBomb(tile, x, y); } },
+    { indie::OBJECTS_ID::TENTACLEBOMB, [this](indie::Tile &tile, size_t x, size_t y){ this->TentacleBomb(tile, x, y); } }
   };
   indie::OBJECTS_ID type = getBombType(playerId);
 
@@ -147,14 +195,7 @@ void indie::Game::bomb(size_t playerId) {
         if (_map.at(1, x, y).getType(0) != indie::OBJECTS_ID::EMPTY) { return; }
         indie::Tile &bombTile = _map.at(1, x, y);
 
-        size_t objectId = _map.newId();
-        bombHandlers[type](bombTile);
-        bombTile.setHasModel(0, true);
-        bombTile.setDoesAnimationChanged(0, true);
-        bombTile.setObjectId(0, objectId);
-        bombTile.setType(0, type);
-        _map.addObjectById(objectId);
-        bombTile.setObjectFrameLoop(0, indie::ResourceHandler::getNextFrame(type, {0, 0}));
+        bombHandlers[type](bombTile, x, y);
         return;
       }
     }

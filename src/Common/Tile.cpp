@@ -111,4 +111,5 @@ void  indie::Tile::newElem(size_t id) {
   _shiftX.push_back(0.0);
   _shiftY.push_back(0.0);
   _type.push_back(indie::OBJECTS_ID::EMPTY);
+  _objectTexture.push_back("");
 }
