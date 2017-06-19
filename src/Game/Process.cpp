@@ -32,8 +32,8 @@ void indie::Game::gameProcess() {
 
 void indie::Game::menuProcess() {
     handleEvents();
-    /*while (_timer.Elapsed().count() < 70);
-    _timer.Reset();*/
+    while (_timer.Elapsed().count() < 70);
+    _timer.Reset();
 }
 
 void indie::Game::process() {
