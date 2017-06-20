@@ -33,6 +33,7 @@ namespace indie
         std::vector<std::unique_ptr<indie::IComponent>>    loadSettings();
         std::vector<std::unique_ptr<indie::IComponent>>    loadScore();
         std::vector<std::unique_ptr<indie::IComponent>>    loadRoom(); ///Selection players etc..
+        std::vector<std::unique_ptr<indie::IComponent>>    loadGuiGame();
 
         ///Events loaded with Components
         ///---Main Menu Events---
