@@ -1,5 +1,19 @@
 #include "Game/ResourceHandler.hpp"
 
+std::pair<size_t, size_t>   indie::ResourceHandler::getSkeletonFrame(std::string state) {
+  static std::map<std::string, std::pair<size_t, size_t > > frames = {
+    { "CAST", {1, 36} },
+    { "DIE", {38, 68} },
+    { "IDLE", {70, 140} },
+    { "RUN", {152, 175} },
+    { "SPAWN", {177, 250} }
+  };
+  std::map<std::string, std::pair<size_t, size_t> >::const_iterator frame_it;
+
+  if ((frame_it = frames.find(state)) == frames.end()) { return std::pair<size_t, size_t>({0, 0}); }
+  return (*frame_it).second;
+}
+
 std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameSquareBomb(std::pair<size_t, size_t> current_frame) {
   static std::vector<std::pair<size_t, size_t > > frames = {
     {0, 0}, {1, 66}, {67, 82}, {83, 84}
@@ -43,20 +57,6 @@ std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameTentacleBomb(std
   });
   if (frameID == frames.size()) { return std::pair<size_t, size_t>({0, 0});}
   return frames[frameID];
-}
-
-std::pair<size_t, size_t>   indie::ResourceHandler::getSkeletonFrame(std::string state) {
-  static std::map<std::string, std::pair<size_t, size_t > > frames = {
-    { "CAST", {1, 36} },
-    { "DIE", {38, 68} },
-    { "IDLE", {70, 140} },
-    { "RUN", {152, 175} },
-    { "SPAWN", {177, 250} }
-  };
-  std::map<std::string, std::pair<size_t, size_t> >::const_iterator frame_it;
-
-  if ((frame_it = frames.find(state)) == frames.end()) { return std::pair<size_t, size_t>({0, 0}); }
-  return (*frame_it).second;
 }
 
 std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID type,

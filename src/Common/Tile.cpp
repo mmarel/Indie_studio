@@ -97,8 +97,10 @@ void  indie::Tile::deleteElement(size_t i) {
 }
 
 bool  indie::Tile::isTangible(size_t at) const {
-  return _type[at] != indie::OBJECTS_ID::EMPTY &&
-        _type[at] != indie::OBJECTS_ID::PIKESBOMB;
+  return  _type[at] != indie::OBJECTS_ID::EMPTY &&
+          _type[at] != indie::OBJECTS_ID::PIKESBOMB &&
+          _type[at] != indie::OBJECTS_ID::BONUS_SQUAREB &&
+          _type[at] != indie::OBJECTS_ID::BONUS_TENTACLEB;
 }
 
 void  indie::Tile::newElem(size_t id) {

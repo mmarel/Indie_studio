@@ -402,7 +402,7 @@ void indie::GUI::roomMenuKeyRight() {
         default:
             break;
     }
-    _settings.nplayers = _nbPlayersH + _nbPlayersAI;
+    _settings.nPlayers = _nbPlayersH + _nbPlayersAI;
 }
 
 void indie::GUI::roomMenuKeyLeft() {
@@ -425,7 +425,7 @@ void indie::GUI::roomMenuKeyLeft() {
         default:
             break;
     }
-    _settings.nplayers = _nbPlayersH + _nbPlayersAI;
+    _settings.nPlayers = _nbPlayersH + _nbPlayersAI;
 }
 
 void indie::GUI::roomMenuKeyEnter() {

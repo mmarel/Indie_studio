@@ -1,33 +1,19 @@
 #include "Game/Game.hpp"
 
 indie::Game::Game() :
-  _timer(),
-  _soundsToPlay({indie::Sound(indie::SoundId::SOUND_SKELELETON_SPAWN, indie::SoundAction::UNIQUE, 50.0f)}),
+  _players(),
+  _soundsToPlay(),
   _music(indie::Sound(indie::SoundId::SOUND_NONE, indie::SoundAction::PLAY, 50.0f)),
   _gameState(SPLASH_SCREEN),
   _events(),
-  _map(0),
-  _settings({ 50.0f, IA_LEVEL::IA_MEDIUM, std::vector<Player>(), 1, indie::PlayMod::PLAY_MOD_LOCAL}),
+  _map(),
+  _settings(),
   _gui(_settings, _gameState),
   _objectsStates()
  {
- _settings.players.push_back({
-   indie::KeyboardKey::KB_Q, indie::KeyboardKey::KB_D,
-   indie::KeyboardKey::KB_Z, indie::KeyboardKey::KB_S,
-   indie::KeyboardKey::KB_E,
-   std::vector<indie::Bonus>(),
-   1, indie::PlayerType::PLAYER_HUMAN});
  }
 
 indie::Game::~Game() {}
-
-void indie::Game::initSettings() {
-  _settings = {
-    50.0f, indie::IA_LEVEL::IA_MEDIUM,
-    std::vector<indie::Player>(),
-    0, indie::PlayMod::PLAY_MOD_UNKNOWN
-  };
-}
 
 indie::GameState indie::Game::getGameState() const {
   return _gameState;
@@ -62,4 +48,48 @@ const indie::IGUI &indie::Game::getCurrentGUI() const {
 
 void indie::Game::setObjectsAnimationState(const std::vector<indie::AnimationState> &objectsStates) {
   _objectsStates = objectsStates;
+  //_objectsStates.insert(_objectsStates.end(), objectsStates.begin(), objectsStates.end());
+}
+
+indie::Player &indie::Game::getPlayerById(size_t playerId) {
+  return *(std::find_if(_players.begin(), _players.end(),
+            [&playerId](Player &player) {
+              return player.getId() == playerId;
+            }));
+}
+
+bool indie::Game::isEnded() const {
+  //int nPlayers = 0;
+  return false;
+  std::cout << "end game\n";
+  return true;
+  /*nPlayers = std::accumulate(_settings.players.begin(), _settings.players.end(), 0,
+              [](Player &player) {
+                return
+              });*/
+}
+
+void indie::Game::reset() {
+  _players.clear();
+  _music = indie::Sound(indie::SoundId::SOUND_NONE, indie::SoundAction::PLAY, 50.0f);
+  _events.clear();
+  _map.clear();
+  _settings = Settings();
+  _objectsStates.clear();
+}
+
+void indie::Game::start() {
+  std::cout << "start game\n";
+  for (size_t i = 1; i <= 2; i++) {
+    _players.push_back(indie::Player(i));
+  }
+  return;
+  reset();
+  _settings.nPlayers = 2;
+  //_soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_SKELELETON_SPAWN, indie::SoundAction::UNIQUE, 50.0f));
+  for (size_t i = 1; i <= _settings.nPlayers; i++) {
+    _players.push_back(indie::Player(i));
+  }
+  // TODO init AIs
+  _map.init(0, _settings.nPlayers + _settings.nAIs);
 }
