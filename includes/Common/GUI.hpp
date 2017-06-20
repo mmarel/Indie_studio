@@ -20,6 +20,8 @@ namespace indie
         typedef std::function<void()>                                            _compActionsfunc;
 
         size_t                                                _posBackground;
+        size_t                                                _nbPlayersH;
+        size_t                                                _nbPlayersAI;
         indie::Settings&                                       _settings;
         indie::GameState&                                      _gameState;
         std::vector<std::unique_ptr<indie::IComponent>>       _components;

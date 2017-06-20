@@ -2,7 +2,7 @@
 #include <Interfaces/Sound.hpp>
 #include "Common/GUI.hpp"
 
-indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackground(0), _settings(settings), _gameState(state), _components(), _loadComps(), _compActions() {
+indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackground(0), _nbPlayersH(0), _nbPlayersAI(0), _settings(settings), _gameState(state), _components(), _loadComps(), _compActions() {
 
     _loadComps[indie::GameState::MAIN_MENU] = [this](){return loadMenu();};
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
@@ -30,39 +30,38 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
     std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > sprites;
 
     sprites = std::make_unique<std::vector<std::unique_ptr<indie::ISprite> > >();
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/main/main_select_play.png",
-                                                         "Menu/main/main_select_settings.png",
-                                                         "Menu/main/main_select_highscores.png",
-                                                         "Menu/main/main_select_exit.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/settings/settings_base.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/settings/settings_sound_0.png",
-                                                         "Menu/settings/settings_sound_1.png",
-                                                         "Menu/settings/settings_sound_2.png",
-                                                         "Menu/settings/settings_sound_3.png",
-                                                         "Menu/settings/settings_sound_4.png",
-                                                         "Menu/settings/settings_sound_5.png",
-                                                         "Menu/settings/settings_sound_6.png",
-                                                         "Menu/settings/settings_sound_7.png",
-                                                         "Menu/settings/settings_sound_8.png",
-                                                         "Menu/settings/settings_sound_9.png",
-                                                         "Menu/settings/settings_sound_10.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/settings/settings_ai_normal.png", "Menu/settings/settings_ai_hard.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/arrow.png", "Menu/arrow-rev.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/room_base.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/MAIN/base.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/arrow.png", "Menu_final/arrow-rev.png",
+                                                         "Menu_final/arrow-down.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/SETTINGS/base.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/SETTINGS/sound_0.png",
+                                                         "Menu_final/SETTINGS/sound_1.png",
+                                                         "Menu_final/SETTINGS/sound_2.png",
+                                                         "Menu_final/SETTINGS/sound_3.png",
+                                                         "Menu_final/SETTINGS/sound_4.png",
+                                                         "Menu_final/SETTINGS/sound_5.png",
+                                                         "Menu_final/SETTINGS/sound_6.png",
+                                                         "Menu_final/SETTINGS/sound_7.png",
+                                                         "Menu_final/SETTINGS/sound_8.png",
+                                                         "Menu_final/SETTINGS/sound_9.png",
+                                                         "Menu_final/SETTINGS/sound_10.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/SETTINGS/AI_normal.png",
+                                                         "Menu_final/SETTINGS/AI_hard.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/ROOM/room_base.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Sprites/score.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/0.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/1.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/2.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/3.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/4.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/5.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/6.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/7.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/8.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/9.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu/room/dot.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/NUMBERS/0.png",
+                                                         "Menu_final/NUMBERS/1.png",
+                                                         "Menu_final/NUMBERS/2.png",
+                                                         "Menu_final/NUMBERS/3.png",
+                                                         "Menu_final/NUMBERS/4.png",
+                                                         "Menu_final/NUMBERS/5.png",
+                                                         "Menu_final/NUMBERS/6.png",
+                                                         "Menu_final/NUMBERS/7.png",
+                                                         "Menu_final/NUMBERS/8.png",
+                                                         "Menu_final/NUMBERS/9.png"));
     return (std::move(sprites));
 }
+
 void indie::GUI::notifyEvent(const indie::Event &event) {
     if (event.type == indie::EventType::ET_KEYBOARD)
     {
@@ -77,6 +76,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadMenu() {
     _posBackground = 0;
     ///Load menu components
      res.push_back(createComponent(0, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
+     res.push_back(createComponent(1, 0.31f, 0.35f, 0.36f, 0.417f, indie::Color::White, indie::Color::White));
 
     ///Load Menu Events
     if (!_compActions.empty())
@@ -96,14 +96,14 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadSettings() {
     ///Load Settings components
     _posBackground = 0;
 
-    res.push_back(createComponent(1, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
-    res.push_back(createComponent(2, 0.22f, 0.37f, 0.77f, 0.45f, indie::Color::White, indie::Color::White));
-    res.push_back(createComponent(3, 0.28f, 0.57f, 0.68f, 0.77f, indie::Color::White, indie::Color::White));
-    res.push_back(createComponent(4, 0.28f, 0.25f, 0.38f, 0.35f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(2, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(1, 0.57f, 0.3f, 0.61f, 0.37f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(3, 0.54f, 0.39f, 0.76f, 0.47f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(4, 0.54f, 0.58f, 0.76f, 0.75f, indie::Color::White, indie::Color::White));
 
     ///Load Settings Values
-    res.at(1)->setBackgroundPos(static_cast<size_t>(_settings.volume / 10));
-    res.at(2)->setBackgroundPos(static_cast<size_t >(_settings.difficulty));
+    res.at(2)->setBackgroundPos(static_cast<size_t>(_settings.volume / 10));
+    res.at(3)->setBackgroundPos(static_cast<size_t >(_settings.difficulty));
 
     ///Load Settings Events
     if (!_compActions.empty())
@@ -121,11 +121,16 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadSettings() {
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadRoom() {
     std::vector<std::unique_ptr<indie::IComponent>> res;
 
-    std::cout << "LOAD ROOM\n";
     ///Load Room Components
 
+    _nbPlayersH = 1;
+    _nbPlayersAI = 0;
     res.push_back(createComponent(5, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
-    res.push_back(createComponent(4, 0.09f, 0.33f, 0.18f, 0.39f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(1, 0.53f, 0.35f, 0.57f, 0.4f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(7, 0.63f, 0.36f, 0.66f, 0.39f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(7, 0.63f, 0.4f, 0.66f, 0.43f, indie::Color::White, indie::Color::White));
+
+    res.at(2)->setBackgroundPos(_nbPlayersH);
 
     if (!_compActions.empty())
         _compActions.clear();
@@ -134,7 +139,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadRoom() {
     _compActions[indie::KeyboardKey::KB_ARROW_UP] = [this](){roomMenuKeyUp();};
     _compActions[indie::KeyboardKey::KB_ARROW_RIGHT] = [this](){roomMenuKeyRight();};
     _compActions[indie::KeyboardKey::KB_ARROW_LEFT] = [this](){roomMenuKeyLeft();};
-    _compActions[indie::KeyboardKey::KB_ENTER] = [this](){roomMenuKeyEnter();};
+//    _compActions[indie::KeyboardKey::KB_ENTER] = [this](){roomMenuKeyEnter();};
 
     return (res);
 }
@@ -183,20 +188,42 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
 ///     Event Main Menu functions --- Start
 
 void indie::GUI::mainMenuKeyDown() {
+    switch (_posBackground)
+    {
+        case 0: _components.at(1)->setPos(0.29f, 0.435f, 0.34f, 0.505f);
+            break;
+        case 1: _components.at(1)->setPos(0.27f, 0.515f, 0.32f, 0.58f);
+            break;
+        case 2: _components.at(1)->setPos(0.31f, 0.6f, 0.36f, 0.67f);
+            break;
+        default:
+            break;
+    }
     if (_posBackground + 1 < 4)
-        _components.at(0)->setBackgroundPos(++_posBackground);
+        ++_posBackground;
 }
 
 void indie::GUI::mainMenuKeyUp() {
+    switch (_posBackground)
+    {
+        case 1: _components.at(1)->setPos(0.31f, 0.35f, 0.36f, 0.417f);
+            break;
+        case 2: _components.at(1)->setPos(0.29f, 0.435f, 0.34f, 0.505f);
+            break;
+        case 3: _components.at(1)->setPos(0.27f, 0.515f, 0.32f, 0.58f);
+            break;
+        default:
+            break;
+    }
     if (_posBackground > 0)
-        _components.at(0)->setBackgroundPos(--_posBackground);
+        --_posBackground;
 }
 
 void indie::GUI::mainMenuKeyAccess(){
     switch (_posBackground)
 
     {
-        case 0: loadComponents((_gameState = indie::GameState::INGAME));
+        case 0: loadComponents((_gameState = indie::GameState::ROOM));
             break;
         case 1: loadComponents((_gameState = indie::GameState::SETTINGS));
             break;
@@ -218,11 +245,11 @@ void indie::GUI::mainMenuKeyAccess(){
 void indie::GUI::settMenuKeyDown() {
     switch (_posBackground)
     {
-        case 0: _components.at(3)->setPos(0.26f, 0.47f, 0.36f, 0.57f);
+        case 0: _components.at(1)->setPos(0.57f, 0.47f, 0.61f, 0.53f);
             break;
         case 1: {
-            _components.at(3)->setPos(0.225f, 0.89f, 0.29f, 0.99f);
-            _components.at(3)->setBackgroundPos(1);
+            _components.at(1)->setPos(0.53f, 0.77f, 0.58f, 0.82f);
+            _components.at(1)->setBackgroundPos(2);
             break;
         }
         default:
@@ -236,13 +263,13 @@ void indie::GUI::settMenuKeyUp() {
     switch (_posBackground)
     {
         case 1: {
-            _components.at(3)->setPos(0.28f, 0.25f, 0.38f, 0.35f);
-            _components.at(3)->setBackgroundPos(0);
+            _components.at(1)->setPos(0.57f, 0.3f, 0.61f, 0.37f);
+            _components.at(1)->setBackgroundPos(0);
             break;
         }
         case 2: {
-            _components.at(3)->setPos(0.26f, 0.47f, 0.36f, 0.57f);
-            _components.at(3)->setBackgroundPos(0);
+            _components.at(1)->setPos(0.57f, 0.47f, 0.61f, 0.53f);
+            _components.at(1)->setBackgroundPos(0);
             break;
         }
         default:
@@ -257,14 +284,14 @@ void indie::GUI::settMenuKeyRight() {
         case 0 :{
             if (_settings.volume + 10 <= 100) {
                 _settings.volume += 10;
-                _components.at(1)->setBackgroundPos(static_cast<size_t >(_settings.volume / 10));
+                _components.at(2)->setBackgroundPos(static_cast<size_t >(_settings.volume / 10));
             }
             break;
         }
         case 1:{
             if (_settings.difficulty == indie::IA_LEVEL::IA_MEDIUM) {
                 _settings.difficulty = indie::IA_LEVEL::IA_HARD;
-                _components.at(2)->setBackgroundPos(static_cast<size_t >(_settings.difficulty));
+                _components.at(3)->setBackgroundPos(static_cast<size_t >(_settings.difficulty));
             }
             break;
         }
@@ -281,14 +308,14 @@ void indie::GUI::settMenuKeyLeft() {
         case 0 : {
             if (_settings.volume - 10 >= 0) {
                 _settings.volume -= 10;
-                _components.at(1)->setBackgroundPos(static_cast<size_t >(_settings.volume / 10));
+                _components.at(2)->setBackgroundPos(static_cast<size_t >(_settings.volume / 10));
             }
             break;
         }
         case 1: {
             if (_settings.difficulty == indie::IA_LEVEL::IA_HARD) {
                 _settings.difficulty = indie::IA_LEVEL::IA_MEDIUM;
-                _components.at(2)->setBackgroundPos(static_cast<size_t >(_settings.difficulty));
+                _components.at(3)->setBackgroundPos(static_cast<size_t >(_settings.difficulty));
             }
             break;
         }
@@ -309,52 +336,64 @@ void indie::GUI::settMenuKeyEnter() {
 ///     Event Room Menu functions --- Start
 
 void indie::GUI::roomMenuKeyDown() {
-    if (_posBackground < 3)
+    switch (_posBackground)
+    {
+        case 0: _components.at(1)->setPos(0.53f, 0.39f, 0.57f, 0.44f);
+            break;
+        default:
+            break;
+    }
+    if (_posBackground + 1 < 2)
         ++_posBackground;
-//    if (_compId + 1 < _components.size())
-//    switch (_posBackground)
-//    {
-//        case 0: {
-//            _components.at(1)->setBackgroundPos(0)
-//        }
-//
-//    }
 }
 
 void indie::GUI::roomMenuKeyUp() {
-//    if (_compId - 1 > 1)
-//    {
-//        for (size_t i = 1; i < _components.size(); ++i)
-//        {
-//            if (i == _compId - 1)
-//                _components.at(i)->setBackgroundPos(1);
-//            else
-//                _components.at(i)->setBackgroundPos(0);
-//        }
-//        _compId--;
-//    }
+    switch (_posBackground)
+    {
+        case 1: _components.at(1)->setPos(0.53f, 0.35f, 0.57f, 0.4f);
+            break;
+        default:
+            break;
+    }
+    if (_posBackground > 0)
+        --_posBackground;
 }
 
 void indie::GUI::roomMenuKeyRight() {
+    switch (_posBackground)
+    {
+        case 0: {
+            if (_nbPlayersH + 1 < 3)
+                _components.at(2)->setBackgroundPos(++_nbPlayersH);
+            break;
+        }
+        case 1: {
+            std::cout << "VALUE RIGHT : " << (_nbPlayersAI + 1) + (_nbPlayersH) << std::endl;
+            if ((_nbPlayersAI + 1) + (_nbPlayersH) < 5)
+                _components.at(3)->setBackgroundPos(++_nbPlayersAI);
+        }
+        default:
+            break;
+    }
 }
 
 void indie::GUI::roomMenuKeyLeft() {
-//    switch (_compId) {
-//        case 2 : {
-//            if (_settings.nplayers - 1 > 2)
-//                _settings.nplayers--;
-//            break;
-//        }
-//        case 3: {
-//            if (_settings.nplayers - 1 > 2)
-//                _settings.nplayers--;
-//            break;
-//        }
-//        case 8: loadComponents(indie::GameState::MAIN_MENU);
-//            break;
-//        default:
-//            break;
-//    }
+    switch (_posBackground)
+    {
+        case 0: {
+            if (_nbPlayersH > 1)
+                _components.at(2)->setBackgroundPos(--_nbPlayersH);
+            break;
+        }
+        case 1: {
+            std::cout << "VALUE LEFT : " << _nbPlayersAI + _nbPlayersH << std::endl;
+            if (_nbPlayersAI > 0)
+                _components.at(3)->setBackgroundPos(--_nbPlayersH);
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 void indie::GUI::roomMenuKeyEnter() {
