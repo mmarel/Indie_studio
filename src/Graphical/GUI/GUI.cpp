@@ -203,13 +203,41 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
     _posBackground = 0;
 
 //bleu, rouge, jaune, vert
-    res.push_back(createComponent(8, 0.025f, 0.025f, 0.125f, 0.125f, indie::Color::White, indie::Color::White));
-    res.push_back(createComponent(8, 0.875f, 0.025f, 0.975f, 0.125f, indie::Color::White, indie::Color::White));
-    res.at(res.size() - 1)->setBackgroundPos(1);
-    res.push_back(createComponent(8, 0.025f, 0.875f, 0.125f, 0.975f, indie::Color::White, indie::Color::White));
-    res.at(res.size() - 1)->setBackgroundPos(2);
-    res.push_back(createComponent(8, 0.875f, 0.875f, 0.975f, 0.975f, indie::Color::White, indie::Color::White));
-    res.at(res.size() - 1)->setBackgroundPos(3);
+    switch (_nbPlayersH + _nbPlayersAI)
+    {
+        case 1: { 
+            res.push_back(createComponent(8, 0.025f, 0.025f, 0.125f, 0.125f, indie::Color::White, indie::Color::White));
+            break;
+        }
+        case 2: {
+            res.push_back(createComponent(8, 0.025f, 0.025f, 0.125f, 0.125f, indie::Color::White, indie::Color::White));
+            res.push_back(createComponent(8, 0.875f, 0.025f, 0.975f, 0.125f, indie::Color::White, indie::Color::White));
+            res.at(res.size() - 1)->setBackgroundPos(1);
+            break;
+        }
+        case 3: {
+            res.push_back(createComponent(8, 0.025f, 0.025f, 0.125f, 0.125f, indie::Color::White, indie::Color::White));
+            res.push_back(createComponent(8, 0.875f, 0.025f, 0.975f, 0.125f, indie::Color::White, indie::Color::White));
+            res.at(res.size() - 1)->setBackgroundPos(1);
+            res.push_back(createComponent(8, 0.025f, 0.875f, 0.125f, 0.975f, indie::Color::White, indie::Color::White));
+            res.at(res.size() - 1)->setBackgroundPos(2);
+            break;
+        }
+        case 4: {
+            res.push_back(createComponent(8, 0.025f, 0.025f, 0.125f, 0.125f, indie::Color::White, indie::Color::White));
+            res.push_back(createComponent(8, 0.875f, 0.025f, 0.975f, 0.125f, indie::Color::White, indie::Color::White));
+            res.at(res.size() - 1)->setBackgroundPos(1);
+            res.push_back(createComponent(8, 0.025f, 0.875f, 0.125f, 0.975f, indie::Color::White, indie::Color::White));
+            res.at(res.size() - 1)->setBackgroundPos(2);
+            res.push_back(createComponent(8, 0.875f, 0.875f, 0.975f, 0.975f, indie::Color::White, indie::Color::White));
+            res.at(res.size() - 1)->setBackgroundPos(3);
+            break;
+        }
+        default: {
+            res.push_back(createComponent(8, 0.025f, 0.025f, 0.125f, 0.125f, indie::Color::White, indie::Color::White));
+            break;
+        }
+    }
     return (res);
 }
 
