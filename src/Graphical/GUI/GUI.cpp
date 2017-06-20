@@ -48,7 +48,7 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/SETTINGS/AI_normal.png",
                                                          "Menu_final/SETTINGS/AI_hard.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/ROOM/room_base.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Sprites/score.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/HIGHSCORES/base.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/NUMBERS/0.png",
                                                          "Menu_final/NUMBERS/1.png",
                                                          "Menu_final/NUMBERS/2.png",
@@ -58,7 +58,8 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                          "Menu_final/NUMBERS/6.png",
                                                          "Menu_final/NUMBERS/7.png",
                                                          "Menu_final/NUMBERS/8.png",
-                                                         "Menu_final/NUMBERS/9.png"));
+                                                         "Menu_final/NUMBERS/9.png",
+                                                         "Menu_final/NUMBERS/dot.png"));
     return (std::move(sprites));
 }
 
@@ -159,19 +160,19 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
     std::vector<std::string> dates = score->GetDates();
 
     res.push_back(createComponent(6, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
-    y = 0.35f;
-    height = 0.41f;
+    y = 0.32f;
+    height = 0.35f;
     for(std::vector<int>::iterator i = scores.begin(); i != scores.end(); ++i)  
     {
-        getTabNumber(res, std::to_string(*i), 0.10f, y, 0.16f, height);
+        getTabNumber(res, std::to_string(*i), 0.52f, y, 0.55f, height);
         y += 0.1;
         height += 0.1;
     }
-    y = 0.35f;
-    height = 0.41f;
+    y = 0.32f;
+    height = 0.345f;
     for(std::vector<std::string>::iterator i = dates.begin(); i != dates.end();++i)
     {
-        getTabDates(res, *i, 0.33f, y, 0.39f, height);
+        getTabDates(res, *i, 0.635f, y, 0.65f, height);
         y += 0.1;
         height += 0.1;
     }
@@ -406,8 +407,8 @@ void indie::GUI::roomMenuKeyEnter() {
 ///     Event Score Menu functions --- Start
 
 void indie::GUI::scoreMenuKeyEnter() {
-    _gameState = indie::GameState::MAIN_MENU;
-    loadComponents(_gameState);
+    //_gameState = indie::GameState::MAIN_MENU;
+    //loadComponents(_gameState);
 }
 
 void    indie::GUI::getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &res, std::string score, double x, double y, double width, double height)
@@ -418,10 +419,11 @@ void    indie::GUI::getTabNumber(std::vector<std::unique_ptr<indie::IComponent>>
     pos_x = x;
     for (int i = 0; score[i] != '\0'; ++i)
     {
-        nb = score[i] - 48 + 7;
-        res.push_back(createComponent(nb, pos_x, y, width, height, indie::Color::White, indie::Color::White));
-        pos_x += 0.06;
-        width += 0.06;
+        nb = score[i] - 48;
+        res.push_back(createComponent(7, pos_x, y, width, height, indie::Color::White, indie::Color::White));
+        res.at(res.size() - 1)->setBackgroundPos(nb);
+        pos_x += 0.025;
+        width += 0.025;
     }
 }
 
@@ -434,12 +436,13 @@ void    indie::GUI::getTabDates(std::vector<std::unique_ptr<indie::IComponent>> 
     for (int i = 0; score[i] != '\0'; ++i)
     {
         if (score[i] >= '0' && score[i] <= '9')
-            nb = score[i] - 48 + 7;             
+            nb = score[i] - 48;
         else
-            nb = 17;
-        res.push_back(createComponent(nb, pos_x, y, width, height, indie::Color::White, indie::Color::White));
-        pos_x += 0.06;
-        width += 0.06;
+            nb = 10;
+        res.push_back(createComponent(7, pos_x, y, width, height, indie::Color::White, indie::Color::White));
+        res.at(res.size() - 1)->setBackgroundPos(nb);
+        pos_x += 0.012;
+        width += 0.012;
     }
 }
 
