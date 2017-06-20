@@ -86,7 +86,6 @@ if(UNIX AND NOT APPLE)
                   ${PROJECT_SOURCE_DIR}/${ROOT_DIR}/lib/Linux/libIrrlicht.a
 
                   -lIrrlicht
-                  -l
                   -lXrandr
                   -lXi
                   -lXrender
