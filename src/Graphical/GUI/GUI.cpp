@@ -1,9 +1,10 @@
-#include <Game/Score.hpp>
-#include <Interfaces/Sound.hpp>
+#include "Game/Score.hpp"
+#include "Interfaces/Sound.hpp"
 #include "Common/GUI.hpp"
 
 indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackground(0), _nbPlayersH(0),
-                                                                      _nbPlayersAI(0), _settings(settings),
+                                                                      _nbPlayersAI(0), _indexPaths(0),
+                                                                      _hasTransition(false), _settings(settings),
                                                                       _gameState(state), _components(),
                                                                       _loadComps(), _compActions(),
                                                                       _sounds() {
@@ -14,6 +15,125 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
     _loadComps[indie::GameState::ROOM] = [this](){return loadRoom();};
     _loadComps[indie::GameState::INGAME] = [this](){return loadGuiGame();};
 
+    _transitPaths = {{"Menu_final/Transitions/Main_to_HighScores/002.png",
+                             "Menu_final/Transitions/Main_to_HighScores/003.png",
+                             "Menu_final/Transitions/Main_to_HighScores/004.png",
+                             "Menu_final/Transitions/Main_to_HighScores/005.png",
+                             "Menu_final/Transitions/Main_to_HighScores/006.png",
+                             "Menu_final/Transitions/Main_to_HighScores/007.png",
+                             "Menu_final/Transitions/Main_to_HighScores/008.png",
+                             "Menu_final/Transitions/Main_to_HighScores/009.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0010.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0011.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0012.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0013.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0014.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0015.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0016.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0017.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0018.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0019.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0020.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0021.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0022.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0023.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0024.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0025.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0026.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0027.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0028.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0029.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0030.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0031.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0032.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0033.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0034.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0035.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0036.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0037.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0038.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0039.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0040.png"},
+
+                     {"Menu_final/Transitions/Main_to_Settings/002.png",
+                             "Menu_final/Transitions/Main_to_Settings/003.png",
+                             "Menu_final/Transitions/Main_to_Settings/004.png",
+                             "Menu_final/Transitions/Main_to_Settings/005.png",
+                             "Menu_final/Transitions/Main_to_Settings/006.png",
+                             "Menu_final/Transitions/Main_to_Settings/007.png",
+                             "Menu_final/Transitions/Main_to_Settings/008.png",
+                             "Menu_final/Transitions/Main_to_Settings/009.png",
+                             "Menu_final/Transitions/Main_to_Settings/0010.png",
+                             "Menu_final/Transitions/Main_to_Settings/0011.png",
+                             "Menu_final/Transitions/Main_to_Settings/0012.png",
+                             "Menu_final/Transitions/Main_to_Settings/0013.png",
+                             "Menu_final/Transitions/Main_to_Settings/0014.png",
+                             "Menu_final/Transitions/Main_to_Settings/0015.png",
+                             "Menu_final/Transitions/Main_to_Settings/0016.png",
+                             "Menu_final/Transitions/Main_to_Settings/0017.png",
+                             "Menu_final/Transitions/Main_to_Settings/0018.png",
+                             "Menu_final/Transitions/Main_to_Settings/0019.png",
+                             "Menu_final/Transitions/Main_to_Settings/0020.png",
+                             "Menu_final/Transitions/Main_to_Settings/0021.png",
+                             "Menu_final/Transitions/Main_to_Settings/0022.png",
+                             "Menu_final/Transitions/Main_to_Settings/0023.png",
+                             "Menu_final/Transitions/Main_to_Settings/0024.png",
+                             "Menu_final/Transitions/Main_to_Settings/0025.png",
+                             "Menu_final/Transitions/Main_to_Settings/0026.png",
+                             "Menu_final/Transitions/Main_to_Settings/0027.png",
+                             "Menu_final/Transitions/Main_to_Settings/0028.png",
+                             "Menu_final/Transitions/Main_to_Settings/0029.png",
+                             "Menu_final/Transitions/Main_to_Settings/0030.png",
+                             "Menu_final/Transitions/Main_to_Settings/0031.png",
+                             "Menu_final/Transitions/Main_to_Settings/0032.png",
+                             "Menu_final/Transitions/Main_to_Settings/0033.png",
+                             "Menu_final/Transitions/Main_to_Settings/0034.png",
+                             "Menu_final/Transitions/Main_to_Settings/0035.png",
+                             "Menu_final/Transitions/Main_to_Settings/0036.png",
+                             "Menu_final/Transitions/Main_to_Settings/0037.png",
+                             "Menu_final/Transitions/Main_to_Settings/0038.png",
+                             "Menu_final/Transitions/Main_to_Settings/0039.png",
+                             "Menu_final/Transitions/Main_to_Settings/0040.png"},
+
+                     {"Menu_final/Transitions/Main_to_Room/002.png",
+                             "Menu_final/Transitions/Main_to_Room/003.png",
+                             "Menu_final/Transitions/Main_to_Room/004.png",
+                             "Menu_final/Transitions/Main_to_Room/005.png",
+                             "Menu_final/Transitions/Main_to_Room/006.png",
+                             "Menu_final/Transitions/Main_to_Room/007.png",
+                             "Menu_final/Transitions/Main_to_Room/008.png",
+                             "Menu_final/Transitions/Main_to_Room/009.png",
+                             "Menu_final/Transitions/Main_to_Room/0010.png",
+                             "Menu_final/Transitions/Main_to_Room/0011.png",
+                             "Menu_final/Transitions/Main_to_Room/0012.png",
+                             "Menu_final/Transitions/Main_to_Room/0013.png",
+                             "Menu_final/Transitions/Main_to_Room/0014.png",
+                             "Menu_final/Transitions/Main_to_Room/0015.png",
+                             "Menu_final/Transitions/Main_to_Room/0016.png",
+                             "Menu_final/Transitions/Main_to_Room/0017.png",
+                             "Menu_final/Transitions/Main_to_Room/0018.png",
+                             "Menu_final/Transitions/Main_to_Room/0019.png",
+                             "Menu_final/Transitions/Main_to_Room/0020.png",
+                             "Menu_final/Transitions/Main_to_Room/0021.png",
+                             "Menu_final/Transitions/Main_to_Room/0022.png",
+                             "Menu_final/Transitions/Main_to_Room/0023.png",
+                             "Menu_final/Transitions/Main_to_Room/0024.png",
+                             "Menu_final/Transitions/Main_to_Room/0025.png",
+                             "Menu_final/Transitions/Main_to_Room/0026.png",
+                             "Menu_final/Transitions/Main_to_Room/0027.png",
+                             "Menu_final/Transitions/Main_to_Room/0028.png",
+                             "Menu_final/Transitions/Main_to_Room/0029.png",
+                             "Menu_final/Transitions/Main_to_Room/0030.png",
+                             "Menu_final/Transitions/Main_to_Room/0031.png",
+                             "Menu_final/Transitions/Main_to_Room/0032.png",
+                             "Menu_final/Transitions/Main_to_Room/0033.png",
+                             "Menu_final/Transitions/Main_to_Room/0034.png",
+                             "Menu_final/Transitions/Main_to_Room/0035.png",
+                             "Menu_final/Transitions/Main_to_Room/0036.png",
+                             "Menu_final/Transitions/Main_to_Room/0037.png",
+                             "Menu_final/Transitions/Main_to_Room/0038.png",
+                             "Menu_final/Transitions/Main_to_Room/0039.png",
+                             "Menu_final/Transitions/Main_to_Room/0040.png"}};
     _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
 }
 
@@ -509,4 +629,16 @@ void    indie::GUI::getTabDates(std::vector<std::unique_ptr<indie::IComponent>> 
 
 const std::vector<indie::Sound> &indie::GUI::getSounds() const {
     return (_sounds);
+}
+
+const std::vector<std::string> &indie::GUI::getTransitPaths() const {
+    return (_transitPaths.at(_indexPaths));
+}
+
+bool indie::GUI::hasTransition() const {
+    return (_hasTransition);
+}
+
+void indie::GUI::endTransition() {
+    _hasTransition = false;
 }

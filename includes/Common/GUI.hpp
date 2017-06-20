@@ -22,12 +22,15 @@ namespace indie
         size_t                                                _posBackground;
         size_t                                                _nbPlayersH;
         size_t                                                _nbPlayersAI;
-        indie::Settings&                                       _settings;
-        indie::GameState&                                      _gameState;
+        size_t                                                _indexPaths;
+        bool                                                 _hasTransition;
+        indie::Settings&                                      _settings;
+        indie::GameState&                                     _gameState;
         std::vector<std::unique_ptr<indie::IComponent>>       _components;
         std::map<indie::GameState, _loadCompfunc>             _loadComps;
         std::map<indie::KeyboardKey, _compActionsfunc>        _compActions;
         std::vector<indie::Sound>                             _sounds;
+        std::vector<std::vector<std::string>>                 _transitPaths;
 
         ///Load Components Functions
         std::vector<std::unique_ptr<indie::IComponent>>    loadMenu();
@@ -84,6 +87,9 @@ namespace indie
         virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites() const;
         virtual void notifyEvent(const indie::Event &);
         virtual const std::vector<indie::Sound> &getSounds() const;
+        virtual bool hasTransition() const;
+        virtual const std::vector<std::string> &getTransitPaths() const;
+        virtual void endTransition();
     };
 }
 

@@ -52,6 +52,12 @@ namespace indie
 
     virtual const std::vector<indie::Sound> &getSounds() const = 0;
 
+    virtual bool hasTransition() const = 0;
+
+    virtual const std::vector<std::string> &getTransitPaths() const = 0;
+
+    virtual void endTransition() = 0;
+
   };
 }
 
