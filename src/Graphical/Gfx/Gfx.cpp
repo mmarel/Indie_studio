@@ -44,7 +44,8 @@ indie::Gfx::Gfx()
           // Utils
           // ------------   N       E      S      W
           _orientation( { 180.0f, 270.0f, 0.0f, 90.0f }),
-          _infos(0)
+          _infos(0),
+          _introFinished(false)
     {
 
         std::cout << "Launching Irrlicht GFX" << std::endl;

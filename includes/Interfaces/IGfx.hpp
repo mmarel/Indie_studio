@@ -124,6 +124,12 @@ namespace indie
         ///
         virtual void updateGUI(const IGUI &gui) = 0;
 
+        // SplashScreen
+        ///
+        /// \fn virtual void launchIntro() = 0;
+        /// \brief Run the SplashScreen from the Gfx
+        virtual void launchIntro() = 0;
+
         // Display
         ///
         /// \fn virtual void display() = 0

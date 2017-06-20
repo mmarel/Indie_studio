@@ -16,7 +16,6 @@ indie::Core::Core()
         _sounds(),
         _gameState(indie::GameState::NONE)
 {
-  std::cout << "core ctor\n";
     if (!this->_gfx || !this->_game)
         throw indie::IndieError(_INDIE_CORE_INIT_FAILED);
 }
@@ -41,7 +40,8 @@ void            indie::Core::runCoreLoop()
                 return ;
                 break ;
 
-            case indie::GameState::SPLASH_SCREEN: // To change when splash will be ready.
+            case indie::GameState::SPLASH_SCREEN: // To change when splash will be ready
+                this->_gfx->launchIntro();
                 this->loading();
                 this->process();
                 break ;

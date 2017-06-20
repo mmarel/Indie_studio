@@ -77,6 +77,8 @@ namespace indie
             //  Main
             virtual void        display();
             virtual void        clear();
+            // SplashScreen
+            virtual void        launchIntro();
             //  Events
             virtual bool        pollEvents(std::vector<Event> &events);
             //  Sound
@@ -193,6 +195,7 @@ namespace indie
             // Utils
             const std::array< float, 4 >                        _orientation;
             GfxInfos                                            _infos;
+            bool                                                _introFinished;
     };
 
 }
