@@ -2,9 +2,9 @@
 
 void indie::Game::updateScore(size_t id, int points) {
   std::find_if(_players.begin(), _players.end(),
-  [&id, &points](indie::Player &player){
-    if (player.hasBomb(id)) {
-      player.updateScore(points);
+  [&id, &points](std::unique_ptr<indie::Player> &player){
+    if (player->hasBomb(id)) {
+      player->updateScore(points);
       return true;
     }
     return false;
@@ -13,9 +13,9 @@ void indie::Game::updateScore(size_t id, int points) {
 
 void indie::Game::deleteBombSaves(size_t id) {
   std::find_if(_players.begin(), _players.end(),
-  [&id](indie::Player &player){
-    if (player.hasBomb(id)) {
-      player.removeBomb(id);
+  [&id](std::unique_ptr<indie::Player> &player){
+    if (player->hasBomb(id)) {
+      player->removeBomb(id);
       return true;
     }
     return false;
