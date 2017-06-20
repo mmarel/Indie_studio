@@ -9,7 +9,7 @@
 #include "Interfaces/GameState.hpp"
 #include "Interfaces/IGUI.hpp"
 #include "Interfaces/Event.hpp"
-# include "Game/Settings.hpp"
+#include "Game/Settings.hpp"
 
 namespace indie
 {
@@ -27,6 +27,7 @@ namespace indie
         std::vector<std::unique_ptr<indie::IComponent>>       _components;
         std::map<indie::GameState, _loadCompfunc>             _loadComps;
         std::map<indie::KeyboardKey, _compActionsfunc>        _compActions;
+        std::vector<indie::Sound>                             _sounds;
 
         ///Load Components Functions
         std::vector<std::unique_ptr<indie::IComponent>>    loadMenu();
@@ -81,7 +82,7 @@ namespace indie
         virtual void loadComponents(indie::GameState&);
         virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites() const;
         virtual void notifyEvent(const indie::Event &);
-        
+        virtual const std::vector<indie::Sound> &getSounds() const;
     };
 }
 

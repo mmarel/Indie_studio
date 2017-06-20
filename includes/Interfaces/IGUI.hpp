@@ -15,6 +15,7 @@
 #include "IComponent.hpp"
 # include "Interfaces/Event.hpp"
 # include "Game/Settings.hpp"
+#include "Sound.hpp"
 
 namespace indie
 {
@@ -48,6 +49,8 @@ namespace indie
     virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites() const = 0;
 
     virtual void notifyEvent(const indie::Event &) = 0;
+
+    virtual const std::vector<indie::Sound> &getSounds() const = 0;
 
   };
 }

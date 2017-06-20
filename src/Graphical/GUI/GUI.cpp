@@ -2,13 +2,18 @@
 #include <Interfaces/Sound.hpp>
 #include "Common/GUI.hpp"
 
-indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackground(0), _nbPlayersH(0), _nbPlayersAI(0), _settings(settings), _gameState(state), _components(), _loadComps(), _compActions() {
+indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackground(0), _nbPlayersH(0),
+                                                                      _nbPlayersAI(0), _settings(settings),
+                                                                      _gameState(state), _components(),
+                                                                      _loadComps(), _compActions(),
+                                                                      _sounds() {
 
     _loadComps[indie::GameState::MAIN_MENU] = [this](){return loadMenu();};
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
     _loadComps[indie::GameState::SCOREBOARD] = [this](){return loadScore();};
     _loadComps[indie::GameState::ROOM] = [this](){return loadRoom();};
 
+    _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
 }
 
 std::size_t indie::GUI::size() const {
@@ -99,7 +104,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadSettings() {
 
     res.push_back(createComponent(2, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
     res.push_back(createComponent(1, 0.57f, 0.3f, 0.61f, 0.37f, indie::Color::White, indie::Color::White));
-    res.push_back(createComponent(3, 0.54f, 0.39f, 0.76f, 0.47f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(3, 0.525f, 0.39f, 0.76f, 0.47f, indie::Color::White, indie::Color::White));
     res.push_back(createComponent(4, 0.54f, 0.58f, 0.76f, 0.75f, indie::Color::White, indie::Color::White));
 
     ///Load Settings Values
@@ -480,3 +485,7 @@ void    indie::GUI::getTabDates(std::vector<std::unique_ptr<indie::IComponent>> 
 }
 
 ///     Event Score Menu functions --- End
+
+const std::vector<indie::Sound> &indie::GUI::getSounds() const {
+    return (_sounds);
+}
