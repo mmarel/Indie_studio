@@ -6,6 +6,9 @@
 // Last Modified time: 2017-06-19 07:57:16
 //
 
+#include <array>
+#include <string>
+
 #include "Graphical/Gfx.hpp"
 #include "Common/Timer.hpp"
 

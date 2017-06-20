@@ -31,12 +31,12 @@ void    indie::Gfx::draw_text(const std::string &txtAsString,
     const wchar_t *txt = helper::Helper::get().getWC(txtAsString.c_str());
 
     irr::core::dimension2d<irr::u32> area = this->_fonts[DEFAULT_FONT]->getDimension(txt);
-    irr::core::dimension2d<irr::u32> cmp_pos(this->get_real_posX(x), this->get_real_posY(y));
+    irr::core::dimension2d<irr::s32> cmp_pos(this->get_real_posX(x), this->get_real_posY(y));
     irr::core::rect<irr::s32> position = {
         cmp_pos.Width,
         cmp_pos.Height,
-        cmp_pos.Width + area.Width,
-        cmp_pos.Height + area.Height
+        cmp_pos.Width + static_cast<irr::s32>(area.Width),
+        cmp_pos.Height + static_cast<irr::s32>(area.Height)
     };
 
     // Draw the background
@@ -50,12 +50,12 @@ void    indie::Gfx::draw_component_text(const IComponent &cmp) {
     const wchar_t *txt = helper::Helper::get().getWC(cmp.getText().c_str());
 
     irr::core::dimension2d<irr::u32> area = this->_fonts[DEFAULT_FONT]->getDimension(txt);
-    irr::core::dimension2d<irr::u32> cmp_pos(this->get_real_posX(cmp.getX()), this->get_real_posY(cmp.getY()));
+    irr::core::dimension2d<irr::s32> cmp_pos(this->get_real_posX(cmp.getX()), this->get_real_posY(cmp.getY()));
     irr::core::rect<irr::s32> position = {
         cmp_pos.Width,
         cmp_pos.Height,
-        cmp_pos.Width + area.Width,
-        cmp_pos.Height + area.Height
+        cmp_pos.Width + static_cast<irr::s32>(area.Width),
+        cmp_pos.Height + static_cast<irr::s32>(area.Height)
     };
 
     // Draw the background

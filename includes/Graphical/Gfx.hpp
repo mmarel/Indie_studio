@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <chrono>
 #include <thread>
+#include <array>
 #include <cmath>
 
 #include "irr/irrlicht.h"

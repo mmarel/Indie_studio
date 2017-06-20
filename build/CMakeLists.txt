@@ -39,7 +39,7 @@ if(WIN32)
 
                   indie_studio
                   
-                  ${PROJECT_SOURCE_DIR}/${ROOT_DIR}/lib/Win64-visualStudio/Irrlicht.lib
+                  ${PROJECT_SOURCE_DIR}/${ROOT_DIR}/lib/Win32-visualStudio/Irrlicht.lib
 
       )
 
@@ -86,6 +86,7 @@ if(UNIX AND NOT APPLE)
                   ${PROJECT_SOURCE_DIR}/${ROOT_DIR}/lib/Linux/libIrrlicht.a
 
                   -lIrrlicht
+                  -l
                   -lXrandr
                   -lXi
                   -lXrender
