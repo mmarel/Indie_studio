@@ -9,7 +9,7 @@
 #include <memory>
 #include "Game/Map.hpp"
 
-indie::Map::Map(std::size_t which_map)
+indie::Map::Map()
     : _width(0),
       _height(0),
       _nbLayers(0),
@@ -20,22 +20,44 @@ indie::Map::Map(std::size_t which_map)
       _rawMap(),
       _id(0)
 {
-
-    switch (static_cast< GAME_MAP >(which_map))
-    {
-        case GAME_MAP::LITTLE_MAP:
-            this->generate_little_map();
-            break ;
-
-        default:
-            throw IndieError(_INDIE_GAME_INVALID_MAP_INDEX);
-            break ;
-    }
-
+  init(0, 2);
 }
 
-indie::Map::~Map() {
+indie::Map::~Map() {}
 
+void indie::Map::init(size_t which_map, size_t nPlayers) {
+  std::cout << "map init\n";
+  switch (static_cast< GAME_MAP >(which_map))
+  {
+    case GAME_MAP::LITTLE_MAP:
+      this->generate_little_map(nPlayers);
+      break ;
+    default:
+      throw IndieError(_INDIE_GAME_INVALID_MAP_INDEX);
+      break ;
+  }
+  std::cout << "map generated\n";
+}
+
+void indie::Map::clear() {
+  _width = 0;
+  _height = 0;
+  _nbLayers = 0;
+  _sceneId = 0;
+  //_scenePov = ECAMERA_VIEW::DEFAULT;
+  _objectsId.clear();
+  std::for_each(_layers.begin(), _layers.end(),
+  [](std::vector<std::vector<std::unique_ptr< indie::Tile> > > &layer){
+    std::for_each(layer.begin(), layer.end(),
+    [](std::vector<std::unique_ptr<indie::Tile> > &line){
+      line.clear();
+    });
+  });
+  std::for_each(_rawMap.begin(), _rawMap.end(),
+  [](std::vector<int> &line){
+    line.clear();
+  });
+  _id = 0;
 }
 
 indie::ITile const &indie::Map::at(size_t layer, size_t x, size_t y) const
@@ -168,6 +190,8 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::SQUAREBOMB:
           case indie::OBJECTS_ID::PIKESBOMB:
           case indie::OBJECTS_ID::TENTACLEBOMB:
+          case indie::OBJECTS_ID::BONUS_TENTACLEB:
+          case indie::OBJECTS_ID::BONUS_SQUAREB:
           case indie::OBJECTS_ID::UNKNOWN:
           default:
             break;
