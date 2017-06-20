@@ -440,8 +440,8 @@ void indie::GUI::roomMenuKeyEnter() {
 ///     Event Score Menu functions --- Start
 
 void indie::GUI::scoreMenuKeyEnter() {
-    //_gameState = indie::GameState::MAIN_MENU;
-    //loadComponents(_gameState);
+    _gameState = indie::GameState::MAIN_MENU;
+    loadComponents(_gameState);
 }
 
 void    indie::GUI::getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &res, std::string score, double x, double y, double width, double height)
