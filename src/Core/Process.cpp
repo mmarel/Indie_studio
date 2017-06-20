@@ -25,9 +25,7 @@ void        indie::Core::process() {
     // Update the game map in the GFX
     this->_gfx->updateMap(this->_game->getCurrentMap());
     // Update the GUI in the GFX
-    if (_game->getGameState() == indie::GameState::MAIN_MENU || _game->getGameState() == indie::GameState::SETTINGS
-            || _game->getGameState() == indie::GameState::ROOM || _game->getGameState() == indie::GameState::SCOREBOARD)
-        this->_gfx->updateGUI(this->_game->getCurrentGUI());
+    this->_gfx->updateGUI(this->_game->getCurrentGUI());
 
     const std::vector<indie::Sound> &soundsToPlay = _game->getSoundsToPlay();
 

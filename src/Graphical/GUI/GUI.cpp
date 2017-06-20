@@ -12,6 +12,7 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
     _loadComps[indie::GameState::SCOREBOARD] = [this](){return loadScore();};
     _loadComps[indie::GameState::ROOM] = [this](){return loadRoom();};
+    _loadComps[indie::GameState::INGAME] = [this](){return loadGuiGame();};
 
     _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
 }
@@ -65,6 +66,10 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                          "Menu_final/NUMBERS/8.png",
                                                          "Menu_final/NUMBERS/9.png",
                                                          "Menu_final/NUMBERS/dot.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Gui/Blue.png",
+                                                         "Gui/Red.png",
+                                                         "Gui/Yellow.png",
+                                                         "Gui/Green.png"));
     return (std::move(sprites));
 }
 
@@ -189,6 +194,22 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
 
     _compActions[indie::KeyboardKey::KB_ENTER] = [this](){scoreMenuKeyEnter();};
 
+    return (res);
+}
+
+std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
+    std::vector<std::unique_ptr<indie::IComponent>> res;
+
+    _posBackground = 0;
+
+//bleu, rouge, jaune, vert
+    res.push_back(createComponent(8, 0.025f, 0.025f, 0.125f, 0.125f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(8, 0.875f, 0.025f, 0.975f, 0.125f, indie::Color::White, indie::Color::White));
+    res.at(res.size() - 1)->setBackgroundPos(1);
+    res.push_back(createComponent(8, 0.025f, 0.875f, 0.125f, 0.975f, indie::Color::White, indie::Color::White));
+    res.at(res.size() - 1)->setBackgroundPos(2);
+    res.push_back(createComponent(8, 0.875f, 0.875f, 0.975f, 0.975f, indie::Color::White, indie::Color::White));
+    res.at(res.size() - 1)->setBackgroundPos(3);
     return (res);
 }
 
