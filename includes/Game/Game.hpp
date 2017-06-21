@@ -48,7 +48,11 @@ namespace indie {
       void  menuProcess();
 
     private:
-      void fallingStones();
+        void fallingStones();
+        void itsRainingStones();
+        std::pair<size_t, size_t> getNextFallingPillarPos();
+
+    private:
       Player &getBombOwner(size_t);
       Player &getPlayerById(size_t);
       void updateScore(size_t, int = 100);

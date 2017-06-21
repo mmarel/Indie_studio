@@ -61,7 +61,7 @@ std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameTentacleBomb(std
 
 std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameFallingPillar(std::pair<size_t, size_t> current_frame) {
   static std::vector<std::pair<size_t, size_t > > frames = {
-    {0, 0}, {1, 48}, {48, 48}
+    {0, 0}, {1, 20}
   };
   size_t frameID = 0;
 
@@ -70,7 +70,7 @@ std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameFallingPillar(st
     frameID++;
     return frame.first == current_frame.first && frame.second == current_frame.second;
   });
-  if (frameID == frames.size()) { return std::pair<size_t, size_t>({0, 0});}
+  if (frameID == frames.size()) { return std::pair<size_t, size_t>({20, 20});}
   return frames[frameID];
 }
 
@@ -107,7 +107,7 @@ bool  indie::ResourceHandler::isFrameLethal(indie::OBJECTS_ID type,
     { indie::OBJECTS_ID::SQUAREBOMB, { {67, 90} }},
     { indie::OBJECTS_ID::PIKESBOMB, { {49, 64} } },
     { indie::OBJECTS_ID::TENTACLEBOMB, { {52, 68} } },
-    { indie::OBJECTS_ID::FALLING_PILLAR, { {48, 48} } }
+    { indie::OBJECTS_ID::FALLING_PILLAR, { {1, 20} } }
   };
   std::map<indie::OBJECTS_ID, std::vector<std::pair<size_t, size_t> > >::const_iterator frame_it;
 
