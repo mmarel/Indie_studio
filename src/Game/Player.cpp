@@ -1,7 +1,6 @@
 #include "Game/Player.hpp"
 
 indie::Player::Player(size_t id,
-                      indie::ELookAt dir,
                       indie::PlayerType type, indie::IA_LEVEL level) :
   _id(id),
   _bindings(),
@@ -13,10 +12,6 @@ indie::Player::Player(size_t id,
   _level(level),
   _ai() {
     if (type == indie::PlayerType::PLAYER_AI) {
-      std::vector<std::pair<int, int> > playersPos = {
-        {0, 0}, {10, 0}, {10, 12}, {0, 12}
-      };
-
       //_ai = std::make_unique<indie::AAI>(id, playersPos(id), dir);
     }
 

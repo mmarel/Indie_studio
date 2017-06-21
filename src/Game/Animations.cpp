@@ -3,7 +3,6 @@
 void indie::Game::removeObject(indie::Tile &tile, size_t &i) {
   indie::OBJECTS_ID type = tile.getType(i);
   size_t objectId = tile.getObjectId(i);
-  size_t tileSize;
 
   if (type == indie::OBJECTS_ID::BOX) {
     popBonus(tile, i);
@@ -16,8 +15,8 @@ void indie::Game::removeObject(indie::Tile &tile, size_t &i) {
   else if (tile.getModelId(i) == indie::MODELS_ID::SKELETON_MODEL) {
     Player &player = getPlayerById(objectId);
     player.die();
+    _gui.loadComponents(_gameState);
   }
-  tileSize = tile.getTileSize();
   tile.deleteElement(i--);
   _map.deleteObjectById(objectId);
 }
