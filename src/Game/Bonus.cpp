@@ -27,16 +27,16 @@ void indie::Game::popBonus(indie::Tile &tile, size_t i) {
   size_t objectId;
   size_t ret;
 
-  ret = rand() % 5;
+  ret = rand() % 20;
   if (ret < 3) { return tile.deleteElement(i); }
   objectId = _map.newId();
   _map.addObjectById(objectId);
-  if (ret == 3) {
+  if (ret < 4) {
     tile.setElem(i, objectId,
                 indie::OBJECTS_ID::BONUS_SQUAREB,
                 true, indie::MODELS_ID::BONUS_SQUAREB_MODEL, true, {0, 0},
                 indie::ResourceHandler::getTexture(indie::MODELS_ID::BONUS_SQUAREB_MODEL));
-  } else {
+  } else if (ret == 19) {
     tile.setElem(i, objectId,
                 indie::OBJECTS_ID::BONUS_TENTACLEB,
                 true, indie::MODELS_ID::BONUS_TENTACLEB_MODEL, true, {0, 0},
