@@ -215,7 +215,7 @@ void indie::Game::PikesBomb(indie::Tile &bombTile,
   objectId  = _map.newId();
   _map.addObjectById(objectId);
   player.bomb(objectId);
-  bombTile.setElem(0, objectId,
+  bombTile.setElem(bombTile.getTileSize(), objectId,
                   indie::OBJECTS_ID::PIKESBOMB,
                   true, indie::MODELS_ID::PIKES_MODEL_CENTER, true,
                   indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}),

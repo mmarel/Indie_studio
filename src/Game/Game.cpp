@@ -72,21 +72,15 @@ indie::Player &indie::Game::getPlayerById(size_t playerId) {
 }
 
 bool indie::Game::isEnded() const {
-  //int nPlayers = 0;
-  /*
-const vector &
+  int nPlayers = 0;
 
-  std::accumulate(_players.begin(), _players.end(), 0,
-  [](size_t n) {
-
-  });*/
-  return false;
   std::cout << "end game\n";
-  return true;
-  /*nPlayers = std::accumulate(_settings.players.begin(), _settings.players.end(), 0,
-              [](Player &player) {
-                return
-              });*/
+  nPlayers =
+    std::accumulate(_players.begin(), _players.end(), 0,
+    [](int i, const std::unique_ptr<Player> &player)->int {
+      return i + static_cast<int>(player->isAlive());
+    });
+  return nPlayers < 2;
 }
 
 void indie::Game::reset() {

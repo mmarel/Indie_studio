@@ -47,7 +47,6 @@ void    indie::Gfx::draw_model(const ITile &tile, std::size_t x, std::size_t z, 
         if (newModel.node)
             {
                 newModel.node->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-                newModel.node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
                 newModel.node->setMD2Animation(irr::scene::EMAT_STAND);
                 newModel.node->setMaterialTexture(0, this->_driver->getTexture(tile.getObjectTexture(index).c_str()) );
             }

@@ -13,6 +13,7 @@
 # include "Common/GUI.hpp"
 # include "Common/Timer.hpp"
 # include <map>
+# include <numeric>
 
 namespace indie {
 

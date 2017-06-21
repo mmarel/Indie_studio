@@ -17,12 +17,9 @@ void indie::Game::removeObject(indie::Tile &tile, size_t &i) {
     Player &player = getPlayerById(objectId);
     player.die();
   }
-  //std::cout << "i = " << i << std::endl;
   tileSize = tile.getTileSize();
-  tile.deleteElement(i);
-  i--;
+  tile.deleteElement(i--);
   _map.deleteObjectById(objectId);
-  //std::cout << "i fin = " << i << std::endl;
 }
 
 void indie::Game::updatePlayerAnimation(indie::Tile &tile, size_t i) {
@@ -36,6 +33,9 @@ void indie::Game::updateBombAnimation(indie::Tile &tile, size_t &i,
 
   if (nextframe.first == 0 && nextframe.second == 0) {
     removeObject(tile, i);
+    if (tile.getTileSize() >= i && tile.getType(i) != indie::OBJECTS_ID::EMPTY) {
+      std::cout << "fuuuuuuuuuuuuuuuck\n";
+    }
     return;
   }
   if (indie::ResourceHandler::isFrameLethal(tile.getType(i), nextframe)) {
