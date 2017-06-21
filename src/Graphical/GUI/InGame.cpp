@@ -12,22 +12,22 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
         switch (nb_players)
         {
             case 1: {
-                res.push_back(createComponent(SpriteId::PLAYER_ICON, 0.025f, 0.025f, 0.125f, 0.125f, indie::Color::White, indie::Color::White));
+                res.push_back(createComponent(SpriteId::PLAYER_ICON, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
                 break;
             }
             case 2: {
-                res.push_back(createComponent(SpriteId::PLAYER_ICON, 0.875f, 0.025f, 0.975f, 0.125f, indie::Color::White, indie::Color::White));
-                res.at(res.size() - 1)->setBackgroundPos(1);
-                break;
-            }
-            case 3: {
-                res.push_back(createComponent(SpriteId::PLAYER_ICON, 0.025f, 0.875f, 0.125f, 0.975f, indie::Color::White, indie::Color::White));
+                res.push_back(createComponent(SpriteId::PLAYER_ICON, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
                 res.at(res.size() - 1)->setBackgroundPos(2);
                 break;
             }
+            case 3: {
+                res.push_back(createComponent(SpriteId::PLAYER_ICON, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
+                res.at(res.size() - 1)->setBackgroundPos(4);
+                break;
+            }
             case 4: {
-                res.push_back(createComponent(SpriteId::PLAYER_ICON, 0.875f, 0.875f, 0.975f, 0.975f, indie::Color::White, indie::Color::White));
-                res.at(res.size() - 1)->setBackgroundPos(3);
+                res.push_back(createComponent(SpriteId::PLAYER_ICON, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
+                res.at(res.size() - 1)->setBackgroundPos(6);
                 break;
             }
             default:
@@ -99,12 +99,14 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
     return (res);
 }
 
-void    indie::GUI::update_dead()
+void    indie::GUI::updatePlayersStat()
 {
     for (size_t i = 0; i < _settings.players.size(); ++i)
     {
         if (_settings.players.at(i)->isAlive())
-            _components.at(i)->setBackgroundPos(4);
+            _components.at(i)->setBackgroundPos(i * 2);
+        else
+            _components.at(i)->setBackgroundPos(i * 2 + 1);
     }
 }
 

@@ -180,11 +180,22 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                          "Menu_final/NUMBERS/8.png",
                                                          "Menu_final/NUMBERS/9.png",
                                                          "Menu_final/NUMBERS/dot.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Gui/Blue.png",
-                                                         "Gui/Red.png",
-                                                         "Gui/Yellow.png",
-                                                         "Gui/Green.png",
-                                                         "Gui/cross.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Gui/blue_alive.png",
+                                                         "Gui/blue_dead.png",
+                                                         "Gui/grimoire_blue.png",
+                                                         "Gui/statuette_blue.png",
+                                                         "Gui/red_alive.png",
+                                                         "Gui/red_dead.png",
+                                                         "Gui/grimoire_blue.png",
+                                                         "Gui/statuette_blue.png",
+                                                         "Gui/yellow_alive.png",
+                                                         "Gui/yellow_dead.png",
+                                                         "Gui/grimoire_blue.png",
+                                                         "Gui/statuette_blue.png",
+                                                         "Gui/green_alive.png",
+                                                         "Gui/green_dead.png",
+                                                         "Gui/grimoire_blue.png",
+                                                         "Gui/statuette_blue.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/VICTORY_SCREEN/blue.png",
                                                          "Menu_final/VICTORY_SCREEN/red.png",
                                                          "Menu_final/VICTORY_SCREEN/yellow.png",
@@ -217,6 +228,8 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                          "Menu_final/SETTINGS/transp_sound_8.png",
                                                          "Menu_final/SETTINGS/transp_sound_9.png",
                                                          "Menu_final/SETTINGS/transp_sound_10.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Gui/grimoire.png", "Gui/statuette.png"));
+
 
     return (std::move(sprites));
 }
@@ -237,10 +250,8 @@ void indie::GUI::loadComponents(indie::GameState& state) {
 }
 
 void indie::GUI::notifyEvent(const indie::Event &event) {
-    _hasTransition = false;
     if (event.type == indie::EventType::ET_KEYBOARD)
     {
-        std::cout << "NOTIFY EVENT" << std::endl;
         if (_compActions.find(event.kb_key) != _compActions.end())
             _compActions[event.kb_key]();
     }
@@ -272,5 +283,7 @@ void indie::GUI::revPaths() {
 }
 
 void indie::GUI::flushGUI() {
+    if (_gameState == indie::GameState::INGAME)
+        updatePlayersStat();
     _hasTransition = false;
 }
