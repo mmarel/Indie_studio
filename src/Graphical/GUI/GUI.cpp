@@ -200,6 +200,7 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
 }
 
 void indie::GUI::notifyEvent(const indie::Event &event) {
+    _hasTransition = false;
     if (event.type == indie::EventType::ET_KEYBOARD)
     {
         if (_compActions.find(event.kb_key) != _compActions.end())
@@ -756,7 +757,7 @@ const std::vector<std::string> &indie::GUI::getTransitPaths() const {
     return (_blankVector);
 }
 
-void indie::GUI::revPaths(){
+void indie::GUI::revPaths() {
     std::vector<std::string> tmp;
     for (size_t i = 0; i < _transitPaths.size(); ++i)
     {
@@ -764,8 +765,4 @@ void indie::GUI::revPaths(){
         std::reverse(tmp.begin(), tmp.end());
         _reversePaths.push_back(tmp);
     }
-}
-
-void indie::GUI::flushGUI() {
-    _hasTransition = false;
 }

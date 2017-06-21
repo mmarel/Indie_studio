@@ -99,7 +99,6 @@ namespace indie
         virtual void notifyEvent(const indie::Event &);
         virtual const std::vector<indie::Sound> &getSounds() const;
         virtual const std::vector<std::string> &getTransitPaths() const;
-        virtual void flushGUI();
     };
 }
 
