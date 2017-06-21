@@ -12,27 +12,39 @@ indie::Player::Player(size_t id,
   _level(level),
   _ai() {
     if (type == indie::PlayerType::PLAYER_AI) {
-      //_ai = std::make_unique<indie::AAI>(id, playersPos(id), dir);
-    }
-
-    if (id == 1) {
+      /*std::vector<std::pair<int, int> > playersPos = {
+        {0, 0}, {10, 0}, {10, 12}, {0, 12}
+      };*/
+      _ai = std::make_unique<indie::AiMedium>(id);
       _bindings = {
-        { "LEFT", indie::KeyboardKey::KB_Q },
-        { "RIGHT", indie::KeyboardKey::KB_D },
-        { "DOWN", indie::KeyboardKey::KB_S },
-        { "UP", indie::KeyboardKey::KB_Z },
-        { "BOMB", indie::KeyboardKey::KB_E }
+        { "LEFT", indie::KeyboardKey::KB_NONE },
+        { "RIGHT", indie::KeyboardKey::KB_NONE },
+        { "DOWN", indie::KeyboardKey::KB_NONE },
+        { "UP", indie::KeyboardKey::KB_NONE },
+        { "BOMB", indie::KeyboardKey::KB_NONE }
       };
     }
-    else if (id == 2) {
-      //_bombType = indie::OBJECTS_ID::TENTACLEBOMB;
-      _bindings = {
-        { "LEFT", indie::KeyboardKey::KB_ARROW_LEFT },
-        { "RIGHT", indie::KeyboardKey::KB_ARROW_RIGHT},
-        { "DOWN", indie::KeyboardKey::KB_ARROW_DOWN },
-        { "UP", indie::KeyboardKey::KB_ARROW_UP },
-        { "BOMB", indie::KeyboardKey::KB_ENTER }
-      };
+    else
+      {
+        if (id == 1) {
+          _bindings = {
+            { "LEFT", indie::KeyboardKey::KB_Q },
+            { "RIGHT", indie::KeyboardKey::KB_D },
+            { "DOWN", indie::KeyboardKey::KB_S },
+            { "UP", indie::KeyboardKey::KB_Z },
+            { "BOMB", indie::KeyboardKey::KB_E }
+          };
+        }
+        else if (id == 2) {
+          _bombType = indie::OBJECTS_ID::TENTACLEBOMB;
+          _bindings = {
+            { "LEFT", indie::KeyboardKey::KB_ARROW_LEFT },
+            { "RIGHT", indie::KeyboardKey::KB_ARROW_RIGHT},
+            { "DOWN", indie::KeyboardKey::KB_ARROW_DOWN },
+            { "UP", indie::KeyboardKey::KB_ARROW_UP },
+            { "BOMB", indie::KeyboardKey::KB_ENTER }
+          };
+        }
     }
 }
 

@@ -92,14 +92,15 @@ void indie::Game::reset() {
 
 void indie::Game::start() {
   reset();
-  _map.init(0, _settings.nPlayers/* + _settings.nAIs*/);
+  _map.init(0, _settings.nPlayers + _settings.nAIs);
   //_soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_SKELELETON_SPAWN, indie::SoundAction::UNIQUE, 50.0f));
 
   for (size_t i = 1; i <= _settings.nPlayers; i++) {
+    std::cout << "add players " << i << "\n";
     _players.push_back(std::make_unique<indie::Player>(i));
   }
-  return;
-  for (size_t i = 1; i <= _settings.nAIs; i++) {
+  //std::cout << "player 1 id " << _players[0]->getId() << std::endl;
+  for (size_t i = _settings.nPlayers + 1; i <= _settings.nPlayers + _settings.nAIs; i++) {
     _players.push_back(std::make_unique<indie::Player>(i,
                                     indie::PlayerType::PLAYER_AI, _settings.difficulty));
   }

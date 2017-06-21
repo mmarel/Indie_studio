@@ -1,12 +1,12 @@
 #include "Game/AAI.hpp"
 
-indie::AAI::AAI(const int &new_id, const std::pair<int, int> &new_pos, const indie::ELookAt &new_direction)
+indie::AAI::AAI(const int &new_id)
 : id(new_id),
-  pos(new_pos),
+  pos(),
   shift_ok(true),
   wait(false),
   action(indie::e_AiAction::UNKNOWN),
-  direction(new_direction),
+  direction(),
   empty_case(),
   bomb_case(),
   pos_enemy()
