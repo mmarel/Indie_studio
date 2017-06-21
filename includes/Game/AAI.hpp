@@ -15,7 +15,8 @@ namespace indie {
       indie::ELookAt      direction;
       std::pair<int, int> pos;
       std::vector<std::pair<int, int>> empty_case;
-      std::vector<std::pair<int, int>> bomb_case;
+      bool                safe_case[13][11];
+      std::pair<int, int> case_safe;
       std::pair<int, int> pos_enemy;
     public:
       AAI(const int &new_id);
@@ -30,10 +31,11 @@ namespace indie {
       virtual void dropSquareBomb();
       virtual void dropTentacleBomb();
       virtual const std::pair<int, int> &getPosition(const Map &);
+      virtual void getClosestSafeCase(const Map &map);
       virtual void getClosestEnemy(const int &, const Map &);
       virtual const indie::e_AiAction &getAction();
       virtual void getEmptyCase(const Map &);
-      virtual void getBombCase(const Map &);
+      virtual void getSafeCase(const Map &);
       virtual void run(const Map &map);
       virtual void goOnEnemy(const Map &map);
       virtual void loop(const Map &, const int &) = 0;
