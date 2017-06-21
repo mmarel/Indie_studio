@@ -22,7 +22,7 @@ namespace indie
         MAIN_MENU,
         INGAME,
         SETTINGS,
-        HELP,
+        PAUSE_GAME,
         ROOM,
         SCOREBOARD,
         ENDGAME,

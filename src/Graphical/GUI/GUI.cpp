@@ -14,6 +14,7 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
     _loadComps[indie::GameState::ROOM] = [this](){return loadRoom();};
     _loadComps[indie::GameState::INGAME] = [this](){return loadGuiGame();};
     _loadComps[indie::GameState::ENDGAME] = [this](){return loadEndGame();};
+    _loadComps[indie::GameState::PAUSE_GAME] = [this](){return loadPause();};
 
     _transitPaths = {
                         {    "Menu_final/Transitions/Main_to_HighScores/0002.png",
@@ -196,12 +197,14 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
     (*sprites).push_back(std::make_unique<indie::Sprite>("Gui/Blue.png",
                                                          "Gui/Red.png",
                                                          "Gui/Yellow.png",
-                                                         "Gui/Green.png"));
+                                                         "Gui/Green.png",
+                                                         "Gui/cross.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/VICTORY_SCREEN/blue.png",
                                                          "Menu_final/VICTORY_SCREEN/red.png",
                                                          "Menu_final/VICTORY_SCREEN/yellow.png",
                                                          "Menu_final/VICTORY_SCREEN/green.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/INGAME/background.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/INGAME/pause.png"));
     return (std::move(sprites));
 }
 
@@ -290,7 +293,6 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadRoom() {
     _compActions[indie::KeyboardKey::KB_ENTER] = [this](){roomMenuKeyEnter();};
 
     return (res);
-
 }
 
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
@@ -374,14 +376,22 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
             break;
         }
     }
+    res.push_back(createComponent(8, 0.875f, 0.025f, 0.975f, 0.125f, indie::Color::White, indie::Color::White));
+    res.at(res.size() - 1)->setBackgroundPos(4);
+
+    res.push_back(createComponent(10, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(11, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));    
+
     return (res);
 }
 
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
     std::vector<std::unique_ptr<indie::IComponent>> res;
+     std::unique_ptr<indie::Score> score = std::make_unique<indie::Score>();
 
     ///Load end game Components
     int _winner = 2;
+    int _score = 1234;
 
     res.push_back(createComponent(10, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
     switch (_winner)
@@ -409,12 +419,25 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
         default:
             break;
     }
-    getTabNumber(res, "1200", 0.4f, 0.65f, 0.45f, 0.70f, 0.05f);
- 
+    getTabNumber(res, std::to_string(_score), 0.4f, 0.65f, 0.45f, 0.70f, 0.05f);
+    score->add_score(_score);
+     
     if (!_compActions.empty())
         _compActions.clear();
 
     _compActions[indie::KeyboardKey::KB_ENTER] = [this](){roomMenuKeyEnter();};
+
+    return (res);
+}
+
+std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadPause() {
+    std::vector<std::unique_ptr<indie::IComponent>> res;
+
+    ///Load Room Components
+
+
+    if (!_compActions.empty())
+        _compActions.clear();
 
     return (res);
 }

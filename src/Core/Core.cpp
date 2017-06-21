@@ -63,7 +63,10 @@ void            indie::Core::runCoreLoop()
                 this->process();
                 break;
 
-            case indie::GameState::HELP:
+            case indie::GameState::PAUSE_GAME:
+                this->process();
+                break;
+
             case indie::GameState::ROOM:
                 this->process();
                 break ;
