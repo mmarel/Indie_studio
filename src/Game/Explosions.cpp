@@ -36,7 +36,6 @@ int indie::Game::chainExplosion(size_t center_x, size_t center_y,
           model == indie::MODELS_ID::SQUAREBOMB_MODEL) &&
         !indie::ResourceHandler::isFrameLethal(type, bombTile.getObjectFrameLoop(i))) {
 
-          std::cout << "chain explosion\n";
           chained++;
           bombTile.setElem(i, bombTile.getObjectId(i), type,
                           true, model, true,
@@ -120,7 +119,8 @@ void indie::Game::explode(indie::Tile &tile, size_t i, size_t center_x, size_t c
     { indie::MODELS_ID::TENTACLE_MODEL_4, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 4, at, bombId); } },
     { indie::MODELS_ID::TENTACLE_MODEL_5, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 5, at, bombId); } },
     { indie::MODELS_ID::TENTACLE_MODEL_6, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 6, at, bombId); } },
-    { indie::MODELS_ID::TENTACLE_MODEL_PORTAL, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 0, at, bombId); } }
+    { indie::MODELS_ID::TENTACLE_MODEL_PORTAL, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 0, at, bombId); } },
+    { indie::MODELS_ID::FALLING_PILLAR_MODEL, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } }
   };
   indie::MODELS_ID bombType = tile.getModelId(i);
 

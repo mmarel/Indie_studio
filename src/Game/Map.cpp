@@ -188,6 +188,7 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::SQUAREBOMB:
           case indie::OBJECTS_ID::PIKESBOMB:
           case indie::OBJECTS_ID::TENTACLEBOMB:
+          case indie::OBJECTS_ID::FALLING_PILLAR:
           case indie::OBJECTS_ID::BONUS_TENTACLEB:
           case indie::OBJECTS_ID::BONUS_SQUAREB:
           case indie::OBJECTS_ID::UNKNOWN:

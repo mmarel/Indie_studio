@@ -30,8 +30,9 @@ namespace indie
         TENTACLE_MODEL_5 = 12,
         TENTACLE_MODEL_6 = 13,
         TENTACLE_MODEL_PORTAL = 14,
-        BONUS_SQUAREB_MODEL = 15,
-        BONUS_TENTACLEB_MODEL = 16
+        FALLING_PILLAR_MODEL = 15,
+        BONUS_SQUAREB_MODEL = 16,
+        BONUS_TENTACLEB_MODEL = 17
     };
 
     enum class OBJECTS_ID : int {
@@ -48,7 +49,8 @@ namespace indie
         PIKESBOMB = 8,
         TENTACLEBOMB = 9,
         BONUS_TENTACLEB = 10,
-        BONUS_SQUAREB = 11
+        BONUS_SQUAREB = 11,
+        FALLING_PILLAR = 12
     };
 
     struct      AnimationState {

@@ -59,12 +59,28 @@ std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameTentacleBomb(std
   return frames[frameID];
 }
 
+std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameFallingPillar(std::pair<size_t, size_t> current_frame) {
+  static std::vector<std::pair<size_t, size_t > > frames = {
+    {0, 0}, {1, 48}, {48, 48}
+  };
+  size_t frameID = 0;
+
+  std::find_if(frames.begin(), frames.end(),
+  [&](std::pair<size_t, size_t> &frame) {
+    frameID++;
+    return frame.first == current_frame.first && frame.second == current_frame.second;
+  });
+  if (frameID == frames.size()) { return std::pair<size_t, size_t>({0, 0});}
+  return frames[frameID];
+}
+
 std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID type,
                                                       std::pair<size_t, size_t> frame) {
   static std::map<indie::OBJECTS_ID, FrameSeeker> seekers = {
     { indie::OBJECTS_ID::SQUAREBOMB, [](std::pair<size_t, size_t> &f)->std::pair<size_t, size_t> { return indie::ResourceHandler::getNextFrameSquareBomb(f); } },
     { indie::OBJECTS_ID::PIKESBOMB, [](std::pair<size_t, size_t> &f)->std::pair<size_t, size_t> { return indie::ResourceHandler::getNextFramePikesBomb(f); } },
-    { indie::OBJECTS_ID::TENTACLEBOMB, [](std::pair<size_t, size_t> &f)->std::pair<size_t, size_t> { return indie::ResourceHandler::getNextFrameTentacleBomb(f); } }
+    { indie::OBJECTS_ID::TENTACLEBOMB, [](std::pair<size_t, size_t> &f)->std::pair<size_t, size_t> { return indie::ResourceHandler::getNextFrameTentacleBomb(f); } },
+    { indie::OBJECTS_ID::FALLING_PILLAR, [](std::pair<size_t, size_t> &f)->std::pair<size_t, size_t> { return indie::ResourceHandler::getNextFrameFallingPillar(f); } },
   };
 
   if (seekers.find(type) != seekers.end()) { return seekers[type](frame); }
@@ -90,7 +106,8 @@ bool  indie::ResourceHandler::isFrameLethal(indie::OBJECTS_ID type,
   static std::map<indie::OBJECTS_ID, std::vector<std::pair<size_t, size_t> > > frames = {
     { indie::OBJECTS_ID::SQUAREBOMB, { {67, 90} }},
     { indie::OBJECTS_ID::PIKESBOMB, { {49, 64} } },
-    { indie::OBJECTS_ID::TENTACLEBOMB, { {52, 68} } }
+    { indie::OBJECTS_ID::TENTACLEBOMB, { {52, 68} } },
+    { indie::OBJECTS_ID::FALLING_PILLAR, { {48, 48} } }
   };
   std::map<indie::OBJECTS_ID, std::vector<std::pair<size_t, size_t> > >::const_iterator frame_it;
 

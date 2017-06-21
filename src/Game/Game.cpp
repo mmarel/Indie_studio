@@ -80,6 +80,7 @@ void indie::Game::reset() {
   _events.clear();
   _map.clear();
   _objectsStates.clear();
+  _settings.timer.Reset();
 }
 
 void indie::Game::start() {

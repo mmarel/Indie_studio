@@ -2,6 +2,18 @@
 #include <chrono>
 #include <thread>
 
+void indie::Game::fallingStones() {
+  static indie::Timer CD;
+  static std::pair<int, int> lastFellPillar = {0, 0};
+
+  if (_settings.timer.Elapsed().count() >= 10000) {
+    if (CD.Elapsed().count() >= 5000) {
+      std::cout << "pillier tombe\n";
+      CD.Reset();
+    }
+  }
+}
+
 void indie::Game::AIhandler() {
   std::map<AiAction, std::function<void(size_t)> > actionHandlers = {
     { AiAction::AI_UP, [this](size_t playerId) { this->move(playerId, ELookAt::NORTH); }},
@@ -42,6 +54,7 @@ void indie::Game::splashScreen() {
 }
 
 void indie::Game::gameProcess() {
+  fallingStones();
   updateAnimations();
   handleEvents();
   AIhandler();

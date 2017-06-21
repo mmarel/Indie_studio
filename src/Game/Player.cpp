@@ -42,7 +42,7 @@ indie::Player::Player(size_t id,
             { "RIGHT", indie::KeyboardKey::KB_ARROW_RIGHT},
             { "DOWN", indie::KeyboardKey::KB_ARROW_DOWN },
             { "UP", indie::KeyboardKey::KB_ARROW_UP },
-            { "BOMB", indie::KeyboardKey::KB_ENTER }
+            { "BOMB", indie::KeyboardKey::KB_RSHIFT }
           };
         }
     }

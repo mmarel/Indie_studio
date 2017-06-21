@@ -48,6 +48,7 @@ namespace indie {
       void  menuProcess();
 
     private:
+      void fallingStones();
       Player &getBombOwner(size_t);
       Player &getPlayerById(size_t);
       void updateScore(size_t, int = 100);

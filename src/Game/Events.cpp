@@ -329,7 +329,7 @@ void indie::Game::handleEvents() {
                       event.type == indie::EventType::ET_KEYBOARD &&
                       event.action == indie::ActionType::AT_PRESSED) {
 
-                    std::find_if(_players.begin(), _players.end(),
+                    if (std::find_if(_players.begin(), _players.end(),
                                  [&](std::unique_ptr<indie::Player> &player){
 
                                    if (player->isAlive()) {
@@ -347,7 +347,9 @@ void indie::Game::handleEvents() {
                                    }
 
                                    return false;
-                                 });
+                                 }) == _players.end()) {
+                                   _gui.notifyEvent(event);
+                                 }
                   } else { _gui.notifyEvent(event); }
 
   });
