@@ -97,6 +97,9 @@ void indie::Game::updateAnimations() {
               updateBombAnimation(tile, pos, objectType, x, y);
             }
             else if (!(*animation_it).over) {
+              if (objectType == indie::OBJECTS_ID::FALLING_PILLAR) {
+                std::cout << "pillar anim not over\n";
+              }
               tile.setDoesAnimationChanged(pos, false);
             }
           }

@@ -22,7 +22,8 @@ void indie::Game::AIhandler() {
             for (size_t x = 0; x < _map.getWidth(); x++) {
               indie::Tile &playerTile = _map.at(0, x, y);
 
-              if (playerTile.getObjectId(0) == player->getId()) {
+              if (playerTile.getModelId(0) == indie::MODELS_ID::SKELETON_MODEL &&
+                  playerTile.getObjectId(0) == player->getId()) {
 
                 if (!indie::ResourceHandler::isDeathFrame(playerTile.getModelId(0), playerTile.getObjectFrameLoop(0)) &&
                     actionHandlers.find(action) != actionHandlers.end()) {
@@ -43,8 +44,8 @@ void indie::Game::splashScreen() {
 }
 
 void indie::Game::gameProcess() {
-  //fallingStones();
   updateAnimations();
+  fallingStones();
   handleEvents();
   AIhandler();
 }

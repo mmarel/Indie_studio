@@ -48,9 +48,9 @@ namespace indie
         SQUAREBOMB = 7,
         PIKESBOMB = 8,
         TENTACLEBOMB = 9,
-        BONUS_TENTACLEB = 10,
-        BONUS_SQUAREB = 11,
-        FALLING_PILLAR = 12
+        FALLING_PILLAR = 10,
+        BONUS_TENTACLEB = 11,
+        BONUS_SQUAREB = 12
     };
 
     struct      AnimationState {
