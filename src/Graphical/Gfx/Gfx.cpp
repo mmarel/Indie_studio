@@ -12,12 +12,11 @@ indie::Gfx::Gfx()
 
     // irr::createDevice (deviceType, windowSize, bits, fullscreen, stencilbuffer, vsync, receiver)
 
-    try :
+    try : 
           // Device
           _device(irr::createDevice (   irr::video::EDT_OPENGL,
                                         irr::core::dimension2d<irr::u32>(SCREEN_WIDTH, SCREEN_HEIGHT),
                                         32,
-                                        //FULLSCREEN,
                                         false,
                                         true,
                                         false,
@@ -53,7 +52,7 @@ indie::Gfx::Gfx()
 
         this->_device->setWindowCaption(L"BAUNTLET");
 
-/*        irr::SKeyMap keyMap[5];
+        irr::SKeyMap keyMap[5];
 
         keyMap[0].Action = irr::EKA_MOVE_FORWARD;
         keyMap[0].KeyCode = irr::KEY_UP;
@@ -66,13 +65,13 @@ indie::Gfx::Gfx()
         keyMap[4].Action = irr::EKA_JUMP_UP;
         keyMap[4].KeyCode = irr::KEY_SPACE;
 
-        this->_camera = this->_smgr->addCameraSceneNodeFPS(0, 100.0f, 0.025f, -1, keyMap, 5);*/
+        this->_camera = this->_smgr->addCameraSceneNodeFPS(0, 100.0f, 0.002f, -1, keyMap, 5);
 
-         this->_camera = this->_smgr->addCameraSceneNode(NULL,
-                                                         //                    x     y     z
-                                                         irr::core::vector3df(0.0f, 0.0f, 0.0f), // Position
-                                                         irr::core::vector3df(0.0f, 0.0f, 0.0f)  // Angle
-                                                         );
+        // this->_camera = this->_smgr->addCameraSceneNode(NULL,
+        //                                                 //                    x     y     z
+        //                                                 irr::core::vector3df(0.0f, 0.0f, 0.0f), // Position
+        //                                                 irr::core::vector3df(0.0f, 0.0f, 0.0f)  // Angle
+        //                                                 );
 
         this->set_window_settings();
     }

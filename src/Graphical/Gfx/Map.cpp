@@ -76,6 +76,9 @@ void    indie::Gfx::updateMap(const IMap &map) {
         this->_infos._current_scene = map.getSceneId();
         this->_infos._scene_loaded_once = true;
     }
+    
+    // Draw the dome
+    this->draw_dome();
 
     // Delete nodes unused
     this->refresh_objects_id(map.getObjectsId());
