@@ -321,6 +321,7 @@ void indie::Game::handleEvents() {
     { "BOMB", [this](size_t id) { bomb(id); }}
   };
   GameState state = _gameState;
+  float volume = _settings.volume;
 
   std::for_each(_events.begin(), _events.end(),
                 [&](const Event &event) {
@@ -354,7 +355,11 @@ void indie::Game::handleEvents() {
 
   _soundsToPlay.insert(_soundsToPlay.begin(), gui_sounds.begin(), gui_sounds.end());
   _events.clear();
-    gui_sounds.clear();
+  gui_sounds.clear();
+  if (volume != _settings.volume) {
+    _soundsToPlay.push_back(indie::Sound(_settings.music.id, indie::SoundAction::VOLUME,
+                                        _settings.volume, indie::SoundType::MUSIC));
+  }
   if (state != _gameState && _gameState == indie::GameState::INGAME) {
     start();
   }

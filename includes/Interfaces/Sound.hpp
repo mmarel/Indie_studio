@@ -77,6 +77,7 @@ namespace indie
         SoundId    id;     //< Id of the sound
         SoundAction     mode;   //< Mode of the sound (control)
         float           volume; //< Volume
+        SoundType       type;
 
         ///
         /// \fn Sound(unsigned int id, SoundMode mode = UNIQUE, SoundType type = SOUND, float volume = 50.0f);
@@ -86,8 +87,9 @@ namespace indie
         /// \param type Type of Sound
         /// \param volume Volume of Sound
         ///
-        Sound(SoundId id_, SoundAction mode_ = UNIQUE, float volume_ = 50.0f)
-            : id(id_), mode(mode_), volume(volume_) {}
+        Sound(SoundId id_, SoundAction mode_ = UNIQUE, float volume_ = 50.0f,
+              SoundType type_ = indie::SoundType::SOUND)
+            : id(id_), mode(mode_), volume(volume_), type(type_) {}
 
     };
 

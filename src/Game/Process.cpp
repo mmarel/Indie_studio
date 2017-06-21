@@ -16,23 +16,22 @@ void indie::Game::AIhandler() {
         {
           AiAction action = player->think();
 
-          if (actionHandlers.find(action) != actionHandlers.end()) {
-            actionHandlers[action](player->getId());
-          }
-/*          std::this_thread::sleep_for(std::chrono::milliseconds(50));
-          player->_ai->loop(_map, static_cast<int>(_settings.nPlayers + _settings.nAIs));
-          if (player->_ai->getAction() >= static_cast<AiAction>(0) && player->_ai->getAction() < static_cast<AiAction>(4))
-            {
-              std::pair<int, int> pos;
-              pos = player->_ai->getPosition(_map);
-              if (player->_ai->getAction() == AI_LEFT || player->_ai->getAction() == AI_RIGHT)
-                _map.at(0, pos.first, pos.second).setShiftY(0, 0.0);
-              else if (player->_ai->getAction() == AI_DOWN || player->_ai->getAction() == AI_UP)
-                _map.at(0, pos.first, pos.second).setShiftX(0, 0.0);
-              move(player->_ai->getId(), player->_ai->getDirection());
+
+          for (size_t y = 0; y < _map.getHeight(); y++) {
+            for (size_t x = 0; x < _map.getWidth(); x++) {
+              indie::Tile &playerTile = _map.at(0, x, y);
+
+              if (playerTile.getObjectId(0) == player->getId()) {
+
+                if (!indie::ResourceHandler::isDeathFrame(playerTile.getModelId(0), playerTile.getObjectFrameLoop(0)) &&
+                    actionHandlers.find(action) != actionHandlers.end()) {
+
+                      actionHandlers[action](player->getId());
+                }
+                return;
+              }
             }
-          else if (player->_ai->getAction() >= static_cast<AiAction>(4))
-            bomb(player->_ai->getId());*/
+          }
         }
     });
 }

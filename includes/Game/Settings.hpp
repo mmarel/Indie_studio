@@ -2,6 +2,7 @@
 # define SETTINGS_HPP
 
 # include "Interfaces/Event.hpp"
+# include "Interfaces/Sound.hpp"
 
 namespace indie {
 
@@ -33,13 +34,15 @@ namespace indie {
       PlayMode                  mode;
       size_t                    nPlayers;
       size_t                    nAIs;
+      Sound                     music;
       Settings(const std::vector<std::unique_ptr<indie::Player> > &players_,
                 float volume_ = 50.0f,
                 IA_LEVEL difficulty_ = IA_LEVEL::IA_MEDIUM,
                 PlayMode mode_ = PlayMode::PLAY_MODE_LOCAL,
-                size_t nPlayers_ = 0, size_t nAIs_ = 0) :
+                size_t nPlayers_ = 0, size_t nAIs_ = 0,
+                Sound music_ = Sound(indie::SoundId::SOUND_NONE)) :
         players(players_), volume(volume_), difficulty(difficulty_), mode(mode_),
-        nPlayers(nPlayers_), nAIs(nAIs_){}
+        nPlayers(nPlayers_), nAIs(nAIs_), music(music_){}
     };
 }
 

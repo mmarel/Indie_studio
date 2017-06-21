@@ -37,7 +37,6 @@ indie::Player::Player(size_t id,
           };
         }
         else if (id == 2) {
-          _bombType = indie::OBJECTS_ID::TENTACLEBOMB;
           _bindings = {
             { "LEFT", indie::KeyboardKey::KB_ARROW_LEFT },
             { "RIGHT", indie::KeyboardKey::KB_ARROW_RIGHT},
