@@ -105,6 +105,8 @@ void    indie::GUI::update_dead()
 
 void    indie::GUI::endGameMenuKeyEnter()
 {
+    std::cout << "ENDGAME KAY ENTER" << std::endl;
+    _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
     _gameState = indie::GameState::MAIN_MENU;
     loadComponents(_gameState);
 }

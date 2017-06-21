@@ -142,6 +142,7 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
     };
 
     _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
+    _settings.music = Sound(indie::SoundId::SOUND_MENU);
     revPaths();
 }
 
