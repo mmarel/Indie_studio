@@ -24,9 +24,9 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::IModel> > > indie::Game::getM
   modelsToLoad->push_back(std::make_unique<indie::Model>("Explosions/3/Tentacle_5.md3", std::vector<std::pair<size_t, size_t> >({{1, 51}, {52, 68}, {69, 85}})));
   modelsToLoad->push_back(std::make_unique<indie::Model>("Explosions/3/Tentacle_6.md3", std::vector<std::pair<size_t, size_t> >({{1, 51}, {52, 68}, {69, 85}})));
   modelsToLoad->push_back(std::make_unique<indie::Model>("Explosions/3/Portal.md3", std::vector<std::pair<size_t, size_t> >({{1, 51}, {52, 68}, {69, 79}, {80, 85}})));
+  modelsToLoad->push_back(std::make_unique<indie::Model>("Map/falling_stone.md3", std::vector<std::pair<size_t, size_t> >({{1, 18}, {19, 47}, {47, 47}})));
   modelsToLoad->push_back(std::make_unique<indie::Model>("PowerUps/Grimoire.obj", std::vector<std::pair<size_t, size_t> >({{0, 0}})));
   modelsToLoad->push_back(std::make_unique<indie::Model>("PowerUps/Statuette.obj", std::vector<std::pair<size_t, size_t> >({{0, 0}})));
-  modelsToLoad->push_back(std::make_unique<indie::Model>("Map/falling_stone.md3", std::vector<std::pair<size_t, size_t> >({{1, 48}, {48, 48}})));
   return std::move(modelsToLoad);
 }
 

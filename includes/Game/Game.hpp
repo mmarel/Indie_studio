@@ -85,7 +85,7 @@ namespace indie {
       void explode(indie::Tile &, size_t i, size_t x, size_t y);
       void squareExplosion(size_t x, size_t y, size_t);
       void tentacleExplosion(size_t x, size_t y, size_t size, size_t at, size_t);
-      void simpleExplosion(size_t x, size_t y, size_t, bool = true);
+      void simpleExplosion(size_t x, size_t y, size_t, bool = true, bool = true);
       int chainExplosion(size_t, size_t, size_t);
       void kill(indie::Tile &, size_t);
       void explodeBox(indie::Tile &, size_t);
