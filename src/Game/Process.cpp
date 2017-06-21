@@ -32,6 +32,7 @@ void indie::Game::process() {
   };
   
   _soundsToPlay.clear();
+  _gui.flushGUI();
   if (handlers.find(_gameState) != handlers.end()) { return handlers[_gameState](); }
   handleEvents();
 }

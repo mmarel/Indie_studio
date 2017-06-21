@@ -206,7 +206,6 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
 }
 
 void indie::GUI::notifyEvent(const indie::Event &event) {
-    std::cout << "NOTIFY\n";
     _hasTransition = false;
     if (event.type == indie::EventType::ET_KEYBOARD)
     {
@@ -270,6 +269,9 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadRoom() {
 
     _nbPlayersH = 1;
     _nbPlayersAI = 1;
+    _settings.nPlayers = _nbPlayersH;
+    _settings.nAIs = _nbPlayersAI;
+
     res.push_back(createComponent(5, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
     res.push_back(createComponent(1, 0.53f, 0.35f, 0.57f, 0.4f, indie::Color::White, indie::Color::White));
     res.push_back(createComponent(7, 0.63f, 0.36f, 0.66f, 0.39f, indie::Color::White, indie::Color::White));
@@ -547,8 +549,13 @@ void indie::GUI::settMenuKeyRight() {
             }
             break;
         }
-        case 2: loadComponents((_gameState = indie::GameState::MAIN_MENU));
+        case 2: {
+            _hasTransition = true;
+            _rev = true;
+            _indexPaths = 1;
+            loadComponents((_gameState = indie::GameState::MAIN_MENU));
             break;
+        }
         default:
             break;
     }
@@ -578,7 +585,12 @@ void indie::GUI::settMenuKeyLeft() {
 
 void indie::GUI::settMenuKeyEnter() {
     if (_posBackground == 2)
+    {
+        _hasTransition = true;
+        _rev = true;
+        _indexPaths = 1;
         loadComponents((_gameState = indie::GameState::MAIN_MENU));
+    }
 }
 
 ///     Event Settings Menu functions --- End
@@ -651,7 +663,8 @@ void indie::GUI::roomMenuKeyRight() {
         default:
             break;
     }
-    _settings.nPlayers = _nbPlayersH + _nbPlayersAI;
+    _settings.nPlayers = _nbPlayersH;
+    _settings.nAIs = _nbPlayersAI;
 }
 
 void indie::GUI::roomMenuKeyLeft() {
@@ -674,7 +687,8 @@ void indie::GUI::roomMenuKeyLeft() {
         default:
             break;
     }
-    _settings.nPlayers = _nbPlayersH + _nbPlayersAI;
+    _settings.nPlayers = _nbPlayersH;
+    _settings.nAIs = _nbPlayersAI;
 }
 
 void indie::GUI::roomMenuKeyEnter() {
@@ -772,4 +786,8 @@ void indie::GUI::revPaths() {
         std::reverse(tmp.begin(), tmp.end());
         _reversePaths.push_back(tmp);
     }
+}
+
+void indie::GUI::flushGUI() {
+    _hasTransition = false;
 }
