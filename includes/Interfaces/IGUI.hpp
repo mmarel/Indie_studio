@@ -62,7 +62,7 @@ namespace indie
     /// \fn virtual const std::vector<indie::Sound> &getSounds() const = 0;
     /// \brief GetSounds to play for this GUI
     ///
-    virtual const std::vector<indie::Sound> &getSounds() const = 0;
+    virtual std::vector<indie::Sound> &getSounds() = 0;
     ///
     /// \fn virtual const std::vector<std::string> &getTransitPaths() const =0;
     /// \brief Access to the n element

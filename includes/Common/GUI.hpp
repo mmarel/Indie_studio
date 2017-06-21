@@ -132,7 +132,7 @@ namespace indie
         virtual void loadComponents(indie::GameState&);
         virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites() const;
         virtual void notifyEvent(const indie::Event &);
-        virtual const std::vector<indie::Sound> &getSounds() const;
+        virtual std::vector<indie::Sound> &getSounds();
         virtual const std::vector<std::string> &getTransitPaths() const;
         virtual void flushGUI();
     };

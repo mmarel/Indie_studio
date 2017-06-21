@@ -96,43 +96,11 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
 
 void    indie::GUI::update_dead()
 {
-    std::vector<std::unique_ptr<indie::IComponent>> res;
-    size_t pos = 0;
-
-    for (std::vector<std::unique_ptr<indie::Player>>::const_iterator i = _settings.players.begin(); i != _settings.players.end(); ++i)
+    for (size_t i = 0; i < _settings.players.size(); ++i)
     {
-        if (!(*i)->isAlive())
-        {
-            switch (pos)
-            {
-                case 0: {
-                    res.push_back(createComponent(8, 0.025f, 0.025f, 0.125f, 0.125f, indie::Color::White, indie::Color::White));
-                    res.at(res.size() - 1)->setBackgroundPos(4);
-                    break;
-                }
-                case 1: {
-                    res.push_back(createComponent(8, 0.875f, 0.025f, 0.975f, 0.125f, indie::Color::White, indie::Color::White));
-                    res.at(res.size() - 1)->setBackgroundPos(4);
-                    break;
-                }
-                case 2: {
-                    res.push_back(createComponent(8, 0.025f, 0.875f, 0.125f, 0.975f, indie::Color::White, indie::Color::White));
-                    res.at(res.size() - 1)->setBackgroundPos(4);
-                    break;
-                }
-                case 3: {
-                    res.push_back(createComponent(8, 0.875f, 0.875f, 0.975f, 0.975f, indie::Color::White, indie::Color::White));
-                    res.at(res.size() - 1)->setBackgroundPos(4);
-                    break;
-                }
-                default:
-                    break;
-            }
-        }
-        ++pos;
+        if (_settings.players.at(i)->isAlive())
+            _components.at(i)->setBackgroundPos(4);
     }
-
-    //return (res);
 }
 
 void    indie::GUI::endGameMenuKeyEnter()

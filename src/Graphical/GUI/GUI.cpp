@@ -244,7 +244,7 @@ void indie::GUI::notifyEvent(const indie::Event &event) {
     }
 }
 
-const std::vector<indie::Sound> &indie::GUI::getSounds() const {
+std::vector<indie::Sound> &indie::GUI::getSounds() {
     return (_sounds);
 }
 
