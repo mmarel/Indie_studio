@@ -7,7 +7,7 @@
 # include <algorithm>
 # include "Interfaces/Event.hpp"
 # include "Interfaces/ITile.hpp"
-# include "Interfaces/IAI.hpp"
+# include "Game/AiMedium.hpp"
 # include "Game/Settings.hpp"
 # include "Game/ModelsId.hpp"
 
@@ -42,8 +42,9 @@ namespace indie {
       std::vector<size_t>                _bombs;
       int                                _score;
       bool                               _alive;
-      PlayerType                         _type;
       IA_LEVEL                           _level;
+    public:
+      PlayerType                         _type;
       std::unique_ptr<IAI>               _ai;
     };
 };
