@@ -30,7 +30,7 @@ indie::Player::Player(size_t id,
       };
     }
     else if (id == 2) {
-      _bombType = indie::OBJECTS_ID::TENTACLEBOMB;
+      //_bombType = indie::OBJECTS_ID::TENTACLEBOMB;
       _bindings = {
         { "LEFT", indie::KeyboardKey::KB_ARROW_LEFT },
         { "RIGHT", indie::KeyboardKey::KB_ARROW_RIGHT},
@@ -49,5 +49,5 @@ bool indie::Player::hasBomb(size_t id) const {
 }
 
 void indie::Player::removeBomb(size_t id) {
-  std::remove(_bombs.begin(), _bombs.end(), id);
+  _bombs.erase(std::remove(_bombs.begin(), _bombs.end(), id), _bombs.end());
 }

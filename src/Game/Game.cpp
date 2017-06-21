@@ -7,7 +7,7 @@ indie::Game::Game() :
   _gameState(SPLASH_SCREEN),
   _events(),
   _map(),
-  _settings(),
+  _settings(_players),
   _gui(_settings, _gameState),
   _objectsStates()
  {

@@ -16,7 +16,7 @@
 
 namespace indie {
 
-  # define PLAYER_SPEED 0.2
+  # define PLAYER_SPEED 0.1
 
   typedef std::function<void()> TurnHandler;
   class Game : public indie::IGame {

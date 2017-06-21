@@ -75,7 +75,7 @@ indie::Tile         &indie::Tile::operator=(const indie::Tile &other) {
 void              indie::Tile::reset() {
   this->_hasModel =  { false };
   this->_modelId = { indie::MODELS_ID::UNKNOWN };
-  this->_doesAnimationChanged = { false };
+  this->_doesAnimationChanged = { true };
   this->_objectFrameLoop =  { { 0,0 } };
   this->_shiftY = { 0.0 };
   this->_shiftX = { 0.0 };

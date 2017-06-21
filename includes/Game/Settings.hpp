@@ -5,6 +5,8 @@
 
 namespace indie {
 
+    class Player;
+
     typedef enum        e_PlayerType {
       PLAYER_UNKNOWN = -1,
       PLAYER_HUMAN,
@@ -25,19 +27,22 @@ namespace indie {
     }                     PlayMode;
 
     struct              Settings {
+      const std::vector<std::unique_ptr<indie::Player> > &players;
       float                     volume;
       IA_LEVEL                  difficulty;
       PlayMode                  mode;
       size_t                    nPlayers;
       size_t                    nAIs;
-      Settings(float volume_ = 50.0f,
+      Settings(const std::vector<std::unique_ptr<indie::Player> > &players_,
+                float volume_ = 50.0f,
                 IA_LEVEL difficulty_ = IA_LEVEL::IA_MEDIUM,
                 PlayMode mode_ = PlayMode::PLAY_MODE_LOCAL,
                 size_t nPlayers_ = 0, size_t nAIs_ = 0) :
-        volume(volume_), difficulty(difficulty_), mode(mode_),
+        players(players_), volume(volume_), difficulty(difficulty_), mode(mode_),
         nPlayers(nPlayers_), nAIs(nAIs_){}
     };
 }
 
+# include "Game/Player.hpp"
 
 #endif // SETTINGS_HPP
