@@ -1,12 +1,12 @@
 #include "Game/AAI.hpp"
 
-indie::AAI::AAI(const int &new_id, const std::pair<int, int> &new_pos, const indie::ELookAt &new_direction)
+indie::AAI::AAI(const int &new_id)
 : id(new_id),
-  pos(new_pos),
+  pos(),
   shift_ok(true),
   wait(false),
   action(indie::e_AiAction::UNKNOWN),
-  direction(new_direction),
+  direction(),
   empty_case(),
   bomb_case(),
   pos_enemy()
@@ -66,17 +66,17 @@ void indie::AAI::goRight(const Map &map)
 
 void indie::AAI::dropPikesBomb()
 {
-  this->action = indie::AiAction::AI_PIKESBOMB;
+  this->action = indie::AiAction::AI_BOMB;
 }
 
 void indie::AAI::dropSquareBomb()
 {
-  this->action = indie::AiAction::AI_SQUAREBOMB;
+  this->action = indie::AiAction::AI_BOMB;
 }
 
 void indie::AAI::dropTentacleBomb()
 {
-  this->action = indie::AiAction::AI_TENTACLEBOMB;
+  this->action = indie::AiAction::AI_BOMB;
 }
 
 const std::pair<int, int> &indie::AAI::getPosition(const Map &map)

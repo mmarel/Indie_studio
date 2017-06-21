@@ -18,7 +18,7 @@ namespace indie {
       std::vector<std::pair<int, int>> bomb_case;
       std::pair<int, int> pos_enemy;
     public:
-      AAI(const int &new_id, const std::pair<int, int> &new_pos, const indie::ELookAt &new_direction);
+      AAI(const int &new_id);
       virtual ~AAI();
       virtual const int &getId();
       virtual const ELookAt &getDirection();

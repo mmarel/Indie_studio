@@ -14,9 +14,7 @@ namespace indie {
     AI_DOWN,
     AI_LEFT,
     AI_RIGHT,
-    AI_PIKESBOMB,
-    AI_SQUAREBOMB,
-    AI_TENTACLEBOMB
+    AI_BOMB
   }                 AiAction;
 
   class IAI

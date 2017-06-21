@@ -1,6 +1,24 @@
 #include "Game/Game.hpp"
 
 void indie::Game::AIhandler() {
+  std::map<AiAction, std::function<void(size_t)> > actionHandlers = {
+    { AiAction::AI_UP, [this](size_t playerId) { this->move(playerId, ELookAt::NORTH); }},
+    { AiAction::AI_DOWN, [this](size_t playerId) { this->move(playerId, ELookAt::SOUTH); }},
+    { AiAction::AI_LEFT, [this](size_t playerId) { this->move(playerId, ELookAt::WEST); }},
+    { AiAction::AI_RIGHT, [this](size_t playerId) { this->move(playerId, ELookAt::EAST); }},
+    { AiAction::AI_BOMB, [this](size_t playerId) { this->bomb(playerId); }}
+  };
+  std::for_each(_players.begin(), _players.end(),
+    [&](std::unique_ptr<Player> &player) {
+      if (player->getType() == indie::PlayerType::PLAYER_AI && player->isAlive())
+        {
+          AiAction action = player->think();
+
+          if (actionHandlers.find(action) != actionHandlers.end()) {
+            actionHandlers[action](player->getId());
+          }
+        }
+    });
 }
 
 void indie::Game::splashScreen() {
@@ -34,5 +52,6 @@ void indie::Game::process() {
   _soundsToPlay.clear();
   _gui.flushGUI();
   if (handlers.find(_gameState) != handlers.end()) { return handlers[_gameState](); }
-  handleEvents();
+  //handleEvents();
+  gameProcess();
 }

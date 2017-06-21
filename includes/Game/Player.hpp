@@ -8,6 +8,7 @@
 # include "Interfaces/Event.hpp"
 # include "Interfaces/ITile.hpp"
 # include "Interfaces/IAI.hpp"
+# include "Game/AiMedium.hpp"
 # include "Game/Settings.hpp"
 # include "Game/ModelsId.hpp"
 
@@ -15,6 +16,8 @@ namespace indie {
   class Player {
     public:
       Player(size_t,
+              indie::Map &,
+              size_t,
               PlayerType = PlayerType::PLAYER_HUMAN,
               IA_LEVEL = IA_UNKNOWN);
       ~Player() {};
@@ -27,6 +30,7 @@ namespace indie {
       bool hasBomb(size_t) const;
       bool isAlive() const { return _alive; }
       bool isTired() const { return _bombs.size() > 0; };
+      indie::PlayerType getType() const { return _type; }
 
     public:
       void setBombType(indie::OBJECTS_ID bombType) { _bombType = bombType; }
@@ -35,6 +39,9 @@ namespace indie {
       void updateScore(int points) { _score += points; }
       void die() { _score -= 200; _alive = false; }
 
+    public:
+      AiAction think();
+
     private:
       size_t                             _id;
       std::map<std::string, KeyboardKey> _bindings;
@@ -42,9 +49,11 @@ namespace indie {
       std::vector<size_t>                _bombs;
       int                                _score;
       bool                               _alive;
-      PlayerType                         _type;
       IA_LEVEL                           _level;
+      PlayerType                         _type;
       std::unique_ptr<IAI>               _ai;
+      indie::Map                         &_map;
+      size_t                             _nplayers;
     };
 };
 
