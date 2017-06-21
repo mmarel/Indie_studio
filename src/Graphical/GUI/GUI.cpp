@@ -205,6 +205,22 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                          "Menu_final/VICTORY_SCREEN/green.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/INGAME/background.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/INGAME/pause.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Explosions/1/Square_Explosion.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Explosions/2/Pikes_1.png",
+                                                         "Explosions/2/Pikes_2.png",
+                                                         "Explosions/2/Pikes_3.png",
+                                                         "Explosions/2/Pikes_4.png",
+                                                         "Explosions/2/Pikes_Center.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Explosions/3/Portal.png", "Explosions/3/Tentacle.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("PowerUps/Grimoire.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("PowerUps/Grimoire_tex.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("PowerUps/Statuette.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("PowerUps/Statuette_tex.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Textures/SkeletonMage/Blue.png",
+                                                         "Textures/SkeletonMage/Green.png",
+                                                         "Textures/SkeletonMage/Red.png",
+                                                         "Textures/SkeletonMage/Yellow.png"));
+
     return (std::move(sprites));
 }
 

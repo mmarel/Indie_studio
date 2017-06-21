@@ -16,6 +16,31 @@
 
 namespace indie
 {
+    enum SpriteId
+    {
+        UNKNOWN_SPRITE = -1,
+        MAIN_MENU_GUI,
+        ARROW,
+        SETTINGS_MENU,
+        SETTINGS_SOUND,
+        SETTINGS_LVL,
+        ROOM_MENU,
+        SCORE_MENU,
+        NUMBER,
+        PLAYER_ICON,
+        ENDGAME_MENU,
+        INGAME_MENU1,
+        INGAME_MENU2,
+        SQUARE_EXPLOSION,
+        PIKES,
+        BOMBE_TENTACLE,
+        GRIMOIRE,
+        GRIMOIRE_TEX,
+        STATUETTE,
+        STATUETTE_TEX,
+        SKELETON_TEX
+    };
+
     class GUI : public IGUI
     {
     private:
