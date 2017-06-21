@@ -38,7 +38,8 @@ namespace indie
         GRIMOIRE_TEX,
         STATUETTE,
         STATUETTE_TEX,
-        SKELETON_TEX
+        SKELETON_TEX,
+        TRANSP_SOUND
     };
 
     class GUI : public IGUI
@@ -103,9 +104,11 @@ namespace indie
         void    endGameMenuKeyEnter();
 
         ///---Pause Menu Events---
-        void    pauseMenuKeyEnter();
-        void    pauseMenuKeyLeft();
+        void    pauseMenuKeyDown();
+        void    pauseMenuKeyUp();
         void    pauseMenukeyRight();
+        void    pauseMenuKeyLeft();
+        void    pauseMenuKeyEnter();
 
 
         ///CreteComponent (*component params* + all paths to sprites)

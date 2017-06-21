@@ -34,7 +34,8 @@ namespace indie {
       virtual void getClosestEnemy(const int &, const Map &) = 0;
       virtual const indie::e_AiAction &getAction() = 0;
       virtual void getEmptyCase(const Map &) = 0;
-      virtual void getBombCase(const Map &) = 0;
+      virtual void getClosestSafeCase(const Map &map) = 0;
+      virtual void getSafeCase(const Map &) = 0;
       virtual void run(const Map &map) = 0;
       virtual void goOnEnemy(const Map &map) = 0;
       virtual void loop(const Map &, const int &) = 0;

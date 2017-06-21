@@ -8,7 +8,7 @@ indie::AAI::AAI(const int &new_id)
   action(indie::e_AiAction::UNKNOWN),
   direction(),
   empty_case(),
-  bomb_case(),
+  safe_case(),
   pos_enemy()
 {
 }
@@ -31,7 +31,7 @@ const indie::ELookAt &indie::AAI::getDirection()
 void indie::AAI::goUp(const Map &map)
 {
   shift_ok = false;
-  if (map.at(0, pos.first, pos.second).getShiftX(0) < 0.1)
+  if (map.at(0, pos.first, pos.second).getShiftX(0) == 0.0)
     shift_ok = true;
   this->action = indie::AiAction::AI_UP;
   this->direction = indie::ELookAt::NORTH;
@@ -40,7 +40,7 @@ void indie::AAI::goUp(const Map &map)
 void indie::AAI::goDown(const Map &map)
 {
   shift_ok = false;
-  if (map.at(0, pos.first, pos.second).getShiftX(0) < 0.1)
+  if (map.at(0, pos.first, pos.second).getShiftX(0) == 0.0)
     shift_ok = true;
   this->action = indie::AiAction::AI_DOWN;
   this->direction = indie::ELookAt::SOUTH;
@@ -49,7 +49,7 @@ void indie::AAI::goDown(const Map &map)
 void indie::AAI::goLeft(const Map &map)
 {
   shift_ok = false;
-  if (map.at(0, pos.first, pos.second).getShiftY(0) < 0.1)
+  if (map.at(0, pos.first, pos.second).getShiftY(0) == 0.0)
     shift_ok = true;
   this->action = indie::AiAction::AI_LEFT;
   this->direction = indie::ELookAt::WEST;
@@ -58,7 +58,7 @@ void indie::AAI::goLeft(const Map &map)
 void indie::AAI::goRight(const Map &map)
 {
   shift_ok = false;
-  if (map.at(0, pos.first, pos.second).getShiftY(0) < 0.1)
+  if (map.at(0, pos.first, pos.second).getShiftY(0) == 0.0)
     shift_ok = true;
   this->action = indie::AiAction::AI_RIGHT;
   this->direction = indie::ELookAt::EAST;
@@ -84,10 +84,52 @@ const std::pair<int, int> &indie::AAI::getPosition(const Map &map)
   for (int y = 0; y < static_cast<int>(map.getHeight()); y++) {
     for (int x = 0; x < static_cast<int>(map.getWidth()); x++) {
       if (map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(this->id))
-        pos = {x, y};
+      {
+        pos.first = x;
+        pos.second = y;
+        return (pos);
+      }
     }
   }
-  return (pos);
+}
+
+void indie::AAI::getClosestSafeCase(const Map &map)
+{
+  case_safe.first = 50;
+  case_safe.second = 50;
+  for (int y = 0; y < map.getHeight(); y++)
+    {
+      for (int x = 0; x < map.getWidth(); x++)
+        {
+          int new_safe;
+          int old_safe;
+
+          if (pos.first - x < 0)
+            new_safe = (pos.first - x) * -1;
+          else
+            new_safe = (pos.first - x);
+          if (pos.second - y < 0)
+            new_safe = new_safe + (pos.second - y) * -1;
+          else
+            new_safe = new_safe + (pos.second - y);
+          if (pos.first - case_safe.first < 0)
+            old_safe = (pos.first - case_safe.first) * -1;
+          else
+            old_safe = (pos.first - case_safe.first);
+          if (pos.second - case_safe.second < 0)
+            old_safe = old_safe + (pos.second - case_safe.second) * -1;
+          else
+            old_safe = old_safe + (pos.second - case_safe.second);
+          if (pos.first - x == 0)
+            new_safe = new_safe + pos.first - x;
+          if (pos.second == 0)
+            new_safe = new_safe + pos.second - y;
+          if (safe_case[y][x] == true &&
+              new_safe <= old_safe ) {
+                case_safe = {x, y};
+              }
+        }
+  }
 }
 
 void indie::AAI::getClosestEnemy(const int &nb_players, const Map &map)
@@ -126,118 +168,135 @@ void indie::AAI::getEmptyCase(const Map &map)
     this->empty_case.push_back({pos.first, pos.second -1});
 }
 
-void indie::AAI::getBombCase(const Map &map)
+void indie::AAI::getSafeCase(const Map &map)
 {
-  this->bomb_case.clear();
-  if (pos.first + 1 < static_cast<int>(map.getWidth()) && map.at(1, pos.first + 1, pos.second).getType(0) > static_cast<indie::OBJECTS_ID>(6))
-    this->bomb_case.push_back({pos.first + 1, pos.second});
-  if (pos.first - 1 >= 0 && map.at(1, pos.first - 1, pos.second).getType(0) > static_cast<indie::OBJECTS_ID>(6))
-    this->bomb_case.push_back({pos.first - 1, pos.second});
-  if (pos.second + 1 < static_cast<int>(map.getHeight()) && map.at(1, pos.first, pos.second + 1).getType(0) > static_cast<indie::OBJECTS_ID>(6))
-    this->bomb_case.push_back({pos.first, pos.second + 1});
-  if (pos.second - 1 >= 0 && map.at(1, pos.first, pos.second - 1).getType(0) > static_cast<indie::OBJECTS_ID>(6))
-    this->bomb_case.push_back({pos.first, pos.second -1});
-  if (map.at(1, pos.first, pos.second).getType(0) > static_cast<indie::OBJECTS_ID>(6))
-    this->bomb_case.push_back({pos.first, pos.second});
+  for (int y = 0; y < static_cast<int>(map.getHeight()); y++) {
+    for (int x = 0; x < static_cast<int>(map.getWidth()); x++) {
+      this->safe_case[y][x] = true;
+    }
+  }
+  for (int y = 0; y < static_cast<int>(map.getHeight()); y++) {
+    for (int x = 0; x < static_cast<int>(map.getWidth()); x++) {
+      if (map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(id)
+          && map.at(1, x, y).getType(0) > static_cast<indie::OBJECTS_ID>(6))
+        this->safe_case[y][x] = false;
+      if (map.at(0, x, y).getType(0) != static_cast<indie::OBJECTS_ID>(id)
+          && map.at(0, x, y).getType(0) > static_cast<indie::OBJECTS_ID>(0)
+          && map.at(0, x, y).getType(0) <= static_cast<indie::OBJECTS_ID>(6))
+          {
+            this->safe_case[y][x] = false;
+          }
+      else if (map.at(1, x, y).getType(0) > static_cast<indie::OBJECTS_ID>(6))
+        this->safe_case[y][x] = false;
+      }
+    }
+    /*for (int y = 0; y < static_cast<int>(map.getHeight()); y++) {
+      for (int x = 0; x < static_cast<int>(map.getWidth()); x++) {
+        if (x == pos.first && y == pos.second)
+          std::cout << "I ";
+        else if (this->safe_case[y][x] == true)
+          std::cout << "S ";
+        else
+          std::cout <<  "X ";
+      }
+      std::cout << std::endl;
+    }*/
 }
 
 void indie::AAI::run(const Map &map)
 {
-  bool OnBomb = true;
-
-  wait = true;
+  bool action_done = false;
+  getClosestSafeCase(map);
   for (long unsigned int i = 0; i < this->empty_case.size(); i++) {
-    if (this->bomb_case[0].first == this->pos.first && empty_case[i].first < this->pos.first)
+    if (case_safe.first < this->pos.first && empty_case[i].first < this->pos.first)
       {
-        OnBomb = false;
+        action_done = true;
         goLeft(map);
         i = this->empty_case.size();
       }
-    else if (this->bomb_case[0].first == this->pos.first && empty_case[i].first > this->pos.first)
+    else if (case_safe.first > this->pos.first &&  empty_case[i].first > this->pos.first)
       {
-        OnBomb = false;
+        action_done = true;
         goRight(map);
         i = this->empty_case.size();
       }
-    else if (this->bomb_case[0].second == this->pos.second && empty_case[i].second < this->pos.second)
+    else if (case_safe.second < this->pos.second && empty_case[i].second < this->pos.second)
       {
-        OnBomb = false;
+        action_done = true;
         goUp(map);
         i = this->empty_case.size();
       }
-    else if (this->bomb_case[0].second == this->pos.second && empty_case[i].second > this->pos.second)
+    else if (case_safe.second > this->pos.second && empty_case[i].second > this->pos.second)
       {
-        OnBomb = false;
+        action_done = true;
         goDown(map);
         i = this->empty_case.size();
       }
   }
-  if (OnBomb == true)
+  if (action_done == false)
     {
-      for (long unsigned int i = 0; i < this->empty_case.size(); i++) {
-        if (empty_case[i].second > this->pos.second)
-          {
-            OnBomb = true;
-            goDown(map);
-            i = this->empty_case.size();
-          }
-        else if (empty_case[i].first < this->pos.first)
-          {
-            OnBomb = true;
-            goLeft(map);
-            i = this->empty_case.size();
-          }
-        else if (empty_case[i].first > this->pos.first)
-          {
-            OnBomb = true;
-            goRight(map);
-            i = this->empty_case.size();
-          }
-        else if (empty_case[i].second < this->pos.second)
-          {
-            OnBomb = true;
-            goUp(map);
-            i = this->empty_case.size();
-          }
-      }
+      if (safe_case[pos.second][pos.first + 1] == true)
+        goRight(map);
+      if (safe_case[pos.second][pos.first - 1] == true)
+        goLeft(map);
+      if (safe_case[pos.second - 1][pos.first] == true)
+        goUp(map);
+      if (safe_case[pos.second + 1][pos.first] == true)
+        goDown(map);
     }
 }
 
 void indie::AAI::goOnEnemy(const Map &map)
 {
+  bool action_done = false;
   for (long unsigned int i = 0; i < this->empty_case.size(); i++) {
     if (((pos_enemy.second - this->pos.second) == 1 && (pos_enemy.first- this->pos.first) == 0)
               || ((pos_enemy.second - this->pos.second) == 0 && (pos_enemy.first- this->pos.first) == 1)
               || ((pos_enemy.second - this->pos.second) == 0 && (pos_enemy.first- this->pos.first) == -1)
               || ((pos_enemy.second - this->pos.second) == -1 && (pos_enemy.first- this->pos.first) == 0))
       {
+        action_done = true;
         i = this->empty_case.size();
         dropPikesBomb();
       }
-    else if (pos_enemy.first < this->pos.first && empty_case[i].first < this->pos.first)
+    else if (pos_enemy.first < this->pos.first && empty_case[i].first < this->pos.first &&
+            safe_case[pos.second][pos.first - 1] == true)
       {
+        action_done = true;
         goLeft(map);
         i = this->empty_case.size();
       }
-    else if (pos_enemy.first > this->pos.first && empty_case[i].first > this->pos.first)
+    else if (pos_enemy.first > this->pos.first && empty_case[i].first > this->pos.first &&
+            safe_case[pos.second][pos.first + 1] == true)
       {
+        action_done = true;
         goRight(map);
         i = this->empty_case.size();
       }
-    else if (pos_enemy.second < this->pos.second && empty_case[i].second < this->pos.second)
+    else if (pos_enemy.second < this->pos.second && empty_case[i].second < this->pos.second &&
+            safe_case[pos.second - 1][pos.first] == true)
       {
+        action_done = true;
         goUp(map);
         i = this->empty_case.size();
       }
-    else if (pos_enemy.second > this->pos.second && empty_case[i].second > this->pos.second)
+    else if (pos_enemy.second > this->pos.second && empty_case[i].second > this->pos.second &&
+            safe_case[pos.second + 1][pos.first] == true)
       {
+        action_done = true;
         goDown(map);
         i = this->empty_case.size();
       }
-    else
-      {
-        this->action = indie::AiAction::UNKNOWN;
-        this->direction = indie::ELookAt::SOUTH;
-      }
   }
+  if (action_done == false)
+    {
+      if (action == indie::AiAction::AI_DOWN && map.at(0, pos.first, pos.second - 1).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+        dropPikesBomb();
+      if (action == indie::AiAction::AI_UP && map.at(0, pos.first, pos.second + 1).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+        dropPikesBomb();
+      if (action == indie::AiAction::AI_LEFT && map.at(0, pos.first - 1, pos.second).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+        dropPikesBomb();
+      if (action == indie::AiAction::AI_RIGHT && map.at(0, pos.first + 1, pos.second).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+        dropPikesBomb();
+    }
 }

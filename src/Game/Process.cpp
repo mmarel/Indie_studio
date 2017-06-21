@@ -1,4 +1,6 @@
 #include "Game/Game.hpp"
+#include <chrono>
+#include <thread>
 
 void indie::Game::AIhandler() {
   std::map<AiAction, std::function<void(size_t)> > actionHandlers = {
@@ -17,6 +19,20 @@ void indie::Game::AIhandler() {
           if (actionHandlers.find(action) != actionHandlers.end()) {
             actionHandlers[action](player->getId());
           }
+/*          std::this_thread::sleep_for(std::chrono::milliseconds(50));
+          player->_ai->loop(_map, static_cast<int>(_settings.nPlayers + _settings.nAIs));
+          if (player->_ai->getAction() >= static_cast<AiAction>(0) && player->_ai->getAction() < static_cast<AiAction>(4))
+            {
+              std::pair<int, int> pos;
+              pos = player->_ai->getPosition(_map);
+              if (player->_ai->getAction() == AI_LEFT || player->_ai->getAction() == AI_RIGHT)
+                _map.at(0, pos.first, pos.second).setShiftY(0, 0.0);
+              else if (player->_ai->getAction() == AI_DOWN || player->_ai->getAction() == AI_UP)
+                _map.at(0, pos.first, pos.second).setShiftX(0, 0.0);
+              move(player->_ai->getId(), player->_ai->getDirection());
+            }
+          else if (player->_ai->getAction() >= static_cast<AiAction>(4))
+            bomb(player->_ai->getId());*/
         }
     });
 }

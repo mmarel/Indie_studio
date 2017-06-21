@@ -31,7 +31,7 @@ namespace indie
         TENTACLE_MODEL_6 = 13,
         TENTACLE_MODEL_PORTAL = 14,
         BONUS_SQUAREB_MODEL = 15,
-        BONUS_TENTACLEB_MODEL = 15
+        BONUS_TENTACLEB_MODEL = 16
     };
 
     enum class OBJECTS_ID : int {
