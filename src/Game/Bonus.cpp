@@ -28,7 +28,6 @@ void indie::Game::popBonus(indie::Tile &tile, size_t i) {
   size_t ret;
 
   ret = rand() % 5;
-  std::cout << "ret = "  << ret << std::endl;
   if (ret < 3) { return tile.deleteElement(i); }
   objectId = _map.newId();
   _map.addObjectById(objectId);

@@ -5,14 +5,20 @@ void indie::Game::checkBonus(indie::Tile &playerTile, indie::Tile &target) {
   indie::OBJECTS_ID type = target.getType(0);
 
   if (type == indie::OBJECTS_ID::BONUS_SQUAREB) {
-    std::cout << "square bomb activated\n";
+    _map.deleteObjectById(target.getObjectId(0));
+    target.setElem(0, 0, indie::OBJECTS_ID::EMPTY,
+                    false, indie::MODELS_ID::UNKNOWN, true,
+                    {0, 0}, "", target.getObjectRotation(0),
+                  target.getShiftX(0), target.getShiftY(0));
     player.setBombType(indie::OBJECTS_ID::SQUAREBOMB);
-    target.reset();
   }
   else if (type >= indie::OBJECTS_ID::BONUS_TENTACLEB) {
-    std::cout << "tentacle bomb activated\n";
+    _map.deleteObjectById(target.getObjectId(0));
+    target.setElem(0, 0, indie::OBJECTS_ID::EMPTY,
+                    false, indie::MODELS_ID::UNKNOWN, true,
+                    {0, 0}, "", target.getObjectRotation(0),
+                  target.getShiftX(0), target.getShiftY(0));
     player.setBombType(indie::OBJECTS_ID::TENTACLEBOMB);
-    target.reset();
   }
 }
 
@@ -344,8 +350,10 @@ void indie::Game::handleEvents() {
                                  });
                   } else { _gui.notifyEvent(event); }
 
-                });
+  });
+  const std::vector<indie::Sound> &gui_sounds = _gui.getSounds();
 
+  _soundsToPlay.insert(_soundsToPlay.begin(), gui_sounds.begin(), gui_sounds.end());
   _events.clear();
   if (state != _gameState && _gameState == indie::GameState::INGAME) {
     start();

@@ -1,6 +1,8 @@
 #include "Game/Player.hpp"
 
 indie::Player::Player(size_t id,
+                      indie::Map &map,
+                      size_t nplayers,
                       indie::PlayerType type, indie::IA_LEVEL level) :
   _id(id),
   _bindings(),
@@ -8,13 +10,12 @@ indie::Player::Player(size_t id,
   _bombs(),
   _score(0),
   _alive(true),
-  _type(type),
   _level(level),
-  _ai() {
+  _type(type),
+  _ai(),
+  _map(map),
+  _nplayers(nplayers) {
     if (type == indie::PlayerType::PLAYER_AI) {
-      /*std::vector<std::pair<int, int> > playersPos = {
-        {0, 0}, {10, 0}, {10, 12}, {0, 12}
-      };*/
       _ai = std::make_unique<indie::AiMedium>(id);
       _bindings = {
         { "LEFT", indie::KeyboardKey::KB_NONE },
@@ -57,4 +58,19 @@ bool indie::Player::hasBomb(size_t id) const {
 
 void indie::Player::removeBomb(size_t id) {
   _bombs.erase(std::remove(_bombs.begin(), _bombs.end(), id), _bombs.end());
+}
+
+indie::AiAction indie::Player::think() {
+  _ai->loop(_map, static_cast<int>(_nplayers));
+  if (_ai->getAction() >= static_cast<AiAction>(0) && _ai->getAction() < static_cast<AiAction>(4))
+    {
+      std::pair<int, int> pos;
+
+      pos = _ai->getPosition(_map);
+      if (_ai->getAction() == AI_LEFT || _ai->getAction() == AI_RIGHT)
+        _map.at(0, pos.first, pos.second).setShiftY(0, 0.0);
+      else if (_ai->getAction() == AI_DOWN || _ai->getAction() == AI_UP)
+        _map.at(0, pos.first, pos.second).setShiftX(0, 0.0);
+    }
+  return _ai->getAction();
 }

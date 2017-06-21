@@ -26,7 +26,6 @@ indie::Map::Map()
 indie::Map::~Map() {}
 
 void indie::Map::init(size_t which_map, size_t nPlayers) {
-  std::cout << "map init\n";
   switch (static_cast< GAME_MAP >(which_map))
   {
     case GAME_MAP::LITTLE_MAP:
@@ -36,7 +35,6 @@ void indie::Map::init(size_t which_map, size_t nPlayers) {
       throw IndieError(_INDIE_GAME_INVALID_MAP_INDEX);
       break ;
   }
-  std::cout << "map generated\n";
 }
 
 void indie::Map::clear() {
@@ -44,7 +42,7 @@ void indie::Map::clear() {
   _height = 0;
   _nbLayers = 0;
   _sceneId = 0;
-  //_scenePov = ECAMERA_VIEW::DEFAULT;
+  _scenePov = ECAMERA_VIEW::DEFAULT;
   _objectsId.clear();
   std::for_each(_layers.begin(), _layers.end(),
   [](std::vector<std::vector<std::unique_ptr< indie::Tile> > > &layer){

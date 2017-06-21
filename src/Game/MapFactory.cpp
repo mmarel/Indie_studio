@@ -4,10 +4,10 @@
 void    indie::Map::generate_little_map(size_t nPlayers) {
     this->_rawMap = std::vector<std::vector< int > >
       ({
-        std::vector< int >({ 1, 0, 0, 0, 0, 0, 0, 5, 5, 0, nPlayers >= 2 ? 2 : 0 }),
-        std::vector< int >({ 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0 }),
-        std::vector< int >({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 }),
-        std::vector< int >({ 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0 }),
+        std::vector< int >({ 1, 0, 5, 0, 5, 0, 0, 5, 5, 0, nPlayers >= 2 ? 2 : 0 }),
+        std::vector< int >({ 0, 6, 5, 6, 5, 6, 0, 6, 0, 6, 0 }),
+        std::vector< int >({ 0, 0, 5, 0, 5, 0, 0, 0, 0, 0, 5 }),
+        std::vector< int >({ 0, 6, 5, 6, 5, 6, 0, 6, 0, 6, 0 }),
         std::vector< int >({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }),
         std::vector< int >({ 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0 }),
         std::vector< int >({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }),

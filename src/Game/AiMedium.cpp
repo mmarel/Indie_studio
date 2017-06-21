@@ -12,43 +12,47 @@ indie::AiMedium::~AiMedium()
 
 void indie::AiMedium::loop(const Map &new_map,
                           const int &nb_players) {
-        bool isAlive = false;
-        for (int y = 0; y < static_cast<int>(new_map.getHeight()); y++) {
-          for (int x = 0; x < static_cast<int>(new_map.getWidth()); x++) {
-          if (new_map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(this->id))
-            {
-               isAlive = true;
-            }
-          }
+    bool isAlive = false;
+    for (int y = 0; y < static_cast<int>(new_map.getHeight()); y++) {
+      for (int x = 0; x < static_cast<int>(new_map.getWidth()); x++) {
+      if (new_map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(this->id))
+        {
+           isAlive = true;
         }
-        if (isAlive)
+      }
+    }
+    if (isAlive)
+      {
+        getPosition(new_map);
+        std::cout << "x : " << pos.first << std::endl
+                  << " shift x: " << new_map.at(0, pos.first, pos.second).getShiftX(0)<< std::endl
+                  << "y : " << pos.first
+                  << std::endl << " shift : " << new_map.at(0, pos.first, pos.second).getShiftY(0) << std::endl;
+        getEmptyCase(new_map);
+        getSafeCase(new_map);
+        if (shift_ok == true)
           {
-            getPosition(new_map);
-            std::cout << "x : " << pos.first << " shift :" << new_map.at(0, pos.first, pos.second).getShiftX(0)
-                      << "y : " << pos.first << " shift :" << new_map.at(0, pos.first, pos.second).getShiftY(0) << std::endl;
-            getEmptyCase(new_map);
-            getSafeCase(new_map);
-            if (shift_ok == true)
+            if (safe_case[pos.second][pos.first] == false
+                || new_map.at(1, pos.first, pos.second).getType(0) > static_cast<indie::OBJECTS_ID>(6))
               {
-                if (safe_case[pos.second][pos.first] == false
-                    || new_map.at(1, pos.first, pos.second).getType(0) > static_cast<indie::OBJECTS_ID>(6))
-                  run(new_map);
-                else
-                  {
-                    getClosestEnemy(nb_players, new_map);
-                    goOnEnemy(new_map);
-                  }
+                run(new_map);
               }
             else
               {
-                if (direction == indie::ELookAt::NORTH)
-                  goUp(new_map);
-                else if (direction == indie::ELookAt::SOUTH)
-                  goDown(new_map);
-                else if (direction == indie::ELookAt::EAST)
-                  goRight(new_map);
-                else if (direction == indie::ELookAt::WEST)
-                  goLeft(new_map);
+                getClosestEnemy(nb_players, new_map);
+                goOnEnemy(new_map);
               }
-        }
+          }
+        else
+          {
+            if (direction == indie::ELookAt::NORTH)
+              goUp(new_map);
+            else if (direction == indie::ELookAt::SOUTH)
+              goDown(new_map);
+            else if (direction == indie::ELookAt::EAST)
+              goRight(new_map);
+            else if (direction == indie::ELookAt::WEST)
+              goLeft(new_map);
+          }
+    }
 }

@@ -28,13 +28,6 @@ const std::vector<size_t> &indie::Game::getObjectsId() const {
 }
 
 const std::vector<indie::Sound> &indie::Game::getSoundsToPlay() const {
-  /*const std::vector<indie::Souns> &gui_sounds = _gui.getSoundsToPlay(); TODO add gui sounds
-  _soundsToPlay.inset(_soundsToPlay.begin(), gui_sound.begin()), gui_sounds.end());
-   if (_gui.hasVolumeChanged()) {
-   _music.mode = indie::Sound::VOLUME;
-    _music.volume = _settings.volume;
-    _soundsToPlay.push_back(_music);
-  }*/
   return _soundsToPlay;
 }
 
@@ -48,7 +41,6 @@ const indie::IGUI &indie::Game::getCurrentGUI() const {
 
 void indie::Game::setObjectsAnimationState(const std::vector<indie::AnimationState> &objectsStates) {
   _objectsStates = objectsStates;
-  //_objectsStates.insert(_objectsStates.end(), objectsStates.begin(), objectsStates.end());
 }
 
 indie::Player &indie::Game::getBombOwner(size_t bombId) {
@@ -91,17 +83,17 @@ void indie::Game::reset() {
 }
 
 void indie::Game::start() {
+  size_t totalPlayers = _settings.nPlayers + _settings.nAIs;
+
   reset();
   _map.init(0, _settings.nPlayers + _settings.nAIs);
   //_soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_SKELELETON_SPAWN, indie::SoundAction::UNIQUE, 50.0f));
 
   for (size_t i = 1; i <= _settings.nPlayers; i++) {
-    std::cout << "add players " << i << "\n";
-    _players.push_back(std::make_unique<indie::Player>(i));
+    _players.push_back(std::make_unique<indie::Player>(i, _map, totalPlayers));
   }
-  //std::cout << "player 1 id " << _players[0]->getId() << std::endl;
-  for (size_t i = _settings.nPlayers + 1; i <= _settings.nPlayers + _settings.nAIs; i++) {
-    _players.push_back(std::make_unique<indie::Player>(i,
+  for (size_t i = _settings.nPlayers + 1; i <= totalPlayers; i++) {
+    _players.push_back(std::make_unique<indie::Player>(i, _map, totalPlayers,
                                     indie::PlayerType::PLAYER_AI, _settings.difficulty));
   }
 }

@@ -3,11 +3,23 @@
 #include <thread>
 
 void indie::Game::AIhandler() {
+  std::map<AiAction, std::function<void(size_t)> > actionHandlers = {
+    { AiAction::AI_UP, [this](size_t playerId) { this->move(playerId, ELookAt::NORTH); }},
+    { AiAction::AI_DOWN, [this](size_t playerId) { this->move(playerId, ELookAt::SOUTH); }},
+    { AiAction::AI_LEFT, [this](size_t playerId) { this->move(playerId, ELookAt::WEST); }},
+    { AiAction::AI_RIGHT, [this](size_t playerId) { this->move(playerId, ELookAt::EAST); }},
+    { AiAction::AI_BOMB, [this](size_t playerId) { this->bomb(playerId); }}
+  };
   std::for_each(_players.begin(), _players.end(),
-    [this](std::unique_ptr<Player> &player) {
-      if (player->_type == indie::PlayerType::PLAYER_AI && player->isAlive())
+    [&](std::unique_ptr<Player> &player) {
+      if (player->getType() == indie::PlayerType::PLAYER_AI && player->isAlive())
         {
-          std::this_thread::sleep_for(std::chrono::milliseconds(50));
+          AiAction action = player->think();
+
+          if (actionHandlers.find(action) != actionHandlers.end()) {
+            actionHandlers[action](player->getId());
+          }
+/*          std::this_thread::sleep_for(std::chrono::milliseconds(50));
           player->_ai->loop(_map, static_cast<int>(_settings.nPlayers + _settings.nAIs));
           if (player->_ai->getAction() >= static_cast<AiAction>(0) && player->_ai->getAction() < static_cast<AiAction>(4))
             {
@@ -20,7 +32,7 @@ void indie::Game::AIhandler() {
               move(player->_ai->getId(), player->_ai->getDirection());
             }
           else if (player->_ai->getAction() >= static_cast<AiAction>(4))
-            bomb(player->_ai->getId());
+            bomb(player->_ai->getId());*/
         }
     });
 }
