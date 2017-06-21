@@ -46,6 +46,7 @@ namespace indie
         std::vector<std::unique_ptr<indie::IComponent>>    loadGuiGame();
         std::vector<std::unique_ptr<indie::IComponent>>    loadEndGame();
         std::vector<std::unique_ptr<indie::IComponent>>    loadPause();
+        void                                               update_dead();
 
         ///Events loaded with Components
         ///---Main Menu Events---

@@ -370,7 +370,14 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
         }
         ++nb_players;
     }
+    return (res);
+}
+
+void    indie::GUI::update_dead()
+{
+    std::vector<std::unique_ptr<indie::IComponent>> res;
     size_t pos = 0;
+
     for (std::vector<std::unique_ptr<indie::Player>>::const_iterator i = _settings.players.begin(); i != _settings.players.end(); ++i)  
     {
         if ((*i)->isAlive())
@@ -404,10 +411,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
         ++pos;
     }
 
-    //res.push_back(createComponent(10, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
-    //res.push_back(createComponent(11, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));    
-
-    return (res);
+    //return (res);
 }
 
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
@@ -461,7 +465,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
     if (!_compActions.empty())
         _compActions.clear();
 
-    _compActions[indie::KeyboardKey::KB_ENTER] = [this](){roomMenuKeyEnter();};
+    _compActions[indie::KeyboardKey::KB_ENTER] = [this](){endGameMenuKeyEnter();};
 
     return (res);
 }

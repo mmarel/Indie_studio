@@ -73,7 +73,7 @@ void indie::Game::updateAnimations() {
             if ((*animation_it).over && indie::ResourceHandler::isDeathFrame(tile.getModelId(pos), tile.getObjectFrameLoop(pos))) {
               removeObject(tile, pos);
               if (isEnded()) {
-                _gameState = indie::GameState::MAIN_MENU;
+                _gameState = indie::GameState::ENDGAME;
                 _gui.loadComponents(_gameState);
                 return;
               }
