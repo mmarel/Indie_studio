@@ -38,6 +38,7 @@ namespace indie
         std::vector<std::unique_ptr<indie::IComponent>>    loadScore();
         std::vector<std::unique_ptr<indie::IComponent>>    loadRoom();
         std::vector<std::unique_ptr<indie::IComponent>>    loadGuiGame();
+        std::vector<std::unique_ptr<indie::IComponent>>    loadEndGame();
 
         ///Events loaded with Components
         ///---Main Menu Events---
@@ -61,8 +62,11 @@ namespace indie
 
         ///---Score Menu Events---
         void    scoreMenuKeyEnter();
-        void    getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double);
+        void    getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double, double);
         void    getTabDates(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double);
+
+        ///---EndGame Menu Events---
+        void    endGameMenuKeyEnter();
 
 
         ///CreteComponent (*component params* + all paths to sprites)

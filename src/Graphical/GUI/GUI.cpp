@@ -14,6 +14,7 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
     _loadComps[indie::GameState::SCOREBOARD] = [this](){return loadScore();};
     _loadComps[indie::GameState::ROOM] = [this](){return loadRoom();};
     _loadComps[indie::GameState::INGAME] = [this](){return loadGuiGame();};
+    _loadComps[indie::GameState::ENDGAME] = [this](){return loadEndGame();};
 
     _transitPaths = {{"Menu_final/Transitions/Main_to_HighScores/002.png",
                              "Menu_final/Transitions/Main_to_HighScores/003.png",
@@ -190,6 +191,11 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                          "Gui/Red.png",
                                                          "Gui/Yellow.png",
                                                          "Gui/Green.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/VICTORY_SCREEN/blue.png",
+                                                         "Menu_final/VICTORY_SCREEN/red.png",
+                                                         "Menu_final/VICTORY_SCREEN/yellow.png",
+                                                         "Menu_final/VICTORY_SCREEN/green.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/INGAME/background.png"));
     return (std::move(sprites));
 }
 
@@ -217,7 +223,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadMenu() {
     _compActions[indie::KeyboardKey::KB_ARROW_UP] = [this](){mainMenuKeyUp();};
     _compActions[indie::KeyboardKey::KB_ARROW_RIGHT] = [this](){mainMenuKeyAccess();};
     _compActions[indie::KeyboardKey::KB_ENTER] = [this](){mainMenuKeyAccess();};
-
+ 
     return (res);
 }
 
@@ -296,7 +302,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
     height = 0.35f;
     for(std::vector<int>::iterator i = scores.begin(); i != scores.end(); ++i)  
     {
-        getTabNumber(res, std::to_string(*i), 0.52f, y, 0.55f, height);
+        getTabNumber(res, std::to_string(*i), 0.52f, y, 0.55f, height, 0.025f);
         y += 0.1;
         height += 0.1;
     }
@@ -358,6 +364,48 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
             break;
         }
     }
+    return (res);
+}
+
+std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
+    std::vector<std::unique_ptr<indie::IComponent>> res;
+
+    ///Load end game Components
+    int _winner = 2;
+
+    res.push_back(createComponent(10, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
+    switch (_winner)
+    {
+        case 0: {
+            res.push_back(createComponent(9, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));
+            res.at(0)->setBackgroundPos(0);
+            break;
+        }
+        case 1: {
+            res.push_back(createComponent(9, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));
+            res.at(res.size() - 1)->setBackgroundPos(1);
+            break;
+        }
+        case 2: {
+            res.push_back(createComponent(9, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));
+            res.at(res.size() - 1)->setBackgroundPos(1);
+            break;
+        }
+        case 3: {
+            res.push_back(createComponent(9, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));
+            res.at(res.size() - 1)->setBackgroundPos(3);
+            break;
+        }
+        default:
+            break;
+    }
+    getTabNumber(res, "1200", 0.4f, 0.65f, 0.45f, 0.70f, 0.05f);
+ 
+    if (!_compActions.empty())
+        _compActions.clear();
+
+    _compActions[indie::KeyboardKey::KB_ENTER] = [this](){roomMenuKeyEnter();};
+
     return (res);
 }
 
@@ -618,7 +666,7 @@ void indie::GUI::scoreMenuKeyEnter() {
     loadComponents(_gameState);
 }
 
-void    indie::GUI::getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &res, std::string score, double x, double y, double width, double height)
+void    indie::GUI::getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &res, std::string score, double x, double y, double width, double height, double space)
 {
     int nb;
     double  pos_x;
@@ -629,8 +677,8 @@ void    indie::GUI::getTabNumber(std::vector<std::unique_ptr<indie::IComponent>>
         nb = score[i] - 48;
         res.push_back(createComponent(7, pos_x, y, width, height, indie::Color::White, indie::Color::White));
         res.at(res.size() - 1)->setBackgroundPos(nb);
-        pos_x += 0.025;
-        width += 0.025;
+        pos_x += space;
+        width += space;
     }
 }
 
@@ -654,6 +702,17 @@ void    indie::GUI::getTabDates(std::vector<std::unique_ptr<indie::IComponent>> 
 }
 
 ///     Event Score Menu functions --- End
+///---------------------------------------------------------
+///     Event End Game Menu functions --- Start
+
+void    indie::GUI::endGameMenuKeyEnter()
+{
+    _gameState = indie::GameState::MAIN_MENU;
+    loadComponents(_gameState);
+}
+
+///     Event End Game Menu functions --- End
+
 
 const std::vector<indie::Sound> &indie::GUI::getSounds() const {
     return (_sounds);
