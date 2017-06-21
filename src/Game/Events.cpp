@@ -288,7 +288,6 @@ void indie::Game::bomb(size_t playerId) {
   };
   indie::Player &player = getPlayerById(playerId);
   indie::OBJECTS_ID type = player.getBombType();
-  type = indie::OBJECTS_ID::TENTACLEBOMB;
   indie::SoundId sound;
   int bombId;
 
