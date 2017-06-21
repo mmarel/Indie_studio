@@ -65,9 +65,9 @@ void indie::Game::process() {
     { indie::GameState::SCOREBOARD, [this]() -> void { this->menuProcess(); } }
   };
 
+
   _soundsToPlay.clear();
   _gui.flushGUI();
   if (handlers.find(_gameState) != handlers.end()) { return handlers[_gameState](); }
-  //handleEvents();
-  gameProcess();
+  handleEvents();
 }

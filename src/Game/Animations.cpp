@@ -14,6 +14,7 @@ void indie::Game::removeObject(indie::Tile &tile, size_t &i) {
   }
   else if (tile.getModelId(i) == indie::MODELS_ID::SKELETON_MODEL) {
     Player &player = getPlayerById(objectId);
+
     player.die();
     _gui.loadComponents(_gameState);
   }
@@ -32,9 +33,6 @@ void indie::Game::updateBombAnimation(indie::Tile &tile, size_t &i,
 
   if (nextframe.first == 0 && nextframe.second == 0) {
     removeObject(tile, i);
-    if (tile.getTileSize() >= i && tile.getType(i) != indie::OBJECTS_ID::EMPTY) {
-      std::cout << "fuuuuuuuuuuuuuuuck\n";
-    }
     return;
   }
   if (indie::ResourceHandler::isFrameLethal(tile.getType(i), nextframe)) {
@@ -61,7 +59,6 @@ void indie::Game::updateAnimations() {
   for (std::size_t layer = 0; layer < _map.getLayerNb(); layer++) {
     for (std::size_t y = 0; y < _map.getHeight(); y++) {
       for (std::size_t x = 0; x < _map.getWidth(); x++) {
-
         indie::Tile &tile = _map.at(layer, x, y);
 
         tileSize = tile.getTileSize();
@@ -69,7 +66,10 @@ void indie::Game::updateAnimations() {
 
           objectType = tile.getType(pos);
           if ((animation_it = getAnimationStateIt(tile.getObjectId(pos))) != _objectsStates.end()) {
-            if ((*animation_it).over && indie::ResourceHandler::isDeathFrame(tile.getModelId(pos), tile.getObjectFrameLoop(pos))) {
+
+            if ((*animation_it).over &&
+              indie::ResourceHandler::isDeathFrame(tile.getModelId(pos), tile.getObjectFrameLoop(pos))) {
+
               removeObject(tile, pos);
               if (isEnded()) {
                 _gameState = indie::GameState::ENDGAME;

@@ -18,7 +18,7 @@ indie::Map::Map()
       _objectsId(),
       _layers(),
       _rawMap(),
-      _id(0)
+      _id(4)
 {
   init(0, 2);
 }
@@ -55,7 +55,7 @@ void indie::Map::clear() {
   [](std::vector<int> &line){
     line.clear();
   });
-  _id = 0;
+  _id = 4;
 }
 
 indie::ITile const &indie::Map::at(size_t layer, size_t x, size_t y) const
@@ -142,8 +142,8 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::PLAYER_ONE:
             tile->setHasModel(0, true);
             tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
-            _objectsId.push_back(++_id);
-            tile->setObjectId(0, _id);
+            _objectsId.push_back(1);
+            tile->setObjectId(0, 1);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Blue.png");
             tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
             break;
@@ -151,8 +151,8 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::PLAYER_TWO:
             tile->setHasModel(0, true);
             tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
-            _objectsId.push_back(++_id);
-            tile->setObjectId(0, _id);
+            _objectsId.push_back(2);
+            tile->setObjectId(0, 2);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Red.png");
             tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
             break;
@@ -160,8 +160,8 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::PLAYER_THREE:
             tile->setHasModel(0, true);
             tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
-            _objectsId.push_back(++_id);
-            tile->setObjectId(0, _id);
+            _objectsId.push_back(3);
+            tile->setObjectId(0, 3);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Yellow.png");
             tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
             break;
@@ -169,8 +169,8 @@ void  indie::Map::initTiles() {
           case indie::OBJECTS_ID::PLAYER_FOURTH:
             tile->setHasModel(0, true);
             tile->setModelId(0, indie::MODELS_ID::SKELETON_MODEL);
-            _objectsId.push_back(++_id);
-            tile->setObjectId(0, _id);
+            _objectsId.push_back(4);
+            tile->setObjectId(0, 4);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Green.png");
             tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
             break;
