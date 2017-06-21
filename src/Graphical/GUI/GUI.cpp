@@ -342,7 +342,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
     size_t  nb_players = 1;
 
 //bleu, rouge, jaune, vert
-    while (nb_players < _settings.nPlayers + _settings.nAIs)
+    while (nb_players <= _settings.nPlayers + _settings.nAIs)
     {
         switch (nb_players)
         {
@@ -371,7 +371,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
         ++nb_players;
     }
     size_t pos = 0;
-    for(std::vector<std::unique_ptr<indie::Player>>::const_iterator i = _settings.players.begin(); i != _settings.players.end(); ++i)  
+    for (std::vector<std::unique_ptr<indie::Player>>::const_iterator i = _settings.players.begin(); i != _settings.players.end(); ++i)  
     {
         if ((*i)->isAlive())
         {
@@ -415,8 +415,19 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
      std::unique_ptr<indie::Score> score = std::make_unique<indie::Score>();
 
     ///Load end game Components
-    int _winner = 2;
-    int _score = 1234;
+    int _winner = 0;
+    int _score  = 0;
+
+    for (std::vector<std::unique_ptr<indie::Player>>::const_iterator i = _settings.players.begin(); i != _settings.players.end(); ++i)  
+    {
+        if ((*i)->isAlive())
+        {
+            _score = (*i)->getScore();
+            break;
+        }
+        _winner++;
+    }
+
 
     res.push_back(createComponent(10, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
     switch (_winner)
