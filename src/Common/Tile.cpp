@@ -80,6 +80,7 @@ void              indie::Tile::reset() {
   this->_shiftY = { 0.0 };
   this->_shiftX = { 0.0 };
   this->_type = { indie::OBJECTS_ID::EMPTY };
+  _objectId = { 0 };
 }
 
 void  indie::Tile::deleteElement(size_t i) {

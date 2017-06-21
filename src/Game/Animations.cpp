@@ -93,7 +93,6 @@ void indie::Game::updateAnimations() {
             else if ((*animation_it).over &&
                       objectType >= indie::OBJECTS_ID::SQUAREBOMB &&
                       objectType <= indie::OBJECTS_ID::FALLING_PILLAR) {
-                        std::cout << "animation over\n";
               updateBombAnimation(tile, pos, objectType, x, y);
             }
             else if (!(*animation_it).over) {

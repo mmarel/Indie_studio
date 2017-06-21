@@ -92,7 +92,7 @@ std::pair<size_t, size_t>   indie::ResourceHandler::getLethalFrame(indie::OBJECT
     { indie::OBJECTS_ID::SQUAREBOMB, { 67, 82 } },
     { indie::OBJECTS_ID::PIKESBOMB, { 49, 64 } },
     { indie::OBJECTS_ID::TENTACLEBOMB, { 52, 68 } },
-    { indie::OBJECTS_ID::BOX, { 1, 48 } }
+    { indie::OBJECTS_ID::BOX, { 1, 25 } }
   };
 
   std::map<indie::OBJECTS_ID, std::pair<size_t, size_t> >::const_iterator frame_it;

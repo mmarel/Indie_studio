@@ -45,9 +45,11 @@ indie::Tile &indie::Game::move_left(indie::Tile &player,
                                     size_t x, size_t y) {
   double newShift;
   bool tangible;
-
   newShift = player.getShiftX(0) - PLAYER_SPEED;
   tangible = (x == 0 || _map.at(0, x - 1, y).isTangible(0) || _map.at(1, x - 1, y).isTangible(0));
+  /*std::cout << "move left\n";
+  std::cout << "tangible = " << _map.at(0, x - 1, y).isTangible(0) << std::endl;
+  std::cout << "type " << static_cast<int>(_map.at(0, x - 1, y).getType(0)) << std::endl;*/
   if (newShift < 0.0 && !tangible && player.getShiftY(0) <= 0.3) {
     indie::Tile &nearPlayerTile = _map.at(0, x - 1, y);
 

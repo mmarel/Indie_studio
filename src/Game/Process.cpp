@@ -15,8 +15,6 @@ void indie::Game::AIhandler() {
     [&](std::unique_ptr<Player> &player) {
       if (player->getType() == indie::PlayerType::PLAYER_AI && player->isAlive())
         {
-          AiAction action = player->think();
-
 
           for (size_t y = 0; y < _map.getHeight(); y++) {
             for (size_t x = 0; x < _map.getWidth(); x++) {
@@ -25,16 +23,18 @@ void indie::Game::AIhandler() {
               if (playerTile.getModelId(0) == indie::MODELS_ID::SKELETON_MODEL &&
                   playerTile.getObjectId(0) == player->getId()) {
 
-                if (!indie::ResourceHandler::isDeathFrame(playerTile.getModelId(0), playerTile.getObjectFrameLoop(0)) &&
-                    actionHandlers.find(action) != actionHandlers.end()) {
+                if (!indie::ResourceHandler::isDeathFrame(playerTile.getModelId(0), playerTile.getObjectFrameLoop(0))) {
+                  AiAction action = player->think();
 
-                      actionHandlers[action](player->getId());
-                }
-                return;
+                  if (actionHandlers.find(action) != actionHandlers.end()) {
+                    actionHandlers[action](player->getId());
+                  }
+                  return;
               }
             }
           }
         }
+      }
     });
 }
 
@@ -45,9 +45,18 @@ void indie::Game::splashScreen() {
 
 void indie::Game::gameProcess() {
   updateAnimations();
-  fallingStones();
+  //fallingStones();
   handleEvents();
   AIhandler();
+/*
+  std::cout << "----------------MAP-----------------------\n";
+    for (size_t y = 0; y < _map.getHeight(); y++) {
+      for (size_t x = 0; x < _map.getWidth(); x++) {
+        std::cout << static_cast<int>(_map.at(1, x, y).getType(0)) << " ";
+      }
+      std::cout << "\n";
+  }
+  std::cout << "-----------------------\n";*/
 }
 
 void indie::Game::menuProcess() {

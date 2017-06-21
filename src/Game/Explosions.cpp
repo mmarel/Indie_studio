@@ -1,7 +1,7 @@
 #include "Game/Game.hpp"
 
 void indie::Game::kill(indie::Tile &player, size_t bombId) {
-  if (player.getObjectFrameLoop(0) != indie::ResourceHandler::getSkeletonFrame("DIE"))
+    if (!indie::ResourceHandler::isDeathFrame(indie::MODELS_ID::SKELETON_MODEL, player.getObjectFrameLoop(0)))
     {
       updateScore(bombId, 1000);
       player.setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("DIE"));
@@ -10,7 +10,7 @@ void indie::Game::kill(indie::Tile &player, size_t bombId) {
 }
 
 void indie::Game::explodeBox(indie::Tile &box, size_t bombId) {
-  if (box.getObjectFrameLoop(0) != indie::ResourceHandler::getLethalFrame(indie::OBJECTS_ID::BOX))
+  if (!indie::ResourceHandler::isDeathFrame(indie::MODELS_ID::BOX_MODEL, box.getObjectFrameLoop(0)))
     {
       updateScore(bombId);
       box.setObjectFrameLoop(0, indie::ResourceHandler::getLethalFrame(indie::OBJECTS_ID::BOX));

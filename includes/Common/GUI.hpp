@@ -39,7 +39,8 @@ namespace indie
         STATUETTE,
         STATUETTE_TEX,
         SKELETON_TEX,
-        TRANSP_SOUND
+        TRANSP_SOUND,
+        BONUS_PLAYER
     };
 
     class GUI : public IGUI
@@ -72,7 +73,7 @@ namespace indie
         std::vector<std::unique_ptr<indie::IComponent>>    loadGuiGame();
         std::vector<std::unique_ptr<indie::IComponent>>    loadEndGame();
         std::vector<std::unique_ptr<indie::IComponent>>    loadPause();
-        void                                               update_dead();
+        void                                               updatePlayersStat();
 
         ///Events loaded with Components
         ///---Main Menu Events---
