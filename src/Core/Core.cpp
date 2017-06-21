@@ -68,6 +68,10 @@ void            indie::Core::runCoreLoop()
                 this->process();
                 break ;
 
+            case indie::GameState::ENDGAME:
+                this->process();
+                break ;
+
             case indie::GameState::NONE:
             default:
                 break ;

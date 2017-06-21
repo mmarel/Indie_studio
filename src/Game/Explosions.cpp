@@ -30,6 +30,7 @@ int indie::Game::chainExplosion(size_t center_x, size_t center_y,
           model == indie::MODELS_ID::SQUAREBOMB_MODEL) &&
         !indie::ResourceHandler::isFrameLethal(type, bombTile.getObjectFrameLoop(i))) {
 
+          std::cout << "chain explosion\n";
           chained++;
           bombTile.setElem(i, bombTile.getObjectId(i), type,
                           true, model, true,
@@ -44,19 +45,19 @@ int indie::Game::chainExplosion(size_t center_x, size_t center_y,
 void indie::Game::simpleExplosion(size_t center_x, size_t center_y,
                                   size_t bombId,
                                   bool chain) {
-    indie::OBJECTS_ID type;
-    indie::Tile &playerTarget = _map.at(0, center_x, center_y);
-    int chainedPoints = 0;
+  indie::OBJECTS_ID type;
+  indie::Tile &playerTarget = _map.at(0, center_x, center_y);
+  int chainedPoints = 0;
 
-    type = playerTarget.getType(0);
-    if (chain) {
-      indie::Player &player = getPlayerById(playerTarget.getObjectId(0));
+  type = playerTarget.getType(0);
+  if (chain) {
+    indie::Player &player = getBombOwner(bombId);
 
-      chainedPoints = chainExplosion(center_x, center_y, bombId) * 50;
-      player.updateScore(chainedPoints);
-    }
-    if (type >= indie::OBJECTS_ID::PLAYER_ONE && type <= indie::OBJECTS_ID::PLAYER_FOURTH) { kill(playerTarget, bombId); }
-    else if (type == indie::OBJECTS_ID::BOX) { explodeBox(playerTarget, bombId); }
+    chainedPoints = chainExplosion(center_x, center_y, bombId) * 50;
+    player.updateScore(chainedPoints);
+  }
+  if (type >= indie::OBJECTS_ID::PLAYER_ONE && type <= indie::OBJECTS_ID::PLAYER_FOURTH) { kill(playerTarget, bombId); }
+  else if (type == indie::OBJECTS_ID::BOX) { explodeBox(playerTarget, bombId); }
 }
 
 void indie::Game::squareExplosion(size_t center_x, size_t center_y,

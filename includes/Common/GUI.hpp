@@ -44,6 +44,7 @@ namespace indie
         std::vector<std::unique_ptr<indie::IComponent>>    loadScore();
         std::vector<std::unique_ptr<indie::IComponent>>    loadRoom();
         std::vector<std::unique_ptr<indie::IComponent>>    loadGuiGame();
+        std::vector<std::unique_ptr<indie::IComponent>>    loadEndGame();
 
         ///Events loaded with Components
         ///---Main Menu Events---
@@ -68,8 +69,11 @@ namespace indie
         ///---Score Menu Events---
         void    scoreMenuKeyEnter();
         void    bledFunction();
-        void    getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double);
+        void    getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double, double);
         void    getTabDates(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double);
+
+        ///---EndGame Menu Events---
+        void    endGameMenuKeyEnter();
 
 
         ///CreteComponent (*component params* + all paths to sprites)
@@ -94,9 +98,7 @@ namespace indie
         virtual std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > getSprites() const;
         virtual void notifyEvent(const indie::Event &);
         virtual const std::vector<indie::Sound> &getSounds() const;
-        virtual bool hasTransition() const;
         virtual const std::vector<std::string> &getTransitPaths() const;
-        virtual void endTransition();
     };
 }
 

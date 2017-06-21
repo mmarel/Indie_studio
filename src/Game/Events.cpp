@@ -135,18 +135,22 @@ void indie::Game::move(size_t playerId,
   };
 
   if (moves_handlers.find(dir) == moves_handlers.end()) { return; }
+  
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
       indie::Tile &tile = _map.at(0, x, y);
+
       if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId) &&
           !indie::ResourceHandler::isDeathFrame(indie::MODELS_ID::SKELETON_MODEL, tile.getObjectFrameLoop(0))) {
 
           indie::Tile &ntile = moves_handlers[dir](tile, x, y);
-          std::pair<size_t, size_t> run_frame = indie::ResourceHandler::getSkeletonFrame("RUN");
 
           ntile.setObjectRotation(0, dir);
           ntile.setDoesAnimationChanged(0, true);
+
           if (!indie::ResourceHandler::isDeathFrame(ntile.getModelId(0), ntile.getObjectFrameLoop(0))) {
+
+            std::pair<size_t, size_t> run_frame = indie::ResourceHandler::getSkeletonFrame("RUN");
             ntile.setObjectFrameLoop(0, run_frame);
           }
       }
@@ -301,15 +305,15 @@ void indie::Game::handleEvents() {
 
   std::for_each(_events.begin(), _events.end(),
   [&](const Event &event) {
-
     if (_gameState == indie::GameState::INGAME &&
         event.type == indie::EventType::ET_KEYBOARD &&
         event.action == indie::ActionType::AT_PRESSED) {
 
           std::find_if(_players.begin(), _players.end(),
-          [&](indie::Player &player){
-            if (player.isAlive()) {
-              const std::map<std::string, indie::KeyboardKey> &bindings = player.getBindings();
+          [&](std::unique_ptr<indie::Player> &player){
+
+            if (player->isAlive()) {
+              const std::map<std::string, indie::KeyboardKey> &bindings = player->getBindings();
               std::map<std::string, indie::KeyboardKey>::const_iterator binding_it;
 
               binding_it = std::find_if(bindings.begin(), bindings.end(),
@@ -317,10 +321,11 @@ void indie::Game::handleEvents() {
                 return binding.second == event.kb_key;
               });
               if (binding_it != bindings.end()) {
-                eventHandlers[(*binding_it).first](player.getId());
+                eventHandlers[(*binding_it).first](player->getId());
                 return true;
               }
             }
+
             return false;
           });
         } else { _gui.notifyEvent(event); }

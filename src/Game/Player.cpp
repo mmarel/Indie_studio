@@ -1,22 +1,36 @@
 #include "Game/Player.hpp"
 
-indie::Player::Player(size_t id) :
+indie::Player::Player(size_t id,
+                      indie::ELookAt dir,
+                      indie::PlayerType type, indie::IA_LEVEL level) :
   _id(id),
   _bindings(),
   _bombType(indie::OBJECTS_ID::PIKESBOMB),
   _bombs(),
   _score(0),
-  _alive(true) {
+  _alive(true),
+  _type(type),
+  _level(level),
+  _ai() {
+    if (type == indie::PlayerType::PLAYER_AI) {
+      std::vector<std::pair<int, int> > playersPos = {
+        {0, 0}, {10, 0}, {10, 12}, {0, 12}
+      };
+
+      //_ai = std::make_unique<indie::AAI>(id, playersPos(id), dir);
+    }
+
     if (id == 1) {
-    _bindings = {
-      { "LEFT", indie::KeyboardKey::KB_Q },
-      { "RIGHT", indie::KeyboardKey::KB_D },
-      { "DOWN", indie::KeyboardKey::KB_S },
-      { "UP", indie::KeyboardKey::KB_Z },
-      { "BOMB", indie::KeyboardKey::KB_E }
-    }; }
+      _bindings = {
+        { "LEFT", indie::KeyboardKey::KB_Q },
+        { "RIGHT", indie::KeyboardKey::KB_D },
+        { "DOWN", indie::KeyboardKey::KB_S },
+        { "UP", indie::KeyboardKey::KB_Z },
+        { "BOMB", indie::KeyboardKey::KB_E }
+      };
+    }
     else if (id == 2) {
-      _bombType = indie::OBJECTS_ID::SQUAREBOMB;
+      _bombType = indie::OBJECTS_ID::TENTACLEBOMB;
       _bindings = {
         { "LEFT", indie::KeyboardKey::KB_ARROW_LEFT },
         { "RIGHT", indie::KeyboardKey::KB_ARROW_RIGHT},

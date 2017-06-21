@@ -1,10 +1,3 @@
-//
-// Author: Marwane Khsime
-// Date: 2017-06-08 00:50:54
-//
-// Last Modified by:   Marwane Khsime
-// Last Modified time: 2017-06-08 00:50:54
-//
 
 #include "Game/Map.hpp"
 
@@ -13,16 +6,16 @@ void    indie::Map::generate_little_map(size_t nPlayers) {
       ({
         std::vector< int >({ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, nPlayers >= 2 ? 2 : 0 }),
         std::vector< int >({ 0, 6, 5, 6, 0, 6, 0, 6, 0, 6, 0 }),
-        std::vector< int >({ 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0 }),
-        std::vector< int >({ 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0 }),
-        std::vector< int >({ 0, 0, 5, 0, 5, 0, 0, 0, 0, 0, 0 }),
-        std::vector< int >({ 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0 }),
-        std::vector< int >({ 0, 0, 5, 0, 5, 0, 0, 0, 0, 0, 0 }),
-        std::vector< int >({ 0, 6, 0, 6, 0, 6, 5, 6, 0, 6, 0 }),
-        std::vector< int >({ 0, 0, 0, 0, 5, 0, 5, 0, 0, 0, 0 }),
+        std::vector< int >({ 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 }),
         std::vector< int >({ 0, 6, 5, 6, 0, 6, 0, 6, 0, 6, 0 }),
-        std::vector< int >({ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }),
-        std::vector< int >({ 0, 6, 0, 6, 0, 6, 0, 6, 0, 6, 0 }),
+        std::vector< int >({ 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 }),
+        std::vector< int >({ 0, 6, 5, 6, 0, 6, 0, 6, 0, 6, 0 }),
+        std::vector< int >({ 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 }),
+        std::vector< int >({ 0, 6, 5, 6, 0, 6, 0, 6, 0, 6, 0 }),
+        std::vector< int >({ 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 }),
+        std::vector< int >({ 0, 6, 5, 6, 0, 6, 0, 6, 0, 6, 0 }),
+        std::vector< int >({ 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 }),
+        std::vector< int >({ 0, 6, 5, 6, 0, 6, 0, 6, 0, 6, 0 }),
         std::vector< int >({ nPlayers == 4 ? 4 : 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, nPlayers >= 3 ? 3 : 0 })
       });
 

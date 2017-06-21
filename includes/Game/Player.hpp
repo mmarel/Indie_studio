@@ -6,12 +6,18 @@
 # include <vector>
 # include <algorithm>
 # include "Interfaces/Event.hpp"
+# include "Interfaces/ITile.hpp"
+# include "Interfaces/IAI.hpp"
+# include "Game/Settings.hpp"
 # include "Game/ModelsId.hpp"
 
 namespace indie {
   class Player {
     public:
-      Player(size_t);
+      Player(size_t,
+              ELookAt dir = ELookAt::SOUTH,
+              PlayerType = PlayerType::PLAYER_HUMAN,
+              IA_LEVEL = IA_UNKNOWN);
       ~Player() {};
 
     public:
@@ -36,6 +42,9 @@ namespace indie {
       std::vector<size_t>                _bombs;
       int                                _score;
       bool                               _alive;
+      PlayerType                         _type;
+      IA_LEVEL                           _level;
+      std::unique_ptr<IAI>               _ai;
     };
 };
 

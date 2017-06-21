@@ -25,6 +25,7 @@ namespace indie
         HELP,
         ROOM,
         SCOREBOARD,
+        ENDGAME,
         QUIT
     };
 

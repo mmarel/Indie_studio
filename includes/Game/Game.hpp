@@ -47,6 +47,7 @@ namespace indie {
       void  menuProcess();
 
     private:
+      Player &getBombOwner(size_t);
       Player &getPlayerById(size_t);
       void updateScore(size_t, int = 100);
       void deleteBombSaves(size_t);
@@ -94,7 +95,7 @@ namespace indie {
       virtual const std::vector<Sound>  &getSoundsToPlay() const;
 
     private:
-      std::vector<Player>               _players;
+      std::vector<std::unique_ptr<Player> >       _players;
       std::vector<indie::Sound>         _soundsToPlay;
       indie::Sound                      _music;
       GameState                         _gameState;

@@ -51,15 +51,35 @@ void indie::Game::setObjectsAnimationState(const std::vector<indie::AnimationSta
   //_objectsStates.insert(_objectsStates.end(), objectsStates.begin(), objectsStates.end());
 }
 
+indie::Player &indie::Game::getBombOwner(size_t bombId) {
+  std::vector<std::unique_ptr<indie::Player> >::iterator player_it;
+
+  player_it = std::find_if(_players.begin(), _players.end(),
+                [&bombId](std::unique_ptr<indie::Player> &player) {
+                  return player->hasBomb(bombId);
+                });
+  return *(*player_it);
+}
+
 indie::Player &indie::Game::getPlayerById(size_t playerId) {
-  return *(std::find_if(_players.begin(), _players.end(),
-            [&playerId](Player &player) {
-              return player.getId() == playerId;
-            }));
+  std::vector<std::unique_ptr<indie::Player> >::iterator player_it;
+
+  player_it = std::find_if(_players.begin(), _players.end(),
+            [&playerId](std::unique_ptr<indie::Player> &player)-> bool {
+              return player->getId() == playerId;
+            });
+  return *(*player_it);
 }
 
 bool indie::Game::isEnded() const {
   //int nPlayers = 0;
+  /*
+const vector &
+
+  std::accumulate(_players.begin(), _players.end(), 0,
+  [](size_t n) {
+
+  });*/
   return false;
   std::cout << "end game\n";
   return true;
@@ -74,22 +94,25 @@ void indie::Game::reset() {
   _music = indie::Sound(indie::SoundId::SOUND_NONE, indie::SoundAction::PLAY, 50.0f);
   _events.clear();
   _map.clear();
-  _settings = Settings();
   _objectsStates.clear();
 }
 
 void indie::Game::start() {
-  std::cout << "start game\n";
-  for (size_t i = 1; i <= 2; i++) {
-    _players.push_back(indie::Player(i));
-  }
-  return;
+  std::cout << "start game " << _settings.nPlayers << "players "<< _settings.nAIs << " ais\n";
   reset();
-  _settings.nPlayers = 2;
+  _map.init(0, _settings.nPlayers/* + _settings.nAIs*/);
   //_soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_SKELELETON_SPAWN, indie::SoundAction::UNIQUE, 50.0f));
+
   for (size_t i = 1; i <= _settings.nPlayers; i++) {
-    _players.push_back(indie::Player(i));
+    std::cout << "add players " << i << "\n";
+    _players.push_back(std::make_unique<indie::Player>(i, static_cast<indie::ELookAt>(i - 1)));
   }
-  // TODO init AIs
-  _map.init(0, _settings.nPlayers + _settings.nAIs);
+  std::cout << "player 1 id " << _players[0]->getId() << std::endl;
+  return;
+  for (size_t i = 1; i <= _settings.nAIs; i++) {
+    std::cout << "add ai " << i + 2 << "\n";
+    _players.push_back(std::make_unique<indie::Player>(i,
+                                    static_cast<indie::ELookAt>(_settings.nPlayers + i - 1),
+                                    indie::PlayerType::PLAYER_AI, _settings.difficulty));
+  }
 }

@@ -25,7 +25,7 @@ std::pair<size_t, size_t>   indie::ResourceHandler::getNextFrameSquareBomb(std::
     frameID++;
     return frame.first == current_frame.first && frame.second == current_frame.second;
   });
-  if (frameID == frames.size()) { return std::pair<size_t, size_t>({0, 0});}
+  if (frameID == frames.size()) { return std::pair<size_t, size_t>({0, 0}); }
   return frames[frameID];
 }
 
