@@ -291,10 +291,12 @@ void indie::Game::bomb(size_t playerId) {
   indie::Player &player = getPlayerById(playerId);
   indie::OBJECTS_ID type = player.getBombType();
   indie::SoundId sound;
+
   int bombId;
 
   if (player.isTired()) { return; }
 
+  player.useBomb();
   for (std::size_t y = 0; y < _map.getHeight(); y++) {
     for (std::size_t x = 0; x < _map.getWidth(); x++) {
       if (_map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(playerId)) {

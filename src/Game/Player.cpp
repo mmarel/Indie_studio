@@ -14,7 +14,8 @@ indie::Player::Player(size_t id,
   _type(type),
   _ai(),
   _map(map),
-  _nplayers(nplayers) {
+  _nplayers(nplayers),
+  _uses(2) {
     if (type == indie::PlayerType::PLAYER_AI) {
       _ai = std::make_unique<indie::AiMedium>(id);
       _bindings = {
@@ -72,4 +73,17 @@ indie::AiAction indie::Player::think() {
         _map.at(0, pos.first, pos.second).setShiftX(0, 0.0);
     }
   return _ai->getAction();
+}
+
+void  indie::Player::setBombType(indie::OBJECTS_ID bombtype)
+{
+  this->_uses = 2;
+  _bombType = bombtype;
+}
+
+void  indie::Player::useBomb()
+{
+  this->_uses--;
+  if (this->_uses == 0)
+    setBombType(indie::OBJECTS_ID::PIKESBOMB);
 }
