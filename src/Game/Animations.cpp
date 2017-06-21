@@ -36,15 +36,9 @@ void indie::Game::updateBombAnimation(indie::Tile &tile, size_t &i,
     return;
   }
   if (indie::ResourceHandler::isFrameLethal(tile.getType(i), nextframe)) {
-    if (tile.getType(i) == indie::OBJECTS_ID::FALLING_PILLAR) {
-      std::cout << "------------------ pilar ----\n";
-    }
     explode(tile, i, x, y);
   }
 
-    if (tile.getType(i) == indie::OBJECTS_ID::FALLING_PILLAR) {
-      std::cout << "------------------ pilar not lethal\n";
-    }
   tile.setDoesAnimationChanged(i, true);
   tile.setObjectFrameLoop(i, nextframe);
 }
@@ -67,6 +61,7 @@ void indie::Game::updateAnimations() {
     for (std::size_t y = 0; y < _map.getHeight(); y++) {
       for (std::size_t x = 0; x < _map.getWidth(); x++) {
         indie::Tile &tile = _map.at(layer, x, y);
+
 
         tileSize = tile.getTileSize();
         for (size_t i = 0, pos = 0; i < tileSize; i++, pos++) {
@@ -93,12 +88,10 @@ void indie::Game::updateAnimations() {
             else if ((*animation_it).over &&
                       objectType >= indie::OBJECTS_ID::SQUAREBOMB &&
                       objectType <= indie::OBJECTS_ID::FALLING_PILLAR) {
+
               updateBombAnimation(tile, pos, objectType, x, y);
             }
             else if (!(*animation_it).over) {
-              if (objectType == indie::OBJECTS_ID::FALLING_PILLAR) {
-                std::cout << "pillar anim not over\n";
-              }
               tile.setDoesAnimationChanged(pos, false);
             }
           }

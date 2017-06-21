@@ -24,10 +24,10 @@ void indie::AiMedium::loop(const Map &new_map,
     if (isAlive)
       {
         getPosition(new_map);
-        std::cout << "x : " << pos.first << std::endl
+        /*std::cout << "x : " << pos.first << std::endl
                   << " shift x: " << new_map.at(0, pos.first, pos.second).getShiftX(0)<< std::endl
                   << "y : " << pos.first
-                  << std::endl << " shift : " << new_map.at(0, pos.first, pos.second).getShiftY(0) << std::endl;
+                  << std::endl << " shift : " << new_map.at(0, pos.first, pos.second).getShiftY(0) << std::endl;*/
         getEmptyCase(new_map);
         getSafeCase(new_map);
         if (shift_ok == true)

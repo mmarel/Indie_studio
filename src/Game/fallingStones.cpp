@@ -45,14 +45,15 @@ std::pair<size_t, size_t> indie::Game::getNextFallingPillarPos() {
                   indie::OBJECTS_ID::FALLING_PILLAR,
                   true, indie::MODELS_ID::FALLING_PILLAR_MODEL, true,
                   indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::FALLING_PILLAR, {0, 0}),
-                  indie::ResourceHandler::getTexture(indie::MODELS_ID::FALLING_PILLAR_MODEL));
+                  indie::ResourceHandler::getTexture(indie::MODELS_ID::FALLING_PILLAR_MODEL),
+                  static_cast<indie::ELookAt>(rand() % 4));
 }
 
 void indie::Game::fallingStones() {
   static indie::Timer CD;
 
-  if (_settings.timer.Elapsed().count() >= 1000) {
-    if (CD.Elapsed().count() >= 100) {
+  if (_settings.timer.Elapsed().count() >= 60000) {
+    if (CD.Elapsed().count() >= 500) {
       itsRainingStones();
       CD.Reset();
     }
