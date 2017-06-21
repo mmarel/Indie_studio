@@ -1,15 +1,21 @@
 #include "Game/Game.hpp"
 
 void indie::Game::kill(indie::Tile &player, size_t bombId) {
-  updateScore(bombId, 1000);
-  player.setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("DIE"));
-  player.setDoesAnimationChanged(0, true);
+  if (player.getObjectFrameLoop(0) != indie::ResourceHandler::getSkeletonFrame("DIE"))
+    {
+      updateScore(bombId, 1000);
+      player.setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("DIE"));
+      player.setDoesAnimationChanged(0, true);
+    }
 }
 
 void indie::Game::explodeBox(indie::Tile &box, size_t bombId) {
-  updateScore(bombId);
-  box.setObjectFrameLoop(0, indie::ResourceHandler::getLethalFrame(indie::OBJECTS_ID::BOX));
-  box.setDoesAnimationChanged(0, true);
+  if (box.getObjectFrameLoop(0) != indie::ResourceHandler::getLethalFrame(indie::OBJECTS_ID::BOX))
+    {
+      updateScore(bombId);
+      box.setObjectFrameLoop(0, indie::ResourceHandler::getLethalFrame(indie::OBJECTS_ID::BOX));
+      box.setDoesAnimationChanged(0, true);
+    }
 }
 
 int indie::Game::chainExplosion(size_t center_x, size_t center_y,

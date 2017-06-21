@@ -17,7 +17,7 @@ void indie::Game::checkBonus(indie::Tile &playerTile, indie::Tile &target) {
 }
 
 void indie::Game::checkDeath(indie::Tile &playerTile,
-                              size_t x, size_t y) {
+                             size_t x, size_t y) {
   indie::Tile &bombTile = _map.at(1, x, y);
   size_t tileSize = bombTile.getTileSize();
   indie::OBJECTS_ID type;
@@ -29,9 +29,9 @@ void indie::Game::checkDeath(indie::Tile &playerTile,
         type <= indie::OBJECTS_ID::TENTACLEBOMB &&
         indie::ResourceHandler::isFrameLethal(type, bombTile.getObjectFrameLoop(i))) {
 
-          playerTile.setDoesAnimationChanged(0, true);
-          playerTile.setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("DIE"));
-        }
+      playerTile.setDoesAnimationChanged(0, true);
+      playerTile.setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("DIE"));
+    }
   }
 }
 
@@ -58,7 +58,7 @@ indie::Tile &indie::Game::move_left(indie::Tile &player,
 }
 
 indie::Tile &indie::Game::move_right(indie::Tile &player,
-                                      size_t x, size_t y) {
+                                     size_t x, size_t y) {
   double newShift;
   bool tangible;
 
@@ -126,7 +126,7 @@ indie::Tile &indie::Game::move_up(indie::Tile &player,
 }
 
 void indie::Game::move(size_t playerId,
-                        indie::ELookAt dir) {
+                       indie::ELookAt dir) {
   static std::map<indie::ELookAt, std::function<Tile &(indie::Tile &, size_t, size_t)> > moves_handlers = {
     { indie::ELookAt::NORTH, [this](indie::Tile &tile, size_t x, size_t y)->indie::Tile &{ return move_up(tile, x, y); } },
     { indie::ELookAt::SOUTH, [this](indie::Tile &tile, size_t x, size_t y)->indie::Tile &{ return move_down(tile, x, y); } },
@@ -143,16 +143,16 @@ void indie::Game::move(size_t playerId,
       if (tile.getType(0) == static_cast<indie::OBJECTS_ID>(playerId) &&
           !indie::ResourceHandler::isDeathFrame(indie::MODELS_ID::SKELETON_MODEL, tile.getObjectFrameLoop(0))) {
 
-          indie::Tile &ntile = moves_handlers[dir](tile, x, y);
+        indie::Tile &ntile = moves_handlers[dir](tile, x, y);
 
-          ntile.setObjectRotation(0, dir);
-          ntile.setDoesAnimationChanged(0, true);
+        ntile.setObjectRotation(0, dir);
+        ntile.setDoesAnimationChanged(0, true);
 
-          if (!indie::ResourceHandler::isDeathFrame(ntile.getModelId(0), ntile.getObjectFrameLoop(0))) {
+        if (!indie::ResourceHandler::isDeathFrame(ntile.getModelId(0), ntile.getObjectFrameLoop(0))) {
 
-            std::pair<size_t, size_t> run_frame = indie::ResourceHandler::getSkeletonFrame("RUN");
-            ntile.setObjectFrameLoop(0, run_frame);
-          }
+          std::pair<size_t, size_t> run_frame = indie::ResourceHandler::getSkeletonFrame("RUN");
+          ntile.setObjectFrameLoop(0, run_frame);
+        }
       }
     }
   }
@@ -164,10 +164,10 @@ void indie::Game::SquareBomb(indie::Tile &bombTile, indie::Player &player) {
   _map.addObjectById(objectId);
   player.bomb(objectId);
   bombTile.setElem(bombTile.getTileSize(), objectId,
-                  indie::OBJECTS_ID::SQUAREBOMB,
-                  true, indie::MODELS_ID::SQUAREBOMB_MODEL, true,
-                  indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::SQUAREBOMB, {0, 0}),
-                  indie::ResourceHandler::getTexture(indie::MODELS_ID::SQUAREBOMB_MODEL));
+                   indie::OBJECTS_ID::SQUAREBOMB,
+                   true, indie::MODELS_ID::SQUAREBOMB_MODEL, true,
+                   indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::SQUAREBOMB, {0, 0}),
+                   indie::ResourceHandler::getTexture(indie::MODELS_ID::SQUAREBOMB_MODEL));
 }
 
 void indie::Game::PikesBomb(indie::Tile &bombTile,
@@ -187,60 +187,68 @@ void indie::Game::PikesBomb(indie::Tile &bombTile,
                 {center_x,      center_y + i } };
 
     std::for_each(targets.begin(), targets.end(),
-      [&](std::pair<size_t, size_t> &targetPos) {
+                  [&](std::pair<size_t, size_t> &targetPos) {
 
-        if (!stopPropagation[x] &&
-            targetPos.first < _map.getWidth() && targetPos.second < _map.getHeight()) {
+                    if (!stopPropagation[x] &&
+                        targetPos.first < _map.getWidth() && targetPos.second < _map.getHeight()) {
 
-          indie::Tile &target = _map.at(1, targetPos.first, targetPos.second);
+                      if (_map.at(0, targetPos.first, targetPos.second).getType(0) == indie::OBJECTS_ID::WALL) {
+                        stopPropagation[x] = true;
+                      }
+                      else
+                        {
+                          indie::Tile &target = _map.at(1, targetPos.first, targetPos.second);
 
-          objectId = _map.newId();
-          _map.addObjectById(objectId);
-          player.bomb(objectId);
-          modelId = static_cast<size_t>(indie::MODELS_ID::PIKES_MODEL_1) + rand() % 4;
-          target.setElem(target.getTileSize(), objectId,
-                          indie::OBJECTS_ID::PIKESBOMB,
-                          true, static_cast<indie::MODELS_ID>(modelId), true,
-                          indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}),
-                          indie::ResourceHandler::getTexture(static_cast<indie::MODELS_ID>(modelId)));
+                          objectId = _map.newId();
+                          _map.addObjectById(objectId);
+                          player.bomb(objectId);
+                          modelId = static_cast<size_t>(indie::MODELS_ID::PIKES_MODEL_1) + rand() % 4;
+                          target.setElem(target.getTileSize(), objectId,
+                                         indie::OBJECTS_ID::PIKESBOMB,
+                                         true, static_cast<indie::MODELS_ID>(modelId), true,
+                                         indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}),
+                                         indie::ResourceHandler::getTexture(static_cast<indie::MODELS_ID>(modelId)));
 
-          if (_map.at(0, targetPos.first, targetPos.second).getType(0) == indie::OBJECTS_ID::BOX ||
-              _map.at(0, targetPos.first, targetPos.second).getType(0) == indie::OBJECTS_ID::WALL) {
-            stopPropagation[x] = true;
-          }
-        } else { stopPropagation[x] = true; }
-        x++;
-    });
+                          if ((_map.at(0, targetPos.first, targetPos.second).getType(0) == indie::OBJECTS_ID::BOX &&
+                              _map.at(0, targetPos.first, targetPos.second).getObjectFrameLoop(0) != indie::ResourceHandler::getLethalFrame(indie::OBJECTS_ID::BOX)) ||
+                              _map.at(0, targetPos.first, targetPos.second).getType(0) == indie::OBJECTS_ID::WALL) {
+                            stopPropagation[x] = true;
+                          }
+                        }
+                    } else { stopPropagation[x] = true; }
+                    x++;
+                  });
   }
   objectId  = _map.newId();
   _map.addObjectById(objectId);
   player.bomb(objectId);
   bombTile.setElem(bombTile.getTileSize(), objectId,
-                  indie::OBJECTS_ID::PIKESBOMB,
-                  true, indie::MODELS_ID::PIKES_MODEL_CENTER, true,
-                  indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}),
-                  indie::ResourceHandler::getTexture(indie::MODELS_ID::PIKES_MODEL_CENTER));
+                   indie::OBJECTS_ID::PIKESBOMB,
+                   true, indie::MODELS_ID::PIKES_MODEL_CENTER, true,
+                   indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::PIKESBOMB, {0, 0}),
+                   indie::ResourceHandler::getTexture(indie::MODELS_ID::PIKES_MODEL_CENTER));
 }
 
 void indie::Game::TentacleBomb(indie::Tile &bombTile,
-                                size_t x, size_t y,
-                                indie::Player &player) {
-  size_t eastSize = 1;
-  size_t northSize = 1;
-  size_t westSize = 1;
-  size_t southSize = 1;
+                               size_t x, size_t y,
+                               indie::Player &player) {
+  size_t eastSize = 0;
+  size_t northSize = 0;
+  size_t westSize = 0;
+  size_t southSize = 0;
   size_t objectId;
 
-  while (westSize < 6 && x >= westSize && _map.at(0, x - westSize, y).getType(0) == indie::OBJECTS_ID::EMPTY) { westSize++; }
-  while (northSize < 6 && y >= northSize && _map.at(0,  x, y - northSize).getType(0) == indie::OBJECTS_ID::EMPTY) { northSize++; }
-  while (eastSize < 6 && (x + eastSize) < _map.getWidth() && _map.at(0, x + eastSize, y).getType(0) == indie::OBJECTS_ID::EMPTY) { eastSize++; }
-  while (southSize < 6 && (y + southSize) < _map.getHeight() && _map.at(0, x, y + southSize).getType(0) == indie::OBJECTS_ID::EMPTY) { southSize++; }
+  while (westSize < 6 && x >= (westSize + 1) && _map.at(0, x - (westSize + 1), y).getType(0) != indie::OBJECTS_ID::WALL) { westSize++; }
+  while (northSize < 6 && y >= (northSize + 1) && _map.at(0,  x, y - (northSize + 1)).getType(0) != indie::OBJECTS_ID::WALL) { northSize++; }
+  while (eastSize < 6 && (x + (eastSize + 1)) < _map.getWidth() && _map.at(0, x + (eastSize + 1), y).getType(0) != indie::OBJECTS_ID::WALL) { eastSize++; }
+  while (southSize < 6 && (y + (southSize + 1)) < _map.getHeight() && _map.at(0, x, y + (southSize + 1)).getType(0) != indie::OBJECTS_ID::WALL) { southSize++; }
+
   std::vector<indie::MODELS_ID> models = {
     indie::MODELS_ID::TENTACLE_MODEL_PORTAL,
-    static_cast<indie::MODELS_ID>(westSize + 7),
-    static_cast<indie::MODELS_ID>(northSize + 7),
-    static_cast<indie::MODELS_ID>(eastSize + 7),
-    static_cast<indie::MODELS_ID>(southSize + 7)
+    westSize > 0 ? static_cast<indie::MODELS_ID>(westSize + 7) : indie::MODELS_ID::UNKNOWN,
+    northSize > 0 ? static_cast<indie::MODELS_ID>(northSize + 7) : indie::MODELS_ID::UNKNOWN,
+    eastSize > 0 ? static_cast<indie::MODELS_ID>(eastSize + 7) : indie::MODELS_ID::UNKNOWN,
+    southSize > 0 ? static_cast<indie::MODELS_ID>(southSize + 7) : indie::MODELS_ID::UNKNOWN,
   };
   std::vector<indie::ELookAt> dirs = {
     indie::ELookAt::SOUTH,
@@ -250,16 +258,19 @@ void indie::Game::TentacleBomb(indie::Tile &bombTile,
     indie::ELookAt::WEST
   };
   for (size_t i = 0; i < 5; i++) {
-    objectId = _map.newId();
-    if (i != 0) { bombTile.newElem(objectId); }
-    _map.addObjectById(objectId);
-    player.bomb(objectId);
-    bombTile.setElem(bombTile.getTileSize(), objectId,
-                    indie::OBJECTS_ID::TENTACLEBOMB,
-                    true, models[i], true,
-                    indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::TENTACLEBOMB, {0, 0}),
-                    indie::ResourceHandler::getTexture(models[i]),
-                    dirs[i]);
+    if (models[i] != indie::MODELS_ID::UNKNOWN)
+      {
+        objectId = _map.newId();
+        if (i != 0) { bombTile.newElem(objectId); }
+        _map.addObjectById(objectId);
+        player.bomb(objectId);
+        bombTile.setElem(bombTile.getTileSize(), objectId,
+                         indie::OBJECTS_ID::TENTACLEBOMB,
+                         true, models[i], true,
+                         indie::ResourceHandler::getNextFrame(indie::OBJECTS_ID::TENTACLEBOMB, {0, 0}),
+                         indie::ResourceHandler::getTexture(models[i]),
+                         dirs[i]);
+      }
   }
 }
 
@@ -271,6 +282,7 @@ void indie::Game::bomb(size_t playerId) {
   };
   indie::Player &player = getPlayerById(playerId);
   indie::OBJECTS_ID type = player.getBombType();
+  type = indie::OBJECTS_ID::TENTACLEBOMB;
   indie::SoundId sound;
   int bombId;
 
@@ -306,33 +318,33 @@ void indie::Game::handleEvents() {
   GameState state = _gameState;
 
   std::for_each(_events.begin(), _events.end(),
-  [&](const Event &event) {
-    if (_gameState == indie::GameState::INGAME &&
-        event.type == indie::EventType::ET_KEYBOARD &&
-        event.action == indie::ActionType::AT_PRESSED) {
+                [&](const Event &event) {
+                  if (_gameState == indie::GameState::INGAME &&
+                      event.type == indie::EventType::ET_KEYBOARD &&
+                      event.action == indie::ActionType::AT_PRESSED) {
 
-          std::find_if(_players.begin(), _players.end(),
-          [&](std::unique_ptr<indie::Player> &player){
+                    std::find_if(_players.begin(), _players.end(),
+                                 [&](std::unique_ptr<indie::Player> &player){
 
-            if (player->isAlive()) {
-              const std::map<std::string, indie::KeyboardKey> &bindings = player->getBindings();
-              std::map<std::string, indie::KeyboardKey>::const_iterator binding_it;
+                                   if (player->isAlive()) {
+                                     const std::map<std::string, indie::KeyboardKey> &bindings = player->getBindings();
+                                     std::map<std::string, indie::KeyboardKey>::const_iterator binding_it;
 
-              binding_it = std::find_if(bindings.begin(), bindings.end(),
-              [&event](const std::pair<std::string, indie::KeyboardKey> &binding) {
-                return binding.second == event.kb_key;
-              });
-              if (binding_it != bindings.end()) {
-                eventHandlers[(*binding_it).first](player->getId());
-                return true;
-              }
-            }
+                                     binding_it = std::find_if(bindings.begin(), bindings.end(),
+                                                               [&event](const std::pair<std::string, indie::KeyboardKey> &binding) {
+                                                                 return binding.second == event.kb_key;
+                                                               });
+                                     if (binding_it != bindings.end()) {
+                                       eventHandlers[(*binding_it).first](player->getId());
+                                       return true;
+                                     }
+                                   }
 
-            return false;
-          });
-        } else { _gui.notifyEvent(event); }
+                                   return false;
+                                 });
+                  } else { _gui.notifyEvent(event); }
 
-  });
+                });
 
   _events.clear();
   if (state != _gameState && _gameState == indie::GameState::INGAME) {
