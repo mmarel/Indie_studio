@@ -49,18 +49,19 @@ int indie::Game::chainExplosion(size_t center_x, size_t center_y,
 
 void indie::Game::simpleExplosion(size_t center_x, size_t center_y,
                                   size_t bombId,
-                                  bool chain) {
+                                  bool chain,
+                                  bool ownerIsPlayer) {
   indie::OBJECTS_ID type;
   indie::Tile &playerTarget = _map.at(0, center_x, center_y);
   int chainedPoints = 0;
 
   type = playerTarget.getType(0);
-  if (chain) {
+  if (chain && ownerIsPlayer) {
     indie::Player &player = getBombOwner(bombId);
 
     chainedPoints = chainExplosion(center_x, center_y, bombId) * 50;
     player.updateScore(chainedPoints);
-  }
+  } else if (chain) { chainExplosion(center_x, center_y, bombId); }
   if (type >= indie::OBJECTS_ID::PLAYER_ONE && type <= indie::OBJECTS_ID::PLAYER_FOURTH) { kill(playerTarget, bombId); }
   else if (type == indie::OBJECTS_ID::BOX) { explodeBox(playerTarget, bombId); }
 }
@@ -108,11 +109,11 @@ void indie::Game::tentacleExplosion(size_t center_x, size_t center_y,
 void indie::Game::explode(indie::Tile &tile, size_t i, size_t center_x, size_t center_y) {
   static std::map<indie::MODELS_ID, std::function<void(size_t, size_t, size_t, size_t)> > explosionHandlers = {
     { indie::MODELS_ID::SQUAREBOMB_MODEL, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->squareExplosion(x, y, bombId); } },
-    { indie::MODELS_ID::PIKES_MODEL_1, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
-    { indie::MODELS_ID::PIKES_MODEL_2, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
-    { indie::MODELS_ID::PIKES_MODEL_3, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
-    { indie::MODELS_ID::PIKES_MODEL_4, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
-    { indie::MODELS_ID::PIKES_MODEL_CENTER, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
+    { indie::MODELS_ID::PIKES_MODEL_1, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
+    { indie::MODELS_ID::PIKES_MODEL_2, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
+    { indie::MODELS_ID::PIKES_MODEL_3, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
+    { indie::MODELS_ID::PIKES_MODEL_4, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
+    { indie::MODELS_ID::PIKES_MODEL_CENTER, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
     { indie::MODELS_ID::TENTACLE_MODEL_1, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 1, at, bombId); } },
     { indie::MODELS_ID::TENTACLE_MODEL_2, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 2, at, bombId); } },
     { indie::MODELS_ID::TENTACLE_MODEL_3, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 3, at, bombId); } },
@@ -120,7 +121,7 @@ void indie::Game::explode(indie::Tile &tile, size_t i, size_t center_x, size_t c
     { indie::MODELS_ID::TENTACLE_MODEL_5, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 5, at, bombId); } },
     { indie::MODELS_ID::TENTACLE_MODEL_6, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 6, at, bombId); } },
     { indie::MODELS_ID::TENTACLE_MODEL_PORTAL, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 0, at, bombId); } },
-    { indie::MODELS_ID::FALLING_PILLAR_MODEL, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } }
+    { indie::MODELS_ID::FALLING_PILLAR_MODEL, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, true, false); } }
   };
   indie::MODELS_ID bombType = tile.getModelId(i);
 

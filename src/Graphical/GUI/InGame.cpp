@@ -36,6 +36,12 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
         ++nb_players;
     }
 
+    for (int i = 0; i < 4; ++i)
+    {
+        res.push_back(createComponent(SpriteId::BONUS_PLAYER,0.0f, 0.0f, 1.0f, 1.0f, indie::Color::Black, indie::Color::Black));
+        res.at(res.size() - 1)->setBackgroundPos(8);
+    }
+
     if (!_compActions.empty())
         _compActions.clear();
 
@@ -107,6 +113,11 @@ void    indie::GUI::updatePlayersStat()
             _components.at(i)->setBackgroundPos(i * 2);
         else
             _components.at(i)->setBackgroundPos(i * 2 + 1);
+
+        if (_settings.players.at(i)->getBombType() == indie::OBJECTS_ID::TENTACLEBOMB)
+            _components.at(i + _settings.players.size())->setBackgroundPos(i * 2 + 1);
+        else if (_settings.players.at(i)->getBombType() == indie::OBJECTS_ID::SQUAREBOMB)
+            _components.at(i + _settings.players.size())->setBackgroundPos(i * 2);
     }
 }
 

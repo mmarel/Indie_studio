@@ -45,18 +45,9 @@ void indie::Game::splashScreen() {
 
 void indie::Game::gameProcess() {
   updateAnimations();
-  //fallingStones();
+  fallingStones();
   handleEvents();
   AIhandler();
-/*
-  std::cout << "----------------MAP-----------------------\n";
-    for (size_t y = 0; y < _map.getHeight(); y++) {
-      for (size_t x = 0; x < _map.getWidth(); x++) {
-        std::cout << static_cast<int>(_map.at(1, x, y).getType(0)) << " ";
-      }
-      std::cout << "\n";
-  }
-  std::cout << "-----------------------\n";*/
 }
 
 void indie::Game::menuProcess() {

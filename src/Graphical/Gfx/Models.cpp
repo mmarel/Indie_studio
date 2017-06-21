@@ -57,10 +57,10 @@ std::vector<indie::AnimationState>  indie::Gfx::getObjectsAnimationState() const
 
         //  juste change l'id ici
         // TODO
-        if (it->second.modelId == 10) {
-            std::cout << "bomb current frame : " << it->second.node->getFrameNr() << std::endl;
-            std::cout << "bomd end frame : " << it->second.frameLoop.second << std::endl;
-        }
+        //if (it->second.modelId == 15) {
+            //std::cout << "bomb current frame : " << it->second.node->getFrameNr() << std::endl;
+            //std::cout << "bomd end frame : " << it->second.frameLoop.second << std::endl;
+        //}
 
         // Checks whether the object has completed its animation or not
         if (it->second.node &&
