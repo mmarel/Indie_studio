@@ -5,11 +5,19 @@ void indie::Game::checkBonus(indie::Tile &playerTile, indie::Tile &target) {
   indie::OBJECTS_ID type = target.getType(0);
 
   if (type == indie::OBJECTS_ID::BONUS_SQUAREB) {
+    _map.deleteObjectById(target.getObjectId(0));
+    target.setElem(0, 0, indie::OBJECTS_ID::EMPTY,
+                    false, indie::MODELS_ID::UNKNOWN, true,
+                    {0, 0}, "", target.getObjectRotation(0),
+                  target.getShiftX(0), target.getShiftY(0));
     player.setBombType(indie::OBJECTS_ID::SQUAREBOMB);
-    target.setElem(0, 0, indie::OBJECTS_ID::EMPTY);
   }
   else if (type >= indie::OBJECTS_ID::BONUS_TENTACLEB) {
-    target.setElem(0, 0, indie::OBJECTS_ID::EMPTY);
+    _map.deleteObjectById(target.getObjectId(0));
+    target.setElem(0, 0, indie::OBJECTS_ID::EMPTY,
+                    false, indie::MODELS_ID::UNKNOWN, true,
+                    {0, 0}, "", target.getObjectRotation(0),
+                  target.getShiftX(0), target.getShiftY(0));
     player.setBombType(indie::OBJECTS_ID::TENTACLEBOMB);
   }
 }
