@@ -33,14 +33,14 @@ std::unique_ptr<std::vector<std::pair<std::string, indie::SoundType> > > indie::
   std::unique_ptr<std::vector<std::pair<std::string, indie::SoundType> > > soundsToLoad;
 
   soundsToLoad = std::make_unique<std::vector<std::pair<std::string, indie::SoundType> > >();
-  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/Music/Drowning_-_Menu.wav", indie::SoundType::MUSIC));
-  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/Music/Fault_Lines_-_Game.wav", indie::SoundType::MUSIC));
-  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/Music/Innocence_Mangled_-_Game.wav", indie::SoundType::MUSIC));
-  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/Music/Tandava_-_Game.wav", indie::SoundType::MUSIC));
-  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Explosion_1.ogg", indie::SoundType::SOUND));
-  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Explosion_2.ogg", indie::SoundType::SOUND));
-  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Explosion_3.ogg", indie::SoundType::SOUND));
-  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Skeleton_Spawn.ogg", indie::SoundType::SOUND));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/Music/Drowning_-_Menu.flac", indie::SoundType::MUSIC));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/Music/Fault_Lines_-_Game.flac", indie::SoundType::MUSIC));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/Music/Innocence_Mangled_-_Game.flac", indie::SoundType::MUSIC));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/Music/Tandava_-_Game.flac", indie::SoundType::MUSIC));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Explosion_1.flac", indie::SoundType::SOUND));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Explosion_2.flac", indie::SoundType::SOUND));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Explosion_3.flac", indie::SoundType::SOUND));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Skeleton_Spawn.flac", indie::SoundType::SOUND));
   return std::move(soundsToLoad);
 }
 
