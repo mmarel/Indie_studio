@@ -18,6 +18,7 @@ namespace indie {
       bool                safe_case[13][11];
       std::pair<int, int> case_safe;
       std::pair<int, int> pos_enemy;
+      std::pair<int, int> goal_position;
     public:
       AAI(const int &new_id);
       virtual ~AAI();

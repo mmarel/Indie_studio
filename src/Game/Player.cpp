@@ -62,5 +62,15 @@ void indie::Player::removeBomb(size_t id) {
 
 indie::AiAction indie::Player::think() {
   _ai->loop(_map, _nplayers);
+  if (_ai->getAction() >= static_cast<AiAction>(0) && _ai->getAction() < static_cast<AiAction>(4))
+    {
+      std::pair<int, int> pos;
+
+      pos = _ai->getPosition(_map);
+      if (_ai->getAction() == AI_LEFT || _ai->getAction() == AI_RIGHT)
+        _map.at(0, pos.first, pos.second).setShiftY(0, 0.0);
+      else if (_ai->getAction() == AI_DOWN || _ai->getAction() == AI_UP)
+        _map.at(0, pos.first, pos.second).setShiftX(0, 0.0);
+    }
   return _ai->getAction();
 }
