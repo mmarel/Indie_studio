@@ -68,7 +68,7 @@ namespace indie
 
         ///---Score Menu Events---
         void    scoreMenuKeyEnter();
-        void    bledFunction();
+        void    revPaths();
         void    getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double, double);
         void    getTabDates(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double);
 

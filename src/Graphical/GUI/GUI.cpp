@@ -135,7 +135,7 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
                              "Menu_final/Transitions/Main_to_Room/0039.png",
                              "Menu_final/Transitions/Main_to_Room/0040.png"}};
     _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
-    bledFunction();
+    revPaths();
 }
 
 std::size_t indie::GUI::size() const {
@@ -756,7 +756,7 @@ const std::vector<std::string> &indie::GUI::getTransitPaths() const {
     return (_blankVector);
 }
 
-void indie::GUI::bledFunction() {
+void indie::GUI::revPaths(){
     std::vector<std::string> tmp;
     for (size_t i = 0; i < _transitPaths.size(); ++i)
     {
@@ -764,4 +764,8 @@ void indie::GUI::bledFunction() {
         std::reverse(tmp.begin(), tmp.end());
         _reversePaths.push_back(tmp);
     }
+}
+
+void indie::GUI::flushGUI() {
+    _hasTransition = false;
 }
