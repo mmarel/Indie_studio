@@ -27,6 +27,7 @@ namespace indie {
       int getScore() const { return _score; }
       bool hasBomb(size_t) const;
       bool isAlive() const { return _alive; }
+      bool isTired() const { std::cout << _bombs.size() << std::endl; return false;return _bombs.size() > 0; };
 
     public:
       void setBombType(indie::OBJECTS_ID bombType) { _bombType = bombType; }
