@@ -18,7 +18,6 @@ void indie::Game::deleteBombSaves(size_t id) {
       player->removeBomb(id);
       return true;
     }
-    else { std::cout << "error\n"; }
     return false;
   });
 }
