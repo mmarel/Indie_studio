@@ -1,11 +1,9 @@
-#include "Game/Score.hpp"
-#include "Interfaces/Sound.hpp"
 #include "Common/GUI.hpp"
 
 indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackground(0), _nbPlayersH(0),
                                                                       _nbPlayersAI(0), _indexPaths(0),
-                                                                      _hasTransition(false), _settings(settings),
-                                                                      _gameState(state), _components(),
+                                                                      _hasTransition(false), _rev(false),
+                                                                      _settings(settings), _gameState(state), _components(),
                                                                       _loadComps(), _compActions(),
                                                                       _sounds() {
 
@@ -135,6 +133,7 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
                              "Menu_final/Transitions/Main_to_Room/0039.png",
                              "Menu_final/Transitions/Main_to_Room/0040.png"}};
     _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
+    bledFunction();
 }
 
 std::size_t indie::GUI::size() const {
@@ -400,12 +399,27 @@ void indie::GUI::mainMenuKeyAccess(){
     switch (_posBackground)
 
     {
-        case 0: loadComponents((_gameState = indie::GameState::ROOM));
+        case 0: {
+            loadComponents((_gameState = indie::GameState::ROOM));
+            _indexPaths = 2;
+            _rev = false;
+            _hasTransition = true;
             break;
-        case 1: loadComponents((_gameState = indie::GameState::SETTINGS));
+        }
+        case 1: {
+            loadComponents((_gameState = indie::GameState::SETTINGS));
+            _indexPaths = 1;
+            _rev  = false;
+            _hasTransition = true;
             break;
-        case 2: loadComponents((_gameState = indie::GameState::SCOREBOARD));
+        }
+        case 2: {
+            loadComponents((_gameState = indie::GameState::SCOREBOARD));
+            _indexPaths = 0;
+            _rev = false;
+            _hasTransition = true;
             break;
+        }
         case 3: loadComponents((_gameState = indie::GameState::QUIT));
             break;
         default:
@@ -604,7 +618,12 @@ void indie::GUI::roomMenuKeyLeft() {
 
 void indie::GUI::roomMenuKeyEnter() {
     if (_posBackground == 2)
+    {
+        _indexPaths = 2;
+        _rev = true;
+        _hasTransition = true;
         loadComponents((_gameState = indie::GameState::MAIN_MENU));
+    }
     if (_posBackground == 3)
         loadComponents((_gameState = indie::GameState::INGAME));
 }
@@ -614,6 +633,9 @@ void indie::GUI::roomMenuKeyEnter() {
 ///     Event Score Menu functions --- Start
 
 void indie::GUI::scoreMenuKeyEnter() {
+    _indexPaths = 0;
+    _rev = true;
+    _hasTransition = true;
     _gameState = indie::GameState::MAIN_MENU;
     loadComponents(_gameState);
 }
@@ -660,7 +682,14 @@ const std::vector<indie::Sound> &indie::GUI::getSounds() const {
 }
 
 const std::vector<std::string> &indie::GUI::getTransitPaths() const {
-    return (_transitPaths.at(_indexPaths));
+    if (_hasTransition)
+    {
+        if (_rev)
+            return (_reversePaths.at(_indexPaths));
+        else
+            return (_transitPaths.at(_indexPaths));
+    }
+    return (_blankVector);
 }
 
 bool indie::GUI::hasTransition() const {
@@ -669,4 +698,14 @@ bool indie::GUI::hasTransition() const {
 
 void indie::GUI::endTransition() {
     _hasTransition = false;
+}
+
+void indie::GUI::bledFunction() {
+    std::vector<std::string> tmp;
+    for (size_t i = 0; i < _transitPaths.size(); ++i)
+    {
+        tmp = _transitPaths.at(i);
+        std::reverse(tmp.begin(), tmp.end());
+        _reversePaths.push_back(tmp);
+    }
 }

@@ -3,6 +3,7 @@
 
 #include <map>
 #include <vector>
+#include <algorithm>
 #include <functional>
 #include "Common/Sprite.hpp"
 #include "Common/Component.hpp"
@@ -10,6 +11,8 @@
 #include "Interfaces/IGUI.hpp"
 #include "Interfaces/Event.hpp"
 #include "Game/Settings.hpp"
+#include "Game/Score.hpp"
+
 
 namespace indie
 {
@@ -24,6 +27,7 @@ namespace indie
         size_t                                                _nbPlayersAI;
         size_t                                                _indexPaths;
         bool                                                 _hasTransition;
+        bool                                                 _rev;
         indie::Settings&                                      _settings;
         indie::GameState&                                     _gameState;
         std::vector<std::unique_ptr<indie::IComponent>>       _components;
@@ -31,6 +35,8 @@ namespace indie
         std::map<indie::KeyboardKey, _compActionsfunc>        _compActions;
         std::vector<indie::Sound>                             _sounds;
         std::vector<std::vector<std::string>>                 _transitPaths;
+        std::vector<std::vector<std::string>>                 _reversePaths;
+        std::vector<std::string>                              _blankVector;
 
         ///Load Components Functions
         std::vector<std::unique_ptr<indie::IComponent>>    loadMenu();
@@ -61,6 +67,7 @@ namespace indie
 
         ///---Score Menu Events---
         void    scoreMenuKeyEnter();
+        void    bledFunction();
         void    getTabNumber(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double);
         void    getTabDates(std::vector<std::unique_ptr<indie::IComponent>> &, std::string, double, double, double, double);
 
