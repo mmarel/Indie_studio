@@ -3,7 +3,6 @@
 void indie::Game::removeObject(indie::Tile &tile, size_t &i) {
   indie::OBJECTS_ID type = tile.getType(i);
   size_t objectId = tile.getObjectId(i);
-  size_t tileSize;
 
   if (type == indie::OBJECTS_ID::BOX) {
     popBonus(tile, i);
@@ -18,7 +17,6 @@ void indie::Game::removeObject(indie::Tile &tile, size_t &i) {
     player.die();
     _gui.loadComponents(_gameState);
   }
-  tileSize = tile.getTileSize();
   tile.deleteElement(i--);
   _map.deleteObjectById(objectId);
 }
@@ -74,7 +72,7 @@ void indie::Game::updateAnimations() {
             if ((*animation_it).over && indie::ResourceHandler::isDeathFrame(tile.getModelId(pos), tile.getObjectFrameLoop(pos))) {
               removeObject(tile, pos);
               if (isEnded()) {
-                _gameState = indie::GameState::MAIN_MENU;
+                _gameState = indie::GameState::ENDGAME;
                 _gui.loadComponents(_gameState);
                 return;
               }

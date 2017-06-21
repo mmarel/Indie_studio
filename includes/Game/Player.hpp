@@ -15,7 +15,6 @@ namespace indie {
   class Player {
     public:
       Player(size_t,
-              ELookAt dir = ELookAt::SOUTH,
               PlayerType = PlayerType::PLAYER_HUMAN,
               IA_LEVEL = IA_UNKNOWN);
       ~Player() {};
