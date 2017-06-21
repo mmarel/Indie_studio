@@ -133,9 +133,10 @@ void    indie::Gfx::play_animation(const std::vector<std::string> &frames) {
 
 void    indie::Gfx::updateGUI(const IGUI &gui) {
 
-    if (gui.hasTransition()) {
-        this->play_animation(gui.getTransitPaths());
-        gui.endTransition();
+    const std::vector<std::string>    animation = gui.getTransitPaths();
+
+    if (!animation.empty()) {
+        this->play_animation(animation);
     } else {
 
         for (std::size_t i = 0; i < gui.size(); i++) {
