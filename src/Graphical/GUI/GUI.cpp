@@ -380,7 +380,7 @@ void    indie::GUI::update_dead()
 
     for (std::vector<std::unique_ptr<indie::Player>>::const_iterator i = _settings.players.begin(); i != _settings.players.end(); ++i)  
     {
-        if ((*i)->isAlive())
+        if (!(*i)->isAlive())
         {
             switch (pos)
             {
