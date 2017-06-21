@@ -368,6 +368,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
             default:
                 break;
         }
+        ++nb_players;
     }
     size_t pos = 0;
     for(std::vector<std::unique_ptr<indie::Player>>::const_iterator i = _settings.players.begin(); i != _settings.players.end(); ++i)  
@@ -403,8 +404,8 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
         ++pos;
     }
 
-    res.push_back(createComponent(10, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
-    res.push_back(createComponent(11, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));    
+    //res.push_back(createComponent(10, 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
+    //res.push_back(createComponent(11, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));    
 
     return (res);
 }
