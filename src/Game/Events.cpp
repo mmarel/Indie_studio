@@ -333,7 +333,9 @@ void indie::Game::handleEvents() {
         } else { _gui.notifyEvent(event); }
 
   });
+  const std::vector<indie::Sound> &gui_sounds = _gui.getSounds();
 
+  _soundsToPlay.insert(_soundsToPlay.begin(), gui_sounds.begin(), gui_sounds.end());
   _events.clear();
   if (state != _gameState && _gameState == indie::GameState::INGAME) {
     start();

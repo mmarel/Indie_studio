@@ -28,13 +28,6 @@ const std::vector<size_t> &indie::Game::getObjectsId() const {
 }
 
 const std::vector<indie::Sound> &indie::Game::getSoundsToPlay() const {
-  /*const std::vector<indie::Souns> &gui_sounds = _gui.getSoundsToPlay(); TODO add gui sounds
-  _soundsToPlay.inset(_soundsToPlay.begin(), gui_sound.begin()), gui_sounds.end());
-   if (_gui.hasVolumeChanged()) {
-   _music.mode = indie::Sound::VOLUME;
-    _music.volume = _settings.volume;
-    _soundsToPlay.push_back(_music);
-  }*/
   return _soundsToPlay;
 }
 
@@ -48,7 +41,6 @@ const indie::IGUI &indie::Game::getCurrentGUI() const {
 
 void indie::Game::setObjectsAnimationState(const std::vector<indie::AnimationState> &objectsStates) {
   _objectsStates = objectsStates;
-  //_objectsStates.insert(_objectsStates.end(), objectsStates.begin(), objectsStates.end());
 }
 
 indie::Player &indie::Game::getBombOwner(size_t bombId) {

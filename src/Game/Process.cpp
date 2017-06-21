@@ -30,7 +30,7 @@ void indie::Game::process() {
     { indie::GameState::ROOM, [this]() -> void { this->menuProcess(); } },
     { indie::GameState::SCOREBOARD, [this]() -> void { this->menuProcess(); } }
   };
-  
+
   _soundsToPlay.clear();
   _gui.flushGUI();
   if (handlers.find(_gameState) != handlers.end()) { return handlers[_gameState](); }
