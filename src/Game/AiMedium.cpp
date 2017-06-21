@@ -41,19 +41,10 @@ void indie::AiMedium::loop(const Map &new_map,
               {
                 getClosestEnemy(nb_players, new_map);
                 goOnEnemy(new_map);
-                if (direction == indie::ELookAt::NORTH)
-                  goal_position = {pos.first, pos.second - 1};
-                else if (direction == indie::ELookAt::SOUTH)
-                  goal_position = {pos.first, pos.second + 1};
-                else if (direction == indie::ELookAt::EAST)
-                  goal_position = {pos.first + 1, pos.second};
-                else if (direction == indie::ELookAt::WEST)
-                  goal_position = {pos.first - 1, pos.second};
               }
           }
         else
           {
-            std::cout << "---------------------------------------" << '\n';
             if (direction == indie::ELookAt::NORTH)
               goUp(new_map);
             else if (direction == indie::ELookAt::SOUTH)

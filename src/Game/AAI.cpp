@@ -2,13 +2,14 @@
 
 indie::AAI::AAI(const int &new_id)
 : id(new_id),
-  pos(),
   shift_ok(true),
   wait(false),
   action(indie::e_AiAction::UNKNOWN),
   direction(),
+  pos(),
   empty_case(),
   safe_case(),
+  case_safe(),
   pos_enemy()
 {
 }
@@ -31,7 +32,7 @@ const indie::ELookAt &indie::AAI::getDirection()
 void indie::AAI::goUp(const Map &map)
 {
   shift_ok = false;
-  if (map.at(0, pos.first, pos.second).getShiftX(0) == 0.0)
+  if (map.at(0, pos.first, pos.second).getShiftX(0) <= 0.1)
     shift_ok = true;
   this->action = indie::AiAction::AI_UP;
   this->direction = indie::ELookAt::NORTH;
@@ -40,7 +41,7 @@ void indie::AAI::goUp(const Map &map)
 void indie::AAI::goDown(const Map &map)
 {
   shift_ok = false;
-  if (map.at(0, pos.first, pos.second).getShiftX(0) == 0.0)
+  if (map.at(0, pos.first, pos.second).getShiftX(0) <= 0.1)
     shift_ok = true;
   this->action = indie::AiAction::AI_DOWN;
   this->direction = indie::ELookAt::SOUTH;
@@ -49,7 +50,7 @@ void indie::AAI::goDown(const Map &map)
 void indie::AAI::goLeft(const Map &map)
 {
   shift_ok = false;
-  if (map.at(0, pos.first, pos.second).getShiftY(0) == 0.0)
+  if (map.at(0, pos.first, pos.second).getShiftY(0) <= 0.1)
     shift_ok = true;
   this->action = indie::AiAction::AI_LEFT;
   this->direction = indie::ELookAt::WEST;
@@ -58,7 +59,7 @@ void indie::AAI::goLeft(const Map &map)
 void indie::AAI::goRight(const Map &map)
 {
   shift_ok = false;
-  if (map.at(0, pos.first, pos.second).getShiftY(0) == 0.0)
+  if (map.at(0, pos.first, pos.second).getShiftY(0) <= 0.0)
     shift_ok = true;
   this->action = indie::AiAction::AI_RIGHT;
   this->direction = indie::ELookAt::EAST;
@@ -91,15 +92,16 @@ const std::pair<int, int> &indie::AAI::getPosition(const Map &map)
       }
     }
   }
+  return (pos);
 }
 
 void indie::AAI::getClosestSafeCase(const Map &map)
 {
   case_safe.first = 50;
   case_safe.second = 50;
-  for (int y = 0; y < map.getHeight(); y++)
+  for (int y = 0; y < static_cast<int>(map.getHeight()); y++)
     {
-      for (int x = 0; x < map.getWidth(); x++)
+      for (int x = 0; x < static_cast<int>(map.getWidth()); x++)
         {
           int new_safe;
           int old_safe;

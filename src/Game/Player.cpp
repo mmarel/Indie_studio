@@ -61,7 +61,7 @@ void indie::Player::removeBomb(size_t id) {
 }
 
 indie::AiAction indie::Player::think() {
-  _ai->loop(_map, _nplayers);
+  _ai->loop(_map, static_cast<int>(_nplayers));
   if (_ai->getAction() >= static_cast<AiAction>(0) && _ai->getAction() < static_cast<AiAction>(4))
     {
       std::pair<int, int> pos;
