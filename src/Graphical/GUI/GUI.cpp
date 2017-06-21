@@ -1,13 +1,12 @@
-#include "Game/Score.hpp"
-#include "Interfaces/Sound.hpp"
 #include "Common/GUI.hpp"
 
 indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackground(0), _nbPlayersH(0),
                                                                       _nbPlayersAI(0), _indexPaths(0),
-                                                                      _hasTransition(false), _settings(settings),
-                                                                      _gameState(state), _components(),
+                                                                      _hasTransition(false), _rev(false),
+                                                                      _settings(settings), _gameState(state), _components(),
                                                                       _loadComps(), _compActions(),
-                                                                      _sounds() {
+                                                                      _sounds(), _transitPaths(),
+                                                                      _reversePaths(), _blankVector() {
 
     _loadComps[indie::GameState::MAIN_MENU] = [this](){return loadMenu();};
     _loadComps[indie::GameState::SETTINGS] = [this](){return loadSettings();};
@@ -17,14 +16,14 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
     _loadComps[indie::GameState::ENDGAME] = [this](){return loadEndGame();};
     _loadComps[indie::GameState::PAUSE_GAME] = [this](){return loadPause();};
 
-    _transitPaths = {{"Menu_final/Transitions/Main_to_HighScores/002.png",
-                             "Menu_final/Transitions/Main_to_HighScores/003.png",
-                             "Menu_final/Transitions/Main_to_HighScores/004.png",
-                             "Menu_final/Transitions/Main_to_HighScores/005.png",
-                             "Menu_final/Transitions/Main_to_HighScores/006.png",
-                             "Menu_final/Transitions/Main_to_HighScores/007.png",
-                             "Menu_final/Transitions/Main_to_HighScores/008.png",
-                             "Menu_final/Transitions/Main_to_HighScores/009.png",
+    _transitPaths = {{"Menu_final/Transitions/Main_to_HighScores/0002.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0003.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0004.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0005.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0006.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0007.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0008.png",
+                             "Menu_final/Transitions/Main_to_HighScores/0009.png",
                              "Menu_final/Transitions/Main_to_HighScores/0010.png",
                              "Menu_final/Transitions/Main_to_HighScores/0011.png",
                              "Menu_final/Transitions/Main_to_HighScores/0012.png",
@@ -58,13 +57,13 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
                              "Menu_final/Transitions/Main_to_HighScores/0040.png"},
 
                      {"Menu_final/Transitions/Main_to_Settings/002.png",
-                             "Menu_final/Transitions/Main_to_Settings/003.png",
-                             "Menu_final/Transitions/Main_to_Settings/004.png",
-                             "Menu_final/Transitions/Main_to_Settings/005.png",
-                             "Menu_final/Transitions/Main_to_Settings/006.png",
-                             "Menu_final/Transitions/Main_to_Settings/007.png",
-                             "Menu_final/Transitions/Main_to_Settings/008.png",
-                             "Menu_final/Transitions/Main_to_Settings/009.png",
+                             "Menu_final/Transitions/Main_to_Settings/0003.png",
+                             "Menu_final/Transitions/Main_to_Settings/0004.png",
+                             "Menu_final/Transitions/Main_to_Settings/0005.png",
+                             "Menu_final/Transitions/Main_to_Settings/0006.png",
+                             "Menu_final/Transitions/Main_to_Settings/0007.png",
+                             "Menu_final/Transitions/Main_to_Settings/0008.png",
+                             "Menu_final/Transitions/Main_to_Settings/0009.png",
                              "Menu_final/Transitions/Main_to_Settings/0010.png",
                              "Menu_final/Transitions/Main_to_Settings/0011.png",
                              "Menu_final/Transitions/Main_to_Settings/0012.png",
@@ -98,13 +97,13 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
                              "Menu_final/Transitions/Main_to_Settings/0040.png"},
 
                      {"Menu_final/Transitions/Main_to_Room/002.png",
-                             "Menu_final/Transitions/Main_to_Room/003.png",
-                             "Menu_final/Transitions/Main_to_Room/004.png",
-                             "Menu_final/Transitions/Main_to_Room/005.png",
-                             "Menu_final/Transitions/Main_to_Room/006.png",
-                             "Menu_final/Transitions/Main_to_Room/007.png",
-                             "Menu_final/Transitions/Main_to_Room/008.png",
-                             "Menu_final/Transitions/Main_to_Room/009.png",
+                             "Menu_final/Transitions/Main_to_Room/0003.png",
+                             "Menu_final/Transitions/Main_to_Room/0004.png",
+                             "Menu_final/Transitions/Main_to_Room/0005.png",
+                             "Menu_final/Transitions/Main_to_Room/0006.png",
+                             "Menu_final/Transitions/Main_to_Room/0007.png",
+                             "Menu_final/Transitions/Main_to_Room/0008.png",
+                             "Menu_final/Transitions/Main_to_Room/0009.png",
                              "Menu_final/Transitions/Main_to_Room/0010.png",
                              "Menu_final/Transitions/Main_to_Room/0011.png",
                              "Menu_final/Transitions/Main_to_Room/0012.png",
@@ -137,6 +136,7 @@ indie::GUI::GUI(indie::Settings& settings, indie::GameState& state) : _posBackgr
                              "Menu_final/Transitions/Main_to_Room/0039.png",
                              "Menu_final/Transitions/Main_to_Room/0040.png"}};
     _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
+    revPaths();
 }
 
 std::size_t indie::GUI::size() const {
@@ -203,6 +203,7 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
 }
 
 void indie::GUI::notifyEvent(const indie::Event &event) {
+    _hasTransition = false;
     if (event.type == indie::EventType::ET_KEYBOARD)
     {
         if (_compActions.find(event.kb_key) != _compActions.end())
@@ -471,14 +472,33 @@ void indie::GUI::mainMenuKeyAccess(){
     switch (_posBackground)
 
     {
-        case 0: loadComponents((_gameState = indie::GameState::ROOM));
+        case 0: {
+            loadComponents((_gameState = indie::GameState::ROOM));
+            _indexPaths = 2;
+            _rev = false;
+            _hasTransition = true;
             break;
-        case 1: loadComponents((_gameState = indie::GameState::SETTINGS));
+        }
+
+        case 1: {
+            loadComponents((_gameState = indie::GameState::SETTINGS));
+            _indexPaths = 1;
+            _rev  = false;
+            _hasTransition = true;
             break;
-        case 2: loadComponents((_gameState = indie::GameState::SCOREBOARD));
+        }
+
+        case 2: {
+            loadComponents((_gameState = indie::GameState::SCOREBOARD));
+            _indexPaths = 0;
+            _rev = false;
+            _hasTransition = true;
             break;
+        }
+
         case 3: loadComponents((_gameState = indie::GameState::QUIT));
             break;
+
         default:
             break;
     }
@@ -675,7 +695,12 @@ void indie::GUI::roomMenuKeyLeft() {
 
 void indie::GUI::roomMenuKeyEnter() {
     if (_posBackground == 2)
+    {
+        _indexPaths = 2;
+        _rev = true;
+        _hasTransition = true;
         loadComponents((_gameState = indie::GameState::MAIN_MENU));
+    }
     if (_posBackground == 3)
         loadComponents((_gameState = indie::GameState::INGAME));
 }
@@ -685,6 +710,9 @@ void indie::GUI::roomMenuKeyEnter() {
 ///     Event Score Menu functions --- Start
 
 void indie::GUI::scoreMenuKeyEnter() {
+    _indexPaths = 0;
+    _rev = true;
+    _hasTransition = true;
     _gameState = indie::GameState::MAIN_MENU;
     loadComponents(_gameState);
 }
@@ -742,13 +770,22 @@ const std::vector<indie::Sound> &indie::GUI::getSounds() const {
 }
 
 const std::vector<std::string> &indie::GUI::getTransitPaths() const {
-    return (_transitPaths.at(_indexPaths));
+    if (_hasTransition)
+    {
+        if (_rev)
+            return (_reversePaths.at(_indexPaths));
+        else
+            return (_transitPaths.at(_indexPaths));
+    }
+    return (_blankVector);
 }
 
-bool indie::GUI::hasTransition() const {
-    return (_hasTransition);
-}
-
-void indie::GUI::endTransition() {
-    _hasTransition = false;
+void indie::GUI::revPaths() {
+    std::vector<std::string> tmp;
+    for (size_t i = 0; i < _transitPaths.size(); ++i)
+    {
+        tmp = _transitPaths.at(i);
+        std::reverse(tmp.begin(), tmp.end());
+        _reversePaths.push_back(tmp);
+    }
 }

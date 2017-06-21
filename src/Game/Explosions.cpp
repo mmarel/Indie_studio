@@ -65,7 +65,7 @@ void indie::Game::squareExplosion(size_t center_x, size_t center_y,
   size_t target_x;
   size_t target_y;
 
-  simpleExplosion(center_x, center_y, bombId);
+  simpleExplosion(center_x, center_y, bombId, false);
   for (int c = -2; c < 3; c++) {
     for (int y = -2; y < 3; y++) {
       target_x = center_x + c;
@@ -83,7 +83,7 @@ void indie::Game::tentacleExplosion(size_t center_x, size_t center_y,
                                     size_t bombId) {
   indie::ELookAt dir = _map.at(1, center_x, center_y).getObjectRotation(i);
 
-  simpleExplosion(center_x, center_y, bombId);
+  simpleExplosion(center_x, center_y, bombId, false);
   for (size_t n = 1; n <= size; n++) {
     if (dir == indie::ELookAt::NORTH && center_x >= n) { // left tentacle
       simpleExplosion(center_x - n, center_y, bombId);
@@ -103,11 +103,11 @@ void indie::Game::tentacleExplosion(size_t center_x, size_t center_y,
 void indie::Game::explode(indie::Tile &tile, size_t i, size_t center_x, size_t center_y) {
   static std::map<indie::MODELS_ID, std::function<void(size_t, size_t, size_t, size_t)> > explosionHandlers = {
     { indie::MODELS_ID::SQUAREBOMB_MODEL, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->squareExplosion(x, y, bombId); } },
-    { indie::MODELS_ID::PIKES_MODEL_1, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
-    { indie::MODELS_ID::PIKES_MODEL_2, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
-    { indie::MODELS_ID::PIKES_MODEL_3, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
-    { indie::MODELS_ID::PIKES_MODEL_4, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
-    { indie::MODELS_ID::PIKES_MODEL_CENTER, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId); } },
+    { indie::MODELS_ID::PIKES_MODEL_1, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
+    { indie::MODELS_ID::PIKES_MODEL_2, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
+    { indie::MODELS_ID::PIKES_MODEL_3, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
+    { indie::MODELS_ID::PIKES_MODEL_4, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
+    { indie::MODELS_ID::PIKES_MODEL_CENTER, [this](size_t x, size_t y, size_t at, size_t bombId){ (void)at; this->simpleExplosion(x, y, bombId, false); } },
     { indie::MODELS_ID::TENTACLE_MODEL_1, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 1, at, bombId); } },
     { indie::MODELS_ID::TENTACLE_MODEL_2, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 2, at, bombId); } },
     { indie::MODELS_ID::TENTACLE_MODEL_3, [this](size_t x, size_t y, size_t at, size_t bombId){ this->tentacleExplosion(x, y, 3, at, bombId); } },

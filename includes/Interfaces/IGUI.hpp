@@ -64,20 +64,10 @@ namespace indie
     ///
     virtual const std::vector<indie::Sound> &getSounds() const = 0;
     ///
-    /// \fn virtual bool hasTransition() const = 0;
-    /// \brief Is there an animation to play
-    ///
-    virtual bool hasTransition() const = 0;
-    ///
     /// \fn virtual const std::vector<std::string> &getTransitPaths() const =0;
     /// \brief Access to the n element
     ///
     virtual const std::vector<std::string> &getTransitPaths() const = 0;
-    ///
-    /// \fn virtual void endTransition() = 0;
-    /// \brief notify the gui that the transition has finished
-    ///
-    virtual void endTransition() = 0;
 
   };
 }

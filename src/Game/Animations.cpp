@@ -3,6 +3,7 @@
 void indie::Game::removeObject(indie::Tile &tile, size_t &i) {
   indie::OBJECTS_ID type = tile.getType(i);
   size_t objectId = tile.getObjectId(i);
+  size_t tileSize;
 
   if (type == indie::OBJECTS_ID::BOX) {
     popBonus(tile, i);
@@ -16,8 +17,12 @@ void indie::Game::removeObject(indie::Tile &tile, size_t &i) {
     Player &player = getPlayerById(objectId);
     player.die();
   }
-  tile.deleteElement(i--);
+  //std::cout << "i = " << i << std::endl;
+  tileSize = tile.getTileSize();
+  tile.deleteElement(i);
+  i--;
   _map.deleteObjectById(objectId);
+  //std::cout << "i fin = " << i << std::endl;
 }
 
 void indie::Game::updatePlayerAnimation(indie::Tile &tile, size_t i) {
@@ -30,7 +35,6 @@ void indie::Game::updateBombAnimation(indie::Tile &tile, size_t &i,
   std::pair<size_t, size_t> nextframe = indie::ResourceHandler::getNextFrame(objectType, tile.getObjectFrameLoop(i));
 
   if (nextframe.first == 0 && nextframe.second == 0) {
-    std::cout << "remove bomb " << tile.getObjectId(i) << "\n";
     removeObject(tile, i);
     return;
   }
