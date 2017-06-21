@@ -81,7 +81,7 @@ void indie::GUI::roomMenuKeyRight() {
     switch (_posBackground)
     {
         case 0: {
-            if (_nbPlayersH + 1 < 3)
+            if (_nbPlayersH + 1 < 5)
                 _components.at(2)->setBackgroundPos(++_nbPlayersH);
             if (_nbPlayersH + _nbPlayersAI > 4)
                 _components.at(3)->setBackgroundPos(--_nbPlayersAI);

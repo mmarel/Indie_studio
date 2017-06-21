@@ -182,20 +182,12 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                          "Menu_final/NUMBERS/dot.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Gui/blue_alive.png",
                                                          "Gui/blue_dead.png",
-                                                         "Gui/grimoire_blue.png",
-                                                         "Gui/statuette_blue.png",
                                                          "Gui/red_alive.png",
                                                          "Gui/red_dead.png",
-                                                         "Gui/grimoire_blue.png",
-                                                         "Gui/statuette_blue.png",
                                                          "Gui/yellow_alive.png",
                                                          "Gui/yellow_dead.png",
-                                                         "Gui/grimoire_blue.png",
-                                                         "Gui/statuette_blue.png",
                                                          "Gui/green_alive.png",
-                                                         "Gui/green_dead.png",
-                                                         "Gui/grimoire_blue.png",
-                                                         "Gui/statuette_blue.png"));
+                                                         "Gui/green_dead.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/VICTORY_SCREEN/blue.png",
                                                          "Menu_final/VICTORY_SCREEN/red.png",
                                                          "Menu_final/VICTORY_SCREEN/yellow.png",
@@ -228,7 +220,15 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                          "Menu_final/SETTINGS/transp_sound_8.png",
                                                          "Menu_final/SETTINGS/transp_sound_9.png",
                                                          "Menu_final/SETTINGS/transp_sound_10.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Gui/grimoire.png", "Gui/statuette.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>( "Gui/grimoire_blue.png",
+                                                          "Gui/statuette_blue.png",
+                                                          "Gui/grimoire_red.png",
+                                                          "Gui/statuette_red.png",
+                                                          "Gui/grimoire_yellow.png",
+                                                          "Gui/statuette_yellow.png",
+                                                          "Gui/grimoire_green.png",
+                                                          "Gui/statuette_green.png",
+                                                          "Gui/blank.png"));
 
 
     return (std::move(sprites));

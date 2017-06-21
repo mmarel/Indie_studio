@@ -56,6 +56,6 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::IScene> > > indie::Game::getS
                                                           std::make_pair("Map/top_right.obj", "Map/top_right.png"),
                                                           std::make_pair("Map/ground.obj", "Map/ground.png"),
                                                           std::make_pair("Map/pillars.obj", "Map/pillars.png")
-                                                        }), std::string("Textures/Dome/Hole.jpg"), -12.5f, 0.0f, 13.5f));
+                                                        }), std::string("Gui/background.png"), -12.5f, 0.0f, 13.5f));
   return std::move(scenesToLoad);
 }
