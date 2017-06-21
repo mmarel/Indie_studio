@@ -126,6 +126,7 @@ namespace indie
                                           double x, double y,
                                           const irr::video::SColor &txtColor = irr::video::SColor(255,0,0,0),
                                           const irr::video::SColor &bgColor = irr::video::SColor(255,255,255,255));
+            void                play_animation(const std::vector<std::string> &frames);
 
             void                refresh_objects_id(const std::vector<std::size_t> &objects);
             void                delete_old_nodes();
@@ -155,9 +156,6 @@ namespace indie
                 }));
 
             }
-
-            // TODO
-            void    test_drawing_map();
 
         //
         // Member Variables
