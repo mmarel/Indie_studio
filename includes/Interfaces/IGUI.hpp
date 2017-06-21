@@ -68,6 +68,11 @@ namespace indie
     /// \brief Access to the n element
     ///
     virtual const std::vector<std::string> &getTransitPaths() const = 0;
+    ///
+    /// \fn virtual void flushGUI() = 0;
+    /// \brief Flush the GUI Properties.
+    ///
+    virtual void flushGUI() = 0;
 
   };
 }
