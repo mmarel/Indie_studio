@@ -16,6 +16,7 @@ void indie::Game::removeObject(indie::Tile &tile, size_t &i) {
   else if (tile.getModelId(i) == indie::MODELS_ID::SKELETON_MODEL) {
     Player &player = getPlayerById(objectId);
     player.die();
+    _gui.loadComponents(_gameState);
   }
   tileSize = tile.getTileSize();
   tile.deleteElement(i--);

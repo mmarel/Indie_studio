@@ -74,7 +74,6 @@ indie::Player &indie::Game::getPlayerById(size_t playerId) {
 bool indie::Game::isEnded() const {
   int nPlayers = 0;
 
-  std::cout << "end game\n";
   nPlayers =
     std::accumulate(_players.begin(), _players.end(), 0,
     [](int i, const std::unique_ptr<Player> &player)->int {
