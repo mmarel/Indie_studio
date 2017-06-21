@@ -2,18 +2,6 @@
 #include <chrono>
 #include <thread>
 
-void indie::Game::fallingStones() {
-  static indie::Timer CD;
-  static std::pair<int, int> lastFellPillar = {0, 0};
-
-  if (_settings.timer.Elapsed().count() >= 10000) {
-    if (CD.Elapsed().count() >= 5000) {
-      std::cout << "pillier tombe\n";
-      CD.Reset();
-    }
-  }
-}
-
 void indie::Game::AIhandler() {
   std::map<AiAction, std::function<void(size_t)> > actionHandlers = {
     { AiAction::AI_UP, [this](size_t playerId) { this->move(playerId, ELookAt::NORTH); }},
@@ -22,6 +10,7 @@ void indie::Game::AIhandler() {
     { AiAction::AI_RIGHT, [this](size_t playerId) { this->move(playerId, ELookAt::EAST); }},
     { AiAction::AI_BOMB, [this](size_t playerId) { this->bomb(playerId); }}
   };
+
   std::for_each(_players.begin(), _players.end(),
     [&](std::unique_ptr<Player> &player) {
       if (player->getType() == indie::PlayerType::PLAYER_AI && player->isAlive())
@@ -54,7 +43,7 @@ void indie::Game::splashScreen() {
 }
 
 void indie::Game::gameProcess() {
-  fallingStones();
+  //fallingStones();
   updateAnimations();
   handleEvents();
   AIhandler();
@@ -77,7 +66,6 @@ void indie::Game::process() {
     { indie::GameState::SCOREBOARD, [this]() -> void { this->menuProcess(); } },
     { indie::GameState::PAUSE_GAME, [this]() -> void { this->menuProcess(); } }
   };
-
 
   _soundsToPlay.clear();
   _gui.flushGUI();

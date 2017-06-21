@@ -1,31 +1,35 @@
 #include "Game/Game.hpp"
 
 std::pair<size_t, size_t> indie::Game::getNextFallingPillarPos() {
-  static std::pair<size_t, size_t> fallingStonesPos = {0, 0};
+  static std::pair<size_t, size_t> fallingStonesPos = {-1, 0};
   static indie::ELookAt dir = ELookAt::EAST;
-  static size_t turn = 0;
   bool target = false;
+  static std::vector<size_t> stop = {
+    _map.getWidth() - 1, _map.getHeight() - 1, 0, 1
+  };
 
   if (dir == indie::ELookAt::WEST) { fallingStonesPos.first--; }
   else if (dir == indie::ELookAt::EAST) { fallingStonesPos.first++; }
   else if (dir == indie::ELookAt::SOUTH) { fallingStonesPos.second++; }
   else if (dir == indie::ELookAt::NORTH) { fallingStonesPos.second--; }
-  std::cout << " pos x " << fallingStonesPos.first << " pos y " << fallingStonesPos.second << std::endl;
-  if (_map.at(0, fallingStonesPos.first, fallingStonesPos.second).getType(0) != indie::OBJECTS_ID::WALL) {
-    target = true;
+
+  target = _map.at(0, fallingStonesPos.first, fallingStonesPos.second).getType(0) != indie::OBJECTS_ID::WALL;
+
+  if (fallingStonesPos.first == stop[0] && dir == ELookAt::EAST) {
+    dir = ELookAt::SOUTH;
+    stop[0]--;
+  }
+  else if (fallingStonesPos.second == stop[1] && dir == ELookAt::SOUTH) {
+    dir = ELookAt::WEST;
+    stop[1]--;
+  } else if (fallingStonesPos.first == stop[2] && dir == ELookAt::WEST) {
+    stop[2]++;
+    dir = ELookAt::NORTH;
+  } else if (fallingStonesPos.second == stop[3] && dir == ELookAt::NORTH) {
+    stop[3]++;
+    dir = ELookAt::EAST;
   }
   if (target == false) { return getNextFallingPillarPos(); }
-  if (fallingStonesPos.first == _map.getWidth() - turn && dir == ELookAt::EAST) {
-    dir = ELookAt::SOUTH;
-  }
-  else if (fallingStonesPos.second == _map.getHeight() - turn && dir == ELookAt::SOUTH) {
-    dir = ELookAt::WEST;
-  } else if (fallingStonesPos.first == 0 && dir == ELookAt::WEST) {
-    dir = ELookAt::NORTH;
-  } else if (fallingStonesPos.first == turn && dir == ELookAt::EAST) {
-    dir = ELookAt::EAST;
-    turn++;
-  }
   return fallingStonesPos;
 }
 
@@ -49,7 +53,6 @@ void indie::Game::fallingStones() {
 
   if (_settings.timer.Elapsed().count() >= 1000) {
     if (CD.Elapsed().count() >= 100) {
-      std::cout << "pillier tombe\n";
       itsRainingStones();
       CD.Reset();
     }
