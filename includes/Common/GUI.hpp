@@ -39,6 +39,7 @@ namespace indie
         std::vector<std::unique_ptr<indie::IComponent>>    loadRoom();
         std::vector<std::unique_ptr<indie::IComponent>>    loadGuiGame();
         std::vector<std::unique_ptr<indie::IComponent>>    loadEndGame();
+        std::vector<std::unique_ptr<indie::IComponent>>    loadPause();
 
         ///Events loaded with Components
         ///---Main Menu Events---
@@ -67,6 +68,11 @@ namespace indie
 
         ///---EndGame Menu Events---
         void    endGameMenuKeyEnter();
+
+        ///---Pause Menu Events---
+        void    pauseMenuKeyEnter();
+        void    pauseMenuKeyLeft();
+        void    pauseMenukeyRight();
 
 
         ///CreteComponent (*component params* + all paths to sprites)
