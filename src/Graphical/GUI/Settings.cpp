@@ -35,7 +35,7 @@ void indie::GUI::settMenuKeyDown() {
         case 0: _components.at(1)->setPos(0.57f, 0.47f, 0.61f, 0.53f);
             break;
         case 1: {
-            _components.at(1)->setPos(0.53f, 0.77f, 0.58f, 0.82f);
+            _components.at(1)->setPos(0.53f, 0.77f, 0.57f, 0.82f);
             _components.at(1)->setBackgroundPos(2);
             break;
         }
@@ -110,6 +110,12 @@ void indie::GUI::settMenuKeyLeft() {
                 _components.at(3)->setBackgroundPos(static_cast<size_t >(_settings.difficulty));
             }
             break;
+        }
+        case 2: {
+            _hasTransition = true;
+            _rev = true;
+            _indexPaths = 1;
+            loadComponents((_gameState = indie::GameState::MAIN_MENU));
         }
         default:
             break;

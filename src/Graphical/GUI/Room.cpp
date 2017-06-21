@@ -115,6 +115,12 @@ void indie::GUI::roomMenuKeyLeft() {
                 _components.at(3)->setBackgroundPos((_nbPlayersAI = 1));
             break;
         }
+        case 2: {
+            _indexPaths = 2;
+            _rev = true;
+            _hasTransition = true;
+            loadComponents((_gameState = indie::GameState::MAIN_MENU));
+        }
         default:
             break;
     }

@@ -36,6 +36,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
         _compActions.clear();
 
     _compActions[indie::KeyboardKey::KB_ENTER] = [this](){scoreMenuKeyEnter();};
+    _compActions[indie::KeyboardKey::KB_ARROW_LEFT] = [this](){scoreMenuKeyEnter();};
 
     return (res);
 }
