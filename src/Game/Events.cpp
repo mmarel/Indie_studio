@@ -5,14 +5,12 @@ void indie::Game::checkBonus(indie::Tile &playerTile, indie::Tile &target) {
   indie::OBJECTS_ID type = target.getType(0);
 
   if (type == indie::OBJECTS_ID::BONUS_SQUAREB) {
-    std::cout << "square bomb activated\n";
     player.setBombType(indie::OBJECTS_ID::SQUAREBOMB);
-    target.reset();
+    target.setElem(0, 0, indie::OBJECTS_ID::EMPTY);
   }
   else if (type >= indie::OBJECTS_ID::BONUS_TENTACLEB) {
-    std::cout << "tentacle bomb activated\n";
+    target.setElem(0, 0, indie::OBJECTS_ID::EMPTY);
     player.setBombType(indie::OBJECTS_ID::TENTACLEBOMB);
-    target.reset();
   }
 }
 

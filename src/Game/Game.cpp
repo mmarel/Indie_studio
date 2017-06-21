@@ -90,11 +90,9 @@ void indie::Game::start() {
   //_soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_SKELELETON_SPAWN, indie::SoundAction::UNIQUE, 50.0f));
 
   for (size_t i = 1; i <= _settings.nPlayers; i++) {
-    std::cout << "new player "  << i << std::endl;
     _players.push_back(std::make_unique<indie::Player>(i, _map, totalPlayers));
   }
   for (size_t i = _settings.nPlayers + 1; i <= totalPlayers; i++) {
-    std::cout << "new ai "  << i << std::endl;
     _players.push_back(std::make_unique<indie::Player>(i, _map, totalPlayers,
                                     indie::PlayerType::PLAYER_AI, _settings.difficulty));
   }

@@ -41,7 +41,7 @@ void            indie::Core::runCoreLoop()
                 break ;
 
             case indie::GameState::SPLASH_SCREEN: // To change when splash will be ready
-                //this->_gfx->launchIntro();
+                // this->_gfx->launchIntro();
                 this->loading();
                 this->process();
                 break ;
