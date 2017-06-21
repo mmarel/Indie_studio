@@ -240,6 +240,7 @@ void indie::GUI::notifyEvent(const indie::Event &event) {
     _hasTransition = false;
     if (event.type == indie::EventType::ET_KEYBOARD)
     {
+        std::cout << "NOTIFY EVENT" << std::endl;
         if (_compActions.find(event.kb_key) != _compActions.end())
             _compActions[event.kb_key]();
     }

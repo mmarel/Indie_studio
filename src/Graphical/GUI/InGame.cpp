@@ -35,6 +35,11 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
         }
         ++nb_players;
     }
+
+    if (!_compActions.empty())
+        _compActions.clear();
+
+    _compActions[indie::KeyboardKey::KB_P] = [this](){loadComponents((_gameState = indie::GameState::PAUSE_GAME));};
     return (res);
 }
 
@@ -83,7 +88,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
         default:
             break;
     }
-    getTabNumber(res, std::to_string(_score), 0.4f, 0.65f, 0.45f, 0.70f, 0.05f);
+    getTabNumber(res, std::to_string(_score), 0.45f, 0.64f, 0.5f, 0.69f, 0.05f);
     score->add_score(_score);
 
     if (!_compActions.empty())
@@ -105,8 +110,9 @@ void    indie::GUI::update_dead()
 
 void    indie::GUI::endGameMenuKeyEnter()
 {
-    std::cout << "ENDGAME KAY ENTER" << std::endl;
+    _sounds.push_back(indie::Sound(_settings.music.id, indie::SoundAction::STOP));
     _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
+    _settings.music = Sound(indie::Sound(indie::SoundId::SOUND_MENU));
     _gameState = indie::GameState::MAIN_MENU;
     loadComponents(_gameState);
 }

@@ -74,7 +74,8 @@ void indie::Game::process() {
     { indie::GameState::MAIN_MENU, [this]() -> void { this->menuProcess(); } },
     { indie::GameState::SETTINGS, [this]() -> void { this->menuProcess(); } },
     { indie::GameState::ROOM, [this]() -> void { this->menuProcess(); } },
-    { indie::GameState::SCOREBOARD, [this]() -> void { this->menuProcess(); } }
+    { indie::GameState::SCOREBOARD, [this]() -> void { this->menuProcess(); } },
+    { indie::GameState::PAUSE_GAME, [this]() -> void { this->menuProcess(); } }
   };
 
 

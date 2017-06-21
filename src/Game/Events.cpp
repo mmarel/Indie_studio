@@ -350,7 +350,7 @@ void indie::Game::handleEvents() {
                                  }) == _players.end()) {
                                    _gui.notifyEvent(event);
                                  }
-                  } else { _gui.notifyEvent(event); }
+                  } else if (_gameState == state) { _gui.notifyEvent(event); }
 
   });
   std::vector<indie::Sound> &gui_sounds = _gui.getSounds();
@@ -362,7 +362,8 @@ void indie::Game::handleEvents() {
     _soundsToPlay.push_back(indie::Sound(_settings.music.id, indie::SoundAction::VOLUME,
                                         _settings.volume, indie::SoundType::MUSIC));
   }
-  if (state != _gameState && _gameState == indie::GameState::INGAME) {
+  if (state != indie::GameState::PAUSE_GAME && state != _gameState &&
+      _gameState == indie::GameState::INGAME) {
     start();
   }
 }

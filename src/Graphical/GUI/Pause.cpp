@@ -73,5 +73,10 @@ void indie::GUI::pauseMenuKeyEnter() {
     if (_posBackground == 1)
         loadComponents((_gameState = indie::GameState::INGAME));
     if (_posBackground == 2)
+    {
+        _sounds.push_back(indie::Sound(_settings.music.id, indie::SoundAction::STOP));
+        _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU));
+        _settings.music = Sound(indie::Sound(indie::SoundId::SOUND_MENU));
         loadComponents((_gameState = indie::GameState::MAIN_MENU));
+    }
 }

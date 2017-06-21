@@ -133,7 +133,8 @@ void indie::GUI::roomMenuKeyEnter() {
     if (_posBackground == 3)
     {
         _sounds.push_back(indie::Sound(indie::SoundId::SOUND_MENU, indie::SoundAction::STOP));
-        _sounds.push_back(indie::Sound(static_cast<indie::SoundId >(rand() % 3)));
+        _settings.music = Sound(static_cast<indie::SoundId >(rand() % 3));
+        _sounds.push_back(_settings.music);
         loadComponents((_gameState = indie::GameState::INGAME));
     }
 }
