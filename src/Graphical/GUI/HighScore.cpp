@@ -25,7 +25,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
     }
     y = 0.365f;
     height = 0.39f;
-    for(std::vector<std::string>::iterator i = dates.begin(); i != dates.end();++i)
+     for(std::vector<std::string>::iterator i = dates.begin(); i != dates.end();++i)
     {
         getTabDates(res, *i, 0.635f, y, 0.65f, height);
         y += 0.1;
@@ -81,6 +81,7 @@ void indie::GUI::scoreMenuKeyEnter() {
     _indexPaths = 0;
     _rev = true;
     _hasTransition = true;
+    _sounds.push_back(indie::Sound(indie::SoundId::SOUND_TURN_PAGE));
     _gameState = indie::GameState::MAIN_MENU;
     loadComponents(_gameState);
 }

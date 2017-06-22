@@ -16,3 +16,4 @@ bin
 cmake-build-debug
 .idea
 .vscode
+.score.txt

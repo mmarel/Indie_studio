@@ -59,6 +59,7 @@ void indie::GUI::mainMenuKeyAccess(){
 
     {
         case 0: {
+            _sounds.push_back(indie::Sound(indie::SoundId::SOUND_TURN_PAGE));
             loadComponents((_gameState = indie::GameState::ROOM));
             _indexPaths = 2;
             _rev = false;
@@ -67,6 +68,7 @@ void indie::GUI::mainMenuKeyAccess(){
         }
 
         case 1: {
+            _sounds.push_back(indie::Sound(indie::SoundId::SOUND_TURN_PAGE));
             loadComponents((_gameState = indie::GameState::SETTINGS));
             _indexPaths = 1;
             _rev  = false;
@@ -75,6 +77,7 @@ void indie::GUI::mainMenuKeyAccess(){
         }
 
         case 2: {
+            _sounds.push_back(indie::Sound(indie::SoundId::SOUND_TURN_PAGE));
             loadComponents((_gameState = indie::GameState::SCOREBOARD));
             _indexPaths = 0;
             _rev = false;

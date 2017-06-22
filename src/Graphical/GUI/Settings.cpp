@@ -86,6 +86,7 @@ void indie::GUI::settMenuKeyRight() {
             _hasTransition = true;
             _rev = true;
             _indexPaths = 1;
+            _sounds.push_back(indie::Sound(indie::SoundId::SOUND_TURN_PAGE));
             loadComponents((_gameState = indie::GameState::MAIN_MENU));
             break;
         }
@@ -115,6 +116,7 @@ void indie::GUI::settMenuKeyLeft() {
             _hasTransition = true;
             _rev = true;
             _indexPaths = 1;
+            _sounds.push_back(indie::Sound(indie::SoundId::SOUND_TURN_PAGE));
             loadComponents((_gameState = indie::GameState::MAIN_MENU));
         }
         default:
@@ -128,6 +130,7 @@ void indie::GUI::settMenuKeyEnter() {
         _hasTransition = true;
         _rev = true;
         _indexPaths = 1;
+        _sounds.push_back(indie::Sound(indie::SoundId::SOUND_TURN_PAGE));
         loadComponents((_gameState = indie::GameState::MAIN_MENU));
     }
 }

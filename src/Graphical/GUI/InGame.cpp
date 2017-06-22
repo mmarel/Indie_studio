@@ -53,6 +53,7 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
         _compActions.clear();
 
     _compActions[indie::KeyboardKey::KB_P] = [this](){loadComponents((_gameState = indie::GameState::PAUSE_GAME));};
+    _compActions[indie::KeyboardKey::KB_ESCAPE] = [this](){loadComponents((_gameState = indie::GameState::PAUSE_GAME));};
     return (res);
 }
 

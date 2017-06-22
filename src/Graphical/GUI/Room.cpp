@@ -122,6 +122,7 @@ void indie::GUI::roomMenuKeyLeft() {
             _indexPaths = 2;
             _rev = true;
             _hasTransition = true;
+            _sounds.push_back(indie::Sound(indie::SoundId::SOUND_TURN_PAGE));
             loadComponents((_gameState = indie::GameState::MAIN_MENU));
         }
         default:
@@ -137,6 +138,7 @@ void indie::GUI::roomMenuKeyEnter() {
         _indexPaths = 2;
         _rev = true;
         _hasTransition = true;
+        _sounds.push_back(indie::Sound(indie::SoundId::SOUND_TURN_PAGE));
         loadComponents((_gameState = indie::GameState::MAIN_MENU));
     }
     if (_posBackground == 3)
