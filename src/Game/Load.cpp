@@ -41,7 +41,11 @@ std::unique_ptr<std::vector<std::pair<std::string, indie::SoundType> > > indie::
   soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Explosion_1.flac", indie::SoundType::SOUND));
   soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Explosion_2.flac", indie::SoundType::SOUND));
   soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Explosion_3.flac", indie::SoundType::SOUND));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Stones.flac", indie::SoundType::SOUND));
   soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Skeleton_Spawn.flac", indie::SoundType::SOUND));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Skeleton_Die.flac", indie::SoundType::SOUND));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Evil_laugh.flac", indie::SoundType::SOUND));
+  soundsToLoad->push_back(std::make_pair<std::string, indie::SoundType>("Sounds/SFX/Turn_page.flac", indie::SoundType::SOUND));
   return std::move(soundsToLoad);
 }
 

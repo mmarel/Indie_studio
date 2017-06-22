@@ -28,7 +28,7 @@ void indie::Game::popBonus(indie::Tile &tile, size_t i) {
   size_t ret;
 
   ret = rand() % 100;
-  if (ret > 11) { return tile.deleteElement(i); }
+  if (ret >= 11) { return tile.deleteElement(i); }
   objectId = _map.newId();
   _map.addObjectById(objectId);
   if (ret < 7) {
@@ -36,7 +36,8 @@ void indie::Game::popBonus(indie::Tile &tile, size_t i) {
                 indie::OBJECTS_ID::BONUS_SQUAREB,
                 true, indie::MODELS_ID::BONUS_SQUAREB_MODEL, true, {0, 0},
                 indie::ResourceHandler::getTexture(indie::MODELS_ID::BONUS_SQUAREB_MODEL));
-  } else if (ret >= 8 && ret <= 11) {
+  } else if (ret >= 7 && ret <= 10) {
+    _soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_EVIL_LAUGH, indie::SoundAction::UNIQUE, _settings.volume));
     tile.setElem(i, objectId,
                 indie::OBJECTS_ID::BONUS_TENTACLEB,
                 true, indie::MODELS_ID::BONUS_TENTACLEB_MODEL, true, {0, 0},

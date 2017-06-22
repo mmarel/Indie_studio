@@ -192,17 +192,6 @@ void indie::AAI::getSafeCase(const Map &map)
         this->safe_case[y][x] = false;
       }
     }
-    /*for (int y = 0; y < static_cast<int>(map.getHeight()); y++) {
-      for (int x = 0; x < static_cast<int>(map.getWidth()); x++) {
-        if (x == pos.first && y == pos.second)
-          std::cout << "I ";
-        else if (this->safe_case[y][x] == true)
-          std::cout << "S ";
-        else
-          std::cout <<  "X ";
-      }
-      std::cout << std::endl;
-    }*/
 }
 
 void indie::AAI::run(const Map &map)
@@ -292,13 +281,13 @@ void indie::AAI::goOnEnemy(const Map &map)
   }
   if (action_done == false)
     {
-      if (action == indie::AiAction::AI_DOWN && map.at(0, pos.first, pos.second - 1).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+      if (action == indie::AiAction::AI_DOWN && pos.second > 0 && map.at(0, pos.first, pos.second - 1).getType(0) == static_cast<indie::OBJECTS_ID>(5))
         dropPikesBomb();
-      if (action == indie::AiAction::AI_UP && map.at(0, pos.first, pos.second + 1).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+      if (action == indie::AiAction::AI_UP && (pos.second + 1) < map.getHeight() && map.at(0, pos.first, pos.second + 1).getType(0) == static_cast<indie::OBJECTS_ID>(5))
         dropPikesBomb();
-      if (action == indie::AiAction::AI_LEFT && map.at(0, pos.first - 1, pos.second).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+      if (action == indie::AiAction::AI_LEFT && pos.first > 0 && map.at(0, pos.first - 1, pos.second).getType(0) == static_cast<indie::OBJECTS_ID>(5))
         dropPikesBomb();
-      if (action == indie::AiAction::AI_RIGHT && map.at(0, pos.first + 1, pos.second).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+      if (action == indie::AiAction::AI_RIGHT && (pos.first + 1) < map.getWidth() && map.at(0, pos.first + 1, pos.second).getType(0) == static_cast<indie::OBJECTS_ID>(5))
         dropPikesBomb();
     }
 }

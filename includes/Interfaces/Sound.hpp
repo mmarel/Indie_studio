@@ -21,7 +21,11 @@ namespace indie
       SOUND_EXPLOSION_1,
       SOUND_EXPLOSION_2,
       SOUND_EXPLOSION_3,
-      SOUND_SKELELETON_SPAWN
+      SOUND_FALLING_STONES,
+      SOUND_SKELELETON_SPAWN,
+      SOUND_SKELELETON_DIE,
+      SOUND_EVIL_LAUGH,
+      SOUND_TURN_PAGE
     };
     ///
     /// \enum SoundMode

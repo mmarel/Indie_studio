@@ -52,6 +52,7 @@ void indie::Game::itsRainingStones() {
 
   objectId = _map.newId();
   _map.addObjectById(objectId);
+  _soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_FALLING_STONES, indie::SoundAction::UNIQUE, _settings.volume));
   target.setElem(target.getTileSize(), objectId,
                 indie::OBJECTS_ID::FALLING_PILLAR,
                 true, indie::MODELS_ID::FALLING_PILLAR_MODEL, true,

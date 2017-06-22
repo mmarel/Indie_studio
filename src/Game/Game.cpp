@@ -66,8 +66,11 @@ indie::Player &indie::Game::getPlayerById(size_t playerId) {
 
 void indie::Game::reward() {
   std::for_each(_players.begin(), _players.end(),
-  [](std::unique_ptr<indie::Player> &player) {
-    if (player->isAlive()) { player->updateScore(500); }
+  [&](std::unique_ptr<indie::Player> &player) {
+    if (player->isAlive()) {
+      _soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_EVIL_LAUGH, indie::SoundAction::UNIQUE, _settings.volume));
+      player->updateScore(500);
+    }
   });
 }
 

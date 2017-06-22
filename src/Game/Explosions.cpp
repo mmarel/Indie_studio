@@ -3,6 +3,7 @@
 void indie::Game::kill(indie::Tile &player, size_t bombId) {
     if (!indie::ResourceHandler::isDeathFrame(indie::MODELS_ID::SKELETON_MODEL, player.getObjectFrameLoop(0)))
     {
+      _soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_SKELELETON_DIE, indie::SoundAction::UNIQUE, _settings.volume));
       updateScore(bombId, 1000);
       player.setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("DIE"));
       player.setDoesAnimationChanged(0, true);

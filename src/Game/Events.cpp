@@ -323,6 +323,7 @@ void indie::Game::handleEvents() {
     { "UP", [this](size_t id) { move(id, indie::ELookAt::NORTH); }},
     { "BOMB", [this](size_t id) { bomb(id); }}
   };
+
   GameState state = _gameState;
   float volume = _settings.volume;
   ECAMERA_VIEW view = _map.getPOV();
