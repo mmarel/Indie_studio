@@ -17,14 +17,28 @@ indie::Player::Player(size_t id,
   _nplayers(nplayers),
   _uses(2) {
     if (type == indie::PlayerType::PLAYER_AI) {
-      _ai = std::make_unique<indie::AiMedium>(id);
-      _bindings = {
-        { "LEFT", indie::KeyboardKey::KB_NONE },
-        { "RIGHT", indie::KeyboardKey::KB_NONE },
-        { "DOWN", indie::KeyboardKey::KB_NONE },
-        { "UP", indie::KeyboardKey::KB_NONE },
-        { "BOMB", indie::KeyboardKey::KB_NONE }
-      };
+      if (level == indie::IA_LEVEL::IA_MEDIUM)
+        {
+          _ai = std::make_unique<indie::AiSimple>(id);
+          _bindings = {
+            { "LEFT", indie::KeyboardKey::KB_NONE },
+            { "RIGHT", indie::KeyboardKey::KB_NONE },
+            { "DOWN", indie::KeyboardKey::KB_NONE },
+            { "UP", indie::KeyboardKey::KB_NONE },
+            { "BOMB", indie::KeyboardKey::KB_NONE }
+          };
+        }
+      else
+        {
+          _ai = std::make_unique<indie::AiMedium>(id);
+          _bindings = {
+            { "LEFT", indie::KeyboardKey::KB_NONE },
+            { "RIGHT", indie::KeyboardKey::KB_NONE },
+            { "DOWN", indie::KeyboardKey::KB_NONE },
+            { "UP", indie::KeyboardKey::KB_NONE },
+            { "BOMB", indie::KeyboardKey::KB_NONE }
+          };
+        }
     }
     else
       {

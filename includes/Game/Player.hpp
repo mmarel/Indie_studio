@@ -9,6 +9,7 @@
 # include "Interfaces/ITile.hpp"
 # include "Interfaces/IAI.hpp"
 # include "Game/AiMedium.hpp"
+# include "Game/AiSimple.hpp"
 # include "Game/Settings.hpp"
 # include "Game/ModelsId.hpp"
 
