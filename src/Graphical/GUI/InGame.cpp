@@ -1,4 +1,4 @@
-#include "Common/GUI.hpp"}
+#include "Common/GUI.hpp"
 
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
     std::vector<std::unique_ptr<indie::IComponent>> res;
