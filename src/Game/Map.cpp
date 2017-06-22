@@ -146,6 +146,7 @@ void  indie::Map::initTiles() {
             tile->setObjectId(0, 1);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Blue.png");
             tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
+            tile->setObjectRotation(0, indie::ELookAt::EAST);
             break;
 
           case indie::OBJECTS_ID::PLAYER_TWO:
@@ -155,6 +156,8 @@ void  indie::Map::initTiles() {
             tile->setObjectId(0, 2);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Red.png");
             tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
+            tile->setShiftX(0, 0.3);
+            tile->setObjectRotation(0, indie::ELookAt::SOUTH);
             break;
 
           case indie::OBJECTS_ID::PLAYER_THREE:
@@ -164,6 +167,8 @@ void  indie::Map::initTiles() {
             tile->setObjectId(0, 3);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Yellow.png");
             tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
+            tile->setShiftX(0, 0.3);
+            tile->setObjectRotation(0, indie::ELookAt::WEST);
             break;
 
           case indie::OBJECTS_ID::PLAYER_FOURTH:
@@ -173,6 +178,7 @@ void  indie::Map::initTiles() {
             tile->setObjectId(0, 4);
             tile->setObjectTexture(0, "Textures/SkeletonMage/Green.png");
             tile->setObjectFrameLoop(0, indie::ResourceHandler::getSkeletonFrame("SPAWN"));
+            tile->setObjectRotation(0, indie::ELookAt::NORTH);
             break;
 
           case indie::OBJECTS_ID::BOX:

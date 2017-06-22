@@ -46,6 +46,24 @@ indie::Player::Player(size_t id,
             { "BOMB", indie::KeyboardKey::KB_RSHIFT }
           };
         }
+        else if (id == 3) {
+          _bindings = {
+            { "LEFT", indie::KeyboardKey::KB_G },
+            { "RIGHT", indie::KeyboardKey::KB_J},
+            { "DOWN", indie::KeyboardKey::KB_H },
+            { "UP", indie::KeyboardKey::KB_T },
+            { "BOMB", indie::KeyboardKey::KB_Y }
+          };
+        }
+        else if (id == 4) {
+          _bindings = {
+            { "LEFT", indie::KeyboardKey::KB_L },
+            { "RIGHT", indie::KeyboardKey::KB_PERCENT},
+            { "DOWN", indie::KeyboardKey::KB_M },
+            { "UP", indie::KeyboardKey::KB_P },
+            { "BOMB", indie::KeyboardKey::KB_O }
+          };
+        }
     }
 }
 

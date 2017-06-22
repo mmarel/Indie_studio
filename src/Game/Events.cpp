@@ -47,9 +47,6 @@ indie::Tile &indie::Game::move_left(indie::Tile &player,
   bool tangible;
   newShift = player.getShiftX(0) - PLAYER_SPEED;
   tangible = (x == 0 || _map.at(0, x - 1, y).isTangible(0) || _map.at(1, x - 1, y).isTangible(0));
-  /*std::cout << "move left\n";
-  std::cout << "tangible = " << _map.at(0, x - 1, y).isTangible(0) << std::endl;
-  std::cout << "type " << static_cast<int>(_map.at(0, x - 1, y).getType(0)) << std::endl;*/
   if (newShift < 0.0 && !tangible && player.getShiftY(0) <= 0.3) {
     indie::Tile &nearPlayerTile = _map.at(0, x - 1, y);
 
@@ -57,6 +54,7 @@ indie::Tile &indie::Game::move_left(indie::Tile &player,
     nearPlayerTile = player;
     player.reset();
     nearPlayerTile.setShiftX(0, 1.0 + newShift);
+    nearPlayerTile.setShiftY(0, 0);
     checkDeath(nearPlayerTile, x - 1, y);
     return nearPlayerTile;
   }
@@ -79,6 +77,7 @@ indie::Tile &indie::Game::move_right(indie::Tile &player,
     nearPlayerTile = player;
     player.reset();
     nearPlayerTile.setShiftX(0, newShift - 1.0);
+    nearPlayerTile.setShiftY(0, 0);
     checkDeath(nearPlayerTile, x + 1, y);
     return nearPlayerTile;
   }
@@ -326,6 +325,7 @@ void indie::Game::handleEvents() {
   };
   GameState state = _gameState;
   float volume = _settings.volume;
+  ECAMERA_VIEW view = _map.getPOV();
 
   std::for_each(_events.begin(), _events.end(),
                 [&](const Event &event) {
@@ -351,9 +351,12 @@ void indie::Game::handleEvents() {
                                    }
 
                                    return false;
-                                 }) == _players.end()) {
-                                   _gui.notifyEvent(event);
-                                 }
+                        }) == _players.end()) {
+                          if ((event.kb_key == KB_PAGEUP || event.kb_key == KB_PAGEDOWN) && view == _map.getPOV()) {
+                            _map.setCameraPOV(_map.getPOV() == ECAMERA_VIEW::DEFAULT ? ECAMERA_VIEW::INCLINED : ECAMERA_VIEW::DEFAULT);
+                          }
+                          else { _gui.notifyEvent(event); }
+                        }
                   } else if (_gameState == state) { _gui.notifyEvent(event); }
 
   });
@@ -362,7 +365,7 @@ void indie::Game::handleEvents() {
   _soundsToPlay.insert(_soundsToPlay.begin(), gui_sounds.begin(), gui_sounds.end());
   _events.clear();
   gui_sounds.clear();
-  if (volume != _settings.volume) {
+  if (volume < _settings.volume || volume > _settings.volume) {
     _soundsToPlay.push_back(indie::Sound(_settings.music.id, indie::SoundAction::VOLUME,
                                         _settings.volume, indie::SoundType::MUSIC));
   }

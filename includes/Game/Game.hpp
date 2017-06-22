@@ -50,7 +50,7 @@ namespace indie {
     private:
         void fallingStones();
         void itsRainingStones();
-        std::pair<size_t, size_t> getNextFallingPillarPos();
+        std::pair<size_t, size_t> getNextFallingPillarPos(bool = false);
 
     private:
       Player &getBombOwner(size_t);
