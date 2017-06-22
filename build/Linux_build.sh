@@ -4,7 +4,7 @@ cmake CMakeLists.txt
 
 echo "\n"
 
-make -j4 && rm -rf ../bin && mv bin ../
+make && rm -rf ../bin && mv bin ../
 
 while true; do
     echo "\n"
