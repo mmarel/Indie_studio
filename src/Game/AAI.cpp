@@ -182,14 +182,48 @@ void indie::AAI::getSafeCase(const Map &map)
       if (map.at(0, x, y).getType(0) == static_cast<indie::OBJECTS_ID>(id)
           && map.at(1, x, y).getType(0) > static_cast<indie::OBJECTS_ID>(6))
         this->safe_case[y][x] = false;
-      if (map.at(0, x, y).getType(0) != static_cast<indie::OBJECTS_ID>(id)
+      else if (map.at(0, x, y).getType(0) != static_cast<indie::OBJECTS_ID>(id)
           && map.at(0, x, y).getType(0) > static_cast<indie::OBJECTS_ID>(0)
           && map.at(0, x, y).getType(0) <= static_cast<indie::OBJECTS_ID>(6))
           {
             this->safe_case[y][x] = false;
           }
-      else if (map.at(1, x, y).getType(0) > static_cast<indie::OBJECTS_ID>(6))
-        this->safe_case[y][x] = false;
+      else if (map.at(1, x, y).getModelId(0) == indie::MODELS_ID::PIKES_MODEL_CENTER)
+        {
+          for (int square_y = y - 4; square_y <= y + 4; square_y++)
+            {
+              if (square_y >= 0 && square_y < static_cast<int>(map.getHeight()))
+                    this->safe_case[square_y][x] = false;
+            }
+          for (int square_x = x - 4; square_x <= x + 4; square_x++)
+            {
+              if (square_x >= 0 && square_x < static_cast<int>(map.getWidth()))
+                    this->safe_case[y][square_x] = false;
+            }
+        }
+      else if (map.at(1, x, y).getType(0) == indie::OBJECTS_ID::TENTACLEBOMB)
+        {
+          for (int square_y = y - 7; square_y <= y + 7; square_y++)
+            {
+              if (square_y >= 0 && square_y < static_cast<int>(map.getHeight()))
+                    this->safe_case[square_y][x] = false;
+            }
+          for (int square_x = x - 7; square_x <= x + 7; square_x++)
+            {
+              if (square_x >= 0 && square_x < static_cast<int>(map.getWidth()))
+                    this->safe_case[y][square_x] = false;
+            }
+        }
+      else if (map.at(1, x, y).getType(0) == indie::OBJECTS_ID::SQUAREBOMB)
+        {
+          for (int square_y = y - 2; square_y <= y + 2; square_y++) {
+            for (int square_x = x - 2; square_x <= x + 2; square_x++) {
+              if (square_y >= 0 && square_y < static_cast<int>(map.getHeight())
+                  && square_x >= 0 && square_x < static_cast<int>(map.getWidth()))
+                    this->safe_case[square_y][square_x] = false;
+              }
+            }
+        }
       }
     }
 }
@@ -283,11 +317,11 @@ void indie::AAI::goOnEnemy(const Map &map)
     {
       if (action == indie::AiAction::AI_DOWN && pos.second > 0 && map.at(0, pos.first, pos.second - 1).getType(0) == static_cast<indie::OBJECTS_ID>(5))
         dropPikesBomb();
-      if (action == indie::AiAction::AI_UP && (pos.second + 1) < map.getHeight() && map.at(0, pos.first, pos.second + 1).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+      if (action == indie::AiAction::AI_UP && (pos.second + 1) < static_cast<int>(map.getHeight()) && map.at(0, pos.first, pos.second + 1).getType(0) == static_cast<indie::OBJECTS_ID>(5))
         dropPikesBomb();
       if (action == indie::AiAction::AI_LEFT && pos.first > 0 && map.at(0, pos.first - 1, pos.second).getType(0) == static_cast<indie::OBJECTS_ID>(5))
         dropPikesBomb();
-      if (action == indie::AiAction::AI_RIGHT && (pos.first + 1) < map.getWidth() && map.at(0, pos.first + 1, pos.second).getType(0) == static_cast<indie::OBJECTS_ID>(5))
+      if (action == indie::AiAction::AI_RIGHT && (pos.first + 1) < static_cast<int>(map.getWidth()) && map.at(0, pos.first + 1, pos.second).getType(0) == static_cast<indie::OBJECTS_ID>(5))
         dropPikesBomb();
     }
 }
