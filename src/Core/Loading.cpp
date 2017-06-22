@@ -25,10 +25,6 @@ void    indie::Core::loading() {
     this->_gfx->loadSprites(this->_game->getSpritesToLoad());
 
 
-    // TODO
-    // Font
-    // this->_gfx->loadFonts(this->_game->getFont());
-
     } catch (const std::exception &err) {
 
       throw indie::IndieError(_INDIE_CORE_LOADING_FAILED);

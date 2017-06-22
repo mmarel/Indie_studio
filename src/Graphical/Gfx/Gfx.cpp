@@ -12,12 +12,12 @@ indie::Gfx::Gfx()
 
     // irr::createDevice (deviceType, windowSize, bits, fullscreen, stencilbuffer, vsync, receiver)
 
-    try : 
+    try :
           // Device
           _device(irr::createDevice (   irr::video::EDT_OPENGL,
                                         irr::core::dimension2d<irr::u32>(SCREEN_WIDTH, SCREEN_HEIGHT),
                                         32,
-                                        false,
+                                        FULLSCREEN,
                                         true,
                                         false,
                                         NULL) ),

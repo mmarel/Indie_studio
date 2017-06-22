@@ -35,8 +35,8 @@ namespace indie
 
     // GLOBAL PARAMETERS
     # define FULLSCREEN         TRUE
-    # define SCREEN_WIDTH       1080
-    # define SCREEN_HEIGHT      720
+    # define SCREEN_WIDTH       1920
+    # define SCREEN_HEIGHT      1080
     # define DEBUG_MODE         FALSE
     # define DEFAULT_FONT       0
     // COLORS

@@ -98,7 +98,7 @@ void indie::Game::start() {
   size_t totalPlayers = _settings.nPlayers + _settings.nAIs;
 
   reset();
-  _map.init(0, _settings.nPlayers + _settings.nAIs);
+  _map.init(0, totalPlayers);
   getNextFallingPillarPos(true);
   _soundsToPlay.push_back(indie::Sound(indie::SoundId::SOUND_SKELELETON_SPAWN, indie::SoundAction::UNIQUE, _settings.volume));
 

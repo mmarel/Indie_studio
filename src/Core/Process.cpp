@@ -19,6 +19,10 @@ void        indie::Core::process() {
     this->_game->setObjectsAnimationState(this->_gfx->getObjectsAnimationState());
 
     // Run the Game once time
+    Timer timer;
+
+
+    while (timer.Elapsed().count() < 16);
     this->_game->process();
 
     // [ from GAME to GFX ]

@@ -19,8 +19,6 @@ void    indie::Gfx::loadSprites(std::unique_ptr<std::vector<std::unique_ptr<ISpr
             if (img) {
                 this->_sprites[i].push_back(img);
             } else {
-                // TODO
-                // Throw ?
                 std::cerr << _INDIE_GFX_SPRITE_FAILED << sprt_to_load->at(i)->getGraphicPath(x) << std::endl;
             }
 
