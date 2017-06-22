@@ -74,6 +74,7 @@ void indie::Game::updateAnimations() {
 
               removeObject(tile, pos);
               if (isEnded()) {
+                reward();
                 _gameState = indie::GameState::ENDGAME;
                 _gui.loadComponents(_gameState);
                 return;

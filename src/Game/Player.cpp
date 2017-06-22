@@ -51,17 +51,17 @@ indie::Player::Player(size_t id,
             { "LEFT", indie::KeyboardKey::KB_G },
             { "RIGHT", indie::KeyboardKey::KB_J},
             { "DOWN", indie::KeyboardKey::KB_H },
-            { "UP", indie::KeyboardKey::KB_T },
-            { "BOMB", indie::KeyboardKey::KB_Y }
+            { "UP", indie::KeyboardKey::KB_Y },
+            { "BOMB", indie::KeyboardKey::KB_T }
           };
         }
         else if (id == 4) {
           _bindings = {
-            { "LEFT", indie::KeyboardKey::KB_L },
-            { "RIGHT", indie::KeyboardKey::KB_PERCENT},
-            { "DOWN", indie::KeyboardKey::KB_M },
-            { "UP", indie::KeyboardKey::KB_P },
-            { "BOMB", indie::KeyboardKey::KB_O }
+            { "LEFT", indie::KeyboardKey::KB_K },
+            { "RIGHT", indie::KeyboardKey::KB_M},
+            { "DOWN", indie::KeyboardKey::KB_L },
+            { "UP", indie::KeyboardKey::KB_O },
+            { "BOMB", indie::KeyboardKey::KB_I }
           };
         }
     }

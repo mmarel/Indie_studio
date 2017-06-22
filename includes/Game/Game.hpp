@@ -66,6 +66,7 @@ namespace indie {
       void updateBombAnimation(Tile &, size_t &, OBJECTS_ID, size_t x, size_t y);
       void removeObject(Tile &, size_t &);
       bool isEnded() const;
+      void reward();
 
     private:
       void  handleEvents();

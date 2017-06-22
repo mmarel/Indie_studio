@@ -11,6 +11,7 @@ indie::Game::Game() :
   _gui(_settings, _gameState),
   _objectsStates()
  {
+  srand(0);
  }
 
 indie::Game::~Game() {}
@@ -61,6 +62,13 @@ indie::Player &indie::Game::getPlayerById(size_t playerId) {
               return player->getId() == playerId;
             });
   return *(*player_it);
+}
+
+void indie::Game::reward() {
+  std::for_each(_players.begin(), _players.end(),
+  [](std::unique_ptr<indie::Player> &player) {
+    if (player->isAlive()) { player->updateScore(500); }
+  });
 }
 
 bool indie::Game::isEnded() const {
