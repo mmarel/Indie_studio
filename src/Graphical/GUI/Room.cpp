@@ -88,7 +88,6 @@ void indie::GUI::roomMenuKeyRight() {
             break;
         }
         case 1: {
-            std::cout << "value : " << _nbPlayersAI + 1 << std::endl;
             if (_nbPlayersAI + 1 < 5)
                 _components.at(3)->setBackgroundPos(++_nbPlayersAI);
             if (_nbPlayersAI + _nbPlayersH > 4)
