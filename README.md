@@ -1,5 +1,5 @@
 # THE BOMBTLET
-![N|Solid](https://mobilegamegraphics.com/pvpaterno/GIF/wizard_attack.gif)
+![N|Solid](https://s-media-cache-ak0.pinimg.com/474x/c5/2f/6c/c52f6c7f5f87bc80372ac549d1dbd4ab.jpg)
 
   - ###### A mix between Gauntlet and Bomberman.
   - ###### A 3D multiplayer video game.
