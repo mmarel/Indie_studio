@@ -1,4 +1,4 @@
-# THE BOMBTLET
+# THE SPELLETON
 ![N|Solid](https://s-media-cache-ak0.pinimg.com/474x/c5/2f/6c/c52f6c7f5f87bc80372ac549d1dbd4ab.jpg)
 
   - ###### A mix between Gauntlet and Bomberman.
@@ -14,7 +14,6 @@
 ### Dependencies
 The project uses a number of open source projects to work properly:
 ##### * [Irrlicht](http://irrlicht.sourceforge.net/)
-##### * [CEGUI](http://cegui.org.uk/)
 ##### * [OPENAL](https://openal.org/)
 ##### * [SNDFILE](http://www.mega-nerd.com/libsndfile/)
 
@@ -34,7 +33,10 @@ $ make build
 ```
 
 ### For Windows
-in progress..
+```
+$ cd install
+$ ./indie_setup.exe
+```
 
 ### Docker
 Bauntlet is very easy to install and deploy in a Docker container.
@@ -63,7 +65,7 @@ License
 
 
 
-*This project was realized as part of my school program at Epitech in my second year, in collaboration with Samuel Da-fonseca, Sebastien Jacobin, Romain Samuel, Rida Baba and Maud Marel. This project is free to use.*
+*This project was realized as part of my school program at Epitech in my second year, in collaboration with Marwane Khsime, Maud Marel, Rida Baba, Romain Samuel, Samuel Da-fonseca and Sebastien Jacobin. This project is free to use.*
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
