@@ -169,17 +169,17 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                          "Menu_final/SETTINGS/AI_hard.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/ROOM/room_base.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/HIGHSCORES/base.png"));
-    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/NUMBERS/0.png",
-                                                         "Menu_final/NUMBERS/1.png",
-                                                         "Menu_final/NUMBERS/2.png",
-                                                         "Menu_final/NUMBERS/3.png",
-                                                         "Menu_final/NUMBERS/4.png",
-                                                         "Menu_final/NUMBERS/5.png",
-                                                         "Menu_final/NUMBERS/6.png",
-                                                         "Menu_final/NUMBERS/7.png",
-                                                         "Menu_final/NUMBERS/8.png",
-                                                         "Menu_final/NUMBERS/9.png",
-                                                         "Menu_final/NUMBERS/dot.png"));
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/NUMBERS/0_black.png",
+                                                         "Menu_final/NUMBERS/1_black.png",
+                                                         "Menu_final/NUMBERS/2_black.png",
+                                                         "Menu_final/NUMBERS/3_black.png",
+                                                         "Menu_final/NUMBERS/4_black.png",
+                                                         "Menu_final/NUMBERS/5_black.png",
+                                                         "Menu_final/NUMBERS/6_black.png",
+                                                         "Menu_final/NUMBERS/7_black.png",
+                                                         "Menu_final/NUMBERS/8_black.png",
+                                                         "Menu_final/NUMBERS/9_black.png",
+                                                         "Menu_final/NUMBERS/dot_black.png"));
     (*sprites).push_back(std::make_unique<indie::Sprite>("Gui/blue_alive.png",
                                                          "Gui/blue_dead.png",
                                                          "Gui/red_alive.png",
@@ -229,7 +229,17 @@ std::unique_ptr<std::vector<std::unique_ptr<indie::ISprite> > > indie::GUI::getS
                                                           "Gui/grimoire_green.png",
                                                           "Gui/statuette_green.png",
                                                           "Gui/blank.png"));
-
+    (*sprites).push_back(std::make_unique<indie::Sprite>("Menu_final/NUMBERS/0_white.png",
+                                                         "Menu_final/NUMBERS/1_white.png",
+                                                         "Menu_final/NUMBERS/2_white.png",
+                                                         "Menu_final/NUMBERS/3_white.png",
+                                                         "Menu_final/NUMBERS/4_white.png",
+                                                         "Menu_final/NUMBERS/5_white.png",
+                                                         "Menu_final/NUMBERS/6_white.png",
+                                                         "Menu_final/NUMBERS/7_white.png",
+                                                         "Menu_final/NUMBERS/8_white.png",
+                                                         "Menu_final/NUMBERS/9_white.png",
+                                                         "Menu_final/NUMBERS/ddot_white.png"));
 
     return (std::move(sprites));
 }
@@ -286,4 +296,14 @@ void indie::GUI::flushGUI() {
     if (_gameState == indie::GameState::INGAME)
         updatePlayersStat();
     _hasTransition = false;
+}
+
+void indie::GUI::updateTimer(int time, int i) {
+    long int nb = time;
+    while (nb > 0)
+    {
+        _components.at(i)->setBackgroundPos(nb%10);
+        nb /= 10;
+        i--;
+    }
 }

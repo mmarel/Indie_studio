@@ -40,7 +40,8 @@ namespace indie
         STATUETTE_TEX,
         SKELETON_TEX,
         TRANSP_SOUND,
-        BONUS_PLAYER
+        BONUS_PLAYER,
+        WHITE_NUMBERS
     };
 
     class GUI : public IGUI
@@ -74,6 +75,7 @@ namespace indie
         std::vector<std::unique_ptr<indie::IComponent>>    loadEndGame();
         std::vector<std::unique_ptr<indie::IComponent>>    loadPause();
         void                                               updatePlayersStat();
+        void                                               updateTimer(int time, int i);
 
         ///Events loaded with Components
         ///---Main Menu Events---

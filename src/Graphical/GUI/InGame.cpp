@@ -1,4 +1,4 @@
-#include "Common/GUI.hpp"
+#include "Common/GUI.hpp"}
 
 std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
     std::vector<std::unique_ptr<indie::IComponent>> res;
@@ -38,9 +38,16 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadGuiGame() {
 
     for (int i = 0; i < 4; ++i)
     {
-        res.push_back(createComponent(SpriteId::BONUS_PLAYER,0.0f, 0.0f, 1.0f, 1.0f, indie::Color::Black, indie::Color::Black));
+        res.push_back(createComponent(SpriteId::BONUS_PLAYER,0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
         res.at(res.size() - 1)->setBackgroundPos(8);
     }
+
+    res.push_back(createComponent(SpriteId::WHITE_NUMBERS, 0.36f, 0.01f, 0.42f, 0.07f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(SpriteId::WHITE_NUMBERS, 0.41f, 0.01f, 0.47f, 0.07f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(SpriteId::WHITE_NUMBERS, 0.47f, 0.0f, 0.5f, 0.07f, indie::Color::White, indie::Color::White));
+    res.at(res.size() - 1)->setBackgroundPos(10);
+    res.push_back(createComponent(SpriteId::WHITE_NUMBERS, 0.5f, 0.01f, 0.56f, 0.07f, indie::Color::White, indie::Color::White));
+    res.push_back(createComponent(SpriteId::WHITE_NUMBERS, 0.55f, 0.01f, 0.61f, 0.07f, indie::Color::White, indie::Color::White));
 
     if (!_compActions.empty())
         _compActions.clear();
@@ -72,29 +79,29 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadEndGame() {
     switch (_winner)
     {
         case 0: {
-            res.push_back(createComponent(SpriteId::ENDGAME_MENU, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));
+            res.push_back(createComponent(SpriteId::ENDGAME_MENU, 0.3f, 0.07f, 0.7f, 0.95f, indie::Color::White, indie::Color::White));
             res.at(0)->setBackgroundPos(0);
             break;
         }
         case 1: {
-            res.push_back(createComponent(SpriteId::ENDGAME_MENU, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));
+            res.push_back(createComponent(SpriteId::ENDGAME_MENU, 0.3f, 0.07f, 0.7f, 0.95f, indie::Color::White, indie::Color::White));
             res.at(res.size() - 1)->setBackgroundPos(1);
             break;
         }
         case 2: {
-            res.push_back(createComponent(SpriteId::ENDGAME_MENU, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));
+            res.push_back(createComponent(SpriteId::ENDGAME_MENU, 0.3f, 0.07f, 0.7f, 0.95f, indie::Color::White, indie::Color::White));
             res.at(res.size() - 1)->setBackgroundPos(2);
             break;
         }
         case 3: {
-            res.push_back(createComponent(SpriteId::ENDGAME_MENU, 0.24f, 0.04f, 0.75f, 0.91f, indie::Color::White, indie::Color::White));
+            res.push_back(createComponent(SpriteId::ENDGAME_MENU, 0.3f, 0.07f, 0.7f, 0.95f, indie::Color::White, indie::Color::White));
             res.at(res.size() - 1)->setBackgroundPos(3);
             break;
         }
         default:
             break;
     }
-    getTabNumber(res, std::to_string(_score), 0.45f, 0.64f, 0.5f, 0.69f, 0.05f);
+    getTabNumber(res, std::to_string(_score), 0.45f, 0.68f, 0.5f, 0.72f, 0.05f);
     score->add_score(_score);
 
     if (!_compActions.empty())
@@ -118,7 +125,13 @@ void    indie::GUI::updatePlayersStat()
             _components.at(i + _settings.players.size())->setBackgroundPos(i * 2 + 1);
         else if (_settings.players.at(i)->getBombType() == indie::OBJECTS_ID::SQUAREBOMB)
             _components.at(i + _settings.players.size())->setBackgroundPos(i * 2);
+        else
+            _components.at(i + _settings.players.size())->setBackgroundPos(8);
     }
+    int sec = static_cast<int>((_settings.timer.Elapsed().count()/1000) % 60);
+    int min = static_cast<int>((_settings.timer.Elapsed().count()/60000) % 60);
+    updateTimer(sec, static_cast<int>(_settings.players.size() + 8));
+    updateTimer(min, static_cast<int>(_settings.players.size() + 5));
 }
 
 void    indie::GUI::endGameMenuKeyEnter()
