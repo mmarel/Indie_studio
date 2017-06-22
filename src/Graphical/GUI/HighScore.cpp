@@ -15,16 +15,16 @@ std::vector<std::unique_ptr<indie::IComponent>> indie::GUI::loadScore() {
     std::vector<std::string> dates = score->GetDates();
 
     res.push_back(createComponent(SpriteId::SCORE_MENU , 0.0f, 0.0f, 1.0f, 1.0f, indie::Color::White, indie::Color::White));
-    y = 0.32f;
-    height = 0.35f;
+    y = 0.365f;
+    height = 0.39f;
     for(std::vector<int>::iterator i = scores.begin(); i != scores.end(); ++i)
     {
         getTabNumber(res, std::to_string(*i), 0.52f, y, 0.55f, height, 0.025f);
         y += 0.1;
         height += 0.1;
     }
-    y = 0.32f;
-    height = 0.345f;
+    y = 0.365f;
+    height = 0.39f;
     for(std::vector<std::string>::iterator i = dates.begin(); i != dates.end();++i)
     {
         getTabDates(res, *i, 0.635f, y, 0.65f, height);

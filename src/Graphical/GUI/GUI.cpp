@@ -299,11 +299,14 @@ void indie::GUI::flushGUI() {
 }
 
 void indie::GUI::updateTimer(int time, int i) {
-    long int nb = time;
+    int nb = time;
+    int j = i - 2;
     while (nb > 0)
     {
         _components.at(i)->setBackgroundPos(nb%10);
         nb /= 10;
         i--;
     }
+    if (i != j && nb == 0)
+        _components.at(i)->setBackgroundPos(nb);
 }
